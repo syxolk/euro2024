@@ -1,0 +1,36 @@
+{
+    "teams": [
+        {"code": "FRA", "name": "France"},
+        {"code": "ROU", "name": "Romania"},
+        {"code": "ALB", "name": "Albania"},
+        {"code": "SUI", "name": "Switzerland"},
+        {"code": "ENG", "name": "England"},
+        {"code": "RUS", "name": "Russia"},
+        {"code": "WAL", "name": "Wales"},
+        {"code": "SVK", "name": "Slovakia"},
+        {"code": "GER", "name": "Germany"},
+        {"code": "UKR", "name": "Ukraine"},
+        {"code": "POL", "name": "Poland"},
+        {"code": "NIR", "name": "Northern Ireland"},
+        {"code": "ESP", "name": "Spain"},
+        {"code": "CZE", "name": "Czech Republic"},
+        {"code": "TUR", "name": "Turkey"},
+        {"code": "CRO", "name": "Croatia"},
+        {"code": "BEL", "name": "Belgium"},
+        {"code": "ITA", "name": "Italy"},
+        {"code": "IRL", "name": "Republic of Ireland"},
+        {"code": "SWE", "name": "Sweden"},
+        {"code": "POR", "name": "Portugal"},
+        {"code": "ISL", "name": "Iceland"},
+        {"code": "AUT", "name": "Austria"},
+        {"code": "HUN", "name": "Hungary"}
+    ],
+    "matches": [
+        {"home": "FRA", "away": "ROU", "when": "2016-06-10T21:00+02:00"},
+        {"home": "ALB", "away": "SUI", "when": "2016-06-11T15:00+02:00"},
+        {"home": "ROU", "away": "SUI", "when": "2016-06-15T18:00+02:00"},
+        {"home": "FRA", "away": "ALB", "when": "2016-06-15T21:00+02:00"},
+        {"home": "SUI", "away": "FRA", "when": "2016-06-19T21:00+02:00"},
+        {"home": "ROU", "away": "ALB", "when": "2016-06-19T21:00+02:00"}
+    ]
+}

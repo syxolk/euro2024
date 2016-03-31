@@ -1,0 +1,16 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Highscore - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+<table class="table table-striped">
+<tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+{{#each users}}
+<tr><td>{{rank}}</td><td>{{name}}</td><td>{{this.score}}</td></tr>
+{{/each}}
+</table>
+</div>
+{{/inline}}
+{{/layout}}

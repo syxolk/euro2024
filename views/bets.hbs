@@ -1,0 +1,84 @@
+{{#> layout}}
+{{#*inline "head"}}
+<style>
+.team-home {
+    text-align: right;
+}
+.team-away {
+    text-align: left;
+}
+.team-home, .team-away {
+    font-weight: bold;
+}
+.goals-home, .goals-away {
+    font-weight: bolder;
+    font-size: 1.3em;
+}
+.goals-home, .goals-away, .sep {
+    text-align: center;
+}
+.date {
+    font-size: 0.8em;
+    text-align: center;
+}
+.hline {
+    border-bottom: 3px solid #ccc;
+}
+.score-3 {
+    background-color: #DC381F;
+}
+.score-2 {
+    background-color: #D4A017;
+}
+.score-1 {
+    background-color: #98AFC7;
+}
+</style>
+<title>My Bets - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
+<input type="hidden" name="_action" value="{{@origin}}/save_bet">
+<table class="table table-condensed">
+    {{#each matches}}
+    <tr>
+        <td colspan="5" class="date">{{calendar when}}</td>
+    </tr>
+    <tr>
+        <td class="team-home">{{HomeTeam.name}}</td>
+        <td class="goals-home">{{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}</td>
+        <td class="sep">:</td>
+        <td class="goals-away">{{#if goalsAway}}{{goalsAway}}{{else}}-{{/if}}</td>
+        <td class="team-away">{{AwayTeam.name}}</td>
+    </tr>
+        {{#if (expired this)}}
+        <tr class="hline {{scoreClass}}">
+            <td></td>
+            <td class="goals-home">{{#if Bets.0.goalsHome}}{{Bets.0.goalsHome}}{{else}}-{{/if}}</td>
+            <td></td>
+            <td class="goals-away">{{#if Bets.0.goalsAway}}{{Bets.0.goalsAway}}{{else}}-{{/if}}</td>
+            <td></td>
+        </tr>
+        {{else}}
+        <tr class="hline bet">
+            <td></td>
+            <td class="goals-home">
+                <input type="number" min="0" max="100" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
+            </td>
+            <td class="text-center">
+                <input type="hidden" name="match" value="{{id}}">
+                <i class="fa fa-spinner fa-spin spinner" style="display:none;"></i>
+                <i class="fa fa-warning warning" style="display:none;"></i>
+            </td>
+            <td class="goals-away">
+                <input type="number" min="0" max="100" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
+            </td>
+            <td></td>
+        </tr>
+        {{/if}}
+    {{/each}}
+</table>
+<script type="text/javascript" src="{{@origin}}/js/save_bets.js"></script>
+{{/inline}}
+{{/layout}}

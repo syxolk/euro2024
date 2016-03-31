@@ -1,0 +1,26 @@
+{{#> layout}}
+{{#*inline "head"}}
+<style type="text/css">
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading {
+    margin-bottom: 10px;
+}
+</style>
+<title>Euro 2016 Betting Game</title>
+{{/inline}}
+{{#*inline "body"}}
+<div class="container form-signin">
+    <h2 class="form-signin-heading">Euro 2016</h2>
+    <a class="btn btn-lg btn-primary btn-block" href="{{@origin}}/auth/facebook"><i class="fa fa-facebook fa-fw"></i> | Sign in with Facebook</a>
+</div>
+{{/inline}}
+{{/layout}}
