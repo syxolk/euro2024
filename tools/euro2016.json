@@ -31,6 +31,41 @@
         {"home": "ROU", "away": "SUI", "when": "2016-06-15T18:00+02:00"},
         {"home": "FRA", "away": "ALB", "when": "2016-06-15T21:00+02:00"},
         {"home": "SUI", "away": "FRA", "when": "2016-06-19T21:00+02:00"},
-        {"home": "ROU", "away": "ALB", "when": "2016-06-19T21:00+02:00"}
+        {"home": "ROU", "away": "ALB", "when": "2016-06-19T21:00+02:00"},
+
+        {"home": "WAL", "away": "SVK", "when": "2016-06-11T18:00+02:00"},
+        {"home": "ENG", "away": "RUS", "when": "2016-06-11T21:00+02:00"},
+        {"home": "RUS", "away": "SVK", "when": "2016-06-15T15:00+02:00"},
+        {"home": "ENG", "away": "WAL", "when": "2016-06-16T15:00+02:00"},
+        {"home": "SVK", "away": "ENG", "when": "2016-06-20T21:00+02:00"},
+        {"home": "RUS", "away": "WAL", "when": "2016-06-20T21:00+02:00"},
+
+        {"home": "POL", "away": "NIR", "when": "2016-06-12T18:00+02:00"},
+        {"home": "GER", "away": "UKR", "when": "2016-06-12T21:00+02:00"},
+        {"home": "UKR", "away": "NIR", "when": "2016-06-16T18:00+02:00"},
+        {"home": "GER", "away": "POL", "when": "2016-06-16T21:00+02:00"},
+        {"home": "NIR", "away": "GER", "when": "2016-06-21T18:00+02:00"},
+        {"home": "UKR", "away": "POL", "when": "2016-06-21T18:00+02:00"},
+
+        {"home": "TUR", "away": "CRO", "when": "2016-06-12T15:00+02:00"},
+        {"home": "ESP", "away": "CZE", "when": "2016-06-13T15:00+02:00"},
+        {"home": "CZE", "away": "CRO", "when": "2016-06-17T18:00+02:00"},
+        {"home": "ESP", "away": "TUR", "when": "2016-06-17T21:00+02:00"},
+        {"home": "CRO", "away": "ESP", "when": "2016-06-21T21:00+02:00"},
+        {"home": "CZE", "away": "TUR", "when": "2016-06-21T21:00+02:00"},
+
+        {"home": "IRL", "away": "SWE", "when": "2016-06-13T18:00+02:00"},
+        {"home": "BEL", "away": "ITA", "when": "2016-06-13T21:00+02:00"},
+        {"home": "ITA", "away": "SWE", "when": "2016-06-17T15:00+02:00"},
+        {"home": "BEL", "away": "IRL", "when": "2016-06-18T15:00+02:00"},
+        {"home": "SWE", "away": "BEL", "when": "2016-06-22T21:00+02:00"},
+        {"home": "ITA", "away": "IRL", "when": "2016-06-22T21:00+02:00"},
+
+        {"home": "AUT", "away": "HUN", "when": "2016-06-14T18:00+02:00"},
+        {"home": "POR", "away": "ISL", "when": "2016-06-14T21:00+02:00"},
+        {"home": "ISL", "away": "HUN", "when": "2016-06-18T18:00+02:00"},
+        {"home": "POR", "away": "AUT", "when": "2016-06-18T21:00+02:00"},
+        {"home": "ISL", "away": "AUT", "when": "2016-06-22T18:00+02:00"},
+        {"home": "HUN", "away": "POR", "when": "2016-06-22T18:00+02:00"}
     ]
 }
