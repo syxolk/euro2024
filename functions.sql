@@ -11,11 +11,14 @@ $$
 LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
 
 CREATE OR REPLACE VIEW score_table
-AS SELECT "User"."name" as name,
-"User"."id" as id,
-coalesce(sum(calc_score("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway")),0) as score
-FROM "User"
-LEFT OUTER JOIN "Bet" ON "User"."id" = "Bet"."UserId"
-LEFT OUTER JOIN "Match" ON "Match".id = "Bet"."MatchId"
-WHERE now() > "Match"."when" OR "Match"."when" IS NULL
-GROUP BY "User"."id";
+AS WITH bets AS (
+SELECT "Bet"."UserId" as id,
+sum(calc_score("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway")) as score
+FROM "Bet"
+JOIN "Match" ON "Match"."id" = "Bet"."MatchId"
+WHERE now() > "Match"."when"  -- check if match is expired
+GROUP BY "Bet"."UserId"
+)
+SELECT "User"."name" as name,
+"User"."id" as id, coalesce(bets.score, 0) as score
+FROM "User" LEFT JOIN bets ON "User"."id" = bets.id;
