@@ -8,7 +8,7 @@
 <table class="table table-striped">
 <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
 {{#each users}}
-<tr><td>{{rank}}</td><td>{{name}}</td><td>{{this.score}}</td></tr>
+<tr><td>{{rank}}</td><td><a href="{{@origin}}/user/{{id}}">{{name}}</a></td><td>{{this.score}}</td></tr>
 {{/each}}
 </table>
 </div>

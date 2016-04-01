@@ -7,7 +7,7 @@ module.exports = function(app) {
             return;
         }
 
-        instance.query(`SELECT name, score,
+        instance.query(`SELECT name, score, id,
             rank() over (order by score desc) as rank
             FROM score_table ORDER BY score DESC`, {type: instance.QueryTypes.SELECT})
         .then(function(results) {
