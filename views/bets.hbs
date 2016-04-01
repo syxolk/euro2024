@@ -1,20 +1,11 @@
 {{#> layout}}
 {{#*inline "head"}}
 <style>
-.team-home {
-    text-align: right;
-}
-.team-away {
-    text-align: left;
-}
-.team-home, .team-away {
-    font-weight: bold;
-}
 .goals-home, .goals-away {
     font-weight: bolder;
     font-size: 1.3em;
 }
-.goals-home, .goals-away, .sep {
+.goals-home, .goals-away {
     text-align: center;
 }
 .date {
@@ -40,45 +31,39 @@
 {{> navbar}}
 <input type="hidden" name="_csrf" value="{{csrfToken}}">
 <input type="hidden" name="_action" value="{{@origin}}/save_bet">
-<table class="table table-condensed">
+<div class="container">
+<table class="table">
     {{#each matches}}
-    <tr>
+    <tr {{#if (expired this)}}class="{{scoreClass}}"{{else}}class="bet"{{/if}}>
         <td colspan="5" class="date">{{calendar when}}</td>
-    </tr>
-    <tr>
-        <td class="team-home">{{HomeTeam.name}}</td>
-        <td class="goals-home">{{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}</td>
-        <td class="sep">:</td>
-        <td class="goals-away">{{#if goalsAway}}{{goalsAway}}{{else}}-{{/if}}</td>
-        <td class="team-away">{{AwayTeam.name}}</td>
-    </tr>
+        <th class="text-right">{{HomeTeam.name}}</th>
+        <td class="text-right">
         {{#if (expired this)}}
-        <tr class="hline {{scoreClass}}">
-            <td></td>
-            <td class="goals-home">{{#if Bets.0.goalsHome}}{{Bets.0.goalsHome}}{{else}}-{{/if}}</td>
-            <td></td>
-            <td class="goals-away">{{#if Bets.0.goalsAway}}{{Bets.0.goalsAway}}{{else}}-{{/if}}</td>
-            <td></td>
-        </tr>
+            {{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}
+            ({{#if Bets.0.goalsHome}}{{Bets.0.goalsHome}}{{else}}-{{/if}})
         {{else}}
-        <tr class="hline bet">
-            <td></td>
-            <td class="goals-home">
-                <input type="number" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
-            </td>
-            <td class="text-center">
-                <input type="hidden" name="match" value="{{id}}">
-                <i class="fa fa-spinner fa-spin spinner" style="display:none;"></i>
-                <i class="fa fa-warning warning" style="display:none;"></i>
-            </td>
-            <td class="goals-away">
-                <input type="number" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
-            </td>
-            <td></td>
-        </tr>
+            <input type="number" size="2" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
         {{/if}}
+        </td>
+        <td class="text-center">:</td>
+        <td>
+        {{#if (expired this)}}
+            {{#if goalsAway}}{{goalsAway}}{{else}}-{{/if}}
+            ({{#if Bets.0.goalsAway}}{{Bets.0.goalsAway}}{{else}}-{{/if}})
+        {{else}}
+            <input type="number" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
+        {{/if}}
+        </td>
+        <th class="text-left">{{AwayTeam.name}}</th>
+        <td>
+            <input type="hidden" name="match" value="{{id}}">
+            <i class="fa fa-spinner fa-spin spinner" style="display:none;"></i>
+            <i class="fa fa-warning warning" style="display:none;"></i>
+        </td>
+    </tr>
     {{/each}}
 </table>
+</div>
 <script type="text/javascript" src="{{@origin}}/js/save_bets.js"></script>
 {{/inline}}
 {{/layout}}
