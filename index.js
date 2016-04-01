@@ -43,8 +43,8 @@ hbs.registerHelper('expired', function(match) {
 });
 
 hbs.registerHelper('scoreClass', function(match) {
-    const betHome = this.Bets[0].goalsHome;
-    const betAway = this.Bets[0].goalsAway;
+    const betHome = this.Bets && this.Bets[0] ? this.Bets[0].goalsHome : NaN;
+    const betAway = this.Bets && this.Bets[0] ? this.Bets[0].goalsAway : NaN;
 
     if(Number.isInteger(betHome) && Number.isInteger(betAway) &&
         Number.isInteger(this.goalsHome) && Number.isInteger(this.goalsAway)) {
