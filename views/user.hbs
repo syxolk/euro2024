@@ -1,20 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
 <style>
-.goals-home, .goals-away {
-    font-weight: bolder;
-    font-size: 1.3em;
-}
-.goals-home, .goals-away {
-    text-align: center;
-}
-.date {
-    font-size: 0.8em;
-    text-align: left;
-}
-.hline {
-    border-bottom: 3px solid #ccc;
-}
 .score-3 {
     background-color: #DC381F;
 }
@@ -53,9 +39,9 @@
 <table class="table">
     {{#each matches}}
     <tr {{#if (expired this)}}class="{{scoreClass}}"{{else}}class="bet"{{/if}}>
-        <td class="date">{{calendar when}}</td>
-        <td>{{MatchType.name}}</td>
-        <th class="text-right">{{HomeTeam.name}}</th>
+        <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
+        <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
+        <th class="text-right"><span class="hidden-xs">{{HomeTeam.name}}</span><span class="visible-xs">{{HomeTeam.code}}</span></th>
         <td class="text-right">
         {{#if (expired this)}}
             {{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}
@@ -73,7 +59,7 @@
             <input type="number" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
         {{/if}}
         </td>
-        <th class="text-left">{{AwayTeam.name}}</th>
+        <th class="text-left"><span class="hidden-xs">{{AwayTeam.name}}</span><span class="visible-xs">{{AwayTeam.code}}</span></th>
         <td>
             <input type="hidden" name="match" value="{{id}}">
             <i class="fa fa-spinner fa-spin spinner" style="display:none;"></i>

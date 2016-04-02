@@ -38,6 +38,10 @@ hbs.registerHelper('calendar', function(when) {
     return moment(when).format('dddd, MMMM Do, H:mm');
 });
 
+hbs.registerHelper('calendarShort', function(when) {
+    return moment(when).format('MMM D, H:mm');
+});
+
 hbs.registerHelper('expired', function(match) {
     return match.isExpired();
 });
