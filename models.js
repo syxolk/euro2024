@@ -33,6 +33,13 @@ const Match = instance.define('Match', {
     }
 });
 
+const MatchType = instance.define('MatchType', {
+    code: {type: Sequelize.STRING, allowNull: false, validate: {len: [1, 10]}},
+    name: {type: Sequelize.STRING, allowNull: false, validate: {len: [1, 100]}}
+}, {
+    timestamps: false
+});
+
 const Bet = instance.define('Bet', {
     goalsHome: {type: Sequelize.INTEGER, allowNull: false},
     goalsAway: {type: Sequelize.INTEGER, allowNull: false}
@@ -54,3 +61,4 @@ Match.hasMany(Bet);
 
 Match.belongsTo(Team, {as: 'HomeTeam'});
 Match.belongsTo(Team, {as: 'AwayTeam'});
+Match.belongsTo(MatchType);

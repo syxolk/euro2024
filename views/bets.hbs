@@ -10,7 +10,7 @@
 }
 .date {
     font-size: 0.8em;
-    text-align: center;
+    text-align: left;
 }
 .hline {
     border-bottom: 3px solid #ccc;
@@ -35,7 +35,8 @@
 <table class="table">
     {{#each matches}}
     <tr {{#if (expired this)}}class="{{scoreClass}}"{{else}}class="bet"{{/if}}>
-        <td colspan="5" class="date">{{calendar when}}</td>
+        <td class="date">{{calendar when}}</td>
+        <td>{{MatchType.name}}<td>
         <th class="text-right">{{HomeTeam.name}}</th>
         <td class="text-right">
         {{#if (expired this)}}

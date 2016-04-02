@@ -21,6 +21,11 @@ versions are >=4.4.0.
     git clone https://github.com/syxolk/euro2016.git
     cd euro2016
     npm install
+    bower install
+
+You should install bower globally when `bower install` fails.
+
+    npm install -g bower
 
 Now copy `template.config.coffee` to `config.coffee` and set the
 database connection.

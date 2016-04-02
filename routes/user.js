@@ -27,6 +27,8 @@ module.exports = function(app) {
                 }, {
                     model: Team,
                     as: 'AwayTeam'
+                }, {
+                    model: MatchType
                 }
             ],
             order: [['when', 'ASC']]
