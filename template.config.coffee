@@ -15,3 +15,7 @@ module.exports =
     facebook:
         clientID: 'FACEBOOK_APP_ID'
         clientSecret: 'FACEBOOK_APP_SECRET'
+
+    google:
+        clientID: 'GOOGLE_CLIENT_ID'
+        clientSecret: 'GOOGLE_CLIENT_SECRET'

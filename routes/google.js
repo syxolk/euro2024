@@ -1,19 +1,19 @@
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const config = require('../config');
 const instance = require('../models').instance;
 
 const User = instance.model('User');
 
-passport.use(new FacebookStrategy({
-    clientID: config.facebook.clientID,
-    clientSecret: config.facebook.clientSecret,
-    callbackURL: config.origin + '/auth/facebook/callback',
-    enableProof: true
+passport.use(new GoogleStrategy({
+    clientID: config.google.clientID,
+    clientSecret: config.google.clientSecret,
+    callbackURL: config.origin + '/auth/google/callback'
 }, function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
     User.findOrCreate({
         where: {
-            facebookId: profile.id
+            googleId: profile.id
         },
         defaults: {
             name: profile.displayName
@@ -26,9 +26,9 @@ passport.use(new FacebookStrategy({
 }));
 
 module.exports = function(app) {
-    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/google', passport.authenticate('google', {scope: ['profile']}));
 
-    app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    app.get('/auth/google/callback', passport.authenticate('google', {
         successRedirect: '/me',
         failureRedirect: '/login'
     }));

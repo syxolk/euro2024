@@ -1,5 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
+<link href="{{@origin}}/bootstrap-social/bootstrap-social.css" rel="stylesheet">
 <style type="text/css">
 body {
     padding-top: 40px;
@@ -20,7 +21,12 @@ body {
 {{#*inline "body"}}
 <div class="container form-signin">
     <h2 class="form-signin-heading">Euro 2016</h2>
-    <a class="btn btn-lg btn-primary btn-block" href="{{@origin}}/auth/facebook"><i class="fa fa-facebook fa-fw"></i> | Sign in with Facebook</a>
+    <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{@origin}}/auth/facebook">
+        <i class="fa fa-facebook"></i> Sign in with Facebook
+    </a>
+    <a class="btn btn-block btn-lg btn-social btn-google" href="{{@origin}}/auth/google">
+        <i class="fa fa-google"></i> Sign in with Google
+    </a>
 </div>
 {{/inline}}
 {{/layout}}

@@ -11,6 +11,7 @@ module.exports.instance = instance;
 // Model definitions
 const User = instance.define('User', {
     facebookId: {type: Sequelize.STRING, unique: true},
+    googleId: {type: Sequelize.STRING, unique: true},
     name: {type: Sequelize.STRING, allowNull: false, validate: {len: [3, 40]}}
 });
 
