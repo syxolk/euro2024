@@ -2,6 +2,7 @@ const instance = require('../models').instance;
 const Match = instance.model('Match');
 const Bet = instance.model('Bet');
 const Team = instance.model('Team');
+const MatchType = instance.model('MatchType');
 
 module.exports = function(app) {
     app.get('/user/:id', function(req, res) {
