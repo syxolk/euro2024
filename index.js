@@ -30,6 +30,8 @@ const app = express();
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.disable('x-powered-by');
+app.enable('strict routing');
+app.enable('case sensitive routing');
 
 app.locals.origin = config.origin;
 hbs.localsAsTemplateData(app);
