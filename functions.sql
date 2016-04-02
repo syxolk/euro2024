@@ -12,13 +12,17 @@ LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
 
 CREATE OR REPLACE VIEW score_table
 AS WITH bets AS (
-SELECT "Bet"."UserId" as id,
-sum(calc_score("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway")) as score
-FROM "Bet"
-JOIN "Match" ON "Match"."id" = "Bet"."MatchId"
-WHERE now() > "Match"."when"  -- check if match is expired
-GROUP BY "Bet"."UserId"
+SELECT b."UserId" as id,
+sum(calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway")) as score,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 3 THEN 1 END) as count3,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 2 THEN 1 END) as count2,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 1 THEN 1 END) as count1
+FROM "Bet" as b
+JOIN "Match" as m ON m."id" = b."MatchId"
+WHERE now() > m."when"  -- check if match is expired
+GROUP BY b."UserId"
 )
 SELECT "User"."name" as name,
-"User"."id" as id, coalesce(bets.score, 0) as score
+"User"."id" as id, coalesce(bets.score, 0) as score,
+coalesce(count3, 0) as count3, coalesce(count2, 0) as count2, coalesce(count1, 0) as count1
 FROM "User" LEFT JOIN bets ON "User"."id" = bets.id;

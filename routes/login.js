@@ -11,4 +11,14 @@ module.exports = function(app) {
         req.logout();
         res.redirect('/');
     });
+
+    // Redirect to my personal user page
+    app.get('/me', function(req, res) {
+        if(! req.user) {
+            res.redirect('/login');
+            return;
+        }
+
+        res.redirect('/user/' + req.user.id);
+    });
 };

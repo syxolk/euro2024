@@ -6,9 +6,9 @@ better forecaster of football :soccer: matches? Make bets of future matches,
 collect scores and win the crown :crown:.
 
 **Scoring**
-- 1 point: correct winner
-- 2 points: correct goal difference
-- 3 points: correct bet
+- :star::star::star: correct bet
+- :star::star: correct goal difference
+- :star: correct winner or draw
 
 The [UEFA European Championship 2016][uefa] is taking place in France :fr:
 from June 10 to July 10. Happy betting!
