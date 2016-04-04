@@ -26,3 +26,18 @@ SELECT "User"."name" as name,
 "User"."id" as id, coalesce(bets.score, 0) as score,
 coalesce(count3, 0) as count3, coalesce(count2, 0) as count2, coalesce(count1, 0) as count1
 FROM "User" LEFT JOIN bets ON "User"."id" = bets.id;
+
+CREATE OR REPLACE VIEW match_table
+AS SELECT "Match"."id" as id,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
+count("Bet"."id") as countbets,
+avg("Bet"."goalsHome" - "Bet"."goalsAway") as avgdiff,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw
+FROM "Match"
+ -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
+JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
+WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL
+GROUP BY "Match"."id"

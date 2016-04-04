@@ -1,0 +1,29 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Highscore - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+{{#each matches}}
+<div class="panel panel-default">
+    <div class="panel-heading">{{hometeam}} - {{awayteam}} ({{countbets}} bets)</div>
+    <div class="panel-body">
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{winnerhome}}%;">
+                {{winnerhome}}% {{hometeam}}
+            </div>
+            <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{winneraway}}%;">
+                {{winneraway}}% {{awayteam}}
+            </div>
+            <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{draw}}%;">
+                {{draw}}% Draw
+            </div>
+        </div>
+        Average <i class="fa fa-soccer-ball-o"></i> difference: {{avgdiff}}
+    </div>
+</div>
+{{/each}}
+</div>
+{{/inline}}
+{{/layout}}
