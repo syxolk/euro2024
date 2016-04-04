@@ -20,20 +20,20 @@ $(function() {
         $('input', bet).on('input', function() {
             var home = $('input[name=home]', bet).val();
             var away = $('input[name=away]', bet).val();
+            var inputs = $('input[name=home], input[name=away]', bet);
 
             if(isValidGoal(home) && isValidGoal(away)) {
                 delay(function() {
-                    $('.spinner', bet).show();
-                    $('.warning', bet).hide();
+                    inputs.removeClass('autosave-success autosave-error');
                     $.post(url, {
                         _csrf: csrfToken,
                         match: $('input[name=match]', bet).val(),
                         home: home,
                         away: away
+                    }).done(function() {
+                        inputs.addClass('autosave-success');
                     }).fail(function() {
-                        $('.warning', bet).show();
-                    }).always(function() {
-                        $('.spinner', bet).hide();
+                        inputs.addClass('autosave-error');
                     });
                 }, 500);
             }

@@ -10,6 +10,20 @@
 .score-1 {
     background-color: #98AFC7;
 }
+@keyframes pulse-success {
+    0%, 100% { background-color: white; }
+    30% { background-color: #76FF7A; }
+}
+.autosave-success {
+    animation: pulse-success 1s;
+}
+@keyframes pulse-error {
+    0%, 100% { background-color: white; }
+    30% { background-color: #DC381F; }
+}
+.autosave-error {
+    animation: pulse-error 1s;
+}
 </style>
 <title>{{user.name}} - Euro 2016</title>
 {{/inline}}
@@ -47,7 +61,8 @@
             {{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}
             ({{#if Bets.0.goalsHome}}{{Bets.0.goalsHome}}{{else}}-{{/if}})
         {{else}}
-            <input type="number" size="2" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
+            <input type="number" min="0" size="2" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
+            <input type="hidden" name="match" value="{{id}}">
         {{/if}}
         </td>
         <td class="text-center">:</td>
@@ -56,15 +71,10 @@
             {{#if goalsAway}}{{goalsAway}}{{else}}-{{/if}}
             ({{#if Bets.0.goalsAway}}{{Bets.0.goalsAway}}{{else}}-{{/if}})
         {{else}}
-            <input type="number" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
+            <input type="number" min="0" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
         {{/if}}
         </td>
         <th class="text-left"><span class="hidden-xs">{{AwayTeam.name}}</span><span class="visible-xs">{{AwayTeam.code}}</span></th>
-        <td>
-            <input type="hidden" name="match" value="{{id}}">
-            <i class="fa fa-spinner fa-spin spinner" style="display:none;"></i>
-            <i class="fa fa-warning warning" style="display:none;"></i>
-        </td>
     </tr>
     {{/each}}
 </table>

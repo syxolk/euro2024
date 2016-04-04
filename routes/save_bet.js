@@ -5,7 +5,7 @@ const Match = instance.model('Match');
 module.exports = function(app) {
     app.post('/save_bet', function(req, res) {
         if(! req.user) {
-            res.json({ok: false, error: 'AUTH'});
+            res.status(401).json({ok: false, error: 'AUTH'});
             return;
         }
 
@@ -19,13 +19,13 @@ module.exports = function(app) {
                 }).then(function() {
                     res.json({ok: true});
                 }).catch(function() {
-                    res.json({ok: false, error: 'DB'});
+                    res.status(500).json({ok: false, error: 'DB'});
                 });
             } else {
-                res.json({ok: false, error: 'MATCH_EXPIRED'});
+                res.status(403).json({ok: false, error: 'MATCH_EXPIRED'});
             }
         }).catch(function() {
-            res.json({ok: false, error: 'MATCH_NOT_FOUND'});
+            res.status(404).json({ok: false, error: 'MATCH_NOT_FOUND'});
         });
     });
 };
