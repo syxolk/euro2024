@@ -8,7 +8,7 @@ collect scores and win the crown :crown:.
 **Scoring**
 - :star::star::star: correct bet
 - :star::star: correct goal difference
-- :star: correct winner or draw
+- :star: correct winner
 
 The [UEFA European Championship 2016][uefa] is taking place in France :fr:
 from June 10 to July 10. Happy betting!
