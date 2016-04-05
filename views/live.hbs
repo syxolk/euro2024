@@ -22,6 +22,11 @@
         </div>
         Average <i class="fa fa-soccer-ball-o"></i> difference: {{avgdiff}}
     </div>
+    <div class="panel-footer">
+        {{#each bets}}
+             {{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}} {{goalsHome}}:{{goalsAway}}</a>
+        {{/each}}
+    </div>
 </div>
 {{/each}}
 </div>

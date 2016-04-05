@@ -1,9 +1,7 @@
 const bluebird = require('bluebird');
 const instance = require('../models').instance;
-const Match = instance.model('Match');
 const Bet = instance.model('Bet');
-const Team = instance.model('Team');
-const MatchType = instance.model('MatchType');
+const User = instance.model('User');
 
 module.exports = function(app) {
     app.get('/live', function(req, res) {
@@ -14,7 +12,21 @@ module.exports = function(app) {
 
         instance.query('SELECT * FROM match_table', {type: instance.QueryTypes.SELECT})
         .then(function(matches) {
-            res.render('live', {matches});
+            bluebird.map(matches, function(match) {
+                return Bet.findAll({
+                    where: {
+                        MatchId: match.id
+                    },
+                    include: [ User ],
+                    order: [[User, 'name', 'ASC']]
+                });
+            }).then(function(bets) {
+                for(var i = 0; i < matches.length; i++) {
+                    matches[i].bets = bets[i];
+                }
+
+                res.render('live', {matches});
+            });
         });
     });
 };
