@@ -5,6 +5,7 @@ const session = require('express-session');
 const Store = require('express-sequelize-session')(session.Store);
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const moment = require('moment');
 const csrf = require('csurf');
 const fs = require('fs');
@@ -67,9 +68,10 @@ hbs.registerHelper('scoreClass', function(match) {
     return 'score-0';
 });
 
-app.use(express.static(__dirname + '/bower_components'));
+app.use(compression());
+app.use(express.static(__dirname + '/bower_components', { maxAge: '1d' }));
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
     name: 'sid',
     secret: config.sessionSecret,
