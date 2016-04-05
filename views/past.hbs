@@ -1,0 +1,73 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Highscore - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+{{#each matches}}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">{{hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam}}</h2>
+    </div>
+    <div class="panel-body">
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{winnerhome}}%;">
+                {{winnerhome}}% {{hometeam}}
+            </div>
+            <div class="progress-bar progress-bar-warning" role="progressbar" style="width: {{winneraway}}%;">
+                {{winneraway}}% {{awayteam}}
+            </div>
+            <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{draw}}%;">
+                {{draw}}% Draw
+            </div>
+        </div>
+        <p>Average bet: <b>{{avghome}} : {{avgaway}}</b></p>
+    </div>
+    <table class="table">
+        {{#if score3}}
+        <tr>
+            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
+            <td class="col-md-11">
+            {{#each score3}}
+                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
+            {{/each}}
+            </td>
+        </tr>
+        {{/if}}
+        {{#if score2}}
+        <tr>
+            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-11">
+            {{#each score2}}
+                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
+            {{/each}}
+            </td>
+        </tr>
+        {{/if}}
+        {{#if score1}}
+        <tr>
+            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-11">
+            {{#each score1}}
+                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
+            {{/each}}
+            </td>
+        </tr>
+        {{/if}}
+        {{#if score0}}
+        <tr>
+            <td class="col-md-1"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-11">
+            {{#each score0}}
+                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
+            {{/each}}
+            </td>
+        </tr>
+        {{/if}}
+    </table>
+</div>
+{{/each}}
+</div>
+{{/inline}}
+{{/layout}}

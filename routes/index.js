@@ -8,6 +8,7 @@ module.exports = function(app) {
     require('./settings')(app);
     require('./intro')(app);
     require('./live')(app);
+    require('./past')(app);
 
     app.use(function (req, res, next) {
         res.status(404).render('404');

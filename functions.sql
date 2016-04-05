@@ -42,4 +42,28 @@ FROM "Match"
  -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
 JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
 WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL
-GROUP BY "Match"."id"
+GROUP BY "Match"."id";
+
+CREATE OR REPLACE VIEW past_match_table
+AS SELECT "Match"."id" as id,
+ "Match"."goalsHome" as goalshome,
+ "Match"."goalsAway" as goalsaway,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
+array_agg("Bet"."goalsHome") as listhome,
+array_agg("Bet"."goalsAway") as listaway,
+array_agg("User"."name") as listname,
+array_agg("User"."id") as listid,
+array_agg(calc_score("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway")) as listscore,
+count("Bet"."id") as countbets,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw,
+avg("Bet"."goalsHome") as avghome,
+avg("Bet"."goalsAway") as avgaway
+FROM "Match"
+ -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
+JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
+JOIN "User" ON "User"."id" = "Bet"."UserId"
+WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
+GROUP BY "Match"."id";
