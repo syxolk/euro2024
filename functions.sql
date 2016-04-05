@@ -35,7 +35,9 @@ count("Bet"."id") as countbets,
 avg("Bet"."goalsHome" - "Bet"."goalsAway") as avgdiff,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
-round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw
+round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw,
+avg("Bet"."goalsHome") as avghome,
+avg("Bet"."goalsAway") as avgaway
 FROM "Match"
  -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
 JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"

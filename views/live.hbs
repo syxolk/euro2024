@@ -20,11 +20,12 @@
                 {{draw}}% Draw
             </div>
         </div>
-        Average <i class="fa fa-soccer-ball-o"></i> difference: {{avgdiff}}
+        <p>Average <i class="fa fa-soccer-ball-o"></i> difference: {{avgdiff}}</p>
+        <p>Average bet: {{avghome}}:{{avgaway}}</p>
     </div>
     <div class="panel-footer">
         {{#each bets}}
-             {{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}} {{goalsHome}}:{{goalsAway}}</a>
+             {{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}}</a> {{goalsHome}}:{{goalsAway}}
         {{/each}}
     </div>
 </div>
