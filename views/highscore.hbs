@@ -7,12 +7,13 @@
 <div class="container">
 <table class="table table-striped">
 <tr>
-    <th>Rank</th>
+    <th>Ranking</th>
     <th>Name</th>
     <th>Score</th>
     <th title="Correct bet"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></th>
-    <th title="Correct goal difference"><i class="fa fa-star"></i><i class="fa fa-star"></i></th>
-    <th title="Correct winner"><i class="fa fa-star"></i></th>
+    <th title="Correct goal difference"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></th>
+    <th title="Correct winner"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></th>
+    <th title="Wrong bet"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></th>
 </tr>
 {{#each users}}
 <tr>
@@ -22,6 +23,7 @@
     <td>{{count3}}</td>
     <td>{{count2}}</td>
     <td>{{count1}}</td>
+    <td>{{count0}}</td>
 </tr>
 {{/each}}
 </table>

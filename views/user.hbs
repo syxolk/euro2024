@@ -33,22 +33,7 @@
 <input type="hidden" name="_action" value="{{@origin}}/save_bet">
 <div class="container">
 
-<table class="table">
-<tr>
-    <th>Name</th>
-    <th>Score</th>
-    <th title="Correct bet"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></th>
-    <th title="Correct goal difference"><i class="fa fa-star"></i><i class="fa fa-star"></i></th>
-    <th title="Correct winner"><i class="fa fa-star"></i></th>
-</tr>
-<tr>
-    <td>{{user.name}}</td>
-    <td>{{user.score}}</td>
-    <td>{{user.count3}}</td>
-    <td>{{user.count2}}</td>
-    <td>{{user.count1}}</td>
-</tr>
-</table>
+<h3>{{user.name}} <small>Score {{user.score}}, Ranking {{user.rank}}</small></h3>
 
 <table class="table">
     {{#each matches}}
