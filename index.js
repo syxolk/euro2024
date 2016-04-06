@@ -60,6 +60,10 @@ hbs.registerHelper('expired', function(match) {
     return match.isExpired();
 });
 
+hbs.registerHelper('toFixed1', function(number) {
+    return Math.round(number * 10) / 10;
+});
+
 hbs.registerHelper('scoreClass', function(match) {
     const betHome = this.Bets && this.Bets[0] ? this.Bets[0].goalsHome : NaN;
     const betAway = this.Bets && this.Bets[0] ? this.Bets[0].goalsAway : NaN;

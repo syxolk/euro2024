@@ -8,7 +8,9 @@
 {{#each matches}}
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">{{hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam}}</h2>
+        <h2 class="panel-title">{{hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam}} ({{matchtype}})
+            <small class="pull-right">{{calendar when}}</small>
+        </h2>
     </div>
     <div class="panel-body">
         <div class="progress">
@@ -22,16 +24,14 @@
                 {{draw}}% Draw
             </div>
         </div>
-        <p>Average bet: <b>{{avghome}} : {{avgaway}}</b></p>
+        <p>Average bet: <b>{{toFixed1 avghome}} : {{toFixed1 avgaway}}</b></p>
     </div>
     <table class="table">
         {{#if score3}}
         <tr>
             <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
             <td class="col-md-11">
-            {{#each score3}}
-                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
-            {{/each}}
+            {{#each score3}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a>{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -39,9 +39,7 @@
         <tr>
             <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></td>
             <td class="col-md-11">
-            {{#each score2}}
-                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
-            {{/each}}
+            {{#each score2}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -49,9 +47,7 @@
         <tr>
             <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
             <td class="col-md-11">
-            {{#each score1}}
-                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
-            {{/each}}
+            {{#each score1}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -59,9 +55,7 @@
         <tr>
             <td class="col-md-1"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
             <td class="col-md-11">
-            {{#each score0}}
-                 {{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}
-            {{/each}}
+            {{#each score0}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}

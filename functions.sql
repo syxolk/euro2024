@@ -29,10 +29,11 @@ FROM "User" LEFT JOIN bets ON "User"."id" = bets.id;
 
 CREATE OR REPLACE VIEW match_table
 AS SELECT "Match"."id" as id,
+"Match"."when" as when,
+(SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
 (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
 (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
 count("Bet"."id") as countbets,
-avg("Bet"."goalsHome" - "Bet"."goalsAway") as avgdiff,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw,
@@ -46,6 +47,8 @@ GROUP BY "Match"."id";
 
 CREATE OR REPLACE VIEW past_match_table
 AS SELECT "Match"."id" as id,
+"Match"."when" as when,
+(SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
  "Match"."goalsHome" as goalshome,
  "Match"."goalsAway" as goalsaway,
 (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,

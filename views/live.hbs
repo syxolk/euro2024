@@ -7,7 +7,11 @@
 <div class="container">
 {{#each matches}}
 <div class="panel panel-default">
-    <div class="panel-heading">{{hometeam}} - {{awayteam}} ({{countbets}} bets)</div>
+    <div class="panel-heading">
+        <h2 class="panel-title">{{hometeam}} : {{awayteam}} ({{matchtype}})
+            <small class="pull-right">{{calendar when}}</small>
+        </h2>
+    </div>
     <div class="panel-body">
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{winnerhome}}%;">
@@ -20,13 +24,10 @@
                 {{draw}}% Draw
             </div>
         </div>
-        <p>Average <i class="fa fa-soccer-ball-o"></i> difference: {{avgdiff}}</p>
-        <p>Average bet: {{avghome}}:{{avgaway}}</p>
+        <p>Average bet: <b>{{toFixed1 avghome}}</b> : <b>{{toFixed1 avgaway}}</b></p>
     </div>
     <div class="panel-footer">
-        {{#each bets}}
-             {{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}}</a> {{goalsHome}}:{{goalsAway}}
-        {{/each}}
+        {{#each bets}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
     </div>
 </div>
 {{/each}}

@@ -23,7 +23,6 @@ module.exports = function(app) {
                         id: match.listid[j]
                     });
                 }
-                console.log(bets);
                 for(var s = 0; s <= 3; s++) {
                     match['score' + s] = bets[s];
                 }
