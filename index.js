@@ -9,6 +9,7 @@ const compression = require('compression');
 const moment = require('moment');
 const csrf = require('csurf');
 const fs = require('fs');
+const helmet = require('helmet');
 const package = require('./package.json');
 const routes = require('./routes');
 const config = require('./config');
@@ -91,6 +92,26 @@ if(process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/bower_components'));
     app.use(express.static(__dirname + '/public'));
 }
+app.use(helmet.csp({
+    directives: {
+        baseUri: ["'self'"],
+        defaultSrc: ["'none'"],
+        scriptSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'"],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'none'"]
+    },
+    setAllHeaders: false,
+    browserSniff: false
+}));
+app.use(helmet.frameguard({
+    action: 'deny'
+}));
+app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
     name: 'sid',

@@ -4,7 +4,13 @@
 {{/inline}}
 {{#*inline "body"}}
 <div class="container text-center">
-    <img style="max-width:100%;" src="http://img.memecdn.com/morphius-404_o_1938383.jpg">
+    <a href="/">
+        {{#if loggedIn}}
+        <img style="max-width:100%;" src="{{asset "/img/doge404.png"}}">
+        {{else}}
+        <img style="max-width:100%;" src="{{asset "/img/grumpy404.png"}}">
+        {{/if}}
+    </a>
 </div>
 {{/inline}}
 {{/layout}}
