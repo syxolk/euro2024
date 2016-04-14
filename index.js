@@ -1,4 +1,6 @@
 require('coffee-script').register();
+const http = require('http');
+const https = require('https');
 const express = require('express');
 const hbs = require('hbs');
 const session = require('express-session');
@@ -88,6 +90,7 @@ app.use(compression());
 if(process.env.NODE_ENV === 'production') {
     app.use('/' + package.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
     app.use('/' + package.version, express.static(__dirname + '/public', {maxAge: '365d'}));
+    app.use('/', express.static(__dirname + '/webroot'));
 } else {
     app.use(express.static(__dirname + '/bower_components'));
     app.use(express.static(__dirname + '/public'));
@@ -129,7 +132,23 @@ routes(app);
 instance.sync().then(function() {
     return instance.query(fs.readFileSync(__dirname + '/functions.sql').toString('utf8'), {raw: true});
 }).then(function () {
-    app.listen(config.httpPort, function() {
-        console.log('Visit %s', config.origin);
-    });
+    if(config.https) {
+        http.createServer(function(req, res) {
+            res.writeHead(301, { 'Location': 'https://' + req.headers.host + req.url });
+            res.end();
+        }).listen(config.httpPort, function() {
+            console.log('HTTPS redirect server running');
+        });
+        const options = {
+            key: fs.readFileSync(config.key),
+            cert: fs.readFileSync(config.cert)
+        };
+        https.createServer(options, app).listen(config.httpsPort, function() {
+            console.log('Visit %s', config.origin);
+        });
+    } else {
+        app.listen(config.httpPort, function() {
+            console.log('Visit %s', config.origin);
+        });
+    }
 });
