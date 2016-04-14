@@ -12,6 +12,7 @@ module.exports =
     # When using HTTPS put the key and certificate path here
     key: '/path/to/key.pem'
     cert: '/path/to/cert.pem'
+    ca: '/path/to/chain.pem'
 
     # Port to listen on
     httpPort: 8080

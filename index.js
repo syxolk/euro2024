@@ -141,7 +141,8 @@ instance.sync().then(function() {
         });
         const options = {
             key: fs.readFileSync(config.key),
-            cert: fs.readFileSync(config.cert)
+            cert: fs.readFileSync(config.cert),
+            ca: fs.readFileSync(config.ca)
         };
         https.createServer(options, app).listen(config.httpsPort, function() {
             console.log('Visit %s', config.origin);
