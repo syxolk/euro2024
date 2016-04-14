@@ -15,7 +15,7 @@ module.exports = function(app) {
         const user = parseInt(req.params.id);
 
         if(! Number.isInteger(user)) {
-            res.status(404).render('404');
+            res.status(404).render('404', {loggedIn : true});
             return;
         }
 
@@ -62,7 +62,7 @@ module.exports = function(app) {
             if(user) {
                 res.render('user', {user, matches, csrfToken: req.csrfToken()});
             } else {
-                res.status(404).render('404');
+                res.status(404).render('404', {loggedIn : true});
             }
         });
     });
