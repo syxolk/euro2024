@@ -12,6 +12,7 @@ const moment = require('moment');
 const csrf = require('csurf');
 const fs = require('fs');
 const helmet = require('helmet');
+const ms = require('ms');
 const package = require('./package.json');
 const routes = require('./routes');
 const config = require('./config');
@@ -115,13 +116,21 @@ app.use(helmet.frameguard({
 }));
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());
+if(config.https) {
+    app.use(helmet.hsts({
+        maxAge: ms('365d')
+    }));
+}
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
     name: 'sid',
     secret: config.sessionSecret,
     store: new Store(instance),
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: !!config.https
+    }
 }));
 app.use(csrf());
 app.use(passport.initialize());
