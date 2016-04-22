@@ -3,9 +3,9 @@ const config = require('./config');
 
 const instance = new Sequelize(config.db, {
     define: {
-        freezeTableName: true,
-        logging: process.env.NODE_ENV !== "production"
-    }
+        freezeTableName: true
+    },
+    logging: (process.env.NODE_ENV === "production" ? false : console.log)
 });
 module.exports.instance = instance;
 
