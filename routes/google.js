@@ -10,7 +10,6 @@ passport.use(new GoogleStrategy({
     clientSecret: config.google.clientSecret,
     callbackURL: config.origin + '/auth/google/callback'
 }, function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
     User.findOrCreate({
         where: {
             googleId: profile.id

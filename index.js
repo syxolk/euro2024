@@ -13,7 +13,8 @@ const csrf = require('csurf');
 const fs = require('fs');
 const helmet = require('helmet');
 const ms = require('ms');
-const package = require('./package.json');
+const morgan = require('morgan');
+const packageJson = require('./package.json');
 const routes = require('./routes');
 const config = require('./config');
 const instance = require('./models').instance;
@@ -44,7 +45,7 @@ hbs.localsAsTemplateData(app);
 
 if(process.env.NODE_ENV === 'production') {
     hbs.registerHelper('asset', function(path) {
-        return '/' + package.version + path;
+        return '/' + packageJson.version + path;
     });
 } else {
     hbs.registerHelper('asset', function(path) {
@@ -89,13 +90,31 @@ hbs.registerHelper('scoreClass', function(match) {
 
 app.use(compression());
 if(process.env.NODE_ENV === 'production') {
-    app.use('/' + package.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
-    app.use('/' + package.version, express.static(__dirname + '/public', {maxAge: '365d'}));
+    app.use('/' + packageJson.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
+    app.use('/' + packageJson.version, express.static(__dirname + '/public', {maxAge: '365d'}));
     app.use('/', express.static(__dirname + '/webroot'));
 } else {
     app.use(express.static(__dirname + '/bower_components'));
     app.use(express.static(__dirname + '/public'));
 }
+
+// Logging
+if(process.env.NODE_ENV === 'production') {
+    const logDirectory = __dirname + '/log';
+    if(! fs.existsSync(logDirectory)) {
+        fs.mkdirSync(logDirectory);
+    }
+    const logStream = require('file-stream-rotator').getStream({
+        date_format: 'YYYYMMDD',
+        filename: logDirectory + '/access%DATE%.log',
+        frequency: 'daily',
+        verbose: false
+    });
+    app.use(morgan('combined', {stream: logStream}));
+} else {
+    app.use(morgan('dev'));
+}
+
 app.use(helmet.csp({
     directives: {
         baseUri: ["'self'"],
