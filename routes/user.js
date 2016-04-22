@@ -39,6 +39,11 @@ module.exports = function(app) {
             }),
             Match.findAll({
                 where,
+                attributes: {
+                    include: [
+                        [instance.where(instance.col('when'), '<', instance.fn('now')), 'expired']
+                    ]
+                },
                 include: [
                     {
                         model: Bet,

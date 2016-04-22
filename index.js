@@ -61,12 +61,12 @@ hbs.registerHelper('calendarShort', function(when) {
     return moment(when).format('MMM D, H:mm');
 });
 
-hbs.registerHelper('expired', function(match) {
-    return match.isExpired();
-});
-
 hbs.registerHelper('toFixed1', function(number) {
     return Math.round(number * 10) / 10;
+});
+
+hbs.registerHelper('showGoals', function (goals) {
+    return goals === undefined || goals === null ? '-' : goals + '';
 });
 
 hbs.registerHelper('scoreClass', function(match) {

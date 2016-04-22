@@ -37,29 +37,39 @@
 
 <table class="table">
     {{#each matches}}
-    <tr {{#if (expired this)}}class="{{scoreClass}}"{{else}}class="bet"{{/if}}>
+    <tr {{#if dataValues.expired}}class="{{scoreClass}}"{{else}}class="bet"{{/if}}>
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
         <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
-        <th class="text-right"><span class="hidden-xs">{{HomeTeam.name}}</span><span class="visible-xs">{{HomeTeam.code}}</span></th>
         <td class="text-right">
-        {{#if (expired this)}}
-            {{#if goalsHome}}{{goalsHome}}{{else}}-{{/if}}
-            ({{#if Bets.0.goalsHome}}{{Bets.0.goalsHome}}{{else}}-{{/if}})
+            <em class="hidden-xs">{{HomeTeam.name}}</em><em class="visible-xs">{{HomeTeam.code}}</em>
+        </td>
+        <td class="text-center">
+            {{#if dataValues.expired}}
+                <strong>{{showGoals goalsHome}}</strong>
+            {{/if}}
+            :
+            {{#if dataValues.expired}}
+                <strong>{{showGoals goalsAway}}</strong>
+            {{/if}}
+        </td>
+        <td class="text-left">
+            <em class="hidden-xs">{{AwayTeam.name}}</em><em class="visible-xs">{{AwayTeam.code}}</em>
+        </td>
+        <td class="text-center">
+        {{#if dataValues.expired}}
+            {{showGoals Bets.0.goalsHome}}
         {{else}}
-            <input type="number" min="0" size="2" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
+            <input type="number" min="0" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
             <input type="hidden" name="match" value="{{id}}">
         {{/if}}
         </td>
-        <td class="text-center">:</td>
-        <td>
-        {{#if (expired this)}}
-            {{#if goalsAway}}{{goalsAway}}{{else}}-{{/if}}
-            ({{#if Bets.0.goalsAway}}{{Bets.0.goalsAway}}{{else}}-{{/if}})
+        <td class="text-center">
+        {{#if dataValues.expired}}
+            {{showGoals Bets.0.goalsAway}}
         {{else}}
             <input type="number" min="0" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
         {{/if}}
         </td>
-        <th class="text-left"><span class="hidden-xs">{{AwayTeam.name}}</span><span class="visible-xs">{{AwayTeam.code}}</span></th>
     </tr>
     {{/each}}
 </table>

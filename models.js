@@ -27,12 +27,6 @@ const Match = instance.define('Match', {
     goalsHome: Sequelize.INTEGER,
     goalsAway: Sequelize.INTEGER,
     when: {type: Sequelize.DATE, allowNull: false}
-}, {
-    instanceMethods: {
-        isExpired: function() {
-            return new Date() >= this.when;
-        }
-    }
 });
 
 const MatchType = instance.define('MatchType', {
