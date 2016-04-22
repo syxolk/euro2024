@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const config = require('../config');
 const instance = require('../models').instance;
+const common = require('./common');
 
 const User = instance.model('User');
 
@@ -15,7 +16,7 @@ passport.use(new GoogleStrategy({
             googleId: profile.id
         },
         defaults: {
-            name: profile.displayName
+            name: common.normalizeDisplayName(profile.displayName)
         }
     }).spread(function(user, created) {
         cb(null, user);

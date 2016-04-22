@@ -2,6 +2,7 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const config = require('../config');
 const instance = require('../models').instance;
+const common = require('./common');
 
 const User = instance.model('User');
 
@@ -16,7 +17,7 @@ passport.use(new FacebookStrategy({
             facebookId: profile.id
         },
         defaults: {
-            name: profile.displayName
+            name: common.normalizeDisplayName(profile.displayName)
         }
     }).spread(function(user, created) {
         cb(null, user);
