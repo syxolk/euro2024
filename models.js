@@ -37,8 +37,8 @@ const MatchType = instance.define('MatchType', {
 });
 
 const Bet = instance.define('Bet', {
-    goalsHome: {type: Sequelize.INTEGER, allowNull: false},
-    goalsAway: {type: Sequelize.INTEGER, allowNull: false}
+    goalsHome: {type: Sequelize.INTEGER, allowNull: false, validate: {min: 0, max: 20}},
+    goalsAway: {type: Sequelize.INTEGER, allowNull: false, validate: {min: 0, max: 20}}
 }, {
     indexes : [
         {

@@ -59,7 +59,7 @@
         {{#if dataValues.expired}}
             {{showGoals Bets.0.goalsHome}}
         {{else}}
-            <input type="number" min="0" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
+            <input type="number" min="0" max="20" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
             <input type="hidden" name="match" value="{{id}}">
         {{/if}}
         </td>
@@ -67,7 +67,7 @@
         {{#if dataValues.expired}}
             {{showGoals Bets.0.goalsAway}}
         {{else}}
-            <input type="number" min="0" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
+            <input type="number" min="0" max="20" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
         {{/if}}
         </td>
     </tr>
