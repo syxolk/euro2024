@@ -4,7 +4,7 @@ module.exports = function(app) {
     });
 
     app.get('/login', function(req, res) {
-        res.render('login');
+        res.render('login', {loggedIn: !!req.user});
     });
 
     app.get('/logout', function(req, res) {

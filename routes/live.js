@@ -5,11 +5,6 @@ const User = instance.model('User');
 
 module.exports = function(app) {
     app.get('/live', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
-
         instance.query('SELECT * FROM match_table', {type: instance.QueryTypes.SELECT})
         .then(function(matches) {
             bluebird.map(matches, function(match) {
@@ -25,7 +20,7 @@ module.exports = function(app) {
                     matches[i].bets = bets[i];
                 }
 
-                res.render('live', {matches});
+                res.render('live', {matches, loggedIn: !!req.user});
             });
         });
     });

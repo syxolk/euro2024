@@ -7,11 +7,6 @@ const MatchType = instance.model('MatchType');
 
 module.exports = function(app) {
     app.get('/user/:id', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
-
         const user = parseInt(req.params.id);
 
         if(! Number.isInteger(user)) {
@@ -21,7 +16,7 @@ module.exports = function(app) {
 
         // for other users only show expired matches
         var where = {};
-        if(user !== req.user.id) {
+        if(!req.user || user !== req.user.id) {
             where = {
                 when: {lt: instance.fn('now')}
             };
@@ -65,9 +60,9 @@ module.exports = function(app) {
             })
         ).spread(function(user, matches) {
             if(user) {
-                res.render('user', {user, matches, csrfToken: req.csrfToken()});
+                res.render('user', {user, matches, csrfToken: req.csrfToken(), loggedIn: !!req.user});
             } else {
-                res.status(404).render('404', {loggedIn : true});
+                res.status(404).render('404', {loggedIn: !!req.user});
             }
         });
     });

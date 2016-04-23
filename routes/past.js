@@ -5,11 +5,6 @@ const User = instance.model('User');
 
 module.exports = function(app) {
     app.get('/past', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
-
         instance.query('SELECT * FROM past_match_table', {type: instance.QueryTypes.SELECT})
         .then(function(matches) {
             for(var i = 0; i < matches.length; i++) {
@@ -28,7 +23,7 @@ module.exports = function(app) {
                 }
             }
 
-            res.render('past', {matches});
+            res.render('past', {matches, loggedIn: !!req.user});
         });
     });
 };

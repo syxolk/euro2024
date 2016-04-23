@@ -11,14 +11,21 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                {{#if loggedIn}}
                 <li><a href="{{@origin}}/me">My Bets</a></li>
+                {{/if}}
                 <li><a href="{{@origin}}/live">Live Matches</a></li>
                 <li><a href="{{@origin}}/past">Past Matches</a></li>
                 <li><a href="{{@origin}}/highscore">Highscore</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
+                {{#if loggedIn}}
                 <li><a href="{{@origin}}/settings">Settings</a></li>
                 <li><a href="{{@origin}}/logout">Logout</a><li>
+                {{else}}
+                <li><a href="{{@origin}}/login">Login</a><li>
+                {{/if}}
             </ul>
         </div>
     </div>
