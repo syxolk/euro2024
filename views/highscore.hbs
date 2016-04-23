@@ -1,5 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
+<link rel="canonical" href="/highscore">
 <title>Highscore - Euro 2016</title>
 {{/inline}}
 {{#*inline "body"}}
@@ -7,17 +8,53 @@
 <div class="container">
 <table class="table table-striped">
 <tr>
-    <th>Ranking</th>
-    <th>Name</th>
-    <th>Score</th>
-    <th title="Correct bet"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></th>
-    <th title="Correct goal difference"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></th>
-    <th title="Correct winner"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></th>
-    <th title="Wrong bet"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></th>
+    <th></th>
+    <th>
+    {{#if orderName}}
+        Name  <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=name">Name</a>
+    {{/if}}
+    </th>
+    <th>
+    {{#if orderScore}}
+        Score <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=score">Score</a>
+    {{/if}}
+    </th>
+    <th title="Correct bet">
+    {{#if order3}}
+        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
+    {{/if}}
+    </th>
+    <th title="Correct goal difference">
+    {{#if order2}}
+        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></a>
+    {{/if}}
+    </th>
+    <th title="Correct winner">
+    {{#if order1}}
+        <i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+    {{/if}}
+    </th>
+    <th title="Wrong bet">
+    {{#if order0}}
+        <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+    {{else}}
+        <a href="/highscore?order=0"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+    {{/if}}
+    </th>
 </tr>
 {{#each users}}
 <tr>
-    <td>{{rank}}</td>
+    <td>{{rank}}.</td>
     <td><a href="{{@origin}}/user/{{id}}">{{name}}</a></td>
     <td>{{this.score}}</td>
     <td>{{count3}}</td>
