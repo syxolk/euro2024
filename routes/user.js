@@ -28,9 +28,9 @@ module.exports = function(app) {
         }
 
         bluebird.join(
-            instance.query(`SELECT name, score,
-                rank() over (order by score desc) as rank
-                FROM score_table WHERE id = :id ORDER BY score DESC`, {
+            instance.query(`WITH ranking AS (SELECT name, score, id,
+                rank() over (order by score desc) as rank FROM score_table)
+                SELECT name, score, rank FROM ranking WHERE id = :id`, {
                 raw: true,
                 plain: true,
                 replacements: {
