@@ -15,38 +15,40 @@ body {
 }
 </style>
 <title>Euro 2016 Betting Game</title>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container form-signin">
-    <h2 class="form-signin-heading">Euro 2016</h2>
-    <form action="/login" method="POST">
+    <h2 class="form-signin-heading">New Account</h2>
+    <form action="/register" method="POST">
         {{#if error}}
         <div class="alert alert-danger" role="alert">
-            <strong>Login failed.</strong> {{error}}
+            <strong>Registration failed.</strong> {{error}}
         </div>
         {{/if}}
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="40" required>
+            <span class="help-block">
+                Your name will be visible to anyone.
+                You can change your name at any time.
+            </span>
+        </div>
+        <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required>
+            <span class="help-block">We will send a confirmation link to your email account.</span>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="correct horse battery staple" minlength="6" required>
+            <span class="help-block">We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.</span>
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit">Login</button>
-            <span class="help-block">Don't have an account?
-            <a href="/register">Register</a> or use one of the social logins.</span>
-        </div>
+        <div class="g-recaptcha form-group" data-sitekey="{{key}}"></div>
+        <button class="btn btn-primary btn-block" type="submit">Register</button>
     </form>
-    <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{@origin}}/auth/facebook">
-        <i class="fa fa-facebook"></i> Sign in with Facebook
-    </a>
-    <a class="btn btn-block btn-lg btn-social btn-google" href="{{@origin}}/auth/google">
-        <i class="fa fa-google"></i> Sign in with Google
-    </a>
 </div>
 {{/inline}}
 {{/layout}}

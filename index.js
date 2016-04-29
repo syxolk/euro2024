@@ -14,6 +14,7 @@ const fs = require('fs');
 const helmet = require('helmet');
 const ms = require('ms');
 const morgan = require('morgan');
+const flash = require('connect-flash');
 const packageJson = require('./package.json');
 const routes = require('./routes');
 const config = require('./config');
@@ -119,12 +120,13 @@ app.use(helmet.csp({
     directives: {
         baseUri: ["'self'"],
         defaultSrc: ["'none'"],
-        scriptSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://www.google.com/recaptcha/", "https://www.gstatic.com/recaptcha/"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'"],
         connectSrc: ["'self'"],
         fontSrc: ["'self'"],
         formAction: ["'self'"],
+        childSrc: ["https://www.google.com/recaptcha/"],
         frameAncestors: ["'none'"]
     },
     setAllHeaders: false,
@@ -151,6 +153,7 @@ app.use(session({
         secure: !!config.https
     }
 }));
+app.use(flash());
 app.use(csrf());
 app.use(passport.initialize());
 app.use(passport.session());

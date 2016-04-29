@@ -26,6 +26,17 @@ module.exports =
         clientID: 'FACEBOOK_APP_ID'
         clientSecret: 'FACEBOOK_APP_SECRET'
 
+    # Google authentication
     google:
         clientID: 'GOOGLE_CLIENT_ID'
         clientSecret: 'GOOGLE_CLIENT_SECRET'
+
+    # Password registration captcha
+    recaptcha:
+        key: 'WEBSITE_KEY'
+        secret: 'SECRET_KEY'
+
+    mailgun:
+        secretKey: 'SECRET_API_KEY'
+        domain: 'VERIFIED_DOMAIN'
+        from: 'noreply@DOMAIN'

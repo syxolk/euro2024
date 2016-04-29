@@ -1,0 +1,19 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Activate - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+    {{#if success}}
+    <div class="alert alert-success">
+      <strong>Thank you!</strong> Your email address is now confirmed.
+    </div>
+    {{else}}
+    <div class="alert alert-danger">
+      <strong>Sorry!</strong> The email address is already confirmed or the link is invalid.
+    </div>
+    {{/if}}
+</div
+{{/inline}}
+{{/layout}}

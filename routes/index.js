@@ -1,5 +1,6 @@
 module.exports = function(app) {
     require('./login')(app);
+    require('./register')(app);
     require('./facebook')(app);
     require('./google')(app);
     require('./user')(app);
