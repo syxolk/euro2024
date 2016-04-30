@@ -30,7 +30,7 @@ body {
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="40" required>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="40" required value="{{name}}">
             <span class="help-block">
                 Your name will be visible to anyone.
                 You can change your name at any time.
@@ -38,7 +38,7 @@ body {
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required>
+            <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required value="{{email}}">
             <span class="help-block">We will send a confirmation link to your email account.</span>
         </div>
         <div class="form-group">

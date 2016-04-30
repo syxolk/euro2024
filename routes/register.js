@@ -26,11 +26,17 @@ module.exports = function(app) {
             csrfToken: req.csrfToken(),
             key: config.recaptcha.key,
             loggedIn: !!req.user,
-            error: req.flash('error')
+            error: req.flash('error'),
+            name: req.flash('name'),
+            email: req.flash('email')
         });
     });
 
     app.post('/register', function(req, res) {
+        // Save name and email in flash
+        req.flash('name', req.body.name);
+        req.flash('email', req.body.email);
+
         request.post({
             url: RECAPTCHA_URL,
             form: {

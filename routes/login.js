@@ -7,7 +7,11 @@ const LocalStrategy = require('passport-local').Strategy;
 passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
-    }, function(email, password, done) {
+        passReqToCallback: true
+    }, function(req, email, password, done) {
+        // Save email in flash
+        req.flash('email', email);
+
         User.findOne({
             where: {email}
         }).then(function(user) {
@@ -35,7 +39,8 @@ module.exports = function(app) {
         res.render('login', {
             csrfToken: req.csrfToken(),
             loggedIn: !!req.user,
-            error: req.flash('error')
+            error: req.flash('error'),
+            email: req.flash('email')
         });
     });
 
