@@ -2,6 +2,9 @@ const bluebird = require('bluebird');
 const instance = require('../models').instance;
 const Bet = instance.model('Bet');
 const User = instance.model('User');
+const Match = instance.model('Match');
+const Team = instance.model('Team');
+const MatchType = instance.model('MatchType');
 
 module.exports = function(app) {
     app.get('/live', function(req, res) {
@@ -20,7 +23,26 @@ module.exports = function(app) {
                     matches[i].bets = bets[i];
                 }
 
-                res.render('live', {matches, loggedIn: !!req.user});
+                Match.findAll({
+                    where: {
+                        when: { $gt: instance.fn('now') }
+                    },
+                    include: [
+                        {
+                            model: Team,
+                            as: 'HomeTeam'
+                        }, {
+                            model: Team,
+                            as: 'AwayTeam'
+                        }, {
+                            model: MatchType
+                        }
+                    ],
+                    order: [['when', 'ASC']],
+                    limit: 3
+                }).then(function(nextMatches) {
+                    res.render('live', {matches, nextMatches, loggedIn: !!req.user});
+                });
             });
         });
     });

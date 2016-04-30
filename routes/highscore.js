@@ -5,7 +5,6 @@ module.exports = function(app) {
         var orderBy = 'score';
         var orderDir = 'DESC';
         switch(req.query.order) {
-            case 'score': orderBy = 'score'; break;
             case 'name': orderBy = 'name'; orderDir = 'ASC'; break;
             case '3': orderBy = 'count3'; break;
             case '2': orderBy = 'count2'; break;

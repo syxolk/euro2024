@@ -5,6 +5,7 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+{{#if matches}}
 {{#each matches}}
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -62,6 +63,11 @@
     </table>
 </div>
 {{/each}}
+{{else}}
+<div class="alert alert-danger" role="alert">
+    <strong>There are no past matches.</strong>
+</div>
+{{/if}}
 </div>
 {{/inline}}
 {{/layout}}

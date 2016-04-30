@@ -5,6 +5,7 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+{{#if matches}}
 {{#each matches}}
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -31,6 +32,28 @@
     </div>
 </div>
 {{/each}}
+{{else}}
+<div class="alert alert-danger" role="alert">
+    <strong>There are currently no live matches.</strong>
+</div>
+{{/if}}
+
+{{#if nextMatches}}
+<div class="panel panel-success">
+    <div class="panel-heading">Upcoming Matches</div>
+    <table class="table">
+        {{#each nextMatches}}
+        <tr>
+            <td class="col-md-3">{{calendar when}}</td>
+            <td class="col-md-2">{{MatchType.name}}</td>
+            <td class="col-md-3 text-right"><em>{{HomeTeam.name}}</em></td>
+            <td class="col-md-1 text-center">:</td>
+            <td class="col-md-3 text-left"><em>{{AwayTeam.name}}</em></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{/if}}
 </div>
 {{/inline}}
 {{/layout}}
