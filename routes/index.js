@@ -10,6 +10,7 @@ module.exports = function(app) {
     require('./intro')(app);
     require('./live')(app);
     require('./past')(app);
+    require('./admin')(app);
 
     app.use(function (req, res, next) {
         res.status(404).render('404', {loggedIn : !!req.user});

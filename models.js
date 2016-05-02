@@ -17,7 +17,8 @@ const User = instance.define('User', {
     email: {type: Sequelize.STRING, unique: true, validate: {isEmail: true}},
     password: {type: Sequelize.STRING},
     emailConfirmed: {type: Sequelize.BOOLEAN},
-    emailConfirmToken: {type: Sequelize.UUID, unique: true}
+    emailConfirmToken: {type: Sequelize.UUID, unique: true},
+    admin: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
 });
 
 const Team = instance.define('Team', {

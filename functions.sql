@@ -72,3 +72,12 @@ JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
 JOIN "User" ON "User"."id" = "Bet"."UserId"
 WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
 GROUP BY "Match"."id";
+
+CREATE OR REPLACE VIEW admin_match_table
+AS SELECT "Match"."id" as id,
+"Match"."when" as when,
+(SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
+(SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam
+FROM "Match"
+WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL;

@@ -1,0 +1,86 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Admin - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+{{#if error}}
+<div class="alert alert-danger" role="alert">
+    {{error}}
+</div>
+{{/if}}
+{{#if message}}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{{/if}}
+<form method="post" action="/admin" class="form-horizontal">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <div class="form-group">
+        <div class="col-sm-6">
+            <select name="home" class="form-control" required>
+                <option selected disabled>--- Home Team ---</option>
+                {{#each teams}}
+                <option value="{{id}}">{{code}} {{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <select name="away" class="form-control">
+                <option selected disabled>--- Away Team ---</option>
+                {{#each teams}}
+                <option value="{{id}}">{{code}} {{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <select name="type" class="form-control">
+                <option selected disabled>--- Match Type ---</option>
+                {{#each matchTypes}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <input type="date" name="date" id="date" class="form-control" value="{{date}}" placeholder="YYYY-MM-DD" required>
+        </div>
+        <div class="col-sm-3">
+            <input type="time" name="time" id="time" class="form-control" value="{{time}}" placeholder="HH:MM" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <button name="command" value="create_match" type="submit" class="btn btn-primary">Create Match</button>
+        </div>
+    </div>
+</form>
+<form method="post" action="/admin" class="form-horizontal">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <div class="form-group">
+        <div class="col-sm-6">
+            <select name="match" class="form-control">
+                <option selected disabled>--- Match ---</option>
+                {{#each liveMatches}}
+                <option value="{{id}}">{{hometeam}} : {{awayteam}} ({{calendarShort when}})</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="col-sm-3">
+            <input name="home" type="number" min="0" max="20" autocomplete="off" class="form-control" required>
+        </div>
+        <div class="col-sm-3">
+            <input name="away" type="number" min="0" max="20" autocomplete="off" class="form-control" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <button name="command" value="match_result" type="submit" class="btn btn-primary">Save Match Result</button>
+        </div>
+    </div>
+</form>
+</div>
+{{/inline}}
+{{/layout}}
