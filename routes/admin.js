@@ -17,7 +17,25 @@ module.exports = function(app) {
         bluebird.join(
             Team.findAll({order: [['code', 'ASC']]}),
             MatchType.findAll(),
-            instance.query('SELECT * FROM admin_match_table', {type: instance.QueryTypes.SELECT}),
+            Match.findAll({
+                where: {
+                    when: { $lt: instance.fn('now') },
+                    goalsHome: null,
+                    goalsAway: null
+                },
+                include: [
+                    {
+                        model: Team,
+                        as: 'HomeTeam'
+                    }, {
+                        model: Team,
+                        as: 'AwayTeam'
+                    }, {
+                        model: MatchType
+                    }
+                ],
+                order: [['when', 'ASC']]
+            }),
             function(teams, matchTypes, liveMatches) {
             res.render('admin', {
                 teams,

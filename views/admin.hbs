@@ -64,7 +64,7 @@
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each liveMatches}}
-                <option value="{{id}}">{{hometeam}} : {{awayteam}} ({{calendarShort when}})</option>
+                <option value="{{id}}">{{HomeTeam.name}} : {{AwayTeam.name}} ({{calendarShort when}})</option>
                 {{/each}}
             </select>
         </div>
