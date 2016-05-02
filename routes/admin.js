@@ -9,6 +9,7 @@ module.exports = function(app) {
     app.get('/admin', function(req, res) {
         if(!req.user || req.user.admin !== true) {
             res.status(404).render('404', {loggedIn : !!req.user});
+            return;
         }
 
         const now = new Date();
