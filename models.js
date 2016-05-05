@@ -54,12 +54,12 @@ const Bet = instance.define('Bet', {
 });
 
 // Associations
-Bet.belongsTo(User);
+Bet.belongsTo(User, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 User.hasMany(Bet);
 
-Bet.belongsTo(Match);
+Bet.belongsTo(Match, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 Match.hasMany(Bet);
 
-Match.belongsTo(Team, {as: 'HomeTeam'});
-Match.belongsTo(Team, {as: 'AwayTeam'});
-Match.belongsTo(MatchType);
+Match.belongsTo(Team, {as: 'HomeTeam', foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
+Match.belongsTo(Team, {as: 'AwayTeam', foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
+Match.belongsTo(MatchType, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
