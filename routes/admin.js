@@ -4,6 +4,7 @@ const Team = instance.model('Team');
 const MatchType = instance.model('MatchType');
 const Match = instance.model('Match');
 const moment = require('moment');
+const push = require('./push');
 
 module.exports = function(app) {
     app.get('/admin', function(req, res) {
@@ -64,6 +65,7 @@ module.exports = function(app) {
                 MatchTypeId: req.body.type,
                 when: moment(req.body.date + ' ' + req.body.time, 'YYYY-MM-DD HH:mm').toDate()
             }).then(function(match) {
+                pushMatchCreate(match.id);
                 req.flash('message', 'Match ' + match.id + ' created.');
                 res.redirect('/admin');
             }).catch(function(err) {
@@ -79,6 +81,7 @@ module.exports = function(app) {
                     id: req.body.match
                 }
             }).then(function() {
+                pushMatchResult(req.body.match);
                 req.flash('message', 'Match ' + req.body.match + ' was updated.');
                 res.redirect('/admin');
             }).catch(function() {
@@ -91,3 +94,62 @@ module.exports = function(app) {
         }
     });
 };
+
+function pushMatchCreate(matchId) {
+    Match.findOne({
+        where: {
+            id: matchId
+        },
+        include: [
+            {
+                model: Team,
+                as: 'HomeTeam'
+            }, {
+                model: Team,
+                as: 'AwayTeam'
+            }, {
+                model: MatchType
+            }
+        ]
+    }).then(function(match) {
+        const headline = 'New match: ' + match.HomeTeam.name +
+            ' vs ' + match.AwayTeam.name + ' (' + match.MatchType.name +
+            ') taking place ' + moment(match.when).calendar();
+        push(headline);
+    });
+}
+
+function pushMatchResult(matchId) {
+    Match.findOne({
+        where: {
+            id: matchId
+        },
+        include: [
+            {
+                model: Team,
+                as: 'HomeTeam'
+            }, {
+                model: Team,
+                as: 'AwayTeam'
+            }, {
+                model: MatchType
+            }
+        ]
+    }).then(function(match) {
+        var headline = '';
+        if(match.goalsHome > match.goalsAway) {
+            headline = match.HomeTeam.name + ' wins against ' +
+                match.AwayTeam.name + ' ' + match.goalsHome + ' : ' +
+                match.goalsAway;
+        } else if(match.goalsAway > match.goalsHome) {
+            headline = match.AwayTeam.name + ' wins against ' +
+                match.HomeTeam.name + ' ' + match.goalsAway + ' : ' +
+                match.goalsHome;
+        } else {
+            headline = match.HomeTeam.name + ' vs ' + match.AwayTeam.name +
+                ' ends up in a tie ' + match.goalsHome + ' : ' + match.goalsAway;
+        }
+
+        push(headline);
+    });
+}

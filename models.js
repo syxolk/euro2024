@@ -53,6 +53,10 @@ const Bet = instance.define('Bet', {
     ]
 });
 
+const News = instance.define('News', {
+    headline: {type: Sequelize.TEXT, allowNull: false}
+});
+
 // Associations
 Bet.belongsTo(User, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 User.hasMany(Bet);

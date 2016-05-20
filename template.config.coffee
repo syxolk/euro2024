@@ -40,3 +40,8 @@ module.exports =
         secretKey: 'SECRET_API_KEY'
         domain: 'VERIFIED_DOMAIN'
         from: 'noreply@DOMAIN'
+
+    telegram:
+        link: 'https://telegram.me/MY_BOT'
+        token: 'TOKEN'
+        channelId: '@CHANNEL_ID'

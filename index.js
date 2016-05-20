@@ -54,12 +54,27 @@ if(process.env.NODE_ENV === 'production') {
     });
 }
 
+moment.updateLocale('en', {
+    calendar : {
+        lastDay : '[Yesterday at] H:mm',
+        sameDay : '[Today at] H:mm',
+        nextDay : '[Tomorrow at] H:mm',
+        lastWeek : '[Last] dddd [at] H:mm',
+        nextWeek : 'dddd [at] H:mm',
+        sameElse : 'L'
+    }
+});
+
 hbs.registerHelper('calendar', function(when) {
     return moment(when).format('dddd, MMMM Do, H:mm');
 });
 
 hbs.registerHelper('calendarShort', function(when) {
     return moment(when).format('MMM D, H:mm');
+});
+
+hbs.registerHelper('newsDate', function(when) {
+    return moment(when).calendar();
 });
 
 hbs.registerHelper('toFixed1', function(number) {

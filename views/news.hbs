@@ -1,0 +1,32 @@
+{{#> layout}}
+{{#*inline "head"}}
+<style type="text/css">
+time {
+    font-size: 12px;
+    color: #777;
+}
+</style>
+<title>News - Euro 2016</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+<i class="fa fa-feed" aria-hidden="true"></i>
+<a target="_blank" href="/news.atom">Atom Feed</a>
+<i class="fa fa-bullhorn" aria-hidden="true"></i>
+<a target="_blank" href="{{telegramLink}}">Telegram Channel</a>
+<hr>
+
+<dl class="dl-horizontal">
+{{#each news}}
+</p>
+{{headline}}
+<br>
+<time>{{newsDate createdAt}}</time>
+<p>
+{{/each}}
+</dl>
+
+</div>
+{{/inline}}
+{{/layout}}
