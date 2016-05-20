@@ -88,6 +88,14 @@ module.exports = function(app) {
                 req.flash('error', 'Failed to set match result');
                 res.redirect('/admin');
             });
+        } else if(req.body.command === 'publish_news') {
+            push(req.body.headline).then(function() {
+                req.flash('message', 'Published News.');
+                res.redirect('/admin');
+            }).catch(function() {
+                req.flash('error', 'Failed to publish news');
+                res.redirect('/admin');
+            });
         } else {
             req.flash('error', 'Unknown command');
             res.redirect('/admin');
