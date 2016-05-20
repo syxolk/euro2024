@@ -85,25 +85,6 @@ hbs.registerHelper('showGoals', function (goals) {
     return goals === undefined || goals === null ? '-' : goals + '';
 });
 
-hbs.registerHelper('scoreClass', function(match) {
-    const betHome = this.Bets && this.Bets[0] ? this.Bets[0].goalsHome : NaN;
-    const betAway = this.Bets && this.Bets[0] ? this.Bets[0].goalsAway : NaN;
-
-    if(Number.isInteger(betHome) && Number.isInteger(betAway) &&
-        Number.isInteger(this.goalsHome) && Number.isInteger(this.goalsAway)) {
-
-        if(betHome === this.goalsHome && betAway === this.goalsAway) {
-            return 'score-3';
-        } else if(betHome - betAway === this.goalsHome - this.goalsAway) {
-            return 'score-2';
-        } else if(Math.sign(betHome - betAway) === Math.sign(this.goalsHome - this.goalsAway)) {
-            return 'score-1';
-        }
-    }
-
-    return 'score-0';
-});
-
 app.use(compression());
 if(process.env.NODE_ENV === 'production') {
     app.use('/' + packageJson.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
