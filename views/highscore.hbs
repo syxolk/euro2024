@@ -1,5 +1,10 @@
 {{#> layout}}
 {{#*inline "head"}}
+<style type="text/css">
+.ordered-column {
+    color: #1d3;
+}
+</style>
 <link rel="canonical" href="/highscore">
 <title>Highscore - Euro 2016</title>
 {{/inline}}
@@ -11,42 +16,42 @@
     <th></th>
     <th>
     {{#if orderName}}
-        Name  <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column">Name</span>
     {{else}}
         <a href="/highscore?order=name">Name</a>
     {{/if}}
     </th>
     <th>
     {{#if orderScore}}
-        Score <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column">Score</span>
     {{else}}
         <a href="/highscore">Score</a>
     {{/if}}
     </th>
     <th title="Correct bet">
     {{#if order3}}
-        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
     {{else}}
         <a href="/highscore?order=3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
     {{/if}}
     </th>
     <th title="Correct goal difference">
     {{#if order2}}
-        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span>
     {{else}}
         <a href="/highscore?order=2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
     <th title="Correct winner">
     {{#if order1}}
-        <i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
     {{else}}
         <a href="/highscore?order=1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
     <th title="Wrong bet">
     {{#if order0}}
-        <i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <i class="fa fa-long-arrow-down"></i>
+        <span class="ordered-column"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
     {{else}}
         <a href="/highscore?order=0"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
@@ -55,7 +60,10 @@
 {{#each users}}
 <tr>
     <td>{{rank}}.</td>
-    <td><a href="{{@origin}}/user/{{id}}">{{name}}</a></td>
+    <td>
+        {{#if isme}}<i class="fa fa-user" title="That's you!"></i>{{/if}}
+        <a href="{{@origin}}/user/{{id}}">{{name}}</a>
+    </td>
     <td>{{this.score}}</td>
     <td>{{count3}}</td>
     <td>{{count2}}</td>

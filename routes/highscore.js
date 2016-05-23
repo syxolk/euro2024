@@ -13,8 +13,13 @@ module.exports = function(app) {
         }
 
         instance.query(`SELECT name, score, id, count3, count2, count1, count0,
+            id = $id as isme,
             rank() over (order by score desc) as rank
-            FROM score_table ORDER BY ` + orderBy + ' ' + orderDir, {type: instance.QueryTypes.SELECT})
+            FROM score_table ORDER BY ` + orderBy + ' ' + orderDir,
+            {
+                type: instance.QueryTypes.SELECT,
+                bind: {id: (req.user ? req.user.id : 0)}
+            })
         .then(function(results) {
             res.render('highscore', {
                 users: results,
