@@ -4,6 +4,9 @@
 .ordered-column {
     color: #1d3;
 }
+.is-zero {
+    color: #bbb;
+}
 </style>
 <link rel="canonical" href="/highscore">
 <title>Highscore - Euro 2016</title>
@@ -64,11 +67,11 @@
         {{#if isme}}<i class="fa fa-user" title="That's you!"></i>{{/if}}
         <a href="{{@origin}}/user/{{id}}">{{name}}</a>
     </td>
-    <td>{{this.score}}</td>
-    <td>{{count3}}</td>
-    <td>{{count2}}</td>
-    <td>{{count1}}</td>
-    <td>{{count0}}</td>
+    <td class="{{#if (isZero score)}}is-zero{{/if}}">{{score}}</td>
+    <td class="{{#if (isZero count3)}}is-zero{{/if}}">{{count3}}</td>
+    <td class="{{#if (isZero count2)}}is-zero{{/if}}">{{count2}}</td>
+    <td class="{{#if (isZero count1)}}is-zero{{/if}}">{{count1}}</td>
+    <td class="{{#if (isZero count0)}}is-zero{{/if}}">{{count0}}</td>
 </tr>
 {{/each}}
 </table>

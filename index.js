@@ -85,6 +85,10 @@ hbs.registerHelper('showGoals', function (goals) {
     return goals === undefined || goals === null ? '-' : goals + '';
 });
 
+hbs.registerHelper('isZero', function(num) {
+    return num === 0 || num === '0';
+});
+
 app.use(compression());
 if(process.env.NODE_ENV === 'production') {
     app.use('/' + packageJson.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
