@@ -37,6 +37,10 @@ database connection.
     cp template.config.coffee config.coffee
     nano config.coffee
 
+Before the first run you usually want to add all matches and teams:
+
+    node tools/populate.js tools/euro2016.json    
+
 ## Run
 The database structure will be created on first run automatically.
 
