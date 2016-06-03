@@ -25,8 +25,6 @@ versions are >=4.4.0.
     git clone https://github.com/syxolk/euro2016.git
     cd euro2016
     npm install
-    npm install --global gulp-cli
-    gulp
 
 Now copy `template.config.coffee` to `config.coffee` and set the
 database connection.
@@ -48,12 +46,11 @@ How to update euro2016 to the newest version:
 
     git pull
     npm install
-    gulp
 
 ## Notes
 
-- Bower is no longer needed. We use gulp now. Install `gulp-cli` globally
-  and run `gulp`. You can delete the `bower_components` folder.
+- Bower is no longer needed. We use gulp now. You can delete the
+  `bower_components` folder.
 
 ## Credits
 Icons made by [Papedesign][papedesign] from [www.flaticon.com][flaticon] is
