@@ -25,11 +25,8 @@ versions are >=4.4.0.
     git clone https://github.com/syxolk/euro2016.git
     cd euro2016
     npm install
-    bower install
-
-You should install bower globally when `bower install` fails.
-
-    npm install -g bower
+    npm install --global gulp-cli
+    gulp
 
 Now copy `template.config.coffee` to `config.coffee` and set the
 database connection.
@@ -39,12 +36,24 @@ database connection.
 
 Before the first run you usually want to add all matches and teams:
 
-    node tools/populate.js tools/euro2016.json    
+    node tools/populate.js tools/euro2016.json
 
 ## Run
 The database structure will be created on first run automatically.
 
     node index.js
+
+## Update
+How to update euro2016 to the newest version:
+
+    git pull
+    npm install
+    gulp
+
+## Notes
+
+- Bower is no longer needed. We use gulp now. Install `gulp-cli` globally
+  and run `gulp`. You can delete the `bower_components` folder.
 
 ## Credits
 Icons made by [Papedesign][papedesign] from [www.flaticon.com][flaticon] is

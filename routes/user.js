@@ -4,6 +4,7 @@ const Match = instance.model('Match');
 const Bet = instance.model('Bet');
 const Team = instance.model('Team');
 const MatchType = instance.model('MatchType');
+const History = instance.model('History');
 
 module.exports = function(app) {
     app.get('/user/:id', function(req, res) {
@@ -67,6 +68,57 @@ module.exports = function(app) {
             } else {
                 res.status(404).render('404', {loggedIn: !!req.user});
             }
+        });
+    });
+
+    app.get('/user/:id/history', function(req, res) {
+        const user = parseInt(req.params.id);
+
+        if(! Number.isInteger(user)) {
+            res.status(404).json({
+                ok: false,
+                error: 'NOT_FOUND'
+            });
+            return;
+        }
+
+        History.findAll({
+            attributes: ['score', 'rank', 'count3', 'count2', 'count1', 'count0'],
+            where: {
+                UserId: user
+            },
+            include: [
+                {
+                    model: Match,
+                    attributes: ['when', 'goalsHome', 'goalsAway'],
+                    include: [
+                        {
+                            model: Team,
+                            as: 'HomeTeam',
+                            attributes: ['code', 'name']
+                        }, {
+                            model: Team,
+                            as: 'AwayTeam',
+                            attributes: ['code', 'name']
+                        }, {
+                            model: MatchType,
+                            attributes: ['code', 'name']
+                        }
+                    ]
+                }
+            ],
+            order: [[instance.col('Match.when'), 'ASC']]
+        }).then(function(history) {
+            res.json({
+                ok: true,
+                data: history
+            });
+        }).catch(function(err) {
+            console.log(err);
+            res.status(500).json({
+                ok: false,
+                error: 'INTERNAL'
+            });
         });
     });
 };

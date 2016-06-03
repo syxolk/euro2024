@@ -1,13 +1,17 @@
-function isValidGoal(goal) {
-    goal = parseInt(goal);
-    return !isNaN(goal) && goal >= 0;
-}
-
 $(function() {
+    var isInteger = function(value) {
+        return typeof value === "number" &&
+            isFinite(value) &&
+            Math.floor(value) === value;
+    };
+    var isValidGoal = function(goal) {
+        return isInteger(parseInt(goal));
+    };
+    
     var url = $('input[name=_action]').val();
     var csrfToken = $('input[name=_csrf]').val();
 
-    $('.bet').each(function() {
+    $('.autosave').each(function() {
         var bet = this;
         var delay = (function() {
             var timer = 0;

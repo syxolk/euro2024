@@ -14,20 +14,11 @@
         <meta property="og:image" content="{{origin}}{{asset "/favicon-200x200.png"}}">
 
         <link rel="icon" type="image/png" href="{{asset "/favicon-32x32.png"}}" sizes="32x32">
-        <link href="{{asset "/bootstrap/dist/css/bootstrap.min.css"}}" rel="stylesheet">
-        <link href="{{asset "/bootstrap/dist/css/bootstrap-theme.min.css"}}" rel="stylesheet">
-        <link href="{{asset "/font-awesome/css/font-awesome.min.css"}}" rel="stylesheet">
-        <link href="{{asset "/bootstrap-social/bootstrap-social.css"}}" rel="stylesheet">
-        <script type="text/javascript" src="{{asset "/jquery/dist/jquery.min.js"}}"></script>
-        <script type="text/javascript" src="{{asset "/bootstrap/dist/js/bootstrap.min.js"}}"></script>
-        <style>
-        body {
-            padding-top: 70px;
-        }
-        </style>
+        <link href="{{asset "/bundle.css"}}" rel="stylesheet">
         {{> head}}
     </head>
     <body>
         {{> body}}
+        <script type="text/javascript" src="{{asset "/bundle.js"}}"></script>
     </body>
 </html>

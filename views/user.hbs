@@ -1,30 +1,5 @@
 {{#> layout}}
 {{#*inline "head"}}
-<style>
-.score-3 {
-    background-color: #009900;
-}
-.score-2 {
-    background-color: #00e600;
-}
-.score-1 {
-    background-color: #ccffcc;
-}
-@keyframes pulse-success {
-    0%, 100% { background-color: white; }
-    30% { background-color: #76FF7A; }
-}
-.autosave-success {
-    animation: pulse-success 1s;
-}
-@keyframes pulse-error {
-    0%, 100% { background-color: white; }
-    30% { background-color: #DC381F; }
-}
-.autosave-error {
-    animation: pulse-error 1s;
-}
-</style>
 <title>{{user.name}} - Euro 2016</title>
 {{/inline}}
 {{#*inline "body"}}
@@ -37,7 +12,7 @@
 
 <table class="table">
     {{#each matches}}
-    <tr {{#if dataValues.expired}}class="score-{{dataValues.score}}"{{else}}class="bet"{{/if}}>
+    <tr {{#if dataValues.expired}}class="score-{{dataValues.score}}"{{else}}class="autosave"{{/if}}>
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
         <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
         <td class="text-right">
@@ -74,6 +49,5 @@
     {{/each}}
 </table>
 </div>
-<script type="text/javascript" src="{{asset "/js/save_bets.js"}}"></script>
 {{/inline}}
 {{/layout}}

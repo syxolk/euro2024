@@ -44,15 +44,9 @@ app.enable('case sensitive routing');
 app.locals.origin = config.origin;
 hbs.localsAsTemplateData(app);
 
-if(process.env.NODE_ENV === 'production') {
-    hbs.registerHelper('asset', function(path) {
-        return '/' + packageJson.version + path;
-    });
-} else {
-    hbs.registerHelper('asset', function(path) {
-        return path;
-    });
-}
+hbs.registerHelper('asset', function(path) {
+    return path;
+});
 
 moment.updateLocale('en', {
     calendar : {
@@ -90,14 +84,9 @@ hbs.registerHelper('isZero', function(num) {
 });
 
 app.use(compression());
-if(process.env.NODE_ENV === 'production') {
-    app.use('/' + packageJson.version, express.static(__dirname + '/bower_components', {maxAge: '365d'}));
-    app.use('/' + packageJson.version, express.static(__dirname + '/public', {maxAge: '365d'}));
-    app.use('/', express.static(__dirname + '/webroot'));
-} else {
-    app.use(express.static(__dirname + '/bower_components'));
-    app.use(express.static(__dirname + '/public'));
-}
+app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/assets/images'));
+app.use(express.static(__dirname + '/webroot'));
 
 // Logging
 if(process.env.NODE_ENV === 'production') {

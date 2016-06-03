@@ -36,5 +36,19 @@
     "request": "2.72.0",
     "sequelize": "3.20.0",
     "uuid": "2.0.2"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-social": "^5.0.0",
+    "font-awesome": "^4.6.3",
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-clean-css": "2.0.8",
+    "gulp-concat": "2.6.0",
+    "gulp-less": "3.1.0",
+    "gulp-rev": "7.0.0",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-uglify": "1.5.3",
+    "jquery": "^2.2.4"
   }
 }
