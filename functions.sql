@@ -10,17 +10,6 @@ END
 $$
 LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION set_match_result(integer, integer, integer) RETURNS void AS
-$$
--- $1 match ID, $2 goals home, $3 goals away
-UPDATE "Match" SET "goalsHome" = $2, "goalsAway" = $3 WHERE id = $1;
-DELETE FROM "History" WHERE "MatchId" = $1;
-INSERT INTO "History"("UserId","MatchId",score,count3,count2,count1,count0,rank)
-SELECT id, $1, score, count3, count2, count1, count0,
-rank() over (order by score desc) as rank FROM score_table
-$$
-LANGUAGE SQL;
-
 CREATE OR REPLACE VIEW score_table
 AS WITH bets AS (
 SELECT b."UserId" as id,
@@ -83,3 +72,15 @@ JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
 JOIN "User" ON "User"."id" = "Bet"."UserId"
 WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
 GROUP BY "Match"."id";
+
+CREATE OR REPLACE FUNCTION set_match_result(integer, integer, integer) RETURNS void AS
+$$
+-- $1 match ID, $2 goals home, $3 goals away
+UPDATE "Match" SET "goalsHome" = $2, "goalsAway" = $3 WHERE id = $1;
+DELETE FROM "History" WHERE "MatchId" = $1;
+INSERT INTO "History"("UserId","MatchId",score,count3,count2,count1,count0,rank)
+SELECT id, $1, score, count3, count2, count1, count0,
+rank() over (order by score desc) as rank FROM score_table
+$$
+LANGUAGE SQL;
+
