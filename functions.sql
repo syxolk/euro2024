@@ -27,7 +27,9 @@ SELECT "User"."name" as name,
 "User"."id" as id, coalesce(bets.score, 0) as score,
 coalesce(count3, 0) as count3, coalesce(count2, 0) as count2,
 coalesce(count1, 0) as count1, coalesce(count0, 0) as count0
-FROM "User" LEFT JOIN bets ON "User"."id" = bets.id;
+FROM "User" LEFT JOIN bets ON "User"."id" = bets.id
+WHERE "User"."emailConfirmed" = true
+;
 
 CREATE OR REPLACE VIEW match_table
 AS SELECT "Match"."id" as id,
