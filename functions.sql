@@ -15,9 +15,8 @@ $$
 -- $1 match ID, $2 goals home, $3 goals away
 UPDATE "Match" SET "goalsHome" = $2, "goalsAway" = $3 WHERE id = $1;
 DELETE FROM "History" WHERE "MatchId" = $1;
-INSERT INTO "History"("UserId","MatchId",score,count3,count2,count1,count0,rank)
-SELECT id, $1, score, count3, count2, count1, count0,
-rank() over (order by score desc) as rank FROM score_table
+INSERT INTO "History"("UserId","MatchId",rank)
+SELECT id, $1, rank() over (order by score desc) as rank FROM score_table
 $$
 LANGUAGE SQL;
 

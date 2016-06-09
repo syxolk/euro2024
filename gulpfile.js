@@ -11,7 +11,10 @@ gulp.task('scripts', function() {
     return gulp.src([
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        'assets/save_bets.js'
+        'node_modules/chart.js/dist/Chart.min.js',
+        'assets/save_bets.js',
+        'assets/history.js',
+        'assets/friend.js'
     ])
     .pipe(sourcemaps.init())
     .pipe(uglify())

@@ -73,12 +73,12 @@ module.exports = function(app) {
                 res.redirect('/admin');
             });
         } else if(req.body.command === 'match_result') {
-            Match.update({
-                goalsHome: parseInt(req.body.home),
-                goalsAway: parseInt(req.body.away)
-            }, {
-                where: {
-                    id: req.body.match
+            instance.query('SELECT set_match_result($id,$home,$away)', {
+                raw: true,
+                bind: {
+                    id: parseInt(req.body.match),
+                    home: parseInt(req.body.home),
+                    away: parseInt(req.body.away)
                 }
             }).then(function() {
                 pushMatchResult(req.body.match);
