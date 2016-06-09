@@ -40,7 +40,7 @@ module.exports = function(app) {
                         [instance.where(instance.col('when'), '<', instance.fn('now')), 'expired'],
                         [instance.fn('coalesce', instance.fn('calc_score',
                             instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                            instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                            instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway'), instance.col('MatchType.coef')), 0), 'score']
                     ]
                 },
                 include: [
