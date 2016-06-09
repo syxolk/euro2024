@@ -15,15 +15,20 @@ passport.use(new LocalStrategy({
         User.findOne({
             where: {email}
         }).then(function(user) {
-            bcrypt.compare(password, user.password, function(err, same) {
-                if(err) {
-                    done(err);
-                } else if(same) {
-                    done(null, user);
-                } else {
-                    done(null, false, {message: 'Wrong password!'});
-                }
-            });
+            if ( ! user.emailConfirmed ) {
+                done ( null, false, {message: 'Please confirm your email before login'});
+            }
+            else {
+                bcrypt.compare(password, user.password, function(err, same) {
+                    if(err) {
+                        done(err);
+                    } else if(same) {
+                        done(null, user);
+                    } else {
+                        done(null, false, {message: 'Wrong password!'});
+                    }
+                });
+            }
         }).catch(function(err) {
             done(null, false, {message: 'Wrong email address!'});
         });
