@@ -6,6 +6,9 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
+
 <table class="table table-striped">
 <tr>
     <th></th>
@@ -51,19 +54,27 @@
         <a href="/highscore?order=0"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
+    {{#if loggedIn}}<th></th>{{/if}}
 </tr>
 {{#each users}}
-<tr>
+<tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
     <td>{{rank}}.</td>
-    <td>
-        {{#if isme}}<i class="fa fa-user" title="That's you!"></i>{{/if}}
-        <a href="{{@origin}}/user/{{id}}">{{name}}</a>
-    </td>
+    <td><a href="{{@origin}}/user/{{id}}">{{name}}</a></td>
     <td class="{{#if (isZero score)}}is-zero{{/if}}">{{score}}</td>
     <td class="{{#if (isZero count3)}}is-zero{{/if}}">{{count3}}</td>
     <td class="{{#if (isZero count2)}}is-zero{{/if}}">{{count2}}</td>
     <td class="{{#if (isZero count1)}}is-zero{{/if}}">{{count1}}</td>
     <td class="{{#if (isZero count0)}}is-zero{{/if}}">{{count0}}</td>
+    {{#if @root.loggedIn}}
+    <td>
+        {{#if isme}}
+        <i class="fa fa-user" title="That's you!"></i>
+        {{else}}
+        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-default btn-xs"><i class="fa fa-plus"></i></button>
+        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-default btn-xs"><i class="fa fa-minus"></i></button>
+        {{/if}}
+    </td>
+    {{/if}}
 </tr>
 {{/each}}
 </table>

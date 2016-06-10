@@ -10,6 +10,8 @@
 
 <h3>{{user.name}} <small>Score {{user.score}}, Ranking {{user.rank}}</small></h3>
 
+<canvas id="history" width="100" height="30"></canvas>
+
 <table class="table">
     {{#each matches}}
     <tr {{#if dataValues.expired}}class="score-{{dataValues.score}}"{{else}}class="autosave"{{/if}}>

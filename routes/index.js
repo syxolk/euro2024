@@ -12,6 +12,7 @@ module.exports = function(app) {
     require('./past')(app);
     require('./admin')(app);
     require('./news')(app);
+    require('./friend')(app);
 
     app.use(function (req, res, next) {
         res.status(404).render('404', {loggedIn : !!req.user});

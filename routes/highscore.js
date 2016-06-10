@@ -13,7 +13,7 @@ module.exports = function(app) {
         }
 
         instance.query(`SELECT name, score, id, count3, count2, count1, count0,
-            id = $id as isme,
+            id = $id as isme, id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) as isfriend,
             rank() over (order by score desc) as rank
             FROM score_table ORDER BY ` + orderBy + ' ' + orderDir,
             {
@@ -22,6 +22,7 @@ module.exports = function(app) {
             })
         .then(function(results) {
             res.render('highscore', {
+                csrfToken: req.csrfToken(),
                 users: results,
                 loggedIn: !!req.user,
                 orderScore: orderBy === 'score',

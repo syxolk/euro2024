@@ -31,7 +31,8 @@ const Team = instance.define('Team', {
 const Match = instance.define('Match', {
     goalsHome: Sequelize.INTEGER,
     goalsAway: Sequelize.INTEGER,
-    when: {type: Sequelize.DATE, allowNull: false}
+    when: {type: Sequelize.DATE, allowNull: false},
+    tv: Sequelize.STRING
 });
 
 const MatchType = instance.define('MatchType', {
@@ -59,12 +60,7 @@ const News = instance.define('News', {
 });
 
 const History = instance.define('History', {
-    score: {type: Sequelize.INTEGER, allowNull: false},
-    rank: {type: Sequelize.INTEGER, allowNull: false},
-    count3: {type: Sequelize.INTEGER, allowNull: false},
-    count2: {type: Sequelize.INTEGER, allowNull: false},
-    count1: {type: Sequelize.INTEGER, allowNull: false},
-    count0: {type: Sequelize.INTEGER, allowNull: false}
+    rank: {type: Sequelize.INTEGER, allowNull: false}
 }, {
     timestamps: false,
     indexes : [
@@ -73,6 +69,14 @@ const History = instance.define('History', {
             fields: ['UserId', 'MatchId']
         }
     ]
+});
+
+const Friend = instance.define('Friend', {
+}, {
+    indexes: [{
+        unique: true,
+        fields: ['FromUserId', 'ToUserId']
+    }]
 });
 
 // Associations
@@ -86,8 +90,8 @@ Match.belongsTo(Team, {as: 'HomeTeam', foreignKey: {allowNull: false}, onDelete:
 Match.belongsTo(Team, {as: 'AwayTeam', foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 Match.belongsTo(MatchType, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 
-History.belongsTo(Match, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
-Match.hasMany(History);
+User.belongsToMany(Match, {through: History});
+Match.belongsToMany(User, {through: History});
 
-History.belongsTo(User, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
-User.hasMany(History);
+User.belongsToMany(User, { as: 'FromUser', through: Friend, foreignKey: 'FromUserId' });
+User.belongsToMany(User, { as: 'ToUser', through: Friend, foreignKey: 'ToUserId' });

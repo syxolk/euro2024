@@ -26,7 +26,7 @@ module.exports = function(app) {
         bluebird.join(
             instance.query(`WITH ranking AS (SELECT name, score, id,
                 rank() over (order by score desc) as rank FROM score_table)
-                SELECT name, score, rank FROM ranking WHERE id = $id`, {
+                SELECT id, name, score, rank FROM ranking WHERE id = $id`, {
                 raw: true,
                 plain: true,
                 bind: {
@@ -71,50 +71,46 @@ module.exports = function(app) {
         });
     });
 
+    // API function for the score chart
     app.get('/user/:id/history', function(req, res) {
-        const user = parseInt(req.params.id);
-
-        if(! Number.isInteger(user)) {
-            res.status(404).json({
-                ok: false,
-                error: 'NOT_FOUND'
-            });
-            return;
-        }
-
-        History.findAll({
-            attributes: ['score', 'rank', 'count3', 'count2', 'count1', 'count0'],
+        Match.findAll({
             where: {
-                UserId: user
+                when: {$lt: instance.fn('now')},
+                goalsHome: {$ne: null},
+                goalsAway: {$ne: null}
             },
+            attributes: [
+                [instance.fn('coalesce', instance.fn('calc_score',
+                    instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
+                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+            ],
             include: [
                 {
-                    model: Match,
-                    attributes: ['when', 'goalsHome', 'goalsAway'],
-                    include: [
-                        {
-                            model: Team,
-                            as: 'HomeTeam',
-                            attributes: ['code', 'name']
-                        }, {
-                            model: Team,
-                            as: 'AwayTeam',
-                            attributes: ['code', 'name']
-                        }, {
-                            model: MatchType,
-                            attributes: ['code', 'name']
-                        }
-                    ]
+                    model: Bet,
+                    required: false,
+                    where : {
+                        'UserId': req.params.id
+                    }
+                }, {
+                    model: Team,
+                    as: 'HomeTeam'
+                }, {
+                    model: Team,
+                    as: 'AwayTeam'
                 }
             ],
-            order: [[instance.col('Match.when'), 'ASC']]
-        }).then(function(history) {
+            order: [['when', 'ASC']]
+        }).then(function(matches) {
             res.json({
                 ok: true,
-                data: history
+                data: matches.map(function(match) {
+                    return match.get('score');
+                }),
+                labels: matches.map(function(match) {
+                    return match.HomeTeam.code + ' ' + match.AwayTeam.code;
+                })
             });
-        }).catch(function(err) {
-            console.log(err);
+        }).catch(function(error) {
             res.status(500).json({
                 ok: false,
                 error: 'INTERNAL'
