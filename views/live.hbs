@@ -10,6 +10,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title">{{hometeam}} : {{awayteam}} ({{matchtype}})
+            <span class="label label-default">{{tv}}</span>
             <small class="pull-right">{{calendar when}}</small>
         </h2>
     </div>
@@ -45,10 +46,11 @@
         {{#each nextMatches}}
         <tr>
             <td class="col-md-3">{{calendar when}}</td>
-            <td class="col-md-2">{{MatchType.name}}</td>
+            <td class="col-md-1">{{MatchType.name}}</td>
             <td class="col-md-3 text-right"><em>{{HomeTeam.name}}</em></td>
             <td class="col-md-1 text-center">:</td>
             <td class="col-md-3 text-left"><em>{{AwayTeam.name}}</em></td>
+            <td class="col-md-1"><span class="label label-default">{{tv}}</span></td>
         </tr>
         {{/each}}
     </table>

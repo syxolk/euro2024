@@ -31,7 +31,8 @@ const Team = instance.define('Team', {
 const Match = instance.define('Match', {
     goalsHome: Sequelize.INTEGER,
     goalsAway: Sequelize.INTEGER,
-    when: {type: Sequelize.DATE, allowNull: false}
+    when: {type: Sequelize.DATE, allowNull: false},
+    tv: Sequelize.STRING
 });
 
 const MatchType = instance.define('MatchType', {
