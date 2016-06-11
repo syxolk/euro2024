@@ -11,7 +11,7 @@ module.exports = function(app) {
         const user = parseInt(req.params.id);
 
         if(! Number.isInteger(user)) {
-            res.status(404).render('404', {loggedIn : true});
+            res.status(404).render('404', {loggedIn : true, loggedUser: req.user});
             return;
         }
 
@@ -40,7 +40,7 @@ module.exports = function(app) {
                         [instance.where(instance.col('when'), '<', instance.fn('now')), 'expired'],
                         [instance.fn('coalesce', instance.fn('calc_score',
                             instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                            instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                            instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway'), instance.col('MatchType.coef')), 0), 'score']
                     ]
                 },
                 include: [
@@ -64,9 +64,9 @@ module.exports = function(app) {
             })
         ).spread(function(user, matches) {
             if(user) {
-                res.render('user', {user, matches, csrfToken: req.csrfToken(), loggedIn: !!req.user});
+                res.render('user', {user, matches, csrfToken: req.csrfToken(), loggedIn: !!req.user, loggedUser: req.user});
             } else {
-                res.status(404).render('404', {loggedIn: !!req.user});
+                res.status(404).render('404', {loggedIn: !!req.user, loggedUser: req.user});
             }
         });
     });
@@ -82,7 +82,7 @@ module.exports = function(app) {
             attributes: [
                 [instance.fn('coalesce', instance.fn('calc_score',
                     instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway'), instance.col('MatchType.coef')), 0), 'score']
             ],
             include: [
                 {
@@ -97,6 +97,8 @@ module.exports = function(app) {
                 }, {
                     model: Team,
                     as: 'AwayTeam'
+                }, {
+                    model: MatchType
                 }
             ],
             order: [['when', 'ASC']]

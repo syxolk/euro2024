@@ -42,7 +42,7 @@ module.exports = function(app) {
                     order: [['when', 'ASC']],
                     limit: 3
                 }).then(function(nextMatches) {
-                    res.render('live', {matches, nextMatches, loggedIn: !!req.user});
+                    res.render('live', {matches, nextMatches, loggedIn: !!req.user, loggedUser: req.user});
                 });
             });
         });

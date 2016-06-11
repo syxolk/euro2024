@@ -24,7 +24,7 @@ module.exports = function(app) {
                 }
             }
 
-            res.render('past', {matches, loggedIn: !!req.user});
+            res.render('past', {matches, loggedIn: !!req.user, loggedUser: req.user});
         });
     });
 };
