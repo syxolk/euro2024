@@ -18,7 +18,7 @@
                 <li><a href="{{@origin}}/past">Past Matches</a></li>
                 <li><a href="{{@origin}}/highscore">Highscore</a></li>
                 <li><a href="{{@origin}}/news">News</a></li>
-                {{#with user}}
+                {{#with loggedUser}}
                 {{#if admin}}
                 <li><a href="{{@origin}}/admin">Admin</a></li>
                 {{/if}}

@@ -44,7 +44,7 @@ module.exports = function(app) {
         res.render('login', {
             csrfToken: req.csrfToken(),
             loggedIn: !!req.user,
-            user: req.user,
+            loggedUser: req.user,
             error: req.flash('error'),
             email: req.flash('email')
         });
