@@ -11,11 +11,13 @@ module.exports = function(app) {
             case '1': orderBy = 'count1'; break;
             case '0': orderBy = 'count0'; break;
         }
+        const onlyFriends = req.query.friends === '1';
 
         instance.query(`SELECT name, score, id, count3, count2, count1, count0,
             id = $id as isme, id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) as isfriend,
-            rank() over (order by score desc) as rank
-            FROM score_table ORDER BY ` + orderBy + ' ' + orderDir,
+            rank() over (order by score desc) as rank FROM score_table` +
+            (onlyFriends ? ' WHERE id = $id OR id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id)' : '') +
+            ' ORDER BY ' + orderBy + ' ' + orderDir + ', name ASC',
             {
                 type: instance.QueryTypes.SELECT,
                 bind: {id: (req.user ? req.user.id : 0)}
@@ -30,7 +32,8 @@ module.exports = function(app) {
                 order3: orderBy === 'count3',
                 order2: orderBy === 'count2',
                 order1: orderBy === 'count1',
-                order0: orderBy === 'count0'
+                order0: orderBy === 'count0',
+                friends: onlyFriends,
             });
         });
     });
