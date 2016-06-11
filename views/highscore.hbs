@@ -9,6 +9,16 @@
 
 <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
+{{#if loggedIn}}
+<p>
+{{#if friends}}
+<a href="/highscore">Show all</a>
+{{else}}
+<a href="/highscore?friends=1">Show only friends</a>
+{{/if}}
+</p>
+{{/if}}
+
 <table class="table table-striped">
 <tr>
     <th></th>
@@ -16,45 +26,45 @@
     {{#if orderName}}
         <span class="ordered-column">Name</span>
     {{else}}
-        <a href="/highscore?order=name">Name</a>
+        <a href="/highscore?order=name{{#if friends}}&friends=1{{/if}}">Name</a>
     {{/if}}
     </th>
     <th>
     {{#if orderScore}}
         <span class="ordered-column">Score</span>
     {{else}}
-        <a href="/highscore">Score</a>
+        <a href="/highscore{{#if friends}}?friends=1{{/if}}">Score</a>
     {{/if}}
     </th>
     <th title="Correct bet">
     {{#if order3}}
         <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
     {{else}}
-        <a href="/highscore?order=3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
+        <a href="/highscore?order=3{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
     {{/if}}
     </th>
     <th title="Correct goal difference">
     {{#if order2}}
         <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span>
     {{else}}
-        <a href="/highscore?order=2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=2{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
     <th title="Correct winner">
     {{#if order1}}
         <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
     {{else}}
-        <a href="/highscore?order=1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=1{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
     <th title="Wrong bet">
     {{#if order0}}
         <span class="ordered-column"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
     {{else}}
-        <a href="/highscore?order=0"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=0{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
     {{/if}}
     </th>
-    {{#if loggedIn}}<th></th>{{/if}}
+    {{#if loggedIn}}<th><i class="fa fa-users" title="Friends"></i></th>{{/if}}
 </tr>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
