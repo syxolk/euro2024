@@ -82,7 +82,7 @@ module.exports = function(app) {
             attributes: [
                 [instance.fn('coalesce', instance.fn('calc_score',
                     instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway'), instance.col('MatchType.coef')), 0), 'score']
             ],
             include: [
                 {
@@ -97,6 +97,8 @@ module.exports = function(app) {
                 }, {
                     model: Team,
                     as: 'AwayTeam'
+                }, {
+                    model: MatchType
                 }
             ],
             order: [['when', 'ASC']]
