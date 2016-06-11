@@ -9,7 +9,7 @@ module.exports = function(app) {
         }
 
         res.render('settings', {user: req.user, csrfToken: req.csrfToken(),
-            loggedIn: true});
+            loggedIn: true, user: req.user});
     });
 
     app.post('/settings', function(req, res) {

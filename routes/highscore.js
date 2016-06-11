@@ -27,6 +27,7 @@ module.exports = function(app) {
                 csrfToken: req.csrfToken(),
                 users: results,
                 loggedIn: !!req.user,
+                user: req.user,
                 orderScore: orderBy === 'score',
                 orderName: orderBy === 'name',
                 order3: orderBy === 'count3',

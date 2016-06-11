@@ -81,6 +81,7 @@ module.exports = function(app) {
             csrfToken: req.csrfToken(),
             key: config.recaptcha.key,
             loggedIn: !!req.user,
+            user: req.user,
             error: req.flash('error'),
             name: req.flash('name'),
             email: req.flash('email')
@@ -125,12 +126,14 @@ module.exports = function(app) {
         }).then(function(user) {
             res.render('activate', {
                 success: true,
-                loggedIn: !!req.user
+                loggedIn: !!req.user,
+                user: req.user
             });
         }).catch(function() {
             res.render('activate', {
                 success: false,
-                loggedIn: !!req.user
+                loggedIn: !!req.user,
+                user: req.user
             });
         });
     });
