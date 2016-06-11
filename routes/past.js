@@ -9,6 +9,7 @@ module.exports = function(app) {
         .then(function(matches) {
             for(var i = 0; i < matches.length; i++) {
                 var match = matches[i];
+                match.draw = 100 - match.winnerhome - match.winneraway;
                 var bets = {0: [], 1: [], 2: [], 3: []};
                 for(var j = 0; j < match.listscore.length; j++) {
                     bets[match.listscore[j]].push({

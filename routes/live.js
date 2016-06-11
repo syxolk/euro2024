@@ -21,6 +21,7 @@ module.exports = function(app) {
             }).then(function(bets) {
                 for(var i = 0; i < matches.length; i++) {
                     matches[i].bets = bets[i];
+                    matches[i].draw = 100 - matches[i].winnerhome - matches[i].winneraway;
                 }
 
                 Match.findAll({

@@ -50,7 +50,6 @@ AS SELECT "Match"."id" as id,
 count("Bet"."id") as countbets,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
-round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw,
 avg("Bet"."goalsHome") as avghome,
 avg("Bet"."goalsAway") as avgaway,
 "Match"."tv" as tv
@@ -76,7 +75,6 @@ array_agg(calc_score("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome"
 count("Bet"."id") as countbets,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
-round(100.0 * count(CASE WHEN "Bet"."goalsHome" = "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as draw,
 avg("Bet"."goalsHome") as avghome,
 avg("Bet"."goalsAway") as avgaway
 FROM "Match"
