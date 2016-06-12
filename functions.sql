@@ -82,4 +82,5 @@ FROM "Match"
 JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
 JOIN "User" ON "User"."id" = "Bet"."UserId"
 WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
-GROUP BY "Match"."id";
+GROUP BY "Match"."id"
+ORDER BY "Match"."when" DESC;
