@@ -31,6 +31,16 @@ FROM "User" LEFT JOIN bets ON "User"."id" = bets.id
 WHERE "User"."emailConfirmed" = true
 ;
 
+CREATE OR REPLACE FUNCTION set_match_result(integer, integer, integer) RETURNS void AS
+$$
+-- $1 match ID, $2 goals home, $3 goals away
+UPDATE "Match" SET "goalsHome" = $2, "goalsAway" = $3 WHERE id = $1;
+DELETE FROM "History" WHERE "MatchId" = $1;
+INSERT INTO "History"("UserId","MatchId",rank)
+SELECT id, $1, rank() over (order by score desc) as rank FROM score_table
+$$
+LANGUAGE SQL;
+
 CREATE OR REPLACE VIEW match_table
 AS SELECT "Match"."id" as id,
 "Match"."when" as when,
@@ -73,15 +83,5 @@ JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
 JOIN "MatchType" ON "Match"."MatchTypeId" = "MatchType"."id"
 JOIN "User" ON "User"."id" = "Bet"."UserId"
 WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
-GROUP BY "Match"."id";
-
-CREATE OR REPLACE FUNCTION set_match_result(integer, integer, integer) RETURNS void AS
-$$
--- $1 match ID, $2 goals home, $3 goals away
-UPDATE "Match" SET "goalsHome" = $2, "goalsAway" = $3 WHERE id = $1;
-DELETE FROM "History" WHERE "MatchId" = $1;
-INSERT INTO "History"("UserId","MatchId",rank)
-SELECT id, $1, rank() over (order by score desc) as rank FROM score_table
-$$
-LANGUAGE SQL;
-
+GROUP BY "Match"."id"
+ORDER BY "Match"."when" DESC;
