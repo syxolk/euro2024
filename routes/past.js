@@ -5,7 +5,7 @@ const User = instance.model('User');
 
 module.exports = function(app) {
     app.get('/past', function(req, res) {
-        instance.query('SELECT * FROM past_match_table', {type: instance.QueryTypes.SELECT})
+        instance.query('SELECT * FROM past_match_table ORDER BY "when" DESC', {type: instance.QueryTypes.SELECT})
         .then(function(matches) {
             for(var i = 0; i < matches.length; i++) {
                 var match = matches[i];
