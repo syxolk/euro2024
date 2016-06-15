@@ -15,6 +15,7 @@ module.exports = function(app) {
 
         instance.query(`SELECT name, score, id, count3, count2, count1, count0,
             id = $id as isme, id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) as isfriend,
+            user_rank_history(id, 3) as history,
             rank() over (order by score desc) as rank FROM score_table` +
             (onlyFriends ? ' WHERE id = $id OR id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id)' : '') +
             ' ORDER BY ' + orderBy + ' ' + orderDir + ', name ASC',
