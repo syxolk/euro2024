@@ -63,7 +63,9 @@ round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) 
 round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
 avg("Bet"."goalsHome") as avghome,
 avg("Bet"."goalsAway") as avgaway,
-"Match"."tv" as tv
+"Match"."tv" as tv,
+(SELECT array_agg("User"."name") FROM "User" WHERE "User"."emailConfirmed" = true AND "Match"."when" > "User"."createdAt" AND NOT EXISTS (SELECT 1 FROM "Bet" WHERE "Bet"."UserId" = "User"."id" AND "Bet"."MatchId" = "Match"."id")) as listnobetnames,
+(SELECT array_agg("User"."id") FROM "User" WHERE "User"."emailConfirmed" = true AND "Match"."when" > "User"."createdAt" AND NOT EXISTS (SELECT 1 FROM "Bet" WHERE "Bet"."UserId" = "User"."id" AND "Bet"."MatchId" = "Match"."id" )) as listnobetids
 FROM "Match"
  -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
 JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"

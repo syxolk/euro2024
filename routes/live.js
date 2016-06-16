@@ -22,6 +22,13 @@ module.exports = function(app) {
                 for(var i = 0; i < matches.length; i++) {
                     matches[i].bets = bets[i];
                     matches[i].draw = 100 - matches[i].winnerhome - matches[i].winneraway;
+		    matches[i].nobet = [];
+		    for(var j = 0; j < matches[i].listnobetids.length; j++) {
+			matches[i]['nobet'].push({
+				id: matches[i].listnobetids[j],
+				name: matches[i].listnobetnames[j]
+			});
+		    } 
                 }
 
                 Match.findAll({
