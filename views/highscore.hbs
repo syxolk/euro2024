@@ -69,7 +69,15 @@
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
     <td>{{rank}}.</td>
-    <td><a href="{{@origin}}/user/{{id}}">{{name}}</a></td>
+    <td>
+        {{#if (gt0 history)}}
+        <span class="history-up"><i class="fa fa-arrow-up" title="{{history}}"></i></span>
+        {{/if}}
+        {{#if (lt0 history)}}
+        <span class="history-down"><i class="fa fa-arrow-down" title="{{history}}"></i></span>
+        {{/if}}
+        <a href="{{@origin}}/user/{{id}}">{{name}}</a>
+    </td>
     <td class="{{#if (isZero score)}}is-zero{{/if}}">{{score}}</td>
     <td class="{{#if (isZero count3)}}is-zero{{/if}}">{{count3}}</td>
     <td class="{{#if (isZero count2)}}is-zero{{/if}}">{{count2}}</td>

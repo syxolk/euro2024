@@ -91,6 +91,14 @@ hbs.registerHelper('isZero', function(num) {
     return num === 0 || num === '0';
 });
 
+hbs.registerHelper('gt0', function(val) {
+    return val > 0;
+});
+
+hbs.registerHelper('lt0', function(val) {
+    return val < 0;
+});
+
 app.use(compression());
 app.use(express.static(__dirname + '/dist'));
 app.use(express.static(__dirname + '/assets/images'));

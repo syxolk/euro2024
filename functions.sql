@@ -10,6 +10,17 @@ END
 $$
 LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
 
+CREATE OR REPLACE FUNCTION user_rank_history(integer, integer) RETURNS integer AS
+$$
+-- $1 User ID, $2 number of matches to go back
+WITH ranks as (SELECT array(
+SELECT rank FROM "History"
+JOIN "Match" ON ("History"."MatchId" = "Match".id)
+WHERE "History"."UserId" = $1 ORDER BY "Match"."when" DESC LIMIT $2) AS x)
+SELECT x[array_length(x,1)] - x[1]  FROM ranks;
+$$
+LANGUAGE SQL STABLE RETURNS NULL ON NULL INPUT;
+
 CREATE OR REPLACE VIEW score_table
 AS WITH bets AS (
 SELECT b."UserId" as id, sum(calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway", mt."coef")) as score,
