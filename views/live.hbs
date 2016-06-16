@@ -47,6 +47,12 @@
 		{{#each bets}}{{#if  (eq goalsAway goalsHome)}} <a href="/user/{{User.id}}">{{User.name}} </a> {{goalsHome}}:{{goalsAway}}{{/if}}{{/each}}
 		</td>
 	</tr>
+	<tr>
+                <td class="col-md-1">Number of participants</td>
+                <td class="col-md-11">
+                {{countbets}}
+                </td>
+        </tr>
     </table>  
 </div>
 {{/each}}
