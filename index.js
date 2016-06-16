@@ -95,6 +95,10 @@ hbs.registerHelper('gt0', function(val) {
     return val > 0;
 });
 
+hbs.registerHelper('eq0', function(val) {
+    return val === 0;
+});
+
 hbs.registerHelper('lt0', function(val) {
     return val < 0;
 });
