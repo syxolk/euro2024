@@ -63,6 +63,14 @@ hbs.registerHelper('calendar', function(when) {
     return moment(when).format('dddd, MMMM Do, H:mm');
 });
 
+hbs.registerHelper('eq', function(param1, param2) {
+    return param1 == param2;
+});
+
+hbs.registerHelper('sup', function(param1, param2) {
+    return param1 > param2;
+});
+
 hbs.registerHelper('calendarShort', function(when) {
     return moment(when).format('MMM D, H:mm');
 });

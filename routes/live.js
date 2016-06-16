@@ -16,7 +16,7 @@ module.exports = function(app) {
                         MatchId: match.id
                     },
                     include: [ User ],
-                    order: [[User, 'name', 'ASC']]
+                    order: [['goalsHome', 'DESC'], ['goalsAway', 'DESC'], [User, 'name', 'ASC']]
                 });
             }).then(function(bets) {
                 for(var i = 0; i < matches.length; i++) {
