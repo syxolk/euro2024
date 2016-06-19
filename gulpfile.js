@@ -14,7 +14,8 @@ gulp.task('scripts', function() {
         'node_modules/chart.js/dist/Chart.min.js',
         'assets/save_bets.js',
         'assets/history.js',
-        'assets/friend.js'
+        'assets/friend.js',
+        'assets/friend_history.js'
     ])
     .pipe(sourcemaps.init())
     .pipe(uglify())
