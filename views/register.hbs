@@ -1,7 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
 <title>Register - Euro 2016</title>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -32,7 +31,6 @@
             <input type="password" class="form-control" name="password" id="password" placeholder="correct horse battery staple" minlength="6" required>
             <span class="help-block">We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.</span>
         </div>
-        <div class="g-recaptcha form-group" data-sitekey="{{key}}"></div>
         <button class="btn btn-primary btn-block" type="submit">Register</button>
     </form>
 </div>

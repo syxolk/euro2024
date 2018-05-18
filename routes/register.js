@@ -26,35 +26,22 @@ module.exports = function(app) {
         req.flash('name', req.body.name);
         req.flash('email', req.body.email);
 
-        request.post({
-            url: RECAPTCHA_URL,
-            form: {
-                secret: config.recaptcha.secret,
-                response: req.body['g-recaptcha-response']
-            }
-        }, function(err, httpResponse, body) {
-            if(JSON.parse(body).success === true) {
-                bcrypt.hash(req.body.password, BCRYPT_ROUNDS, function(err, encrypted) {
-                    const token = uuid.v4();
-                    User.create({
-                        name: req.body.name,
-                        password: encrypted,
-                        email: req.body.email,
-                        emailConfirmed: false,
-                        emailConfirmToken: token
-                    }).then(function(user) {
-                        req.login(user, function(err) {
-                            res.redirect('/me');
-                        });
-                    }).catch(function(err) {
-                        req.flash('error', 'Email address is already in use.');
-                        res.redirect('/register');
-                    });
+        bcrypt.hash(req.body.password, BCRYPT_ROUNDS, function(err, encrypted) {
+            const token = uuid.v4();
+            User.create({
+                name: req.body.name,
+                password: encrypted,
+                email: req.body.email,
+                emailConfirmed: false,
+                emailConfirmToken: token
+            }).then(function(user) {
+                req.login(user, function(err) {
+                    res.redirect('/me');
                 });
-            } else {
-                req.flash('error', 'Wrong captcha solution');
+            }).catch(function(err) {
+                req.flash('error', 'Email address is already in use.');
                 res.redirect('/register');
-            }
+            });
         });
     });
 
