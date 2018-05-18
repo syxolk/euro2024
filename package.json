@@ -8,7 +8,7 @@
     "url": "https://github.com/syxolk/euro2016"
   },
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "coffeescript": "^2.2.2",
