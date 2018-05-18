@@ -1,8 +1,10 @@
+const config = require('../config');
+
 module.exports = function(app) {
     require('./login')(app);
     require('./register')(app);
-    require('./facebook')(app);
-    require('./google')(app);
+    if(config.facebook) { require('./facebook')(app); }
+    if(config.google) { require('./google')(app); }
     require('./user')(app);
     require('./save_bet')(app);
     require('./highscore')(app);

@@ -1,4 +1,3 @@
-require('coffee-script').register();
 const fs = require('fs');
 const Bluebird = require('bluebird');
 const instance = require('../models').instance;

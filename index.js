@@ -1,4 +1,3 @@
-require('coffee-script').register();
 const http = require('http');
 const https = require('https');
 const express = require('express');
@@ -60,11 +59,11 @@ moment.updateLocale('en', {
 });
 
 hbs.registerHelper('calendar', function(when) {
-    return moment(when).format('dddd, MMMM Do, H:mm');
+    return moment(when).format('dddd, MMMM Do, HH:mm');
 });
 
 hbs.registerHelper('calendarShort', function(when) {
-    return moment(when).format('MMM D, H:mm');
+    return moment(when).format('MMM D, HH:mm');
 });
 
 hbs.registerHelper('newsDate', function(when) {
@@ -113,7 +112,7 @@ if(process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
 
-app.use(helmet.csp({
+app.use(helmet.contentSecurityPolicy({
     directives: {
         baseUri: ["'self'"],
         defaultSrc: ["'none'"],
