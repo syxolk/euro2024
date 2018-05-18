@@ -14,7 +14,6 @@
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
-    "coffeescript": "^2.2.2",
     "compression": "^1.7.2",
     "connect-flash": "0.1.1",
     "csurf": "^1.9.0",
@@ -25,7 +24,6 @@
     "file-stream-rotator": "^0.2.1",
     "hbs": "^4.0.1",
     "helmet": "^3.12.0",
-    "mailgun-js": "^0.16.0",
     "moment": "^2.21.0",
     "morgan": "^1.9.0",
     "ms": "^2.1.1",
@@ -36,7 +34,6 @@
     "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "request": "^2.83.0",
     "sequelize": "^4.35.1",
     "uuid": "^3.2.1"
   },

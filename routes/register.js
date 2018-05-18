@@ -1,7 +1,6 @@
 const config = require('../config');
 const instance = require('../models').instance;
 const User = instance.model('User');
-const request = require('request');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mustache = require('mustache');
