@@ -12,7 +12,6 @@ module.exports = function(app) {
     app.get('/register', function(req, res) {
         res.render('register', {
             csrfToken: req.csrfToken(),
-            key: config.recaptcha.key,
             loggedIn: !!req.user,
             error: req.flash('error'),
             name: req.flash('name'),
