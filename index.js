@@ -1,5 +1,3 @@
-const http = require('http');
-const https = require('https');
 const express = require('express');
 const hbs = require('hbs');
 const session = require('express-session');
@@ -133,11 +131,6 @@ app.use(helmet.frameguard({
 }));
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());
-if(config.https) {
-    app.use(helmet.hsts({
-        maxAge: ms('365d')
-    }));
-}
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
     name: 'sid',
@@ -159,24 +152,7 @@ routes(app);
 instance.sync().then(function() {
     return instance.query(fs.readFileSync(__dirname + '/functions.sql').toString('utf8'), {raw: true});
 }).then(function () {
-    if(config.https) {
-        http.createServer(function(req, res) {
-            res.writeHead(301, { 'Location': 'https://' + req.headers.host + req.url });
-            res.end();
-        }).listen(config.httpPort, function() {
-            console.log('HTTPS redirect server running');
-        });
-        const options = {
-            key: fs.readFileSync(config.key),
-            cert: fs.readFileSync(config.cert),
-            ca: fs.readFileSync(config.ca)
-        };
-        https.createServer(options, app).listen(config.httpsPort, function() {
-            console.log('Visit %s', config.origin);
-        });
-    } else {
-        app.listen(config.httpPort, function() {
-            console.log('Visit %s', config.origin);
-        });
-    }
+    app.listen(config.httpPort, function() {
+        console.log('Visit %s', config.origin);
+    });
 });
