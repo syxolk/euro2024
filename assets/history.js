@@ -12,15 +12,15 @@ $(function() {
 
         var datasets = [{
             // 1 point
-            label: '\uf005\uf006\uf006',
+            label: '\u2605\u2605\u2606\u2606',
             backgroundColor: '#ccffcc'
         }, {
             // 2 points
-            label: '\uf005\uf005\uf006',
+            label: '\u2605\u2605\u2605\u2606',
             backgroundColor: '#00e600'
         }, {
             // 3 points
-            label: '\uf005\uf005\uf005',
+            label: '\u2605\u2605\u2605\u2605',
             backgroundColor: '#009900'
         }];
         datasets = datasets.map(function(set) {

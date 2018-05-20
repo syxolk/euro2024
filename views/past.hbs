@@ -30,7 +30,7 @@
     <table class="table">
         {{#if score3}}
         <tr>
-            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></td>
+            <td class="col-md-1">{{> correct_bet}}</td>
             <td class="col-md-11">
             {{#each score3}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a>{{/each}}
             </td>
@@ -38,7 +38,7 @@
         {{/if}}
         {{#if score2}}
         <tr>
-            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-1">{{> correct_diff}}</td>
             <td class="col-md-11">
             {{#each score2}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
@@ -46,7 +46,7 @@
         {{/if}}
         {{#if score1}}
         <tr>
-            <td class="col-md-1"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-1">{{> correct_winner}}</td>
             <td class="col-md-11">
             {{#each score1}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
@@ -54,7 +54,7 @@
         {{/if}}
         {{#if score0}}
         <tr>
-            <td class="col-md-1"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></td>
+            <td class="col-md-1">{{> wrong_bet}}</td>
             <td class="col-md-11">
             {{#each score0}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>

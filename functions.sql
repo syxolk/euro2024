@@ -2,9 +2,9 @@ CREATE OR REPLACE FUNCTION calc_score(integer, integer, integer, integer) RETURN
 $$
 -- $1 matchHome, $2 matchAway, $3 betHome, $3 betAway
 SELECT CASE
-WHEN $1 = $3 AND $2 = $4 THEN 3            -- 3 points for correct result
-WHEN $1 - $2 = $3 - $4 THEN 2              -- 2 points for correct goal difference
-WHEN sign($1 - $2) = sign($3 - $4) THEN 1  -- 1 point for correct winner
+WHEN $1 = $3 AND $2 = $4 THEN 4            -- 4 points for correct result
+WHEN $1 - $2 = $3 - $4 THEN 3              -- 3 points for correct goal difference
+WHEN sign($1 - $2) = sign($3 - $4) THEN 2  -- 2 point for correct winner
 ELSE 0
 END
 $$
@@ -25,9 +25,9 @@ CREATE OR REPLACE VIEW score_table
 AS WITH bets AS (
 SELECT b."UserId" as id,
 sum(calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway")) as score,
-count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 3 THEN 1 END) as count3,
-count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 2 THEN 1 END) as count2,
-count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 1 THEN 1 END) as count1,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 4 THEN 1 END) as count3,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 3 THEN 1 END) as count2,
+count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 2 THEN 1 END) as count1,
 count(CASE WHEN calc_score(m."goalsHome", m."goalsAway", b."goalsHome", b."goalsAway") = 0 THEN 1 END) as count0
 FROM "Bet" as b
 JOIN "Match" as m ON m."id" = b."MatchId"

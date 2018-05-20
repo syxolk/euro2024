@@ -42,30 +42,30 @@
     </th>
     <th title="Correct bet">
     {{#if order3}}
-        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span>
+        <span class="ordered-column">{{> correct_bet}}</span>
     {{else}}
-        <a href="/highscore?order=3{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a>
+        <a href="/highscore?order=3{{#if friends}}&friends=1{{/if}}">{{> correct_bet}}</a>
     {{/if}}
     </th>
     <th title="Correct goal difference">
     {{#if order2}}
-        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></span>
+        <span class="ordered-column">{{> correct_diff}}</span>
     {{else}}
-        <a href="/highscore?order=2{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=2{{#if friends}}&friends=1{{/if}}">{{> correct_diff}}</a>
     {{/if}}
     </th>
     <th title="Correct winner">
     {{#if order1}}
-        <span class="ordered-column"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
+        <span class="ordered-column">{{> correct_winner}}</span>
     {{else}}
-        <a href="/highscore?order=1{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=1{{#if friends}}&friends=1{{/if}}">{{> correct_winner}}</a>
     {{/if}}
     </th>
     <th title="Wrong bet">
     {{#if order0}}
-        <span class="ordered-column"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
+        <span class="ordered-column">{{> wrong_bet}}</span>
     {{else}}
-        <a href="/highscore?order=0{{#if friends}}&friends=1{{/if}}"><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></a>
+        <a href="/highscore?order=0{{#if friends}}&friends=1{{/if}}">{{> wrong_bet}}</a>
     {{/if}}
     </th>
     {{#if loggedIn}}<th><i class="fa fa-users" title="Friends"></i></th>{{/if}}
