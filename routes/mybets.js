@@ -14,8 +14,8 @@ module.exports = function(app) {
         }
 
         Match.findAll({
-            when: {
-                [Op.gt]: instance.fn('now')
+            where: {
+                when: {[Op.gt]: instance.fn('now')}
             },
             include: [
                 {
