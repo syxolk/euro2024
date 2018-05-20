@@ -68,17 +68,17 @@
         <a href="/highscore?order=0{{#if friends}}&friends=1{{/if}}">{{> wrong_bet}}</a>
     {{/if}}
     </th>
-    {{#if loggedIn}}<th><i class="fa fa-users" title="Friends"></i></th>{{/if}}
+    {{#if loggedIn}}<th><span title="Friends">&#x1F465;</span></th>{{/if}}
 </tr>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
     <td>{{rank}}.</td>
     <td>
         {{#if (gt0 history)}}
-        <span class="history-up"><i class="fa fa-arrow-up" title="{{history}}"></i></span>
+        <span class="history-up" title="{{history}}">&#x2191;</span>
         {{/if}}
         {{#if (lt0 history)}}
-        <span class="history-down"><i class="fa fa-arrow-down" title="{{history}}"></i></span>
+        <span class="history-down" title="{{history}}">&#x2193;</span>
         {{/if}}
         <a href="{{@origin}}/user/{{id}}">{{name}}</a>
     </td>
@@ -90,10 +90,10 @@
     {{#if @root.loggedIn}}
     <td>
         {{#if isme}}
-        <i class="fa fa-user" title="That's you!"></i>
+        <span title="That's you!">&#x1F464;</span>
         {{else}}
-        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-default btn-xs"><i class="fa fa-plus"></i></button>
-        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-default btn-xs"><i class="fa fa-minus"></i></button>
+        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-default btn-xs">&#x2795;</button>
+        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-default btn-xs">&#x2796;</button>
         {{/if}}
     </td>
     {{/if}}
