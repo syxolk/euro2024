@@ -3,6 +3,9 @@ const instance = require('../models').instance;
 const Bet = instance.model('Bet');
 const User = instance.model('User');
 
+// Map 0 -> 0, 1 -> error, 2 -> 1, 3 -> 2, 4 -> 3
+const scoreMapper = [0, 0, 1, 2, 3];
+
 module.exports = function(app) {
     app.get('/past', function(req, res) {
         instance.query('SELECT * FROM past_match_table', {type: instance.QueryTypes.SELECT})
@@ -12,7 +15,7 @@ module.exports = function(app) {
                 match.draw = 100 - match.winnerhome - match.winneraway;
                 var bets = {0: [], 1: [], 2: [], 3: []};
                 for(var j = 0; j < match.listscore.length; j++) {
-                    bets[match.listscore[j]].push({
+                    bets[scoreMapper[match.listscore[j]]].push({
                         name: match.listname[j],
                         goalsHome: match.listhome[j],
                         goalsAway: match.listaway[j],
