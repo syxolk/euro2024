@@ -1,10 +1,10 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 import requests
 from bs4 import BeautifulSoup
 import json
 
 def main():
-    html = requests.get("http://www.fifa.com/worldcup/matches/").text
+    html = requests.get("https://www.fifa.com/worldcup/matches/").text
     soup = BeautifulSoup(html, 'html.parser')
 
     all = {
@@ -34,7 +34,11 @@ def get_matches(soup):
         {
             "home": x.select(".fi-t__nTri")[0].text,
             "away": x.select(".fi-t__nTri")[1].text,
-            "when": x.select_one(".fi-mu__info__datetime")["data-utcdate"],
+            "when": "2018-{month}-{day}T{time}:00Z".format(
+                month=x.select_one(".fi-s__date-HHmm")["data-daymonthutc"][2:],
+                day=x.select_one(".fi-s__date-HHmm")["data-daymonthutc"][0:2],
+                time=x.select_one(".fi-s__date-HHmm")["data-timeutc"],
+            ),
             "type": x.select_one(".fi__info__group").text.split(" ")[1],
         }
         for x in match_list
