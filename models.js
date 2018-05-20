@@ -34,6 +34,8 @@ const Match = instance.define('Match', {
     goalsAway: Sequelize.INTEGER,
     when: {type: Sequelize.DATE, allowNull: false},
     tv: Sequelize.STRING
+}, {
+    timestamps: false
 });
 
 const MatchType = instance.define('MatchType', {

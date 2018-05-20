@@ -16,6 +16,20 @@ const packageJson = require('./package.json');
 const routes = require('./routes');
 const config = require('./config');
 const instance = require('./models').instance;
+const Umzug = require('umzug');
+const umzug = new Umzug({
+    storage: "sequelize",
+    storageOptions: {
+        sequelize: instance,
+    },
+    migrations: {
+        params: [
+            instance.getQueryInterface(),
+            instance.constructor,
+            instance,
+        ]
+    }
+});
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -149,10 +163,16 @@ app.use(passport.session());
 
 routes(app);
 
-instance.sync().then(function() {
-    return instance.query(fs.readFileSync(__dirname + '/functions.sql').toString('utf8'), {raw: true});
-}).then(function () {
+umzug.up().then((migrations) => {
+    if(migrations.length > 0) {
+        console.log("Executed migrations: %s", migrations.map(x => x.file).join(" "));
+    } else {
+        console.log("Database was up to date!");
+    }
     app.listen(config.httpPort, function() {
         console.log('Visit %s', config.origin);
     });
+}).catch((err) => {
+    console.log("Umzug failed!");
+    console.log(err);
 });
