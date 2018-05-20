@@ -7,6 +7,7 @@ const MatchType = instance.model('MatchType');
 const History = instance.model('History');
 const Friend = instance.model('Friend');
 const User = instance.model('User');
+const Op = require('sequelize').Sequelize.Op;
 
 module.exports = function(app) {
     app.get('/user/:id', function(req, res) {
@@ -15,14 +16,6 @@ module.exports = function(app) {
         if(! Number.isInteger(user)) {
             res.status(404).render('404', {loggedIn : true});
             return;
-        }
-
-        // for other users only show expired matches
-        var where = {};
-        if(!req.user || user !== req.user.id) {
-            where = {
-                when: {lt: instance.fn('now')}
-            };
         }
 
         bluebird.join(
@@ -36,10 +29,11 @@ module.exports = function(app) {
                 }
             }),
             Match.findAll({
-                where,
+                where: {
+                    when: {[Op.lt]: instance.fn('now')}
+                },
                 attributes: {
                     include: [
-                        [instance.where(instance.col('when'), '<', instance.fn('now')), 'expired'],
                         [instance.fn('coalesce', instance.fn('calc_score',
                             instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
                             instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
@@ -62,11 +56,11 @@ module.exports = function(app) {
                         model: MatchType
                     }
                 ],
-                order: [['when', 'ASC']]
+                order: [['when', 'DESC']]
             })
         ).spread(function(user, matches) {
             if(user) {
-                res.render('user', {user, matches, csrfToken: req.csrfToken(), loggedIn: !!req.user});
+                res.render('user', {user, matches, loggedIn: !!req.user});
             } else {
                 res.status(404).render('404', {loggedIn: !!req.user});
             }

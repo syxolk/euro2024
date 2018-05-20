@@ -4,52 +4,41 @@
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
-<input type="hidden" name="_csrf" value="{{csrfToken}}">
-<input type="hidden" name="_action" value="{{@origin}}/save_bet">
 <div class="container">
 
 <h3>{{user.name}} <small>Score {{user.score}}, Ranking {{user.rank}}</small></h3>
 
+{{#if matches}}
 <canvas id="history" width="100" height="30"></canvas>
 
 <table class="table">
     {{#each matches}}
-    <tr {{#if dataValues.expired}}class="score-{{dataValues.score}}"{{else}}class="autosave"{{/if}}>
+    <tr class="score-{{dataValues.score}}">
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
         <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
         <td class="text-right">
             <em class="hidden-xs">{{HomeTeam.name}}</em><em class="visible-xs">{{HomeTeam.code}}</em>
         </td>
         <td class="text-center">
-            {{#if dataValues.expired}}
-                <strong>{{showGoals goalsHome}}</strong>
-            {{/if}}
-            :
-            {{#if dataValues.expired}}
-                <strong>{{showGoals goalsAway}}</strong>
-            {{/if}}
+            <strong>{{showGoals goalsHome}}</strong> : <strong>{{showGoals goalsAway}}</strong>
         </td>
         <td class="text-left">
             <em class="hidden-xs">{{AwayTeam.name}}</em><em class="visible-xs">{{AwayTeam.code}}</em>
         </td>
         <td class="text-center">
-        {{#if dataValues.expired}}
-            {{showGoals Bets.0.goalsHome}}
-        {{else}}
-            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
-            <input type="hidden" name="match" value="{{id}}">
-        {{/if}}
+        {{showGoals Bets.0.goalsHome}}
         </td>
         <td class="text-center">
-        {{#if dataValues.expired}}
-            {{showGoals Bets.0.goalsAway}}
-        {{else}}
-            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
-        {{/if}}
+        {{showGoals Bets.0.goalsAway}}
         </td>
     </tr>
     {{/each}}
 </table>
+{{else}}
+<div class="alert alert-danger" role="alert">
+    <strong>There are no bets to show.</strong>
+</div>
+{{/if}}
 </div>
 {{/inline}}
 {{/layout}}
