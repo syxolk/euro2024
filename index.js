@@ -63,17 +63,7 @@ app.use(express.static(__dirname + '/webroot'));
 
 // Logging
 if(process.env.NODE_ENV === 'production') {
-    const logDirectory = __dirname + '/log';
-    if(! fs.existsSync(logDirectory)) {
-        fs.mkdirSync(logDirectory);
-    }
-    const logStream = require('file-stream-rotator').getStream({
-        date_format: 'YYYYMMDD',
-        filename: logDirectory + '/access%DATE%.log',
-        frequency: 'daily',
-        verbose: false
-    });
-    app.use(morgan('combined', {stream: logStream}));
+    app.use(morgan('combined'));
 } else {
     app.use(morgan('dev'));
 }

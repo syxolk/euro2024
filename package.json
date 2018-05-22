@@ -21,7 +21,6 @@
     "express-sequelize-session": "^0.4.0",
     "express-session": "^1.15.6",
     "feed": "^1.1.1",
-    "file-stream-rotator": "^0.2.1",
     "hbs": "^4.0.1",
     "helmet": "^3.12.0",
     "moment": "^2.21.0",
