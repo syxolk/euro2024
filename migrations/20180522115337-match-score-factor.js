@@ -13,7 +13,7 @@ module.exports = {
                     UPDATE "MatchType" SET "scoreFactor" = 3 WHERE code = 'QF';
                     UPDATE "MatchType" SET "scoreFactor" = 4 WHERE code = 'SF';
                     UPDATE "MatchType" SET "scoreFactor" = 6 WHERE code = 'TP';
-                    UPDATE "MatchType" SET "scoreFactor" = 6 WHERE code = 'F';
+                    UPDATE "MatchType" SET "scoreFactor" = 6 WHERE code = 'FIN';
                 `, {raw: true, transaction: t});
             }).then(() => {
                 return seq.query(`

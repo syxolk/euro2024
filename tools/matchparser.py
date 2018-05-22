@@ -59,7 +59,7 @@ def get_types():
         {"code": "QF", "name": "Quarter-final"},
         {"code": "SF", "name": "Semi-final"},
         {"code": "TP", "name": "Play-off for third place"},
-        {"code": "F", "name": "Final"},
+        {"code": "FIN", "name": "Final"},
     ]
 
 
