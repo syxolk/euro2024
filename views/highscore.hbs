@@ -24,52 +24,29 @@
 {{/if}}
 
 <table class="table table-striped">
+<thead>
 <tr>
     <th></th>
+    <th></th>
+    <th></th>
+    <th colspan="2" class="text-center">{{> correct_bet}}</th>
+    <th colspan="2" class="text-center">{{> correct_diff}}</th>
+    <th colspan="2" class="text-center">{{> correct_winner}}</th>
+    <th colspan="2" class="text-center">{{> wrong_bet}}</th>
+    {{#if loggedIn}}<th></th>{{/if}}
+</tr>
+<tr>
+    <th></th>
+    {{#each columns}}
     <th>
-    {{#if orderName}}
-        <span class="ordered-column">Name</span>
-    {{else}}
-        <a href="/highscore?order=name{{#if friends}}&friends=1{{/if}}">Name</a>
-    {{/if}}
+        <a {{#if active}}class="ordered-column"{{/if}} href="{{url}}">
+            {{title}} {{#if active}}{{#if (eq orderDir "desc")}}&#x25B2;{{else}}&#x25BC;{{/if}}{{/if}}
+        </a>
     </th>
-    <th>
-    {{#if orderScore}}
-        <span class="ordered-column">Score</span>
-    {{else}}
-        <a href="/highscore{{#if friends}}?friends=1{{/if}}">Score</a>
-    {{/if}}
-    </th>
-    <th title="Correct bet">
-    {{#if order3}}
-        <span class="ordered-column">{{> correct_bet}}</span>
-    {{else}}
-        <a href="/highscore?order=3{{#if friends}}&friends=1{{/if}}">{{> correct_bet}}</a>
-    {{/if}}
-    </th>
-    <th title="Correct goal difference">
-    {{#if order2}}
-        <span class="ordered-column">{{> correct_diff}}</span>
-    {{else}}
-        <a href="/highscore?order=2{{#if friends}}&friends=1{{/if}}">{{> correct_diff}}</a>
-    {{/if}}
-    </th>
-    <th title="Correct winner">
-    {{#if order1}}
-        <span class="ordered-column">{{> correct_winner}}</span>
-    {{else}}
-        <a href="/highscore?order=1{{#if friends}}&friends=1{{/if}}">{{> correct_winner}}</a>
-    {{/if}}
-    </th>
-    <th title="Wrong bet">
-    {{#if order0}}
-        <span class="ordered-column">{{> wrong_bet}}</span>
-    {{else}}
-        <a href="/highscore?order=0{{#if friends}}&friends=1{{/if}}">{{> wrong_bet}}</a>
-    {{/if}}
-    </th>
+    {{/each}}
     {{#if loggedIn}}<th><span title="Friends">&#x1F465;</span></th>{{/if}}
 </tr>
+</thead>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
     <td>{{rank}}.</td>
@@ -84,9 +61,13 @@
     </td>
     <td class="{{#if (isZero score)}}is-zero{{/if}}">{{score}}</td>
     <td class="{{#if (isZero count3)}}is-zero{{/if}}">{{count3}}</td>
+    <td class="{{#if (isZero total3)}}is-zero{{/if}}">{{total3}}</td>
     <td class="{{#if (isZero count2)}}is-zero{{/if}}">{{count2}}</td>
+    <td class="{{#if (isZero total2)}}is-zero{{/if}}">{{total2}}</td>
     <td class="{{#if (isZero count1)}}is-zero{{/if}}">{{count1}}</td>
+    <td class="{{#if (isZero total1)}}is-zero{{/if}}">{{total1}}</td>
     <td class="{{#if (isZero count0)}}is-zero{{/if}}">{{count0}}</td>
+    <td class="{{#if (isZero total0)}}is-zero{{/if}}">{{total0}}</td>
     {{#if @root.loggedIn}}
     <td>
         {{#if isme}}

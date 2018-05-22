@@ -28,35 +28,35 @@
         <p>Average bet: <b>{{toFixed1 avghome}} : {{toFixed1 avgaway}}</b></p>
     </div>
     <table class="table">
-        {{#if score3}}
+        {{#if bets.correct}}
         <tr>
             <td class="col-md-1">{{> correct_bet}}</td>
             <td class="col-md-11">
-            {{#each score3}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a>{{/each}}
+            {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a>{{/each}}
             </td>
         </tr>
         {{/if}}
-        {{#if score2}}
+        {{#if bets.diff}}
         <tr>
             <td class="col-md-1">{{> correct_diff}}</td>
             <td class="col-md-11">
-            {{#each score2}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
-        {{#if score1}}
+        {{#if bets.winner}}
         <tr>
             <td class="col-md-1">{{> correct_winner}}</td>
             <td class="col-md-11">
-            {{#each score1}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
-        {{#if score0}}
+        {{#if bets.wrong}}
         <tr>
             <td class="col-md-1">{{> wrong_bet}}</td>
             <td class="col-md-11">
-            {{#each score0}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}

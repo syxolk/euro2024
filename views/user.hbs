@@ -1,6 +1,17 @@
 {{#> layout}}
 {{#*inline "head"}}
 <title>{{user.name}} - Euro 2016</title>
+<style>
+.result-correct {
+    background-color: #009900;
+}
+.result-diff {
+    background-color: #00e600;
+}
+.result-winner {
+    background-color: #ccffcc;
+}
+</style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -13,7 +24,7 @@
 
 <table class="table">
     {{#each matches}}
-    <tr class="score-{{dataValues.score}}">
+    <tr class="result-{{dataValues.result}}">
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
         <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
         <td class="text-right">

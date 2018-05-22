@@ -34,9 +34,14 @@ module.exports = function(app) {
                 },
                 attributes: {
                     include: [
-                        [instance.fn('coalesce', instance.fn('calc_score',
-                            instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                            instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                        [instance.fn('coalesce',
+                            instance.fn('calc_bet_result',
+                                instance.col('Match.goalsHome'),
+                                instance.col('Match.goalsAway'),
+                                instance.col('Bets.goalsHome'),
+                                instance.col('Bets.goalsAway')),
+                            instance.cast('wrong', 'bet_result')),
+                        'result']
                     ]
                 },
                 include: [
@@ -64,53 +69,6 @@ module.exports = function(app) {
             } else {
                 res.status(404).render('404', {loggedIn: !!req.user});
             }
-        });
-    });
-
-    // API function for the score chart
-    app.get('/user/:id/history', function(req, res) {
-        Match.findAll({
-            where: {
-                when: {$lt: instance.fn('now')},
-                goalsHome: {$ne: null},
-                goalsAway: {$ne: null}
-            },
-            attributes: [
-                [instance.fn('coalesce', instance.fn('calc_score',
-                    instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                    instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
-            ],
-            include: [
-                {
-                    model: Bet,
-                    required: false,
-                    where : {
-                        'UserId': req.params.id
-                    }
-                }, {
-                    model: Team,
-                    as: 'HomeTeam'
-                }, {
-                    model: Team,
-                    as: 'AwayTeam'
-                }
-            ],
-            order: [['when', 'ASC']]
-        }).then(function(matches) {
-            res.json({
-                ok: true,
-                data: matches.map(function(match) {
-                    return match.get('score');
-                }),
-                labels: matches.map(function(match) {
-                    return match.HomeTeam.code + ' ' + match.AwayTeam.code;
-                })
-            });
-        }).catch(function(error) {
-            res.status(500).json({
-                ok: false,
-                error: 'INTERNAL'
-            });
         });
     });
 
@@ -143,9 +101,16 @@ module.exports = function(app) {
                             goalsAway: {$ne: null}
                         },
                         attributes: [
-                            [instance.fn('coalesce', instance.fn('calc_score',
-                                instance.col('Match.goalsHome'), instance.col('Match.goalsAway'),
-                                instance.col('Bets.goalsHome'), instance.col('Bets.goalsAway')), 0), 'score']
+                            [instance.fn('coalesce',
+                                instance.fn('calc_bet_score',
+                                    instance.fn('calc_bet_result',
+                                        instance.col('Match.goalsHome'),
+                                        instance.col('Match.goalsAway'),
+                                        instance.col('Bets.goalsHome'),
+                                        instance.col('Bets.goalsAway')
+                                    ),
+                                instance.col('MatchType.scoreFactor')),
+                            0), 'score']
                         ],
                         include: [
                             {
@@ -160,6 +125,8 @@ module.exports = function(app) {
                             }, {
                                 model: Team,
                                 as: 'AwayTeam'
+                            }, {
+                                model: MatchType,
                             }
                         ],
                         order: [['when', 'ASC']]
