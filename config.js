@@ -11,4 +11,8 @@ module.exports = {
     //process.env.DB_URL || 'postgres://wm2018:123456@localhost:5432/wm2018',
     httpPort: process.env.PORT || 8080,
     sessionSecret: process.env.SESSION_SECRET || 'octocat',
+
+    // Timezone offset used for all datetime outputs (by moment.js)
+    // Defaults to CEST (Central European Summer Time)
+    utcOffset: process.env.UTC_OFFSET || "+0200",
 };

@@ -1,5 +1,6 @@
 const moment = require('moment');
 const hbs = require('hbs');
+const config = require('./config');
 
 module.exports = () => {
     moment.updateLocale('en', {
@@ -18,15 +19,15 @@ module.exports = () => {
     });
 
     hbs.registerHelper('calendar', function(when) {
-        return moment(when).format('dddd, MMMM Do, HH:mm');
+        return moment(when).utcOffset(config.utcOffset).format('dddd, MMMM Do, HH:mm');
     });
 
     hbs.registerHelper('calendarShort', function(when) {
-        return moment(when).format('MMM D, HH:mm');
+        return moment(when).utcOffset(config.utcOffset).format('MMM D, HH:mm');
     });
 
     hbs.registerHelper('newsDate', function(when) {
-        return moment(when).calendar();
+        return moment(when).utcOffset(config.utcOffset).calendar();
     });
 
     hbs.registerHelper('toFixed1', function(number) {
