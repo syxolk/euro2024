@@ -13,7 +13,9 @@
             <ul class="nav navbar-nav">
                 {{#if loggedIn}}
                 <li><a href="{{@origin}}/me">My Profile</a></li>
-                <li><a href="{{@origin}}/mybets">My Bets</a></li>
+                <li><a href="{{@origin}}/mybets">My Bets
+                    {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="label label-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
+                </a></li>
                 {{/if}}
                 <li><a href="{{@origin}}/live">Live Matches</a></li>
                 <li><a href="{{@origin}}/past">Past Matches</a></li>

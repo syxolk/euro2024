@@ -10,6 +10,12 @@
 
 <h3>My Bets for {{user.name}}</h3>
 
+{{#if (gt upcomingMatchesWithoutBet 0)}}
+<div class="alert alert-warning">
+    <strong>You should place bets for the upcoming matches!</strong>
+</div>
+{{/if}}
+
 <table class="table">
     {{#each matches}}
     <tr class="autosave">
