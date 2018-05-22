@@ -20,7 +20,7 @@
     {{#each matches}}
     <tr class="autosave">
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
-        <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span></td>
+        <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span> {{> score_factor MatchType.scoreFactor}}</td>
         <td class="text-right">
             <em class="hidden-xs">{{HomeTeam.name}}</em><em class="visible-xs">{{HomeTeam.code}}</em>
         </td>

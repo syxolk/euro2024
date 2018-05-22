@@ -8,7 +8,25 @@ const MatchType = instance.model('MatchType');
 
 module.exports = function(app) {
     app.get('/live', function(req, res) {
-        instance.query('SELECT * FROM match_table', {type: instance.QueryTypes.SELECT})
+        instance.query(`
+            SELECT "Match"."id" as id,
+            "Match"."when" as when,
+            (SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
+            (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
+            (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
+            count("Bet"."id") as countbets,
+            round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
+            round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
+            avg("Bet"."goalsHome") as avghome,
+            avg("Bet"."goalsAway") as avgaway,
+            "Match"."tv" as tv,
+            (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType".id = "Match"."MatchTypeId") as score_factor
+            FROM "Match"
+             -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
+            JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
+            WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL
+            GROUP BY "Match"."id";
+        `, {type: instance.QueryTypes.SELECT})
         .then(function(matches) {
             bluebird.map(matches, function(match) {
                 return Bet.findAll({

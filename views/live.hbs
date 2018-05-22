@@ -11,6 +11,7 @@
     <div class="panel-heading">
         <h2 class="panel-title">{{hometeam}} : {{awayteam}} ({{matchtype}})
             <span class="label label-default">{{tv}}</span>
+            {{> score_factor score_factor }}
             <small class="pull-right">{{calendar when}}</small>
         </h2>
     </div>
@@ -50,7 +51,7 @@
             <td class="col-md-3 text-right"><em>{{HomeTeam.name}}</em></td>
             <td class="col-md-1 text-center">:</td>
             <td class="col-md-3 text-left"><em>{{AwayTeam.name}}</em></td>
-            <td class="col-md-1"><span class="label label-default">{{tv}}</span></td>
+            <td class="col-md-1"><span class="label label-default">{{tv}}</span> {{> score_factor MatchType.scoreFactor }}</td>
         </tr>
         {{/each}}
     </table>

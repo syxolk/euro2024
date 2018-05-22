@@ -9,6 +9,7 @@ module.exports = function(app) {
             SELECT "Match"."id" as id,
             "Match"."when" as when,
             (SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
+            (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as score_factor,
              "Match"."goalsHome" as goalshome,
              "Match"."goalsAway" as goalsaway,
             (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
