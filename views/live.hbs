@@ -48,9 +48,9 @@
         <tr>
             <td class="col-md-3">{{calendar when}}</td>
             <td class="col-md-1">{{MatchType.name}}</td>
-            <td class="col-md-3 text-right"><em>{{HomeTeam.name}}</em></td>
+            <td class="col-md-3 text-right"><em>{{#if HomeTeam}}{{HomeTeam.name}}{{else}}{{placeholderHome}}{{/if}}</em></td>
             <td class="col-md-1 text-center">:</td>
-            <td class="col-md-3 text-left"><em>{{AwayTeam.name}}</em></td>
+            <td class="col-md-3 text-left"><em>{{#if AwayTeam}}{{AwayTeam.name}}{{else}}{{placeholderAway}}{{/if}}</em></td>
             <td class="col-md-1"><span class="label label-default">{{tv}}</span> {{> score_factor MatchType.scoreFactor }}</td>
         </tr>
         {{/each}}

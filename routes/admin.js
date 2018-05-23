@@ -16,8 +16,18 @@ module.exports = function(app) {
         const now = new Date();
 
         bluebird.join(
+            Match.findAll({
+                where: {
+                    "HomeTeamId": null,
+                    "AwayTeamId": null,
+                },
+                include: [
+                    {
+                        model: MatchType
+                    }
+                ]
+            }),
             Team.findAll({order: [['code', 'ASC']]}),
-            MatchType.findAll(),
             Match.findAll({
                 where: {
                     when: { $lt: instance.fn('now') },
@@ -37,13 +47,11 @@ module.exports = function(app) {
                 ],
                 order: [['when', 'ASC']]
             }),
-            function(teams, matchTypes, liveMatches) {
+            function(matchesWithoutTeams, teams, liveMatches) {
             res.render('admin', {
+                matchesWithoutTeams,
                 teams,
-                matchTypes,
                 liveMatches,
-                date: moment().format('YYYY-MM-DD'),
-                time: moment().format('HH:mm'),
                 loggedIn: !!req.user,
                 csrfToken: req.csrfToken(),
                 message: req.flash('message'),
@@ -58,18 +66,21 @@ module.exports = function(app) {
             return;
         }
 
-        if(req.body.command === 'create_match') {
-            Match.create({
-                HomeTeamId: req.body.home,
-                AwayTeamId: req.body.away,
-                MatchTypeId: req.body.type,
-                when: moment(req.body.date + ' ' + req.body.time, 'YYYY-MM-DD HH:mm').toDate()
-            }).then(function(match) {
-                pushMatchCreate(match.id);
-                req.flash('message', 'Match ' + match.id + ' created.');
+        if(req.body.command === 'set_teams') {
+            const matchId = parseInt(req.body.match);
+            Match.update({
+                HomeTeamId: parseInt(req.body.home),
+                AwayTeamId: parseInt(req.body.away),
+            }, {
+                where: {
+                    id: matchId
+                }
+            }).then(() => {
+                pushMatchCreate(matchId);
+                req.flash('message', 'Match ' + matchId + ' created.');
                 res.redirect('/admin');
             }).catch(function(err) {
-                req.flash('error', 'Failed to create match.');
+                req.flash('error', 'Failed to set teams.');
                 res.redirect('/admin');
             });
         } else if(req.body.command === 'match_result') {

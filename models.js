@@ -33,7 +33,9 @@ const Match = instance.define('Match', {
     goalsHome: Sequelize.INTEGER,
     goalsAway: Sequelize.INTEGER,
     when: {type: Sequelize.DATE, allowNull: false},
-    tv: Sequelize.STRING
+    tv: Sequelize.STRING,
+    placeholderHome: Sequelize.TEXT,
+    placeholderAway: Sequelize.TEXT,
 }, {
     timestamps: false
 });
@@ -89,8 +91,8 @@ User.hasMany(Bet);
 Bet.belongsTo(Match, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 Match.hasMany(Bet);
 
-Match.belongsTo(Team, {as: 'HomeTeam', foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
-Match.belongsTo(Team, {as: 'AwayTeam', foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
+Match.belongsTo(Team, {as: 'HomeTeam', foreignKey: {allowNull: true}, onDelete: 'CASCADE'});
+Match.belongsTo(Team, {as: 'AwayTeam', foreignKey: {allowNull: true}, onDelete: 'CASCADE'});
 Match.belongsTo(MatchType, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 
 User.belongsToMany(Match, {through: History});

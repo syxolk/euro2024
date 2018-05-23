@@ -19,6 +19,14 @@
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">
         <div class="col-sm-6">
+            <select name="match" class="form-control">
+                <option selected disabled>--- Match ---</option>
+                {{#each matchesWithoutTeams}}
+                <option value="{{id}}">{{placeholderHome}} : {{placeholderAway}} ({{calendarShort when}}) {{MatchType.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="col-sm-3">
             <select name="home" class="form-control" required>
                 <option selected disabled>--- Home Team ---</option>
                 {{#each teams}}
@@ -26,7 +34,7 @@
                 {{/each}}
             </select>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <select name="away" class="form-control">
                 <option selected disabled>--- Away Team ---</option>
                 {{#each teams}}
@@ -36,27 +44,12 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-6">
-            <select name="type" class="form-control">
-                <option selected disabled>--- Match Type ---</option>
-                {{#each matchTypes}}
-                <option value="{{id}}">{{name}}</option>
-                {{/each}}
-            </select>
-        </div>
-        <div class="col-sm-3">
-            <input type="date" name="date" id="date" class="form-control" value="{{date}}" placeholder="YYYY-MM-DD" required>
-        </div>
-        <div class="col-sm-3">
-            <input type="time" name="time" id="time" class="form-control" value="{{time}}" placeholder="HH:MM" required>
-        </div>
-    </div>
-    <div class="form-group">
         <div class="col-sm-12">
-            <button name="command" value="create_match" type="submit" class="btn btn-primary">Create Match</button>
+            <button name="command" value="set_teams" type="submit" class="btn btn-primary">Set Teams</button>
         </div>
     </div>
 </form>
+<hr>
 <form method="post" action="/admin" class="form-horizontal">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">
@@ -64,7 +57,7 @@
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each liveMatches}}
-                <option value="{{id}}">{{HomeTeam.name}} : {{AwayTeam.name}} ({{calendarShort when}})</option>
+                <option value="{{id}}">{{HomeTeam.name}} : {{AwayTeam.name}} ({{calendarShort when}}) {{MatchType.name}}</option>
                 {{/each}}
             </select>
         </div>
@@ -81,6 +74,7 @@
         </div>
     </div>
 </form>
+<hr>
 <form method="post" action="/admin" class="form-horizontal">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">

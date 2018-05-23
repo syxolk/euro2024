@@ -1,0 +1,98 @@
+[
+    {
+        "placeholderHome": "1C",
+        "placeholderAway": "2D",
+        "when": "2018-06-30T14:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1A",
+        "placeholderAway": "2B",
+        "when": "2018-06-30T18:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1B",
+        "placeholderAway": "2A",
+        "when": "2018-07-01T14:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1D",
+        "placeholderAway": "2C",
+        "when": "2018-07-01T18:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1E",
+        "placeholderAway": "2F",
+        "when": "2018-07-02T14:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1G",
+        "placeholderAway": "2H",
+        "when": "2018-07-02T18:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1F",
+        "placeholderAway": "2E",
+        "when": "2018-07-03T14:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "1H",
+        "placeholderAway": "2G",
+        "when": "2018-07-03T18:00:00Z",
+        "type": "R16"
+    },
+    {
+        "placeholderHome": "W49",
+        "placeholderAway": "W50",
+        "when": "2018-07-06T14:00:00Z",
+        "type": "QF"
+    },
+    {
+        "placeholderHome": "W53",
+        "placeholderAway": "W54",
+        "when": "2018-07-06T18:00:00Z",
+        "type": "QF"
+    },
+    {
+        "placeholderHome": "W55",
+        "placeholderAway": "W56",
+        "when": "2018-07-07T14:00:00Z",
+        "type": "QF"
+    },
+    {
+        "placeholderHome": "W51",
+        "placeholderAway": "W52",
+        "when": "2018-07-07T18:00:00Z",
+        "type": "QF"
+    },
+    {
+        "placeholderHome": "W57",
+        "placeholderAway": "W58",
+        "when": "2018-07-10T18:00:00Z",
+        "type": "SF"
+    },
+    {
+        "placeholderHome": "W59",
+        "placeholderAway": "W60",
+        "when": "2018-07-11T18:00:00Z",
+        "type": "SF"
+    },
+    {
+        "placeholderHome": "L61",
+        "placeholderAway": "L62",
+        "when": "2018-07-14T14:00:00Z",
+        "type": "TP"
+    },
+    {
+        "placeholderHome": "W61",
+        "placeholderAway": "W62",
+        "when": "2018-07-15T15:00:00Z",
+        "type": "FIN"
+    }
+]
