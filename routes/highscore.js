@@ -44,9 +44,7 @@ module.exports = function(app) {
             });
 
             res.render('highscore', {
-                csrfToken: req.csrfToken(),
                 users: results,
-                loggedIn: !!req.user,
                 columns,
                 friends: onlyFriends,
             });

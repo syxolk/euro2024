@@ -48,7 +48,7 @@ module.exports = function(app) {
                 match.bets = bets;
             }
 
-            res.render('past', {matches, loggedIn: !!req.user});
+            res.render('past', {matches});
         });
     });
 };

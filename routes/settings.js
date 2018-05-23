@@ -8,8 +8,7 @@ module.exports = function(app) {
             return;
         }
 
-        res.render('settings', {user: req.user, csrfToken: req.csrfToken(),
-            loggedIn: true});
+        res.render('settings');
     });
 
     app.post('/settings', function(req, res) {

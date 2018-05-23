@@ -10,9 +10,12 @@ const BCRYPT_ROUNDS = 10;
 
 module.exports = function(app) {
     app.get('/register', function(req, res) {
+        if(req.user) {
+            res.redirect('/me');
+            return;
+        }
+
         res.render('register', {
-            csrfToken: req.csrfToken(),
-            loggedIn: !!req.user,
             error: req.flash('error'),
             name: req.flash('name'),
             email: req.flash('email')
@@ -53,15 +56,9 @@ module.exports = function(app) {
             user.emailConfirmed = true;
             return user.save();
         }).then(function(user) {
-            res.render('activate', {
-                success: true,
-                loggedIn: !!req.user
-            });
+            res.render('activate', {success: true});
         }).catch(function() {
-            res.render('activate', {
-                success: false,
-                loggedIn: !!req.user
-            });
+            res.render('activate', {success: false});
         });
     });
 };

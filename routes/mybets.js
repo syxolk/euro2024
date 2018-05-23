@@ -36,12 +36,7 @@ module.exports = function(app) {
             ],
             order: [['when', 'ASC']]
         }).then((matches) => {
-            res.render('mybets', {
-                matches,
-                csrfToken: req.csrfToken(),
-                loggedIn: !!req.user,
-                user: req.user,
-            });
+            res.render('mybets', { matches });
         });
     });
 };

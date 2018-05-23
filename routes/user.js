@@ -14,7 +14,7 @@ module.exports = function(app) {
         const user = parseInt(req.params.id);
 
         if(! Number.isInteger(user)) {
-            res.status(404).render('404', {loggedIn : true});
+            res.status(404).render('404');
             return;
         }
 
@@ -63,11 +63,11 @@ module.exports = function(app) {
                 ],
                 order: [['when', 'DESC']]
             })
-        ).spread(function(user, matches) {
+        ).spread(function(displayedUser, matches) {
             if(user) {
-                res.render('user', {user, matches, loggedIn: !!req.user});
+                res.render('user', {displayedUser, matches});
             } else {
-                res.status(404).render('404', {loggedIn: !!req.user});
+                res.status(404).render('404');
             }
         });
     });

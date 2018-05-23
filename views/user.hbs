@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{user.name}} - Euro 2016</title>
+<title>{{displayedUser.name}} - Euro 2016</title>
 <style>
 .result-correct {
     background-color: #009900;
@@ -17,7 +17,7 @@
 {{> navbar}}
 <div class="container">
 
-<h3>{{user.name}} <small>Score {{user.score}}, Ranking {{user.rank}}</small></h3>
+<h3>{{displayedUser.name}} <small>Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
 
 {{#if matches}}
 <canvas id="history" width="100" height="30"></canvas>

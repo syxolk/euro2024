@@ -36,9 +36,12 @@ module.exports = function(app) {
     });
 
     app.get('/', function(req, res) {
+        if(req.user) {
+            res.redirect('/me');
+            return;
+        }
+
         res.render('login', {
-            csrfToken: req.csrfToken(),
-            loggedIn: !!req.user,
             error: req.flash('error'),
             email: req.flash('email')
         });

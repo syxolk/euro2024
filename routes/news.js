@@ -7,7 +7,7 @@ const bluebird = require('bluebird');
 module.exports = function(app) {
     app.get('/news', function (req, res) {
         News.findAll({limit: 10, order: [['createdAt', 'DESC']]}).then(function(news) {
-            res.render('news', {news, loggedIn: !!req.user});
+            res.render('news', {news});
         }).catch(function() {
             res.status(500).send('Internal Error');
         });
