@@ -38,7 +38,9 @@ module.exports = function(app) {
                 });
             }).then(function(bets) {
                 for(var i = 0; i < matches.length; i++) {
-                    matches[i].bets = bets[i];
+                    matches[i].betsHome = bets[i].filter((x) => x.goalsHome > x.goalsAway);
+                    matches[i].betsDraw = bets[i].filter((x) => x.goalsHome === x.goalsAway);
+                    matches[i].betsAway = bets[i].filter((x) => x.goalsHome < x.goalsAway);
                     matches[i].draw = 100 - matches[i].winnerhome - matches[i].winneraway;
                 }
 

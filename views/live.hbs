@@ -27,10 +27,16 @@
                 {{winneraway}}% {{awayteam}}
             </div>
         </div>
-        <p>Average bet: <b>{{toFixed1 avghome}}</b> : <b>{{toFixed1 avgaway}}</b></p>
     </div>
+    <table class="table table-bordered">
+        <tr>
+            <td style="width:33%">{{#each betsHome}}{{#if @first}}{{else}}<br>{{/if}}{{goalsHome}}:{{goalsAway}} <a href="/user/{{User.id}}">{{User.name}}</a>{{/each}}</td>
+            <td style="width:34%">{{#each betsDraw}}{{#if @first}}{{else}}<br>{{/if}}{{goalsHome}}:{{goalsAway}} <a href="/user/{{User.id}}">{{User.name}}</a>{{/each}}</td>
+            <td style="width:33%">{{#each betsAway}}{{#if @first}}{{else}}<br>{{/if}}{{goalsHome}}:{{goalsAway}} <a href="/user/{{User.id}}">{{User.name}}</a>{{/each}}</td>
+        </tr>
+    </table>
     <div class="panel-footer">
-        {{#each bets}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{User.id}}">{{User.name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+        Average bet: <b>{{toFixed1 avghome}}</b> : <b>{{toFixed1 avgaway}}</b>
     </div>
 </div>
 {{/each}}
