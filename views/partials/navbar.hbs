@@ -26,7 +26,12 @@
             <ul class="nav navbar-nav navbar-right">
                 {{#if loggedIn}}
                 <li><a href="{{@origin}}/settings">Settings</a></li>
-                <li><a href="{{@origin}}/logout">Logout</a><li>
+                <li>
+                    <form method="post" action="/logout">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                        <button type="submit" class="btn btn-link" style="padding-top:15px;padding-bottom:15px;">Logout</button>
+                    </form>
+                <li>
                 {{else}}
                 <li><a href="{{@origin}}/register">Register</a><li>
                 <li><a href="{{@origin}}/login">Login</a><li>
