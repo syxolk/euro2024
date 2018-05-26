@@ -64,7 +64,7 @@ module.exports = function(app) {
                 order: [['when', 'DESC']]
             })
         ).spread(function(displayedUser, matches) {
-            if(user) {
+            if(displayedUser) {
                 res.render('user', {displayedUser, matches});
             } else {
                 res.status(404).render('404');
