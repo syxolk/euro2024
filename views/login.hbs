@@ -27,12 +27,24 @@
             <a href="/register">Register</a> or use one of the social logins.</span>
         </div>
     </form>
-    <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{@origin}}/auth/facebook">
-        <i class="fa fa-facebook"></i> Sign in with Facebook
-    </a>
-    <a class="btn btn-block btn-lg btn-social btn-google" href="{{@origin}}/auth/google">
-        <i class="fa fa-google"></i> Sign in with Google
-    </a>
+    {{#if enabledFacebook}}
+        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{@origin}}/auth/facebook">
+            <i class="fa fa-facebook"></i> Sign in with Facebook
+        </a>
+    {{else}}
+        <div class="alert alert-warning">
+            Facebook Login disabled.
+        </div>
+    {{/if}}
+    {{#if enabledGoogle}}
+        <a class="btn btn-block btn-lg btn-social btn-google" href="{{@origin}}/auth/google">
+            <i class="fa fa-google"></i> Sign in with Google
+        </a>
+    {{else}}
+        <div class="alert alert-warning">
+            Google Login disabled.
+        </div>
+    {{/if}}
 </div>
 {{/inline}}
 {{/layout}}

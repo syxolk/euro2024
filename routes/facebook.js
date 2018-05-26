@@ -2,7 +2,6 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const config = require('../config');
 const instance = require('../models').instance;
-const common = require('./common');
 
 const User = instance.model('User');
 
@@ -17,11 +16,31 @@ passport.use(new FacebookStrategy({
             facebookId: profile.id
         },
         defaults: {
-            name: common.normalizeDisplayName(profile.displayName)
+            name: "Anonymous"
         }
     }).spread(function(user, created) {
         cb(null, user);
     }).catch(function(err) {
+        cb(err);
+    });
+}));
+
+passport.use('connect-facebook', new FacebookStrategy({
+    clientID: config.facebook.clientID,
+    clientSecret: config.facebook.clientSecret,
+    callbackURL: config.origin + '/connect/facebook/callback',
+    enableProof: true,
+    passReqToCallback: true,
+}, function(req, accessToken, refreshToken, profile, cb) {
+    if(!req.user) {
+        cb('Not logged in');
+        return;
+    }
+
+    req.user.facebookId = profile.id;
+    req.user.save().then(() => {
+        cb(null, req.user);
+    }).catch((err) => {
         cb(err);
     });
 }));
@@ -33,4 +52,26 @@ module.exports = function(app) {
         successRedirect: '/me',
         failureRedirect: '/login'
     }));
+
+    app.get('/connect/facebook', passport.authenticate('connect-facebook'));
+
+    app.get('/connect/facebook/callback', passport.authenticate('connect-facebook', {
+        successRedirect: '/settings',
+        failureRedirect: '/settings'
+    }));
+
+    app.post('/disconnect/facebook', function(req, res) {
+        if(!req.user) {
+            res.redirect('/login');
+            return;
+        }
+
+        req.user.facebookId = null;
+        req.user.save().then(() => {
+            res.redirect('/settings');
+        }).catch((err) => {
+            req.flash("error", "Could not disconnect Facebook account.");
+            res.redirect('/settings');
+        });
+    });
 };

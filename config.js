@@ -16,3 +16,17 @@ module.exports = {
     // Defaults to CEST (Central European Summer Time)
     utcOffset: process.env.UTC_OFFSET || "+0200",
 };
+
+if(process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
+    module.exports.facebook = {
+        clientID: process.env.FACEBOOK_APP_ID,
+        clientSecret: process.env.FACEBOOK_APP_SECRET,
+    };
+}
+
+if(process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
+    module.exports.google = {
+        clientID: process.env.GOOGLE_APP_ID,
+        clientSecret: process.env.GOOGLE_APP_SECRET,
+    };
+}

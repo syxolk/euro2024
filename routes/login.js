@@ -3,6 +3,7 @@ const User = instance.model('User');
 const bcrypt  = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const config = require('../config');
 
 passport.use(new LocalStrategy({
         usernameField: 'email',
@@ -42,6 +43,8 @@ module.exports = function(app) {
         }
 
         res.render('login', {
+            enabledFacebook: !!config.facebook,
+            enabledGoogle: !!config.google,
             error: req.flash('error'),
             email: req.flash('email')
         });

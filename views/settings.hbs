@@ -5,6 +5,14 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+
+{{#if error}}
+<div class="alert alert-danger" role="alert">
+    {{error}}
+</div>
+{{/if}}
+
+<h2>General Settings</h2>
 <form method="post" action="{{@origin}}/settings">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">
@@ -13,6 +21,52 @@
     </div>
     <button type="submit" class="btn btn-default">Save</button>
 </form>
+<h2>Connected Accounts</h2>
+
+{{#if enabledFacebook}}
+{{#if user.facebookId}}
+<div class="alert alert-success">
+<strong>You've connected your Facebook account!</strong>
+<form method="post" action="/disconnect/facebook">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <button type="submit" class="btn btn-danger">Disconnect Facebook</button>
+</form>
+</div>
+{{else}}
+<div class="alert alert-info">
+<a class="btn btn-primary" href="/connect/facebook">Connect Facebook</a>
+<strong>You want to use your Facebook account for login?</strong>
+We will NOT store any additional information except for your profile ID.
+</div>
+{{/if}}
+{{else}}
+<div class="alert alert-warning">
+    Facebook Login disabled.
+</div>
+{{/if}}
+
+{{#if enabledGoogle}}
+{{#if user.googleId}}
+<div class="alert alert-success">
+<strong>You've connected your Google account!</strong>
+<form method="post" action="/disconnect/google">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <button type="submit" class="btn btn-danger">Disconnect Google</button>
+</form>
+</div>
+{{else}}
+<div class="alert alert-info">
+<a class="btn btn-primary" href="/connect/google">Connect Google</a>
+<strong>You want to use your Google account for login?</strong>
+We will NOT store any additional information except for your profile ID.
+</div>
+{{/if}}
+{{else}}
+<div class="alert alert-warning">
+    Google Login disabled.
+</div>
+{{/if}}
+
 </div>
 {{/inline}}
 {{/layout}}
