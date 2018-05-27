@@ -39,7 +39,15 @@ module.exports = function(app) {
                                 instance.col('Bets.goalsHome'),
                                 instance.col('Bets.goalsAway')),
                             instance.cast('wrong', 'bet_result')),
-                        'result']
+                        'result'],
+                        [instance.fn('calc_bet_score',
+                            instance.fn('calc_bet_result',
+                                instance.col('Match.goalsHome'),
+                                instance.col('Match.goalsAway'),
+                                instance.col('Bets.goalsHome'),
+                                instance.col('Bets.goalsAway')),
+                            instance.col('MatchType.scoreFactor')),
+                        'score'],
                     ]
                 },
                 include: [

@@ -20,9 +20,15 @@
 <h3>{{displayedUser.name}} <small>Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
 
 {{#if matches}}
-<canvas id="history" width="100" height="30"></canvas>
-
 <table class="table">
+    <thead>
+    <tr>
+        <th colspan="2"></th>
+        <th colspan="3" class="text-center">Match Result</th>
+        <th class="text-center">Bet</th>
+        <th class="text-center">Points</th>
+    </tr>
+    </thead>
     {{#each matches}}
     <tr class="result-{{dataValues.result}}">
         <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
@@ -37,10 +43,10 @@
             <em class="hidden-xs">{{AwayTeam.name}}</em><em class="visible-xs">{{AwayTeam.code}}</em>
         </td>
         <td class="text-center">
-        {{showGoals Bets.0.goalsHome}}
+        {{showGoals Bets.0.goalsHome}} : {{showGoals Bets.0.goalsAway}}
         </td>
-        <td class="text-center">
-        {{showGoals Bets.0.goalsAway}}
+        <td class="text-center {{#if (isZero dataValues.score)}}is-zero{{/if}}">
+        {{dataValues.score}}
         </td>
     </tr>
     {{/each}}
