@@ -5,26 +5,26 @@ module.exports = function(app) {
         const columns = [
             {title: "Name", orderBy: "name", orderDir: "asc"},
             {title: "Score", orderBy: "score", orderDir: "desc"},
-            {title: "Matches", orderBy: "count3", orderDir: "desc"},
-            {title: "Total", orderBy: "total3", orderDir: "desc"},
-            {title: "Matches", orderBy: "count2", orderDir: "desc"},
-            {title: "Total", orderBy: "total2", orderDir: "desc"},
-            {title: "Matches", orderBy: "count1", orderDir: "desc"},
-            {title: "Total", orderBy: "total1", orderDir: "desc"},
-            {title: "Matches", orderBy: "count0", orderDir: "desc"},
-            {title: "Total", orderBy: "total0", orderDir: "desc"},
+            {title: "Change", orderBy: "score_change", orderDir: "desc"},
+            {title: "CNT", orderBy: "count3", orderDir: "desc"},
+            {title: "PTS", orderBy: "total3", orderDir: "desc"},
+            {title: "CNT", orderBy: "count2", orderDir: "desc"},
+            {title: "PTS", orderBy: "total2", orderDir: "desc"},
+            {title: "CNT", orderBy: "count1", orderDir: "desc"},
+            {title: "PTS", orderBy: "total1", orderDir: "desc"},
+            {title: "CNT", orderBy: "count0", orderDir: "desc"},
         ];
 
         const orderBy = columns.some((c) => c.orderBy === req.query.order) ? req.query.order : 'score';
         const orderDir = req.query.dir === "asc" ? "asc" : "desc";
         const onlyFriends = req.query.friends === '1';
 
-        instance.query(`SELECT name, score, id,
+        instance.query(`SELECT name, score, score - score_past as score_change, id,
+                rank, rank_past, rank_past - rank as rank_change,
                 count3, count2, count1, count0,
-                total3, total2, total1, total0,
-            id = $id as isme, id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) as isfriend,
-            user_rank_history(id, 3) as history,
-            rank() over (order by score desc) as rank FROM score_table` +
+                total3, total2, total1,
+                id = $id as isme, id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) as isfriend
+            FROM highscore ` +
             (onlyFriends ? ' WHERE id = $id OR id in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id)' : '') +
             ' ORDER BY ' + orderBy + ' ' + orderDir + ', rank ASC, name ASC',
             {

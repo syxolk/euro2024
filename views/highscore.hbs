@@ -2,6 +2,11 @@
 {{#*inline "head"}}
 <link rel="canonical" href="/highscore">
 <title>Highscore - Euro 2016</title>
+<style>
+.table > tbody tr > td {
+    border-top: 1px solid #aaa !important;
+}
+</style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -29,10 +34,11 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
     <th colspan="2" class="text-center">{{> correct_bet}}</th>
     <th colspan="2" class="text-center">{{> correct_diff}}</th>
     <th colspan="2" class="text-center">{{> correct_winner}}</th>
-    <th colspan="2" class="text-center">{{> wrong_bet}}</th>
+    <th>{{> wrong_bet}}</th>
     {{#if loggedIn}}<th></th>{{/if}}
 </tr>
 <tr>
@@ -49,27 +55,28 @@
 </thead>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
-    <td>{{rank}}.</td>
+    <td>{{rank}}.
+        {{#if (gt0 rank_change)}}
+        <span class="history-up"><img src="{{asset "/arrow-up.svg"}}" height="14"> +{{rank_change}}</span>
+        {{/if}}
+        {{#if (lt0 rank_change)}}
+        <span class="history-down"><img src="{{asset "/arrow-down.svg"}}" height="14"> {{rank_change}}</span>
+        {{/if}}
+    </td>
     <td>
-        {{#if (gt0 history)}}
-        <span class="history-up" title="{{history}}">&#x2191;</span>
-        {{/if}}
-        {{#if (lt0 history)}}
-        <span class="history-down" title="{{history}}">&#x2193;</span>
-        {{/if}}
         <a href="{{@origin}}/user/{{id}}">{{name}}</a>
     </td>
-    <td class="{{#if (isZero score)}}is-zero{{/if}}">{{score}}</td>
-    <td class="{{#if (isZero count3)}}is-zero{{/if}}">{{count3}}</td>
+    <td class="{{#if (isZero score)}}is-zero{{/if}}"><b>{{score}}</b></td>
+    <td class="{{#if (isZero score_change)}}is-zero{{/if}}">+{{score_change}}</td>
+    <td class="{{#if (isZero count3)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count3}}</td>
     <td class="{{#if (isZero total3)}}is-zero{{/if}}">{{total3}}</td>
-    <td class="{{#if (isZero count2)}}is-zero{{/if}}">{{count2}}</td>
+    <td class="{{#if (isZero count2)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count2}}</td>
     <td class="{{#if (isZero total2)}}is-zero{{/if}}">{{total2}}</td>
-    <td class="{{#if (isZero count1)}}is-zero{{/if}}">{{count1}}</td>
+    <td class="{{#if (isZero count1)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count1}}</td>
     <td class="{{#if (isZero total1)}}is-zero{{/if}}">{{total1}}</td>
-    <td class="{{#if (isZero count0)}}is-zero{{/if}}">{{count0}}</td>
-    <td class="{{#if (isZero total0)}}is-zero{{/if}}">{{total0}}</td>
+    <td class="{{#if (isZero count0)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count0}}</td>
     {{#if @root.loggedIn}}
-    <td>
+    <td style="border-left:1px solid #aaa;">
         {{#if isme}}
         <span title="That's you!">&#x1F464;</span>
         {{else}}

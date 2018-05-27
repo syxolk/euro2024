@@ -82,14 +82,14 @@ module.exports = function(app) {
                 res.redirect('/admin');
             });
         } else if(req.body.command === 'match_result') {
-            instance.query('SELECT set_match_result($id,$home,$away)', {
+            instance.query('UPDATE "Match" SET "goalsHome" = $home, "goalsAway" = $away WHERE id = $id;', {
                 raw: true,
                 bind: {
                     id: parseInt(req.body.match),
                     home: parseInt(req.body.home),
                     away: parseInt(req.body.away)
                 }
-            }).then(function() {
+            }).then(() => {
                 pushMatchResult(req.body.match);
                 req.flash('message', 'Match ' + req.body.match + ' was updated.');
                 res.redirect('/admin');
