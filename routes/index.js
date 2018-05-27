@@ -13,7 +13,6 @@ module.exports = function(app) {
     require('./live')(app);
     require('./past')(app);
     require('./admin')(app);
-    require('./news')(app);
     require('./friend')(app);
     require('./mybets')(app);
 

@@ -60,10 +60,6 @@ const Bet = instance.define('Bet', {
     ]
 });
 
-const News = instance.define('News', {
-    headline: {type: Sequelize.TEXT, allowNull: false}
-});
-
 const History = instance.define('History', {
     rank: {type: Sequelize.INTEGER, allowNull: false}
 }, {
