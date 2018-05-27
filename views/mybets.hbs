@@ -28,20 +28,18 @@
                 <em>{{placeholderHome}}</em>
             {{/if}}
         </td>
-        <td class="text-center">:</td>
+        <td class="text-center">
+            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" style="display:inline;width:80px;" name="home" value="{{Bets.0.goalsHome}}">
+            <input type="hidden" name="match" value="{{id}}">
+            :
+            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" style="display:inline;width:80px;" name="away" value="{{Bets.0.goalsAway}}">
+        </td>
         <td class="text-left">
             {{#if AwayTeam}}
                 <em class="hidden-xs">{{AwayTeam.name}}</em><em class="visible-xs">{{AwayTeam.code}}</em>
             {{else}}
                 <em>{{placeholderAway}}</em>
             {{/if}}
-        </td>
-        <td class="text-center">
-            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" name="home" value="{{Bets.0.goalsHome}}">
-            <input type="hidden" name="match" value="{{id}}">
-        </td>
-        <td class="text-center">
-            <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center" name="away" value="{{Bets.0.goalsAway}}">
         </td>
     </tr>
     {{/each}}
