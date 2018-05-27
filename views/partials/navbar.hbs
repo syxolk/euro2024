@@ -17,7 +17,7 @@
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="label label-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
-                <li><a href="{{@origin}}/live">Live Matches</a></li>
+                <li><a href="{{@origin}}/live">Live Matches {{#if hasLiveMatches}}<span class="label label-success">NOW</span>{{/if}}</a></li>
                 <li><a href="{{@origin}}/past">Past Matches</a></li>
                 <li><a href="{{@origin}}/highscore">Highscore</a></li>
                 <li><a href="/news">News</a></li>

@@ -143,6 +143,22 @@ app.use((req, res, next) => {
     });
 });
 
+app.use((req, res, next) => {
+    instance.query(`
+        SELECT count(1)
+        FROM "Match"
+        WHERE now() > "Match"."when"
+            AND "Match"."goalsHome" IS NULL
+            AND "Match"."goalsAway" IS NULL
+    `, {
+        raw: true,
+        plain: true,
+    }).then((result) => {
+        res.locals.hasLiveMatches = result.count > 0;
+        next();
+    });
+});
+
 routes(app);
 
 umzug.up().then((migrations) => {
