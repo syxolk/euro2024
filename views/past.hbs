@@ -1,6 +1,20 @@
 {{#> layout}}
 {{#*inline "head"}}
 <title>Past Matches - Euro 2016</title>
+<style>
+    .highlight-friend {
+        background-color: #F8DE7E;
+        padding: 3px 5px;
+        display:inline-block;
+        border-radius: 3px;
+    }
+    .highlight-me {
+        background-color: #ffd700;
+        padding: 3px 5px;
+        display:inline-block;
+        border-radius: 3px;
+    }
+</style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -32,7 +46,7 @@
         <tr>
             <td class="col-md-1">{{> correct_bet}}</td>
             <td class="col-md-11">
-            {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a>{{/each}}
+            {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a>{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -40,7 +54,7 @@
         <tr>
             <td class="col-md-1">{{> correct_diff}}</td>
             <td class="col-md-11">
-            {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -48,7 +62,7 @@
         <tr>
             <td class="col-md-1">{{> correct_winner}}</td>
             <td class="col-md-11">
-            {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}
@@ -56,7 +70,7 @@
         <tr>
             <td class="col-md-1">{{> wrong_bet}}</td>
             <td class="col-md-11">
-            {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}">{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+            {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
             </td>
         </tr>
         {{/if}}

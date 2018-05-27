@@ -14,11 +14,13 @@ module.exports = function(app) {
              "Match"."goalsAway" as goalsaway,
             (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
             (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
-            array_agg("Bet"."goalsHome") as listhome,
-            array_agg("Bet"."goalsAway") as listaway,
-            array_agg("User"."name") as listname,
-            array_agg("User"."id") as listid,
-            array_agg(calc_bet_result("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway")) as listresult,
+            array_agg("Bet"."goalsHome" order by "User".name asc) as listhome,
+            array_agg("Bet"."goalsAway" order by "User".name asc) as listaway,
+            array_agg("User"."name" order by "User".name asc) as listname,
+            array_agg("User"."id" order by "User".name asc) as listid,
+            array_agg(calc_bet_result("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway") order by "User".name asc) as listresult,
+            array_agg("User"."id" in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) order by "User".name asc) as listfriends,
+            array_agg("User"."id" = $id order by "User".name asc) as listme,
             count("Bet"."id") as countbets,
             round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
             round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
@@ -31,7 +33,12 @@ module.exports = function(app) {
             WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
             GROUP BY "Match"."id"
             ORDER BY "Match"."when" DESC
-        `, {type: instance.QueryTypes.SELECT})
+        `, {
+            type: instance.QueryTypes.SELECT,
+            bind: {
+                id: (req.user ? req.user.id : 0),
+            },
+        })
         .then(function(matches) {
             for(var i = 0; i < matches.length; i++) {
                 var match = matches[i];
@@ -42,7 +49,9 @@ module.exports = function(app) {
                         name: match.listname[j],
                         goalsHome: match.listhome[j],
                         goalsAway: match.listaway[j],
-                        id: match.listid[j]
+                        id: match.listid[j],
+                        friend: match.listfriends[j],
+                        me: match.listme[j],
                     });
                 }
                 match.bets = bets;

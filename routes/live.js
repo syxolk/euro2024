@@ -20,29 +20,43 @@ module.exports = function(app) {
             avg("Bet"."goalsHome") as avghome,
             avg("Bet"."goalsAway") as avgaway,
             "Match"."tv" as tv,
-            (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType".id = "Match"."MatchTypeId") as score_factor
+            (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType".id = "Match"."MatchTypeId") as score_factor,
+            array_agg("Bet"."goalsHome" order by "User".name asc) as listhome,
+            array_agg("Bet"."goalsAway" order by "User".name asc) as listaway,
+            array_agg("User"."name" order by "User".name asc) as listname,
+            array_agg("User"."id" order by "User".name asc) as listid,
+            array_agg("User"."id" in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) order by "User".name asc) as listfriends,
+            array_agg("User"."id" = $id order by "User".name asc) as listme
             FROM "Match"
              -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
             JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
+            JOIN "User" ON "User"."id" = "Bet"."UserId"
             WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL
             GROUP BY "Match"."id";
-        `, {type: instance.QueryTypes.SELECT})
+        `, {
+            type: instance.QueryTypes.SELECT,
+            bind: {
+                id: (req.user ? req.user.id : 0),
+            },
+        })
         .then(function(matches) {
-            bluebird.map(matches, function(match) {
-                return Bet.findAll({
-                    where: {
-                        MatchId: match.id
-                    },
-                    include: [ User ],
-                    order: [[User, 'name', 'ASC']]
-                });
-            }).then(function(bets) {
-                for(var i = 0; i < matches.length; i++) {
-                    matches[i].betsHome = bets[i].filter((x) => x.goalsHome > x.goalsAway);
-                    matches[i].betsDraw = bets[i].filter((x) => x.goalsHome === x.goalsAway);
-                    matches[i].betsAway = bets[i].filter((x) => x.goalsHome < x.goalsAway);
-                    matches[i].draw = 100 - matches[i].winnerhome - matches[i].winneraway;
+            for(var i = 0; i < matches.length; i++) {
+                var match = matches[i];
+                match.draw = 100 - match.winnerhome - match.winneraway;
+                match.bets = {'home': [], 'draw': [], 'away': []};
+                for(var j = 0; j < match.listid.length; j++) {
+                    const betType = match.listhome[j] > match.listaway[j] ? 'home' :
+                        (match.listhome[j] < match.listaway[j] ? 'away': 'draw');
+                    match.bets[betType].push({
+                        name: match.listname[j],
+                        goalsHome: match.listhome[j],
+                        goalsAway: match.listaway[j],
+                        id: match.listid[j],
+                        friend: match.listfriends[j],
+                        me: match.listme[j],
+                    });
                 }
+            }
 
                 Match.findAll({
                     where: {
@@ -64,7 +78,6 @@ module.exports = function(app) {
                 }).then(function(nextMatches) {
                     res.render('live', {matches, nextMatches});
                 });
-            });
         });
     });
 };
