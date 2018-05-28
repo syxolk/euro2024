@@ -119,28 +119,33 @@ app.use((req, res, next) => {
     instance.query(`
         WITH
         upcoming_matches AS (
-            SELECT m.id
+            SELECT m.id, m."HomeTeamId", m."AwayTeamId"
             FROM "Match" m
             WHERE m.when > now()
             ORDER BY m.when ASC
-            LIMIT 6),
-        matches_without_bet AS (
-            SELECT m.id
-            FROM upcoming_matches m
-            WHERE NOT EXISTS (SELECT 1 FROM "Bet" b
-                            WHERE b."UserId" = $user_id AND
-                            b."MatchId" = m.id))
-        SELECT count(1) FROM matches_without_bet
+            LIMIT 6)
+        SELECT m.id as id
+        FROM upcoming_matches m
+        WHERE
+            m."HomeTeamId" IS NOT NULL AND
+            m."AwayTeamId" IS NOT NULL AND
+            NOT EXISTS (SELECT 1 FROM "Bet" b
+                WHERE b."UserId" = $user_id AND
+                b."MatchId" = m.id)
     `, {
         raw: true,
-        plain: true,
+        type: instance.QueryTypes.SELECT,
         bind: {
             user_id: req.user.id,
         },
     }).then((result) => {
-        res.locals.upcomingMatchesWithoutBet = result.count;
+        res.locals.upcomingMatchesWithoutBet = result.length;
+        res.locals.upcomingMatchesWithoutBetIds = result.map(x => x.id);
         next();
-    });
+    }).catch((err) => {
+        console.error(err);
+        next();
+    })
 });
 
 app.use((req, res, next) => {

@@ -50,6 +50,13 @@ module.exports = () => {
         return val < 0;
     });
 
+    hbs.registerHelper('contains', function(arr, val) {
+        if(arr === undefined || arr === null) {
+            return false;
+        }
+        return arr.includes(val);
+    });
+
     hbs.registerHelper({
         eq: function (v1, v2) {
             return v1 === v2;
