@@ -25,7 +25,9 @@ module.exports = function(app) {
             round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
             round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
             avg("Bet"."goalsHome") as avghome,
-            avg("Bet"."goalsAway") as avgaway
+            avg("Bet"."goalsAway") as avgaway,
+            $logged_in and ("goalsInsertedAt" > $last_visited or $last_visited is null) as unseen,
+            "goalsInsertedAt"
             FROM "Match"
              -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
             JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
@@ -37,6 +39,8 @@ module.exports = function(app) {
             type: instance.QueryTypes.SELECT,
             bind: {
                 id: (req.user ? req.user.id : 0),
+                logged_in: !!req.user,
+                last_visited: (req.user ? req.user.pastMatchesLastVisitedAt : null),
             },
         })
         .then(function(matches) {
@@ -57,7 +61,15 @@ module.exports = function(app) {
                 match.bets = bets;
             }
 
-            res.render('past', {matches});
+            // Last step: Update the timestamp when the past matches page was last visited.
+            if(req.user) {
+                req.user.pastMatchesLastVisitedAt = new Date();
+                req.user.save().then(() => {
+                    res.render('past', {matches});
+                });
+            } else {
+                res.render('past', {matches});
+            }
         });
     });
 };

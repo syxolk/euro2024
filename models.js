@@ -19,7 +19,8 @@ const User = instance.define('User', {
     password: {type: Sequelize.STRING},
     emailConfirmed: {type: Sequelize.BOOLEAN},
     emailConfirmToken: {type: Sequelize.UUID, unique: true},
-    admin: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
+    admin: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+    pastMatchesLastVisitedAt: {type: Sequelize.DATE},
 });
 
 const Team = instance.define('Team', {
@@ -36,6 +37,7 @@ const Match = instance.define('Match', {
     tv: Sequelize.STRING,
     placeholderHome: Sequelize.TEXT,
     placeholderAway: Sequelize.TEXT,
+    goalsInsertedAt: {type: Sequelize.DATE},
 }, {
     timestamps: false
 });

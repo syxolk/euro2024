@@ -164,6 +164,32 @@ app.use((req, res, next) => {
     });
 });
 
+app.use((req, res, next) => {
+    if(!req.user) {
+        // If not logged in there's nothing more to do
+        next();
+        return;
+    }
+
+    instance.query(`
+        SELECT count(1)
+        FROM "Match"
+        WHERE now() > "Match"."when" AND
+            "Match"."goalsHome" IS NOT NULL AND
+            "Match"."goalsAway" IS NOT NULL AND
+            ("goalsInsertedAt" > $last_visited or $last_visited is null)
+    `, {
+        raw: true,
+        plain: true,
+        bind: {
+            last_visited: (req.user ? req.user.pastMatchesLastVisitedAt : null),
+        },
+    }).then((result) => {
+        res.locals.unseenPastMatches = result.count;
+        next();
+    });
+});
+
 routes(app);
 
 umzug.up().then((migrations) => {

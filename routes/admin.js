@@ -73,14 +73,18 @@ module.exports = function(app) {
                     id: matchId
                 }
             }).then(() => {
-                req.flash('message', 'Match ' + matchId + ' created.');
+                req.flash('message', 'Match ' + matchId + ' teams set.');
                 res.redirect('/admin');
             }).catch(function(err) {
                 req.flash('error', 'Failed to set teams.');
                 res.redirect('/admin');
             });
         } else if(req.body.command === 'match_result') {
-            instance.query('UPDATE "Match" SET "goalsHome" = $home, "goalsAway" = $away WHERE id = $id;', {
+            instance.query(`
+                UPDATE "Match"
+                SET "goalsHome" = $home, "goalsAway" = $away, "goalsInsertedAt" = now()
+                WHERE id = $id;
+            `, {
                 raw: true,
                 bind: {
                     id: parseInt(req.body.match),
@@ -90,7 +94,8 @@ module.exports = function(app) {
             }).then(() => {
                 req.flash('message', 'Match ' + req.body.match + ' was updated.');
                 res.redirect('/admin');
-            }).catch(function() {
+            }).catch(function(err) {
+                console.error(err);
                 req.flash('error', 'Failed to set match result');
                 res.redirect('/admin');
             });
