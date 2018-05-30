@@ -12,13 +12,14 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {{#if loggedIn}}
-                <li><a href="{{@origin}}/me">My Profile</a></li>
                 <li><a href="{{@origin}}/mybets">My Bets
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="label label-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
-                <li><a href="{{@origin}}/live">Live Matches {{#if hasLiveMatches}}<span class="label label-success">NOW</span>{{/if}}</a></li>
-                <li><a href="{{@origin}}/past">Past Matches
+                <li><a href="{{@origin}}/live">Live
+                    {{#if hasLiveMatches}}<span class="label label-success">NOW</span>{{/if}}
+                </a></li>
+                <li><a href="{{@origin}}/past">Past
                     {{#if (gt unseenPastMatches 0)}}<span class="label label-warning">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
                 <li><a href="{{@origin}}/highscore">Highscore</a></li>
@@ -26,13 +27,22 @@
 
             <ul class="nav navbar-nav navbar-right">
                 {{#if loggedIn}}
-                <li><a href="{{@origin}}/settings">Settings</a></li>
-                <li>
-                    <form method="post" action="/logout">
-                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                        <button type="submit" class="btn btn-link" style="padding-top:15px;padding-bottom:15px;">Logout</button>
-                    </form>
-                <li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.name}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/me">Profile</a></li>
+                        <li><a href="/settings">Settings</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <form method="post" action="/logout">
+                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                <button type="submit" class="btn btn-link btn-logout">Logout</button>
+                            </form>
+                        <li>
+                    </ul>
+                </li>
                 {{else}}
                 <li><a href="{{@origin}}/register">Register</a><li>
                 <li><a href="{{@origin}}/login">Login</a><li>
