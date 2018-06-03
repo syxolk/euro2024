@@ -8,17 +8,17 @@
             <ul class="navbar-nav w-100">
                 {{#if loggedIn}}
                 <li class="nav-item"><a class="nav-link" href="/me">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{@origin}}/mybets">My Bets
+                <li class="nav-item"><a class="nav-link" href="/mybets">My Bets
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge badge-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
-                <li class="nav-item"><a class="nav-link" href="{{@origin}}/live">Live Matches
+                <li class="nav-item"><a class="nav-link" href="/live">Live Matches
                     {{#if hasLiveMatches}}<span class="badge badge-success">NOW</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{@origin}}/past">Past Matches
+                <li class="nav-item"><a class="nav-link" href="/past">Past Matches
                     {{#if (gt unseenPastMatches 0)}}<span class="badge badge-warning">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{@origin}}/highscore">Highscore</a></li>
+                <li class="nav-item"><a class="nav-link" href="/highscore">Highscore</a></li>
                 {{#if loggedIn}}
                 <li class="nav-item ml-auto dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.name}}
@@ -35,8 +35,8 @@
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item ml-auto"><a class="nav-link" href="{{@origin}}/register">Register</a><li>
-                <li class="nav-item"><a class="nav-link" href="{{@origin}}/login">Login</a><li>
+                <li class="nav-item ml-auto"><a class="nav-link" href="/register">Register</a><li>
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a><li>
                 {{/if}}
             </ul>
         </div>
