@@ -15,8 +15,9 @@
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="40" required value="{{name}}">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="30" required value="{{name}}">
             <small class="form-text text-muted">
+                Maximum length is 30 characters.
                 Your name will be visible to anyone.
                 You can change your name at any time.
             </small>

@@ -14,7 +14,7 @@ module.exports.instance = instance;
 const User = instance.define('User', {
     facebookId: {type: Sequelize.STRING, unique: true},
     googleId: {type: Sequelize.STRING, unique: true},
-    name: {type: Sequelize.STRING, allowNull: false, validate: {len: [3, 40]}},
+    name: {type: Sequelize.STRING, allowNull: false, validate: {len: [3, 30]}},
     email: {type: Sequelize.STRING, unique: true, validate: {isEmail: true}},
     password: {type: Sequelize.STRING},
     emailConfirmed: {type: Sequelize.BOOLEAN},

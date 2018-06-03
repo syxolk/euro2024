@@ -16,8 +16,8 @@
 <form method="post" action="{{@origin}}/settings">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">
-        <label for="name">Name (3 to 40 characters)</label>
-        <input type="text" minlength="3" maxlength="40" required name="name" class="form-control" id="name" placeholder="Μορφεύς" value="{{user.name}}">
+        <label for="name">Name (3 to 30 characters)</label>
+        <input type="text" minlength="3" maxlength="30" required name="name" class="form-control" id="name" placeholder="Μορφεύς" value="{{user.name}}">
     </div>
     <button type="submit" class="btn btn-secondary">Save</button>
 </form>

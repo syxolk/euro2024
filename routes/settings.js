@@ -22,7 +22,8 @@ module.exports = function(app) {
             return;
         }
 
-        req.user.name = req.body.name;
+        // Remove any leading/trailing whitespace
+        req.user.name = req.body.name.trim();
         req.user.save().then(function() {
             res.redirect('/settings');
         }).catch(function() {
