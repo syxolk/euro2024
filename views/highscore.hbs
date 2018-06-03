@@ -21,6 +21,27 @@ tr.user-is-me > td {
 .history-down {
     color: #DF3A01;
 }
+.medal {
+    display: inline-block;
+    padding: .4em .4em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 50%;
+    border: 1px solid gray;
+    color: #343a40;
+}
+.medal-1 {
+    background-color: #F7F6A8;
+}
+.medal-2 {
+    background-color: #DCE5E5;
+}
+.medal-3 {
+    background-color: #FFDAB9;
+}
 </style>
 {{/inline}}
 {{#*inline "body"}}
@@ -70,7 +91,10 @@ tr.user-is-me > td {
 </thead>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
-    <td>{{rank}}.
+    <td>
+        {{#if (lte rank 3)}}<span class="medal medal-{{rank}}">{{/if~}}
+            {{rank}}
+        {{~#if (lte rank 3)}}.</span>{{/if}}
         {{#if (gt0 rank_change)}}
         <span class="history-up"><img src="{{asset "/arrow-up.svg"}}" height="14"> +{{rank_change}}</span>
         {{/if}}
