@@ -76,6 +76,9 @@ module.exports = () => {
         gte: function (v1, v2) {
             return v1 >= v2;
         },
+        not: function(v) {
+            return !v;
+        },
         and: function () {
             return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
         },

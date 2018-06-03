@@ -6,52 +6,182 @@
 {{> navbar}}
 <div class="container">
     <h3>Welcome to the WorldCup 2018 <s>Euro 2016</s> Betting Game!</h3>
-    <blockquote>
-        <p>Manchester City and Manchester United are two different clubs? Are you serious?</p>
-        <footer>Hans K. in <cite>The Art of Football</cite></footer>
-    </blockquote>
+    <p>
+        On this site, you can place bets for matches of the football world cup 2018.
+        It's totally free and you cannot actually win anything except for fame and glory.
+        This site was designed as a competition: Who is the better forecaster for football matches?
+        Compete with your friends and random people!
+    </p>
 
-    <h4 title="Too Long. Didn't read.">TL;DR</h4>
-    <ol>
-        <li><a href="{{@orígin}}/me">Make a bet</a> for a match of your choice</li>
-        <li>Watch the match or mow the lawn, as you like</li>
-        <li>Look on the <a href="{{@origin}}/highscore">highscore</a> after the results are fixed</li>
-        <li><b>Enjoy!</b></li>
-        <li>Jump to point 1</li>
-    </ol>
+    <h4>Quickstart</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Place Bets</h5>
+                    <p class="card-text">
+                        Set the number of goals for the home and away team
+                        for the next matches. You cannot place bets
+                        for any match that has started already.
+                    </p>
 
-    <h4>What are the rules?</h4>
-    <ul>
-        <li>You cannot win or lose anything here. This is only for fun.</li>
-        <li>You may only make bets for a whole match, not only for a half.</li>
-        <li>You can make bets for every match that is not started already.</li>
-        <li>No one, except you, will see your bet until the match starts.</li>
-        <li>You get points if you made a bet for a match and the match is over.</li>
-        <li>You win the game if you are rank 1 on the highscore list after the final match.</li>
-    </ul>
+                    <a href="/mybets" class="btn btn-primary {{#if (not loggedIn)}}disabled{{/if}}">Go to my Bets</a>
+                    {{#if (not loggedIn)}}<br><small class="text-muted">You need an account to see your own bets.</small>{{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Live Matches</h5>
+                    <p class="card-text">
+                        Look at currently running matches.
+                        You can see all bets other users have placed.
+                    </p>
+                    <a href="/live" class="btn btn-primary">See live Matches</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Highscore</h5>
+                    <p class="card-text">See how many points you have and how
+                    good you are compared to your friends and other users.</p>
+                    <a href="/highscore" class="btn btn-primary">View Highscore</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h4>How do I score?</h4>
-    <ul>
-        <li>You get {{> correct_bet}} for a correct bet OR</li>
-        <li>You get {{> correct_diff}} for the correct goal difference OR</li>
-        <li>You get {{> correct_winner}} for the correct winner OR</li>
-        <li>You get zero points in any other case or if you did not make a bet</li>
-    </ul>
+    <h4 class="mt-3">FAQ</h4>
+    <div class="accordion" id="faq">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#who-made-this">
+                        Who made this?
+                    </button>
+                </h5>
+            </div>
+            <div id="who-made-this" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    This site was made by me, Hans, a <a href="https://github.com/syxolk">computer science student from the TUM</a>.
+                    I made it for fun in my spare time for the UEFA Euro 2016. Now, for
+                    this year's FIFA WorldCup 2018, this site became refurbished and got some new features.
+                    Feel free to contact me if you've got any questions or found a bug: <a href="mailto:hans.kirchner.info@gmail.com">hans.kirchner.info@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#invite-friends">
+                        Can I invite my friends?
+                    </button>
+                </h5>
+            </div>
+            <div id="invite-friends" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    <b>Yes!</b> You are free to invite your friends, colleagues and family to play
+                    here. If you feel proficient enough you can <a href="https://github.com/syxolk/euro2016">host this site on your own server (open-source on GitHub)</a>.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#get-points">
+                        How do I score?
+                    </button>
+                </h5>
+            </div>
+            <div id="get-points" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    <p>You get points if you made a bet for a match and the match is over.</p>
+                    <ul>
+                        <li>You get {{> correct_bet}} (4 points) for a correct bet OR</li>
+                        <li>You get {{> correct_diff}} (3 points) for the correct goal difference OR</li>
+                        <li>You get {{> correct_winner}} (2 points) for the correct winner OR</li>
+                        <li>You get {{> wrong_bet}} (0 points) zero points in any other case or if you did not make a bet</li>
+                    </ul>
+                    <p>
+                        Any match may have an additional <em>match factor</em>. This is indicated as {{> score_factor 2}}.
+                        The points you get for a match are multiplied by this factor.
+                    </p>
 
-    <h4>Scoring Example</h4>
-    <p>You made this bet: 4:3 in the match Germany - Denmark. You would get</p>
-    <ul>
-        <li>{{> correct_bet}}, if the result was 4:3</li>
-        <li>{{> correct_diff}}, if the result was 1:0, 2:1 or 3:2 ...</li>
-        <li>{{> correct_winner}}, if the winner was Germany</li>
-    </ul>
-    <p>You made this bet: 2:2 in another match. You would get</p>
-    <ul>
-        <li>{{> correct_bet}}, if the result was 2:2</li>
-        <li>{{> correct_diff}}, if the result was 0:0, 1:1, 3:3 ...</li>
-    </ul>
+                    <p>
+                        <strong>Scoring Example</strong><br>
+                        You made this bet: 4:3 in the match Germany - Denmark. You would get
+                    </p>
+                    <ul>
+                        <li>{{> correct_bet}}, if the result was 4:3</li>
+                        <li>{{> correct_diff}}, if the result was 1:0, 2:1 or 3:2 ...</li>
+                        <li>{{> correct_winner}}, if the winner was Germany</li>
+                    </ul>
+                    <p>You made this bet: 2:2 in another match. You would get</p>
+                    <ul>
+                        <li>{{> correct_bet}}, if the result was 2:2</li>
+                        <li>{{> correct_diff}}, if the result was 0:0, 1:1, 3:3 ...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#penalty">
+                        Are goals from the penalty shoot-out included in the match result?
+                    </button>
+                </h5>
+            </div>
+            <div id="penalty" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    <b>No.</b> Only goals made during the 90+30 minutes (two halftimes + overtime) period of the match will be used as the match result.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#see-bets">
+                        Can I see bets of other users?
+                    </button>
+                </h5>
+            </div>
+            <div id="see-bets" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    <b>Yes and no.</b> Yes, you can see bets of other users once a match
+                    has started or is finished. No, you can only see your own bets as long as
+                    the match has not yet started.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#new-features">
+                        What are the new features?
+                    </button>
+                </h5>
+            </div>
+            <div id="new-features" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    Highlights:
+                    <ul>
+                        <li>Rescaled points from 0-1-2-3 to 0-2-3-4</li>
+                        <li>Added match score factor</li>
+                        <li>You can place bets for every match from the beginning (Round of 16, *-finals)</li>
+                        <li>Notify users of matches without bets in navbar</li>
+                        <li>Notify users of live matches</li>
+                        <li>Notify users of unseen past matches</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h4>Legal rules</h4>
+    <h4 class="mt-3">Legal rules</h4>
     <ul>
         <li>You may not change your name to anything offensive.</li>
         <li>The game master may exclude you from the game at any time.</li>
