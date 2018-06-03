@@ -17,10 +17,10 @@
 {{> navbar}}
 <div class="container">
 
-<h3>{{displayedUser.name}} <small>Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
+<h3>{{displayedUser.name}} <small class="text-muted">Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
 
 {{#if matches}}
-<table class="table">
+<table class="table table-sm">
     <thead>
     <tr>
         <th colspan="2"></th>
@@ -31,16 +31,16 @@
     </thead>
     {{#each matches}}
     <tr class="result-{{dataValues.result}}">
-        <td class="small"><span class="hidden-xs">{{calendar when}}</span><span class="visible-xs">{{calendarShort when}}</span></td>
-        <td class="small"><span class="hidden-xs">{{MatchType.name}}</span><span class="visible-xs">{{MatchType.code}}</span> {{> score_factor MatchType.scoreFactor}}</td>
+        <td class="small"><span class="d-none d-sm-inline">{{calendar when}}</span><span class="d-sm-none">{{calendarShort when}}</span></td>
+        <td class="small"><span class="d-none d-sm-inline">{{MatchType.name}}</span><span class="d-sm-none">{{MatchType.code}}</span> {{> score_factor MatchType.scoreFactor}}</td>
         <td class="text-right">
-            <em class="hidden-xs">{{HomeTeam.name}}</em><em class="visible-xs">{{HomeTeam.code}}</em>
+            <em class="d-none d-sm-inline">{{HomeTeam.name}}</em><em class="d-sm-none">{{HomeTeam.code}}</em>
         </td>
         <td class="text-center">
             <strong>{{showGoals goalsHome}}</strong> : <strong>{{showGoals goalsAway}}</strong>
         </td>
         <td class="text-left">
-            <em class="hidden-xs">{{AwayTeam.name}}</em><em class="visible-xs">{{AwayTeam.code}}</em>
+            <em class="d-none d-sm-inline">{{AwayTeam.name}}</em><em class="d-sm-none">{{AwayTeam.code}}</em>
         </td>
         <td class="text-center">
         {{showGoals Bets.0.goalsHome}} : {{showGoals Bets.0.goalsAway}}

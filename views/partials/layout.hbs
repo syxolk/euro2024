@@ -14,18 +14,37 @@
         <meta property="og:image" content="{{origin}}{{asset "/favicon-200x200.png"}}">
 
         <link rel="icon" type="image/png" href="{{asset "/favicon-32x32.png"}}" sizes="32x32">
-        <link href="{{asset "/bundle.css"}}" rel="stylesheet">
+        <link href="{{@vendorCssPath}}" rel="stylesheet">
         <style>
+        body {
+            padding-top: 70px;
+        }
         .btn-logout {
             width: 100%;
             padding: 3px 20px !important;
             text-align: left !important;
+        }
+        .is-zero {
+            color: #bbb;
+        }
+        /* Register & Login */
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .form-signin-heading {
+            margin-top: 0px;
+        }
+        .form-signin .form-signin-heading {
+            margin-bottom: 10px;
         }
         </style>
         {{> head}}
     </head>
     <body>
         {{> body}}
-        <script type="text/javascript" src="{{asset "/bundle.js"}}"></script>
+        <script type="text/javascript" src="{{@vendorJsPath}}"></script>
+        {{#> scripts}}{{/scripts}}
     </body>
 </html>

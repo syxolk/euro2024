@@ -7,7 +7,7 @@ $(function() {
     var isValidGoal = function(goal) {
         return isInteger(parseInt(goal));
     };
-    
+
     var url = $('input[name=_action]').val();
     var csrfToken = $('input[name=_csrf]').val();
 
@@ -35,6 +35,7 @@ $(function() {
                         home: home,
                         away: away
                     }).done(function() {
+                        inputs.removeClass("not-betted");
                         inputs.addClass('autosave-success');
                     }).fail(function() {
                         inputs.addClass('autosave-error');

@@ -57,7 +57,8 @@ hbs.localsAsTemplateData(app);
 require('./hbs_helpers.js')();
 
 app.use(compression());
-app.use(express.static(__dirname + '/dist'));
+require('./routes/static.js')(app);
+app.use("/static", express.static(__dirname + '/static'));
 app.use(express.static(__dirname + '/assets/images'));
 app.use(express.static(__dirname + '/webroot'));
 
@@ -74,7 +75,7 @@ app.use(helmet.contentSecurityPolicy({
         defaultSrc: ["'none'"],
         scriptSrc: ["'self'", "https://www.google.com/recaptcha/", "https://www.gstatic.com/recaptcha/"],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'"],
+        imgSrc: ["'self'", "data:"],
         connectSrc: ["'self'"],
         fontSrc: ["'self'"],
         formAction: ["'self'"],

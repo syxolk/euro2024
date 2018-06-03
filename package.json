@@ -14,6 +14,8 @@
     "bcrypt": "^2.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.1.1",
+    "chart.js": "^2.1.4",
     "compression": "^1.7.2",
     "connect-flash": "0.1.1",
     "csurf": "^1.9.0",
@@ -23,6 +25,7 @@
     "feed": "^1.1.1",
     "hbs": "^4.0.1",
     "helmet": "^3.12.0",
+    "jquery": "^3.3.1",
     "moment": "^2.21.0",
     "morgan": "^1.9.0",
     "ms": "^2.1.1",
@@ -37,20 +40,5 @@
     "sequelize-cli": "^4.0.0",
     "umzug": "^2.1.0",
     "uuid": "^3.2.1"
-  },
-  "devDependencies": {
-    "bootstrap": "^4.0.0",
-    "bootstrap-social": "^5.0.0",
-    "chart.js": "^2.1.4",
-    "font-awesome": "^4.6.3",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean-css": "^3.9.2",
-    "gulp-concat": "^2.6.1",
-    "gulp-less": "^4.0.0",
-    "gulp-rev": "^8.1.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0",
-    "jquery": "^3.3.1"
   }
 }

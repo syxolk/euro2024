@@ -23,12 +23,12 @@
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block" type="submit">Login</button>
-            <span class="help-block">Don't have an account?
-            <a href="/register">Register</a> or use one of the social logins.</span>
+            <small class="form-text text-muted">Don't have an account?
+            <a href="/register">Register</a> or use one of the social logins.</small>
         </div>
     </form>
     {{#if enabledFacebook}}
-        <a class="btn btn-block btn-lg btn-social btn-facebook" href="{{@origin}}/auth/facebook">
+        <a class="btn btn-block btn-lg btn-secondary" href="{{@origin}}/auth/facebook">
             <i class="fa fa-facebook"></i> Sign in with Facebook
         </a>
     {{else}}
@@ -37,7 +37,7 @@
         </div>
     {{/if}}
     {{#if enabledGoogle}}
-        <a class="btn btn-block btn-lg btn-social btn-google" href="{{@origin}}/auth/google">
+        <a class="btn btn-block btn-lg btn-secondary" href="{{@origin}}/auth/google">
             <i class="fa fa-google"></i> Sign in with Google
         </a>
     {{else}}

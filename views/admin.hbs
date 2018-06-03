@@ -5,6 +5,7 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+<h2>Admin</h2>
 {{#if error}}
 <div class="alert alert-danger" role="alert">
     {{error}}
@@ -15,10 +16,12 @@
     {{message}}
 </div>
 {{/if}}
+<h3>Set Teams for future Matches</h3>
 <form method="post" action="/admin" class="form-horizontal">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <div class="form-group">
-        <div class="col-sm-6">
+    <div class="form-row">
+        <div class="form-group col-sm-12">
+            <label>Match</label>
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each matchesWithoutTeams}}
@@ -26,7 +29,10 @@
                 {{/each}}
             </select>
         </div>
-        <div class="col-sm-3">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-6">
+            <label>Home Team</label>
             <select name="home" class="form-control" required>
                 <option selected disabled>--- Home Team ---</option>
                 {{#each teams}}
@@ -34,7 +40,8 @@
                 {{/each}}
             </select>
         </div>
-        <div class="col-sm-3">
+        <div class="form-group col-sm-6">
+            <label>Away Team</label>
             <select name="away" class="form-control">
                 <option selected disabled>--- Away Team ---</option>
                 {{#each teams}}
@@ -43,17 +50,14 @@
             </select>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-12">
-            <button name="command" value="set_teams" type="submit" class="btn btn-primary">Set Teams</button>
-        </div>
-    </div>
+    <button name="command" value="set_teams" type="submit" class="btn btn-primary">Set Teams</button>
 </form>
-<hr>
+<h3 class="mt-3">Set Match Result</h3>
 <form method="post" action="/admin" class="form-horizontal">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <div class="form-group">
-        <div class="col-sm-6">
+    <div class="form-row">
+        <div class="form-group col-sm-12">
+            <label>Match</label>
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each liveMatches}}
@@ -61,18 +65,16 @@
                 {{/each}}
             </select>
         </div>
-        <div class="col-sm-3">
-            <input name="home" type="number" min="0" max="20" autocomplete="off" class="form-control" required placeholder="Goals Home">
+        <div class="form-group col-sm-6">
+            <label>Goals Home Team</label>
+            <input name="home" type="number" min="0" max="20" autocomplete="off" class="form-control" required>
         </div>
-        <div class="col-sm-3">
-            <input name="away" type="number" min="0" max="20" autocomplete="off" class="form-control" required placeholder="Goals Away">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-12">
-            <button name="command" value="match_result" type="submit" class="btn btn-primary">Save Match Result</button>
+        <div class="form-group col-sm-6">
+            <label>Goals Away Team</label>
+            <input name="away" type="number" min="0" max="20" autocomplete="off" class="form-control" required>
         </div>
     </div>
+    <button name="command" value="match_result" type="submit" class="btn btn-primary">Save Match Result</button>
 </form>
 </div>
 {{/inline}}

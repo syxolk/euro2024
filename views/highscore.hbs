@@ -6,6 +6,21 @@
 .table > tbody tr > td {
     border-top: 1px solid #aaa !important;
 }
+.ordered-column {
+    color: #1d3;
+}
+tr.user-is-friend > td {
+    background-color: #F8DE7E;
+}
+tr.user-is-me > td {
+    background-color: #ffd700;
+}
+.history-up {
+    color: #86B404;
+}
+.history-down {
+    color: #DF3A01;
+}
 </style>
 {{/inline}}
 {{#*inline "body"}}
@@ -80,8 +95,8 @@
         {{#if isme}}
         <span title="That's you!">&#x1F464;</span>
         {{else}}
-        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-default btn-xs">&#x2795;</button>
-        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-default btn-xs">&#x2796;</button>
+        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-secondary btn-sm">&#x2795;</button>
+        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-secondary btn-sm">&#x2796;</button>
         {{/if}}
     </td>
     {{/if}}
@@ -89,5 +104,9 @@
 {{/each}}
 </table>
 </div>
+{{/inline}}
+{{#*inline "scripts"}}
+<script type="text/javascript" src="/static/js/friend.js"></script>
+<script type="text/javascript" src="/static/js/friend_history.js"></script>
 {{/inline}}
 {{/layout}}
