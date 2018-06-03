@@ -110,6 +110,7 @@ app.use((req, res, next) => {
     res.locals.user = req.user;
     res.locals.loggedIn = !!req.user;
     res.locals.csrfToken = req.csrfToken();
+    res.locals.websiteName = "WorldCup 2018";
 
     if(!req.user) {
         // If not logged in there's nothing more to do

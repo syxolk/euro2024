@@ -1,11 +1,11 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Euro 2016 Betting Game</title>
+<title>Login - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container form-signin">
-    <h2 class="form-signin-heading">Euro 2016</h2>
+    <h2 class="form-signin-heading">{{@websiteName}}</h2>
     <form action="/login" method="POST">
         {{#if error}}
         <div class="alert alert-danger" role="alert">
