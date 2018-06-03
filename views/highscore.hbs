@@ -22,16 +22,17 @@ tr.user-is-me > td {
     color: #DF3A01;
 }
 .medal {
-    display: inline-block;
-    padding: .4em .4em;
-    font-weight: 700;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
-    text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
     border-radius: 50%;
     border: 1px solid gray;
     color: #343a40;
+    width: 35px;
+    height: 35px;
 }
 .medal-1 {
     background-color: #F7F6A8;
@@ -71,6 +72,7 @@ tr.user-is-me > td {
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
     <th colspan="2" class="text-center">{{> correct_bet}}</th>
     <th colspan="2" class="text-center">{{> correct_diff}}</th>
     <th colspan="2" class="text-center">{{> correct_winner}}</th>
@@ -78,6 +80,7 @@ tr.user-is-me > td {
     {{#if loggedIn}}<th></th>{{/if}}
 </tr>
 <tr>
+    <th></th>
     <th></th>
     {{#each columns}}
     <th>
@@ -91,10 +94,12 @@ tr.user-is-me > td {
 </thead>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
+    <td class="text-center">
+        {{#if (lte rank 3)}}<div class="medal medal-{{rank}}">{{/if~}}
+            <b>{{rank}}.</b>
+        {{~#if (lte rank 3)}}</div>{{/if}}
+    </td>
     <td>
-        {{#if (lte rank 3)}}<span class="medal medal-{{rank}}">{{/if~}}
-            {{rank}}
-        {{~#if (lte rank 3)}}.</span>{{/if}}
         {{#if (gt0 rank_change)}}
         <span class="history-up"><img src="{{asset "/arrow-up.svg"}}" height="14"> +{{rank_change}}</span>
         {{/if}}
