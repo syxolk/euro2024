@@ -8,8 +8,9 @@ const User = instance.model('User');
 passport.use(new GoogleStrategy({
     clientID: config.google.clientID,
     clientSecret: config.google.clientSecret,
-    callbackURL: config.origin + '/auth/google/callback'
-}, function(accessToken, refreshToken, profile, cb) {
+    callbackURL: config.origin + '/auth/google/callback',
+    passReqToCallback: true,
+}, function(req, accessToken, refreshToken, profile, cb) {
     User.findOrCreate({
         where: {
             googleId: profile.id
@@ -18,6 +19,10 @@ passport.use(new GoogleStrategy({
             name: "Anonymous"
         }
     }).spread(function(user, created) {
+        if(created) {
+            // Use a hack here to memorize if the a new user was created or not
+            req.flash("isNewUser", created);
+        }
         cb(null, user);
     }).catch(function(err) {
         cb(err);
@@ -47,9 +52,15 @@ module.exports = function(app) {
     app.get('/auth/google', passport.authenticate('google', {scope: ['profile']}));
 
     app.get('/auth/google/callback', passport.authenticate('google', {
-        successRedirect: '/me',
         failureRedirect: '/login'
-    }));
+    }), (req, res) => {
+        const isNewUser = req.flash("isNewUser").length > 0; // flash returns an array
+        if(isNewUser) {
+            res.redirect("/intro");
+        } else {
+            res.redirect("/me");
+        }
+    });
 
     app.get('/connect/google', passport.authenticate('connect-google', {scope: ['profile']}));
 

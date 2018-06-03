@@ -37,7 +37,7 @@ module.exports = function(app) {
                 emailConfirmToken: token
             }).then(function(user) {
                 req.login(user, function(err) {
-                    res.redirect('/me');
+                    res.redirect('/intro');
                 });
             }).catch(function(err) {
                 req.flash('error', 'Email address is already in use.');

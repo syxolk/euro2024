@@ -9,8 +9,9 @@ passport.use(new FacebookStrategy({
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
     callbackURL: config.origin + '/auth/facebook/callback',
-    enableProof: true
-}, function(accessToken, refreshToken, profile, cb) {
+    enableProof: true,
+    passReqToCallback: true,
+}, function(req, accessToken, refreshToken, profile, cb) {
     User.findOrCreate({
         where: {
             facebookId: profile.id
@@ -19,6 +20,10 @@ passport.use(new FacebookStrategy({
             name: "Anonymous"
         }
     }).spread(function(user, created) {
+        if(created) {
+            // Use a hack here to memorize if the a new user was created or not
+            req.flash("isNewUser", created);
+        }
         cb(null, user);
     }).catch(function(err) {
         cb(err);
@@ -49,9 +54,15 @@ module.exports = function(app) {
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-        successRedirect: '/me',
         failureRedirect: '/login'
-    }));
+    }), (req, res) => {
+        const isNewUser = req.flash("isNewUser").length > 0; // flash returns an array
+        if(isNewUser) {
+            res.redirect("/intro");
+        } else {
+            res.redirect("/me");
+        }
+    });
 
     app.get('/connect/facebook', passport.authenticate('connect-facebook'));
 
