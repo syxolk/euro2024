@@ -7,6 +7,7 @@
         <div id="navbarSupportedContent" class="navbar-collapse collapse">
             <ul class="navbar-nav w-100">
                 {{#if loggedIn}}
+                <li class="nav-item"><a class="nav-link" href="/me">Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{@origin}}/mybets">My Bets
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge badge-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
@@ -24,7 +25,7 @@
                         <span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="/me">Profile</a>
+                        {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
                         <a class="dropdown-item" href="/settings">Settings</a>
                         <div class="dropdown-divider"></div>
                         <form method="post" action="/logout">
