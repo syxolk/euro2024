@@ -124,8 +124,7 @@ tr.user-is-me > td {
         {{#if isme}}
         <span title="That's you!">&#x1F464;</span>
         {{else}}
-        <button data-id="{{id}}" {{#if isfriend}}disabled{{/if}} class="add-friend btn btn-secondary btn-sm">&#x2795;</button>
-        <button data-id="{{id}}" {{#if isfriend}}{{else}}disabled{{/if}} class="remove-friend btn btn-secondary btn-sm">&#x2796;</button>
+        <button data-id="{{id}}" class="toggle-friend btn btn-secondary btn-sm">{{#if isfriend}}&#x2796;{{else}}&#x2795;{{/if}}</button>
         {{/if}}
     </td>
     {{/if}}
