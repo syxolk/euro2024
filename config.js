@@ -30,3 +30,15 @@ if(process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
         clientSecret: process.env.GOOGLE_APP_SECRET,
     };
 }
+
+if(process.env.SMTP_HOST) {
+    module.exports.mail = {
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT),
+        // secure: true,
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASSWORD,
+        }
+    };
+}

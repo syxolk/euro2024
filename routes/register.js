@@ -4,9 +4,52 @@ const User = instance.model('User');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mustache = require('mustache');
-
-const RECAPTCHA_URL = 'https://www.google.com/recaptcha/api/siteverify';
+const nodemailer = require('nodemailer');
 const BCRYPT_ROUNDS = 10;
+
+if(config.mail) {
+    console.log("Enabled mail transport");
+    var transporter = nodemailer.createTransport(config.mail);
+}
+
+const MAIL_TEMPLATE =
+`Hello {{{name}}},
+thank you for registering for the WorldCup 2018 Betting Game.
+
+Place your bets on the first matches!
+You can place bets as long as a match has not started already.
+After a match begins, you can see the bets of all other users.
+
+You are free to invite your friends, colleagues and family!
+We welcome anybody on our service.
+
+Please confirm your email address:
+{{{url}}}
+
+Best regards,
+the Game Master`;
+
+function sendMail(user) {
+    const mail = {
+        from: config.mail.auth.user,
+        to: user.email,
+        subject: "Activate your WorldCup 2018 Account",
+        text: mustache.render(MAIL_TEMPLATE, {
+            name: user.name,
+            domain: config.origin,
+            url: config.origin + "/activate/" + user.emailConfirmToken,
+        }),
+    };
+
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mail, (error, info) => {
+            if(error) {
+                return reject(error);
+            }
+            resolve(info);
+        });
+    });
+}
 
 module.exports = function(app) {
     app.get('/register', function(req, res) {
@@ -36,10 +79,23 @@ module.exports = function(app) {
                 emailConfirmed: false,
                 emailConfirmToken: token
             }).then(function(user) {
-                req.login(user, function(err) {
-                    res.redirect('/intro');
-                });
+                if(config.mail) {
+                    sendMail(user).then(() => {
+                        req.login(user, function(err) {
+                            res.redirect('/intro');
+                        });
+                    }).catch((err) => {
+                        console.error(err);
+                        req.flash('error', 'Could not send confirmation email.');
+                        res.redirect('/register');
+                    });
+                } else {
+                    req.login(user, function(err) {
+                        res.redirect('/intro');
+                    });
+                }
             }).catch(function(err) {
+                console.error(err);
                 req.flash('error', 'Email address is already in use.');
                 res.redirect('/register');
             });
