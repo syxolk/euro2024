@@ -103,6 +103,13 @@ module.exports = function(app) {
     });
 
     app.get('/activate/:code', function(req, res) {
+        res.render('activate', {
+            button: true,
+            code: req.params.code,
+        });
+    });
+
+    app.post("/activate/:code", (req, res) => {
         User.findOne({
             where: {
                 emailConfirmToken: req.params.code
@@ -114,7 +121,7 @@ module.exports = function(app) {
         }).then(function(user) {
             res.render('activate', {success: true});
         }).catch(function() {
-            res.render('activate', {success: false});
+            res.render('activate', {error: true});
         });
     });
 };

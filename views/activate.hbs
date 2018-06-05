@@ -5,15 +5,24 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+    {{#if button}}
+        <div class="text-center">
+        <form method="POST" action="/activate/{{code}}">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <button type="submit" class="btn btn-success mt-3">Confirm Mail Address</button>
+        </form>
+        </div>
+    {{/if}}
     {{#if success}}
     <div class="alert alert-success">
       <strong>Thank you!</strong> Your email address is now confirmed.
     </div>
-    {{else}}
+    {{/if}}
+    {{#if error}}
     <div class="alert alert-danger">
       <strong>Sorry!</strong> The email address is already confirmed or the link is invalid.
     </div>
     {{/if}}
-</div
+</div>
 {{/inline}}
 {{/layout}}
