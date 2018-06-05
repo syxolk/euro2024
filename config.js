@@ -31,8 +31,10 @@ if(process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
     };
 }
 
-if(process.env.SMTP_HOST) {
-    module.exports.mail = {
+module.exports.mail = process.env.MAIL_SOLUTION;
+module.exports.mailFrom = process.env.MAIL_FROM;
+if(process.env.MAIL_SOLUTION === "smtp") {
+    module.exports.mailParams = {
         host: process.env.SMTP_HOST,
         port: parseInt(process.env.SMTP_PORT),
         // secure: true,
@@ -40,5 +42,10 @@ if(process.env.SMTP_HOST) {
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASSWORD,
         }
+    };
+} else if(process.env.MAIL_SOLUTION === "mailgun") {
+    module.exports.mailParams = {
+        domain: process.env.MAILGUN_DOMAIN,
+        apiKey: process.env.MAILGUN_API_KEY,
     };
 }

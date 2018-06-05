@@ -7,11 +7,6 @@ const mustache = require('mustache');
 const nodemailer = require('nodemailer');
 const BCRYPT_ROUNDS = 10;
 
-if(config.mail) {
-    console.log("Enabled mail transport");
-    var transporter = nodemailer.createTransport(config.mail);
-}
-
 const MAIL_TEMPLATE =
 `Hello {{{name}}},
 thank you for registering for the WorldCup 2018 Betting Game.
@@ -26,29 +21,42 @@ We welcome anybody on our service.
 Please confirm your email address:
 {{{url}}}
 
-Best regards,
+
+Happy Betting!
 the Game Master`;
 
 function sendMail(user) {
     const mail = {
-        from: config.mail.auth.user,
+        from: config.mailFrom,
         to: user.email,
         subject: "Activate your WorldCup 2018 Account",
         text: mustache.render(MAIL_TEMPLATE, {
             name: user.name,
-            domain: config.origin,
             url: config.origin + "/activate/" + user.emailConfirmToken,
         }),
     };
 
-    return new Promise((resolve, reject) => {
-        transporter.sendMail(mail, (error, info) => {
-            if(error) {
-                return reject(error);
-            }
-            resolve(info);
+    if(config.mail === "smtp") {
+        const transporter = nodemailer.createTransport(config.mailParams);
+        return new Promise((resolve, reject) => {
+            transporter.sendMail(mail, (error, info) => {
+                if(error) {
+                    return reject(error);
+                }
+                resolve(info);
+            });
         });
-    });
+    } else if(config.mail === "mailgun") {
+        const mailgun = require('mailgun-js')(config.mailParams);
+        return new Promise((resolve, reject) => {
+            mailgun.messages().send(mail, (err, body) => {
+                if(err) {
+                    return reject(err);
+                }
+                resolve(body);
+            });
+        });
+    }
 }
 
 module.exports = function(app) {
