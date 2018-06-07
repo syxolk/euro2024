@@ -48,29 +48,18 @@ module.exports = {
       ]
     }).then(elements=> {
       var values = new Array();
-      elements.forEach(element => {
-        var fixtureId = getFixtureIdByTeamName(data.fixtures, element.HomeTeam.name, element.AwayTeam.name);
-        var toPush = element.get({plain:true});
-        delete toPush.HomeTeam;
-        delete toPush.AwayTeam;
-        toPush.FixtureId = fixtureId;
-        values.push(toPush);
-      });
-      console.log('first element', values[0]);
-      return [values];
-    }).spread(function(matches){
-      //console.log('first element', matches[0]);
+
       return seq.transaction((t) => {
-        queryInterface.bulkDelete("Match", {
-          goalsHome: null,
-          goalsAway: null,
-          HomeTeamId: {[Op.ne]: null},
-          AwayTeamId: {[Op.ne]: null},
-        }, {transaction: t});
         //console.log('matches:', matches);
-        return queryInterface.bulkInsert("Match", matches, {transaction: t});
+        elements.forEach(element => {
+          var fixtureId = getFixtureIdByTeamName(data.fixtures, element.HomeTeam.name, element.AwayTeam.name);
+          var toPush = element.get({plain:true});
+          delete toPush.HomeTeam;
+          delete toPush.AwayTeam;
+          queryInterface.upsert("Match", toPush,  
+            {"FixtureId":fixtureId},{"id":toPush.id}, Match, {transaction: t});
+        });
       });
-  
     });
   },
 
