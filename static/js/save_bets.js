@@ -7,6 +7,9 @@ $(function() {
     var isValidGoal = function(goal) {
         return isInteger(parseInt(goal));
     };
+    var isValidInput = function(home, away) {
+        return (home === "" && away === "") || (isValidGoal(home) && isValidGoal(away));
+    };
 
     var url = $('input[name=_action]').val();
     var csrfToken = $('input[name=_csrf]').val();
@@ -26,7 +29,7 @@ $(function() {
             var away = $('input[name=away]', bet).val();
             var inputs = $('input[name=home], input[name=away]', bet);
 
-            if(isValidGoal(home) && isValidGoal(away)) {
+            if(isValidInput(home, away)) {
                 delay(function() {
                     inputs.removeClass('autosave-success autosave-error');
                     $.post(url, {
