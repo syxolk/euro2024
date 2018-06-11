@@ -4,6 +4,7 @@ const Team = instance.model('Team');
 const MatchType = instance.model('MatchType');
 const Match = instance.model('Match');
 const moment = require('moment');
+const Op = require('sequelize').Sequelize.Op;
 
 module.exports = function(app) {
     app.get('/admin', function(req, res) {
@@ -29,7 +30,7 @@ module.exports = function(app) {
             Team.findAll({order: [['code', 'ASC']]}),
             Match.findAll({
                 where: {
-                    when: { $lt: instance.fn('now') },
+                    when: { [Op.lt]: instance.fn('now') },
                     goalsHome: null,
                     goalsAway: null
                 },

@@ -5,6 +5,7 @@ const User = instance.model('User');
 const Match = instance.model('Match');
 const Team = instance.model('Team');
 const MatchType = instance.model('MatchType');
+const Op = require('sequelize').Sequelize.Op;
 
 module.exports = function(app) {
     app.get('/live', function(req, res) {
@@ -60,7 +61,7 @@ module.exports = function(app) {
 
                 Match.findAll({
                     where: {
-                        when: { $gt: instance.fn('now') }
+                        when: { [Op.gt]: instance.fn('now') }
                     },
                     include: [
                         {

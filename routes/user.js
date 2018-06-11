@@ -102,9 +102,9 @@ module.exports = function(app) {
                 bluebird.all(users.map((user) => {
                     return Match.findAll({
                         where: {
-                            when: {$lt: instance.fn('now')},
-                            goalsHome: {$ne: null},
-                            goalsAway: {$ne: null}
+                            when: {[Op.lt]: instance.fn('now')},
+                            goalsHome: {[Op.ne]: null},
+                            goalsAway: {[Op.ne]: null}
                         },
                         attributes: [
                             [instance.fn('coalesce',

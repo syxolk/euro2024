@@ -6,7 +6,8 @@ const instance = new Sequelize({
     define: {
         freezeTableName: true
     },
-    logging: (process.env.NODE_ENV === "production" ? false : console.log)
+    logging: (process.env.NODE_ENV === "production" ? false : console.log),
+    operatorsAliases: false,
 });
 module.exports.instance = instance;
 
