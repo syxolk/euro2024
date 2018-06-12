@@ -47,10 +47,16 @@
         {{/if}}
     </div>
     <div class="col-auto order-md-1 order-3 text-center m-auto m-md-0">
-        <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}" style="display:inline;width:80px;" name="home" value="{{Bets.0.goalsHome}}">
+        <input type="number" min="0" max="20" autocomplete="off"
+            {{#if (not HomeTeam)}}disabled{{/if}}
+            class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}"
+            style="display:inline;width:80px;" name="home" value="{{Bets.0.goalsHome}}">
         <input type="hidden" name="match" value="{{id}}">
         :
-        <input type="number" min="0" max="20" autocomplete="off" class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}" style="display:inline;width:80px;" name="away" value="{{Bets.0.goalsAway}}">
+        <input type="number" min="0" max="20" autocomplete="off"
+            {{#if (not AwayTeam)}}disabled{{/if}}
+            class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}"
+            style="display:inline;width:80px;" name="away" value="{{Bets.0.goalsAway}}">
     </div>
     <div class="col-md-2 col-6 order-md-1 order-2 text-left">
         {{#if AwayTeam}}

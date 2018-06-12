@@ -10,32 +10,36 @@ module.exports = function(app) {
         }
 
         Match.findById(req.body.match).then(function(match) {
-            if(Date.now() < match.when.getTime()) {
-                if(req.body.home && req.body.away) {
-                    Bet.upsert({
+            if(Date.now() > match.when.getTime()) {
+                res.status(403).json({ok: false, error: 'MATCH_EXPIRED'});
+                return;
+            }
+            if(match.HomeTeamId === null || match.AwayTeamId === null) {
+                res.status(403).json({ok: false, error: 'MATCH_TEAMS_UNKNOWN'});
+                return;
+            }
+            if(req.body.home && req.body.away) {
+                Bet.upsert({
+                    UserId: req.user.id,
+                    MatchId: req.body.match,
+                    goalsHome: req.body.home,
+                    goalsAway: req.body.away
+                }).then(function() {
+                    res.json({ok: true});
+                }).catch(function() {
+                    res.status(500).json({ok: false, error: 'DB'});
+                });
+            } else {
+                Bet.destroy({
+                    where: {
                         UserId: req.user.id,
                         MatchId: req.body.match,
-                        goalsHome: req.body.home,
-                        goalsAway: req.body.away
-                    }).then(function() {
-                        res.json({ok: true});
-                    }).catch(function() {
-                        res.status(500).json({ok: false, error: 'DB'});
-                    });
-                } else {
-                    Bet.destroy({
-                        where: {
-                            UserId: req.user.id,
-                            MatchId: req.body.match,
-                        }
-                    }).then(() => {
-                        res.json({ok: true});
-                    }).catch((err) => {
-                        res.status(500).json({ok: false, error: 'DB'});
-                    });
-                }
-            } else {
-                res.status(403).json({ok: false, error: 'MATCH_EXPIRED'});
+                    }
+                }).then(() => {
+                    res.json({ok: true});
+                }).catch((err) => {
+                    res.status(500).json({ok: false, error: 'DB'});
+                });
             }
         }).catch(function() {
             res.status(404).json({ok: false, error: 'MATCH_NOT_FOUND'});
