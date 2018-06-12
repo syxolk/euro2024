@@ -47,6 +47,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 const app = express();
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
+app.set('trust proxy', config.trustProxy);
 app.disable('x-powered-by');
 app.enable('strict routing');
 app.enable('case sensitive routing');
@@ -55,6 +56,14 @@ app.locals.origin = config.origin;
 hbs.localsAsTemplateData(app);
 
 require('./hbs_helpers.js')();
+
+app.use((req, res, next) => {
+    if(config.redirectHttps && req.protocol === "http") {
+        res.redirect(`https://${req.hostname}${req.url}`);
+        return;
+    }
+    next();
+});
 
 app.use(compression());
 require('./routes/static.js')(app);

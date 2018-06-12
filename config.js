@@ -15,6 +15,12 @@ module.exports = {
     // Timezone offset used for all datetime outputs (by moment.js)
     // Defaults to CEST (Central European Summer Time)
     utcOffset: process.env.UTC_OFFSET || "+0200",
+
+    // Set to true if the node runs behind a proxy that sets X-Forwarded-* headers
+    trustProxy: process.env.TRUST_PROXY === "1",
+
+    // Set to true if HTTP should be redirected to HTTPS
+    redirectHttps: process.env.REDIRECT_HTTPS === "1",
 };
 
 if(process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
