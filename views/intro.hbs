@@ -130,6 +130,78 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#rank">
+                        How is the rank calculated?
+                    </button>
+                </h5>
+            </div>
+            <div id="rank" class="collapse" data-parent="#faq">
+                <div class="card-body">
+                    <p>The rank on the highscore is not only based on the score
+                    but also on the number of stars someone received (the <i>CNT</i> column on the <a href="/highscore">highscore</a>).
+                    To be more precise, the rank is based on the following statistics in that order:
+                    </p>
+                    <ol>
+                        <li>Score (sum of all points)</li>
+                        <li>CNT {{>correct_bet}} (number of times the exact result was betted)</li>
+                        <li>CNT {{>correct_diff}} (number of times the correct goal difference was betted)</li>
+                        <li>CNT {{>correct_winner}} (number of times the correct winner was betted)</li>
+                        <li>CNT {{>wrong_bet}} (number of times a wrong bet was made)</li>
+                    </ol>
+                    <p>
+                        Two players will only ever have the same rank if <i>all five</i>
+                        statistics are the same.
+                    </p>
+                    <p>
+                        <strong>Ranking Example</strong><br>
+                        User A and B share the same rank because they have the same score
+                        and the same number of stars.
+                        Although user C has the same score as A and B,
+                        he has a lower rank
+                        because he has a lower number of {{>correct_bet}}.
+                        Although user D has the same score as A, B and C
+                        and the same number of {{>correct_bet}} as C,
+                        he has a lower rank because he has a lower
+                        number of {{>correct_diff}}.
+                    </p>
+                    <table class="table table-striped">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>{{>correct_bet}}</th>
+                            <th>{{>correct_diff}}</th>
+                            <th>{{>correct_winner}}</th>
+                            <th>{{>wrong_bet}}</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>CNT</th>
+                            <th>CNT</th>
+                            <th>CNT</th>
+                            <th>CNT</th>
+                        </tr>
+                        <tr>
+                            <th>1.</th><td>A</td><td>13</td><td>1</td><td>1</td><td>3</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <th>1.</th><td>B</td><td>13</td><td>1</td><td>1</td><td>3</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <th>3.</th><td>C</td><td>13</td><td>0</td><td>3</td><td>2</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <th>4.</th><td>D</td><td>13</td><td>0</td><td>1</td><td>5</td><td>1</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#penalty">
                         Are goals from the penalty shoot-out included in the match result?
                     </button>
