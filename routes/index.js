@@ -15,6 +15,7 @@ module.exports = function(app) {
     require('./admin')(app);
     require('./friend')(app);
     require('./mybets')(app);
+    require('./password_recovery')(app);
 
     app.use(function (req, res, next) {
         res.status(404).render('404');

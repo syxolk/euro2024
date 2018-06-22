@@ -4,7 +4,7 @@ const User = instance.model('User');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mustache = require('mustache');
-const nodemailer = require('nodemailer');
+const sendRawMail = require('./send_mail.js').sendRawMail;
 const BCRYPT_ROUNDS = 10;
 
 const MAIL_TEMPLATE =
@@ -36,27 +36,7 @@ function sendMail(user) {
         }),
     };
 
-    if(config.mail === "smtp") {
-        const transporter = nodemailer.createTransport(config.mailParams);
-        return new Promise((resolve, reject) => {
-            transporter.sendMail(mail, (error, info) => {
-                if(error) {
-                    return reject(error);
-                }
-                resolve(info);
-            });
-        });
-    } else if(config.mail === "mailgun") {
-        const mailgun = require('mailgun-js')(config.mailParams);
-        return new Promise((resolve, reject) => {
-            mailgun.messages().send(mail, (err, body) => {
-                if(err) {
-                    return reject(err);
-                }
-                resolve(body);
-            });
-        });
-    }
+    return sendRawMail(mail);
 }
 
 module.exports = function(app) {

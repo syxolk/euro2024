@@ -22,6 +22,8 @@ const User = instance.define('User', {
     emailConfirmToken: {type: Sequelize.UUID, unique: true},
     admin: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     pastMatchesLastVisitedAt: {type: Sequelize.DATE},
+    passwordResetToken: {type: Sequelize.UUID, unique: true},
+    passwordResetCreatedAt: {type: Sequelize.DATE},
 });
 
 const Team = instance.define('Team', {
