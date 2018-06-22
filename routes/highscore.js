@@ -47,6 +47,7 @@ module.exports = function(app) {
                 users: results,
                 columns,
                 friends: onlyFriends,
+                hasFriends: results.some((x) => x.isfriend),
             });
         });
     });
