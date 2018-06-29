@@ -71,7 +71,8 @@ tr.user-is-me > td {
 <canvas id="friend-history" width="100" height="30"></canvas>
 {{/if}}
 
-<table class="table table-striped">
+<div class="table-responsive-md">
+<table id="highscore" class="table table-striped">
 <thead>
 <tr>
     <th></th>
@@ -87,17 +88,16 @@ tr.user-is-me > td {
 </tr>
 <tr>
     <th></th>
-    <th></th>
+    <th data-orderable='false'></th>
     {{#each columns}}
     <th>
-        <a {{#if active}}class="ordered-column"{{/if}} href="{{url}}">
-            {{title}} {{#if active}}{{#if (eq orderDir "desc")}}&#x25B2;{{else}}&#x25BC;{{/if}}{{/if}}
-        </a>
+        {{title}}
     </th>
     {{/each}}
-    {{#if loggedIn}}<th><span title="Friends">&#x1F465;</span></th>{{/if}}
+    {{#if loggedIn}}<th data-orderable='false'><span title="Friends">&#x1F465;</span></th>{{/if}}
 </tr>
 </thead>
+<tbody>
 {{#each users}}
 <tr {{#if isme}}class="user-is-me"{{/if}} {{#if isfriend}}class="user-is-friend"{{/if}}>
     <td class="text-center">
@@ -107,10 +107,10 @@ tr.user-is-me > td {
     </td>
     <td>
         {{#if (gt0 rank_change)}}
-        <span class="history-up"><img src="{{asset "/arrow-up.svg"}}" height="14"> +{{rank_change}}</span>
+        <span class="history-up text-nowrap"><img src="{{asset "/arrow-up.svg"}}" height="14"> +{{rank_change}}</span>
         {{/if}}
         {{#if (lt0 rank_change)}}
-        <span class="history-down"><img src="{{asset "/arrow-down.svg"}}" height="14"> {{rank_change}}</span>
+        <span class="history-down text-nowrap"><img src="{{asset "/arrow-down.svg"}}" height="14"> {{rank_change}}</span>
         {{/if}}
     </td>
     <td>
@@ -136,7 +136,10 @@ tr.user-is-me > td {
     {{/if}}
 </tr>
 {{/each}}
+</tbody>
 </table>
+</div>
+
 </div>
 {{/inline}}
 {{#*inline "scripts"}}

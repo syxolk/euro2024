@@ -45,3 +45,21 @@ $(function() {
         });
     });
 });
+
+$(document).ready( function () {
+    $('#highscore').DataTable({
+        paging: false,
+        order: [[0, 'asc'], [2, 'asc']],
+        columnDefs: [
+            // Allow search only for the name column
+            {searchable: true, targets: 2},
+            {searchable: false, targets: '_all'},
+            // Fix default order direction (except name and rank)
+            {orderSequence: ["asc", "desc"], targets: [0, 2]},
+            {orderSequence: ["desc", "asc"], targets: '_all'},
+            // Order by rank and name
+            {orderData: [0, 2], targets: 0},
+            {orderData: [3, 0, 2], targets: 3},
+        ],
+    });
+});

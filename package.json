@@ -19,6 +19,8 @@
     "compression": "^1.7.2",
     "connect-flash": "0.1.1",
     "csurf": "^1.9.0",
+    "datatables.net": "^1.10.18",
+    "datatables.net-bs4": "^1.10.18",
     "express": "^4.16.2",
     "express-sequelize-session": "^0.4.0",
     "express-session": "^1.15.6",
