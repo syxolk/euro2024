@@ -107,7 +107,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: !!config.https
+        secure: !!config.https,
+        maxAge: ms('30 days'),
     }
 }));
 app.use(flash());
