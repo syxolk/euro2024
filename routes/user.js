@@ -67,7 +67,7 @@ module.exports = function(app) {
                         model: MatchType
                     }
                 ],
-                order: [['when', 'DESC']]
+                order: [['when', 'DESC'], ['id', 'DESC']]
             })
         ).spread(function(displayedUser, matches) {
             if(displayedUser) {
