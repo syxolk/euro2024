@@ -25,7 +25,8 @@ module.exports = function(app) {
                     {
                         model: MatchType
                     }
-                ]
+                ],
+                order: [['when', 'ASC']],
             }),
             Team.findAll({order: [['code', 'ASC']]}),
             Match.findAll({
