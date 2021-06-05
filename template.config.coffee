@@ -5,10 +5,6 @@ module.exports =
     # PostreSQL connection URL
     db: 'postgres://user:password@localhost:port/database'
 
-    # Set to true to enable HTTPS mode
-    # HTTPS enables the HTTPS server and an HTTP redirect to HTTPS
-    https: false
-
     # When using HTTPS put the key and certificate path here
     key: '/path/to/key.pem'
     cert: '/path/to/cert.pem'

@@ -17,7 +17,6 @@ exports.up = async (knex) => {
             email_confirm_token text unique,
             admin boolean not null default false,
             created_at timestamptz not null,
-            updated_at timestamptz not null,
             past_matches_last_visited_at timestamptz not null,
             password_reset_token text unique,
             password_reset_created_at timestamptz
@@ -74,8 +73,7 @@ exports.up = async (knex) => {
         create table news (
             id serial primary key not null,
             headline text not null,
-            created_at timestamptz not null,
-            updated_at timestamptz not null
+            created_at timestamptz not null
         )
     `)
     

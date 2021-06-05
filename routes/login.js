@@ -1,73 +1,95 @@
-const instance = require('../models').instance;
-const User = instance.model('User');
-const bcrypt  = require('bcrypt');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const config = require('../config');
+const bcrypt = require("bcrypt");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const config = require("../config");
+const { knex } = require("../db");
 
-passport.use(new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    }, function(req, email, password, done) {
-        // Save email in flash
-        req.flash('email', email);
+const router = require("express-promise-router")();
 
-        User.findOne({
-            where: {email}
-        }).then(function(user) {
-            bcrypt.compare(password, user.password, function(err, same) {
-                if(err) {
-                    done(err);
-                } else if(same) {
-                    done(null, user);
-                } else {
-                    done(null, false, {message: 'Wrong password!'});
-                }
-            });
-        }).catch(function(err) {
-            done(null, false, {message: 'Wrong email address!'});
-        });
+passport.use(
+    new LocalStrategy(
+        {
+            usernameField: "email",
+            passwordField: "password",
+            passReqToCallback: true,
+        },
+        function (req, email, password, done) {
+            // Save email in flash
+            req.flash("email", email);
+
+            knex("user_account")
+                .where({ email: email })
+                .select("id", "name", "email", "password")
+                .first()
+                .then((user) => {
+                    if (user === undefined) {
+                        done(null, false, { message: "Wrong email address!" });
+                        return;
+                    }
+
+                    bcrypt.compare(
+                        password,
+                        user.password,
+                        function (err, same) {
+                            if (err) {
+                                done(err);
+                            } else if (same) {
+                                done(null, user);
+                            } else {
+                                done(null, false, {
+                                    message: "Wrong password!",
+                                });
+                            }
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+    )
+);
+
+router.get("/login", function (req, res) {
+    res.redirect("/");
+});
+
+router.get("/", function (req, res) {
+    if (req.user) {
+        res.redirect("/me");
+        return;
     }
-));
 
-module.exports = function(app) {
-    app.get('/login', function(req, res) {
-        res.redirect('/');
+    res.render("login", {
+        enabledFacebook: !!config.facebook,
+        enabledGoogle: !!config.google,
+        error: req.flash("error"),
+        email: req.flash("email"),
     });
+});
 
-    app.get('/', function(req, res) {
-        if(req.user) {
-            res.redirect('/me');
-            return;
-        }
+router.post(
+    "/login",
+    passport.authenticate("local", {
+        successRedirect: "/me",
+        failureRedirect: "/login",
+        failureFlash: true,
+    })
+);
 
-        res.render('login', {
-            enabledFacebook: !!config.facebook,
-            enabledGoogle: !!config.google,
-            error: req.flash('error'),
-            email: req.flash('email')
-        });
-    });
+router.post("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
 
-    app.post('/login', passport.authenticate('local', {
-        successRedirect: '/me',
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
+// Redirect to my personal user page
+router.get("/me", function (req, res) {
+    if (!req.user) {
+        res.redirect("/login");
+        return;
+    }
 
-    app.post('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+    res.redirect("/user/" + req.user.id);
+});
 
-    // Redirect to my personal user page
-    app.get('/me', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
-
-        res.redirect('/user/' + req.user.id);
-    });
-};
+module.exports = router;

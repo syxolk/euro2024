@@ -40,7 +40,7 @@ module.exports = function(app) {
             bind: {
                 id: (req.user ? req.user.id : 0),
                 logged_in: !!req.user,
-                last_visited: (req.user ? req.user.pastMatchesLastVisitedAt : null),
+                last_visited: (req.user ? req.user.past_matches_last_visited_at : null),
             },
         })
         .then(function(matches) {
@@ -63,7 +63,7 @@ module.exports = function(app) {
 
             // Last step: Update the timestamp when the past matches page was last visited.
             if(req.user) {
-                req.user.pastMatchesLastVisitedAt = new Date();
+                req.user.past_matches_last_visited_at = new Date();
                 req.user.save().then(() => {
                     res.render('past', {matches});
                 });

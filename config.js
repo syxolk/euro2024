@@ -18,9 +18,6 @@ module.exports = {
 
     // Set to true if the node runs behind a proxy that sets X-Forwarded-* headers
     trustProxy: process.env.TRUST_PROXY === "1",
-
-    // Set to true if HTTP should be redirected to HTTPS
-    redirectHttps: process.env.REDIRECT_HTTPS === "1",
 };
 
 if(process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {

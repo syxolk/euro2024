@@ -1,34 +1,35 @@
-const instance = require('../models').instance;
-const User = instance.model('User');
-const config = require('../config');
+const config = require("../config");
+const { knex } = require("../db");
 
-module.exports = function(app) {
-    app.get('/settings', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
+const router = require("express-promise-router")();
 
-        res.render('settings', {
-            enabledFacebook: !!config.facebook,
-            enabledGoogle: !!config.google,
-            error: req.flash("error"),
-        });
+router.get("/settings", (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+        return;
+    }
+
+    res.render("settings", {
+        enabledFacebook: !!config.facebook,
+        enabledGoogle: !!config.google,
+        error: req.flash("error"),
     });
+});
 
-    app.post('/settings', function(req, res) {
-        if(! req.user) {
-            res.redirect('/login');
-            return;
-        }
+router.post("/settings", async (req, res) => {
+    if (!req.user) {
+        res.redirect("/login");
+        return;
+    }
 
-        // Remove any leading/trailing whitespace
-        req.user.name = req.body.name.trim();
-        req.user.save().then(function() {
-            res.redirect('/settings');
-        }).catch(function() {
-            req.flash("error", "Could not set name.");
-            res.redirect('/settings');
-        });
-    });
-};
+    await knex("user_account")
+        .update({
+            // Remove any leading/trailing whitespace
+            name: req.body.name.trim(),
+        })
+        .where({ id: req.user.id });
+
+    res.redirect("/settings");
+});
+
+module.exports = router;
