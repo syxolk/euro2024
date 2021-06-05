@@ -5,13 +5,13 @@ exports.up = async (knex) => {
         table.timestamp("expired").index().notNullable();
     });
 
-    await knex.raw(`
+    await knex.schema.raw(`
         create table user_account (
             id serial primary key not null,
             facebook_id text unique,
             google_id text unique,
             name text not null,
-            email text not nul,
+            email text not null,
             password text,
             email_confirmed boolean not null default false,
             email_confirm_token text unique,
@@ -20,36 +20,44 @@ exports.up = async (knex) => {
             updated_at timestamptz not null,
             past_matches_last_visited_at timestamptz not null,
             password_reset_token text unique,
-            password_reset_created_at timestamptz,
+            password_reset_created_at timestamptz
         )
-    `).raw(`
+    `);
+
+    await knex.schema.raw(`
         create table team (
             id serial primary key not null,
             name text not null,
             code text not null
         )
-    `).raw(`
+    `);
+
+    await knex.schema.raw(`
         create table match_type (
             id serial primary key not null,
             code text not null,
             name text not null,
-            score_factor integer not null default 1,
+            score_factor integer not null default 1
         )
-    `).raw(`
+    `);
+
+    await knex.schema.raw(`
         create table match (
             id serial primary key not null,
             goals_home integer,
             goals_away integer,
-            when timestamptz not null,
+            starts_at timestamptz not null,
             tv text,
             home_team_id integer references team(id) on delete cascade,
             away_team_id integer references team(id) on delete cascade,
             match_type_id integer not null references match_type(id) on delete cascade,
             placeholder_home text,
             placeholder_away text,
-            goals_inserted_at timestamptz,
+            goals_inserted_at timestamptz
         )
-    `).raw(`
+    `);
+
+    await knex.schema.raw(`
         create table bet (
             id serial primary key not null,
             goals_home integer not null,
@@ -60,36 +68,46 @@ exports.up = async (knex) => {
             updated_at timestamptz not null,
             unique (user_id, match_id)
         )
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         create table news (
             id serial primary key not null,
             headline text not null,
             created_at timestamptz not null,
             updated_at timestamptz not null
         )
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         create table history (
             id serial primary key not null,
             rank integer not null,
-            user_id integer not null references user(id) on delete cascade,
+            user_id integer not null references user_account(id) on delete cascade,
             match_id integer not null references match(id) on delete cascade,
             unique (user_id, match_id)
         )
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         create table friend (
             id serial primary key,
             from_user_id integer not null references user_account(id),
             to_user_id integer not null references user_account(id),
             unique (from_user_id, to_user_id)
         )
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE TYPE bet_result AS ENUM (
             'correct',  -- Correct bet (e.g. betted 4:3 and the match result was 4:3)
             'diff',     -- Correct goal difference (e.g. betted 4:3 and the match result was 1:0, 2:1, 3:2, 4:3 ...)
             'winner',   -- Correct match winner (e.g. betted 4:3 and the match winner was the home team)
             'wrong'     -- Anything else
         );
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE FUNCTION calc_bet_result(match_home integer, match_away integer, bet_home integer, bet_away integer) RETURNS bet_result AS
         $$
         SELECT CASE
@@ -100,7 +118,9 @@ exports.up = async (knex) => {
         END
         $$
         LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE FUNCTION calc_bet_score(res bet_result, score_factor integer) RETURNS integer AS
         $$
         SELECT CASE res
@@ -111,7 +131,9 @@ exports.up = async (knex) => {
         END
         $$
         LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
-    `).raw(`
+    `)
+
+    await knex.schema.raw(`
         CREATE OR REPLACE FUNCTION calc_score(match_home integer, match_away integer, bet_home integer, bet_away integer) RETURNS integer AS
         $$
         SELECT CASE
@@ -122,17 +144,21 @@ exports.up = async (knex) => {
         END
         $$
         LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT;
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE FUNCTION user_rank_history(user_account_id integer, lookback integer) RETURNS integer AS
         $$
         WITH ranks as (SELECT array(
         SELECT rank FROM history
         JOIN match ON (history.match_id = match.id)
-        WHERE history.user_id = user_account_id ORDER BY match.when DESC LIMIT lookback) AS x)
+        WHERE history.user_id = user_account_id ORDER BY match.starts_at DESC LIMIT lookback) AS x)
         SELECT x[array_length(x,1)] - x[1]  FROM ranks;
         $$
         LANGUAGE SQL STABLE RETURNS NULL ON NULL INPUT;
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE VIEW score_table
         AS WITH bets AS (
         SELECT b.user_id as id,
@@ -148,7 +174,7 @@ exports.up = async (knex) => {
         FROM bet as b
         JOIN match as m ON m.id = b.match_id
         JOIN match_type as mt ON m.match_type_id = mt.id
-        WHERE now() > m.when  -- check if match is expired
+        WHERE now() > m.starts_at  -- check if match is expired
         GROUP BY b.user_id
         )
         SELECT user_account.name as name,
@@ -162,7 +188,9 @@ exports.up = async (knex) => {
         coalesce(total1, 0) as total1,
         coalesce(total0, 0) as total0
         FROM user_account LEFT JOIN bets ON user_account.id = bets.id;
-    `).raw(`
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE FUNCTION set_match_result(match_id integer, goals_home integer, goals_away integer) RETURNS void AS
         $$
         UPDATE match SET goals_home = goals_home, goals_away = goals_away WHERE id = match_id;
@@ -174,7 +202,7 @@ exports.up = async (knex) => {
 
         CREATE OR REPLACE VIEW match_table
         AS SELECT match.id as id,
-        match.when as when,
+        match.starts_at as starts_at,
         (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
         (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
         (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
@@ -187,12 +215,12 @@ exports.up = async (knex) => {
         FROM match
         -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
         JOIN bet ON match.id = bet.match_id
-        WHERE now() > match.when AND match.goals_home IS NULL AND match.goals_away IS NULL
+        WHERE now() > match.starts_at AND match.goals_home IS NULL AND match.goals_away IS NULL
         GROUP BY match.id;
 
         CREATE OR REPLACE VIEW past_match_table
         AS SELECT match.id as id,
-        match.when as when,
+        match.starts_at as starts_at,
         (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
         match.goals_home as goalshome,
         match.goals_away as goalsaway,
@@ -212,18 +240,20 @@ exports.up = async (knex) => {
         -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
         JOIN bet ON match.id = bet.match_id
         JOIN user_account ON user_account.id = bet.user_id
-        WHERE now() > match.when AND match.goals_home IS NOT NULL AND match.goals_away IS NOT NULL
+        WHERE now() > match.starts_at AND match.goals_home IS NOT NULL AND match.goals_away IS NOT NULL
         GROUP BY match.id
-        ORDER BY match.when DESC;
-    `).raw(`
+        ORDER BY match.starts_at DESC;
+    `)
+    
+    await knex.schema.raw(`
         CREATE OR REPLACE VIEW highscore AS
         WITH
         last_match AS (
-            SELECT when
+            SELECT starts_at
             FROM match m
             WHERE goals_home IS NOT NULL
                 AND goals_away IS NOT NULL
-            ORDER BY when DESC
+            ORDER BY starts_at DESC
             LIMIT 1
         ),
         bets_past AS (
@@ -236,7 +266,7 @@ exports.up = async (knex) => {
             FROM bet as b
             JOIN match as m ON m.id = b.match_id
             JOIN match_type as mt ON m.match_type_id = mt.id
-            WHERE (SELECT when FROM last_match) - '24 hours'::interval > m.when
+            WHERE (SELECT starts_at FROM last_match) - '24 hours'::interval > m.starts_at
             GROUP BY b.user_id
         ),
         bets AS (
@@ -252,7 +282,7 @@ exports.up = async (knex) => {
             FROM bet as b
             JOIN match as m ON m.id = b.match_id
             JOIN match_type as mt ON m.match_type_id = mt.id
-            WHERE now() > m.when  -- check if match is expired
+            WHERE now() > m.starts_at  -- check if match is expired
             GROUP BY b.user_id
         )
         SELECT user_account.name as name,
@@ -271,7 +301,7 @@ exports.up = async (knex) => {
         FROM user_account
         LEFT JOIN bets ON user_account.id = bets.id
         LEFT JOIN bets_past ON user_account.id = bets_past.id
-    `)
+    `);
 };
 
 exports.down = async (knex) => {
