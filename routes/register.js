@@ -31,7 +31,7 @@ function sendMail(user) {
         subject: "Activate your Euro 2020 Account",
         text: mustache.render(MAIL_TEMPLATE, {
             name: user.name,
-            url: config.origin + "/activate/" + user.emailConfirmToken,
+            url: config.origin + "/activate/" + user.email_confirm_token,
         }),
     };
 
@@ -79,6 +79,7 @@ router.post("/register", async (req, res) => {
                 "email",
                 "admin",
                 "past_matches_last_visited_at",
+                "email_confirm_token"
             ]);
 
         user = result[0];
