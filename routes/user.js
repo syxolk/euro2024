@@ -36,6 +36,7 @@ router.get("/user/:id", async (req, res) => {
             "match_type.name as match_type_name",
             "match_type.code as match_type.code",
             "match_type.score_factor as match_type_score_factor",
+            "starts_at",
             knex.raw(
                 `coalesce(
                     calc_bet_result(match.goals_home, match.goals_away, bet.goals_home, bet.goals_away),
