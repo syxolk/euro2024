@@ -52,7 +52,8 @@ exports.up = async (knex) => {
             match_type_id integer not null references match_type(id) on delete cascade,
             placeholder_home text,
             placeholder_away text,
-            goals_inserted_at timestamptz
+            goals_inserted_at timestamptz,
+            uefa_id text not null
         )
     `);
 

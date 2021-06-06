@@ -1,0 +1,603 @@
+{
+    "teams": [
+        {
+            "name": "Austria",
+            "code": "AUT"
+        },
+        {
+            "name": "Belgium",
+            "code": "BEL"
+        },
+        {
+            "name": "Croatia",
+            "code": "CRO"
+        },
+        {
+            "name": "Czech Republic",
+            "code": "CZE"
+        },
+        {
+            "name": "Denmark",
+            "code": "DEN"
+        },
+        {
+            "name": "England",
+            "code": "ENG"
+        },
+        {
+            "name": "Spain",
+            "code": "ESP"
+        },
+        {
+            "name": "Finland",
+            "code": "FIN"
+        },
+        {
+            "name": "France",
+            "code": "FRA"
+        },
+        {
+            "name": "Germany",
+            "code": "GER"
+        },
+        {
+            "name": "Hungary",
+            "code": "HUN"
+        },
+        {
+            "name": "Italy",
+            "code": "ITA"
+        },
+        {
+            "name": "North Macedonia",
+            "code": "MKD"
+        },
+        {
+            "name": "Netherlands",
+            "code": "NED"
+        },
+        {
+            "name": "Poland",
+            "code": "POL"
+        },
+        {
+            "name": "Portugal",
+            "code": "POR"
+        },
+        {
+            "name": "Russia",
+            "code": "RUS"
+        },
+        {
+            "name": "Scotland",
+            "code": "SCO"
+        },
+        {
+            "name": "Switzerland",
+            "code": "SUI"
+        },
+        {
+            "name": "Slovakia",
+            "code": "SVK"
+        },
+        {
+            "name": "Sweden",
+            "code": "SWE"
+        },
+        {
+            "name": "Turkey",
+            "code": "TUR"
+        },
+        {
+            "name": "Ukraine",
+            "code": "UKR"
+        },
+        {
+            "name": "Wales",
+            "code": "WAL"
+        }
+    ],
+    "matches": [
+        {
+            "placeholder_home": "Winner SF1",
+            "placeholder_away": "Winner SF2",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 6,
+            "starts_at": "2021-07-11T19:00:00Z",
+            "uefa_id": "2024491"
+        },
+        {
+            "placeholder_home": "Winner QF4",
+            "placeholder_away": "Winner QF3",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 9,
+            "starts_at": "2021-07-07T19:00:00Z",
+            "uefa_id": "2024490"
+        },
+        {
+            "placeholder_home": "Winner QF2",
+            "placeholder_away": "Winner QF1",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 9,
+            "starts_at": "2021-07-06T19:00:00Z",
+            "uefa_id": "2024489"
+        },
+        {
+            "placeholder_home": "Winner R16 match 8",
+            "placeholder_away": "Winner R16 match 7",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 7,
+            "starts_at": "2021-07-03T19:00:00Z",
+            "uefa_id": "2024487"
+        },
+        {
+            "placeholder_home": "Winner R16 match 3",
+            "placeholder_away": "Winner R16 match 1",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 7,
+            "starts_at": "2021-07-03T16:00:00Z",
+            "uefa_id": "2024488"
+        },
+        {
+            "placeholder_home": "Winner R16 match 4",
+            "placeholder_away": "Winner R16 match 2",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 7,
+            "starts_at": "2021-07-02T19:00:00Z",
+            "uefa_id": "2024486"
+        },
+        {
+            "placeholder_home": "Winner R16 match 6",
+            "placeholder_away": "Winner R16 match 5",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 7,
+            "starts_at": "2021-07-02T16:00:00Z",
+            "uefa_id": "2024485"
+        },
+        {
+            "placeholder_home": "1st in Group E",
+            "placeholder_away": "3rd in Groups A/B/C or D",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-29T19:00:00Z",
+            "uefa_id": "2024483"
+        },
+        {
+            "placeholder_home": "1st in Group D",
+            "placeholder_away": "2nd in Group F",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-29T16:00:00Z",
+            "uefa_id": "2024484"
+        },
+        {
+            "placeholder_home": "1st in Group F",
+            "placeholder_away": "3rd in Groups A/B or C",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-28T19:00:00Z",
+            "uefa_id": "2024481"
+        },
+        {
+            "placeholder_home": "2nd in Group D",
+            "placeholder_away": "2nd in Group E",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-28T16:00:00Z",
+            "uefa_id": "2024482"
+        },
+        {
+            "placeholder_home": "1st in Group B",
+            "placeholder_away": "3rd in Groups A/D/E or F",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-27T19:00:00Z",
+            "uefa_id": "2024479"
+        },
+        {
+            "placeholder_home": "1st in Group C",
+            "placeholder_away": "3rd in Groups D/E or F",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-27T16:00:00Z",
+            "uefa_id": "2024480"
+        },
+        {
+            "placeholder_home": "1st in Group A",
+            "placeholder_away": "2nd in Group C",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-26T19:00:00Z",
+            "uefa_id": "2024477"
+        },
+        {
+            "placeholder_home": "2nd in Group A",
+            "placeholder_away": "2nd in Group B",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 8,
+            "starts_at": "2021-06-26T16:00:00Z",
+            "uefa_id": "2024478"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 9,
+            "away_team_id": 10,
+            "match_type_id": 5,
+            "starts_at": "2021-06-23T19:00:00Z",
+            "uefa_id": "2024475"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 15,
+            "away_team_id": 8,
+            "match_type_id": 5,
+            "starts_at": "2021-06-23T19:00:00Z",
+            "uefa_id": "2024476"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 20,
+            "away_team_id": 14,
+            "match_type_id": 4,
+            "starts_at": "2021-06-23T16:00:00Z",
+            "uefa_id": "2024474"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 19,
+            "away_team_id": 6,
+            "match_type_id": 4,
+            "starts_at": "2021-06-23T16:00:00Z",
+            "uefa_id": "2024473"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 3,
+            "away_team_id": 5,
+            "match_type_id": 3,
+            "starts_at": "2021-06-22T19:00:00Z",
+            "uefa_id": "2024471"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 2,
+            "away_team_id": 17,
+            "match_type_id": 3,
+            "starts_at": "2021-06-22T19:00:00Z",
+            "uefa_id": "2024472"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 1,
+            "match_type_id": 1,
+            "starts_at": "2021-06-21T19:00:00Z",
+            "uefa_id": "2024470"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 16,
+            "away_team_id": 4,
+            "match_type_id": 1,
+            "starts_at": "2021-06-21T19:00:00Z",
+            "uefa_id": "2024469"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 22,
+            "away_team_id": 0,
+            "match_type_id": 2,
+            "starts_at": "2021-06-21T16:00:00Z",
+            "uefa_id": "2024446"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 12,
+            "away_team_id": 13,
+            "match_type_id": 2,
+            "starts_at": "2021-06-21T16:00:00Z",
+            "uefa_id": "2024445"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 11,
+            "away_team_id": 23,
+            "match_type_id": 0,
+            "starts_at": "2021-06-20T16:00:00Z",
+            "uefa_id": "2024468"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 18,
+            "away_team_id": 21,
+            "match_type_id": 0,
+            "starts_at": "2021-06-20T16:00:00Z",
+            "uefa_id": "2024467"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 6,
+            "away_team_id": 14,
+            "match_type_id": 4,
+            "starts_at": "2021-06-19T19:00:00Z",
+            "uefa_id": "2024463"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 15,
+            "away_team_id": 9,
+            "match_type_id": 5,
+            "starts_at": "2021-06-19T16:00:00Z",
+            "uefa_id": "2024466"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 8,
+            "match_type_id": 5,
+            "starts_at": "2021-06-19T13:00:00Z",
+            "uefa_id": "2024465"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 5,
+            "away_team_id": 17,
+            "match_type_id": 3,
+            "starts_at": "2021-06-18T19:00:00Z",
+            "uefa_id": "2024461"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 2,
+            "away_team_id": 3,
+            "match_type_id": 3,
+            "starts_at": "2021-06-18T16:00:00Z",
+            "uefa_id": "2024462"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 20,
+            "away_team_id": 19,
+            "match_type_id": 4,
+            "starts_at": "2021-06-18T13:00:00Z",
+            "uefa_id": "2024464"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 13,
+            "away_team_id": 0,
+            "match_type_id": 2,
+            "starts_at": "2021-06-17T19:00:00Z",
+            "uefa_id": "2024443"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 4,
+            "away_team_id": 1,
+            "match_type_id": 1,
+            "starts_at": "2021-06-17T16:00:00Z",
+            "uefa_id": "2024459"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 22,
+            "away_team_id": 12,
+            "match_type_id": 2,
+            "starts_at": "2021-06-17T13:00:00Z",
+            "uefa_id": "2024444"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 11,
+            "away_team_id": 18,
+            "match_type_id": 0,
+            "starts_at": "2021-06-16T19:00:00Z",
+            "uefa_id": "2024458"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 21,
+            "away_team_id": 23,
+            "match_type_id": 0,
+            "starts_at": "2021-06-16T16:00:00Z",
+            "uefa_id": "2024457"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 16,
+            "match_type_id": 1,
+            "starts_at": "2021-06-16T13:00:00Z",
+            "uefa_id": "2024460"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 8,
+            "away_team_id": 9,
+            "match_type_id": 5,
+            "starts_at": "2021-06-15T19:00:00Z",
+            "uefa_id": "2024456"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 15,
+            "match_type_id": 5,
+            "starts_at": "2021-06-15T16:00:00Z",
+            "uefa_id": "2024455"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 6,
+            "away_team_id": 20,
+            "match_type_id": 4,
+            "starts_at": "2021-06-14T19:00:00Z",
+            "uefa_id": "2024453"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 14,
+            "away_team_id": 19,
+            "match_type_id": 4,
+            "starts_at": "2021-06-14T16:00:00Z",
+            "uefa_id": "2024454"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 17,
+            "away_team_id": 3,
+            "match_type_id": 3,
+            "starts_at": "2021-06-14T13:00:00Z",
+            "uefa_id": "2024452"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 13,
+            "away_team_id": 22,
+            "match_type_id": 2,
+            "starts_at": "2021-06-13T19:00:00Z",
+            "uefa_id": "2024441"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 0,
+            "away_team_id": 12,
+            "match_type_id": 2,
+            "starts_at": "2021-06-13T16:00:00Z",
+            "uefa_id": "2024442"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 5,
+            "away_team_id": 2,
+            "match_type_id": 3,
+            "starts_at": "2021-06-13T13:00:00Z",
+            "uefa_id": "2024451"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 1,
+            "away_team_id": 16,
+            "match_type_id": 1,
+            "starts_at": "2021-06-12T19:00:00Z",
+            "uefa_id": "2024450"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 4,
+            "away_team_id": 7,
+            "match_type_id": 1,
+            "starts_at": "2021-06-12T16:00:00Z",
+            "uefa_id": "2024449"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 23,
+            "away_team_id": 18,
+            "match_type_id": 0,
+            "starts_at": "2021-06-12T13:00:00Z",
+            "uefa_id": "2024448"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 21,
+            "away_team_id": 11,
+            "match_type_id": 0,
+            "starts_at": "2021-06-11T19:00:00Z",
+            "uefa_id": "2024447"
+        }
+    ],
+    "types": [
+        {
+            "name": "Group A",
+            "code": "A"
+        },
+        {
+            "name": "Group B",
+            "code": "B"
+        },
+        {
+            "name": "Group C",
+            "code": "C"
+        },
+        {
+            "name": "Group D",
+            "code": "D"
+        },
+        {
+            "name": "Group E",
+            "code": "E"
+        },
+        {
+            "name": "Group F",
+            "code": "F"
+        },
+        {
+            "name": "Final",
+            "code": "Final"
+        },
+        {
+            "name": "Quarter-finals",
+            "code": "QF"
+        },
+        {
+            "name": "Round of 16",
+            "code": "R16"
+        },
+        {
+            "name": "Semi-finals",
+            "code": "SF"
+        }
+    ]
+}
