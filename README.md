@@ -1,10 +1,10 @@
-# Euro 2016 / WorldCup 2018
+# Euro 2016 / WorldCup 2018 / Euro 2020
 
 [![Code Climate](https://codeclimate.com/github/syxolk/euro2016/badges/gpa.svg)](https://codeclimate.com/github/syxolk/euro2016)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/35f72d8dc9964c9389aa4937c98dd571)](https://www.codacy.com/app/hans-kirchner-info/euro2016)
 [![David DM](https://david-dm.org/syxolk/euro2016.svg)](https://david-dm.org/syxolk/euro2016)
 
-~~Euro 2016~~ WorldCup 2018 is a web service written in [Node.js][nodejs],
+~~Euro 2016~~ ~~WorldCup 2018~~ Euro 2020 is a web service written in [Node.js][nodejs],
 giving you and your friends :boy: :girl: a platform of competition: Who is the
 better forecaster of football :soccer: matches? Make bets for football matches,
 collect scores and win the crown :crown:.
@@ -17,8 +17,8 @@ collect scores and win the crown :crown:.
 
 Additionally, there's a match score factor that is multiplied with the points.
 
-The [FIFA World Cup 2018][fifa] is taking place in Russia :ru:
-from June 14 to July 15. Happy betting!
+The [UEFA Euro 2020][uefa] is taking place in several European cities and Baku
+from June 11 to July 11. Happy betting!
 
 ## Install
 You need to have [PostgreSQL][postgres] :elephant: >= 9.6 installed and
@@ -99,8 +99,8 @@ If you want to enable Facebook login you need to create a [Facebook App][faceboo
 enable 'Facebook Login' for it and add valid OAuth Redirect URIs
 (use your own domain of course):
 ```
-https://wetten2018.de/auth/facebook/callback
-https://wetten2018.de/connect/facebook/callback
+https://www.wetten2020.de/auth/facebook/callback
+https://www.wetten2020.de/connect/facebook/callback
 ```
 
 Then add this in your run script (with your own app id and secret):
@@ -116,8 +116,8 @@ If you want to enable Google login you need to create a
 [Google Cloud Platform Project][gcpproject], create an OAuth-Client-ID and
 set the Redirection-URIs to (using your own domain):
 ```
-https://wetten2018.de/auth/google/callback
-https://wetten2018.de/connect/google/callback
+https://www.wetten2020.de/auth/google/callback
+https://www.wetten2020.de/connect/google/callback
 ```
 
 Then add this in your run script:
@@ -132,7 +132,7 @@ either an SMTP connection or a Mailgun account.
 
 ```
 export MAIL_SOLUTION=smtp
-export MAIL_FROM=no-reply@wetten2018.de
+export MAIL_FROM=no-reply@wetten2020.de
 export SMTP_HOST=localhost
 export SMTP_PORT=465
 export SMTP_USER=smtp_user
@@ -145,8 +145,8 @@ this in your run script:
 
 ```
 export MAIL_SOLUTION=mailgun
-export MAIL_FROM=no-reply@wetten2018.de
-export MAILGUN_DOMAIN=wetten2018.de
+export MAIL_FROM=no-reply@wetten2020.de
+export MAILGUN_DOMAIN=wetten2020.de
 export MAILGUN_API_KEY=your-mailgun-api-key
 ```
 
@@ -161,7 +161,7 @@ Icons made by [Papedesign][papedesign] from [www.flaticon.com][flaticon] is
 licensed by [CC 3.0 BY][ccby]
 
 [nodejs]: https://nodejs.org/en/
-[fifa]: https://www.fifa.com/worldcup/
+[uefa]: https://www.uefa.com/uefaeuro-2020/
 [postgres]: http://www.postgresql.org/
 [papedesign]: http://www.flaticon.com/authors/papedesign
 [flaticon]: http://www.flaticon.com
