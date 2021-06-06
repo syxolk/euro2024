@@ -19,6 +19,7 @@ def main():
 
         team_name = team["translations"]["displayName"]["EN"]
         team_code = team["translations"]["displayTeamCode"]["EN"]
+        uefa_id = team["id"]
 
         if any(x["code"] == team_code for x in teams):
             # team is already in list
@@ -27,6 +28,7 @@ def main():
         teams.append({
             "name": team_name,
             "code": team_code,
+            "uefa_id": uefa_id
         })
 
     def add_type(match):

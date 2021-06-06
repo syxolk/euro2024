@@ -2,99 +2,123 @@
     "teams": [
         {
             "name": "Austria",
-            "code": "AUT"
+            "code": "AUT",
+            "uefa_id": "8"
         },
         {
             "name": "Belgium",
-            "code": "BEL"
+            "code": "BEL",
+            "uefa_id": "13"
         },
         {
             "name": "Croatia",
-            "code": "CRO"
+            "code": "CRO",
+            "uefa_id": "56370"
         },
         {
             "name": "Czech Republic",
-            "code": "CZE"
+            "code": "CZE",
+            "uefa_id": "58837"
         },
         {
             "name": "Denmark",
-            "code": "DEN"
+            "code": "DEN",
+            "uefa_id": "35"
         },
         {
             "name": "England",
-            "code": "ENG"
+            "code": "ENG",
+            "uefa_id": "39"
         },
         {
             "name": "Spain",
-            "code": "ESP"
+            "code": "ESP",
+            "uefa_id": "122"
         },
         {
             "name": "Finland",
-            "code": "FIN"
+            "code": "FIN",
+            "uefa_id": "42"
         },
         {
             "name": "France",
-            "code": "FRA"
+            "code": "FRA",
+            "uefa_id": "43"
         },
         {
             "name": "Germany",
-            "code": "GER"
+            "code": "GER",
+            "uefa_id": "47"
         },
         {
             "name": "Hungary",
-            "code": "HUN"
+            "code": "HUN",
+            "uefa_id": "57"
         },
         {
             "name": "Italy",
-            "code": "ITA"
+            "code": "ITA",
+            "uefa_id": "66"
         },
         {
             "name": "North Macedonia",
-            "code": "MKD"
+            "code": "MKD",
+            "uefa_id": "59205"
         },
         {
             "name": "Netherlands",
-            "code": "NED"
+            "code": "NED",
+            "uefa_id": "95"
         },
         {
             "name": "Poland",
-            "code": "POL"
+            "code": "POL",
+            "uefa_id": "109"
         },
         {
             "name": "Portugal",
-            "code": "POR"
+            "code": "POR",
+            "uefa_id": "110"
         },
         {
             "name": "Russia",
-            "code": "RUS"
+            "code": "RUS",
+            "uefa_id": "57451"
         },
         {
             "name": "Scotland",
-            "code": "SCO"
+            "code": "SCO",
+            "uefa_id": "117"
         },
         {
             "name": "Switzerland",
-            "code": "SUI"
+            "code": "SUI",
+            "uefa_id": "128"
         },
         {
             "name": "Slovakia",
-            "code": "SVK"
+            "code": "SVK",
+            "uefa_id": "58836"
         },
         {
             "name": "Sweden",
-            "code": "SWE"
+            "code": "SWE",
+            "uefa_id": "127"
         },
         {
             "name": "Turkey",
-            "code": "TUR"
+            "code": "TUR",
+            "uefa_id": "135"
         },
         {
             "name": "Ukraine",
-            "code": "UKR"
+            "code": "UKR",
+            "uefa_id": "57166"
         },
         {
             "name": "Wales",
-            "code": "WAL"
+            "code": "WAL",
+            "uefa_id": "144"
         }
     ],
     "matches": [

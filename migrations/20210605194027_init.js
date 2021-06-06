@@ -27,7 +27,8 @@ exports.up = async (knex) => {
         create table team (
             id serial primary key not null,
             name text not null,
-            code text not null
+            code text not null,
+            uefa_id text not null
         )
     `);
 
