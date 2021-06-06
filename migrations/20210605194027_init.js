@@ -11,7 +11,7 @@ exports.up = async (knex) => {
             facebook_id text unique,
             google_id text unique,
             name text not null,
-            email text not null,
+            email text not null unique,
             password text,
             email_confirmed boolean not null default false,
             email_confirm_token text unique,
