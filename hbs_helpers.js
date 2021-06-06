@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 const hbs = require('hbs');
 const config = require('./config');
 
@@ -19,15 +19,16 @@ module.exports = () => {
     });
 
     hbs.registerHelper('calendar', function(when) {
-        return moment(when).utcOffset(config.utcOffset).format('dddd, MMMM Do, HH:mm');
+        console.log(when);
+        return moment.tz(when, config.timezone).format('dddd, MMMM Do, HH:mm');
     });
 
     hbs.registerHelper('calendarShort', function(when) {
-        return moment(when).utcOffset(config.utcOffset).format('MMM D, HH:mm');
+        return moment.tz(when, config.timezone).format('MMM D, HH:mm');
     });
 
     hbs.registerHelper('newsDate', function(when) {
-        return moment(when).utcOffset(config.utcOffset).calendar();
+        return moment.tz(when, config.timezone).calendar();
     });
 
     hbs.registerHelper('toFixed1', function(number) {
