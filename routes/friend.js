@@ -1,58 +1,50 @@
-const instance = require('../models').instance;
-const Friend = instance.model('Friend');
+const { knex } = require("../db");
 
-module.exports = function(app) {
-    app.get('/friend', function(req, res) {
-        if(! req.user) {
-            res.status(401).json({ok: false, error: 'AUTH'});
-            return;
-        }
+const router = require("express-promise-router")();
+module.exports = router;
 
-        Friend.findAll({
-            where: {
-                FromUserId: req.user.id
-            }
-        }).then(function(friends) {
-            res.json({
-                ok: true,
-                data: friends.map((x) => x.ToUserId)
-            });
-        }).catch(function() {
-            res.status(500).json({ok: false, error: 'INTERNAL'});
-        });
+router.get("/friend", async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ ok: false, error: "AUTH" });
+        return;
+    }
+
+    const friends = await knex("friend")
+        .where({
+            from_user_id: req.user.id,
+        })
+        .select("to_user_id");
+
+    res.json({
+        ok: true,
+        data: friends.map((x) => x.to_user_id),
+    });
+});
+
+router.post("/friend", async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ ok: false, error: "AUTH" });
+        return;
+    }
+
+    await knex("friend").insert({
+        from_user_id: req.user.id,
+        to_user_id: req.body.id,
     });
 
-    app.post('/friend', function(req, res) {
-        if(! req.user) {
-            res.status(401).json({ok: false, error: 'AUTH'});
-            return;
-        }
+    res.json({ ok: true });
+});
 
-        Friend.create({
-            FromUserId: req.user.id,
-            ToUserId: req.body.id
-        }).then(function() {
-            res.json({ok: true});
-        }).catch(function() {
-            res.status(500).json({ok: false, error: 'INTERNAL'});
-        });
-    });
+router.delete("/friend/:id", async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ ok: false, error: "AUTH" });
+        return;
+    }
 
-    app.delete('/friend/:id', function(req, res) {
-        if(! req.user) {
-            res.status(401).json({ok: false, error: 'AUTH'});
-            return;
-        }
+    await knex("friend").where({
+        from_user_id: req.user.id,
+        to_user_id: req.params.id,
+    }).del();
 
-        Friend.destroy({
-            where: {
-                FromUserId: req.user.id,
-                ToUserId: req.params.id
-            }
-        }).then(function() {
-            res.json({ok: true});
-        }).catch(function() {
-            res.status(500).json({ok: false, error: 'INTERNAL'});
-        });
-    });
-};
+    res.json({ ok: true });
+});

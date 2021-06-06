@@ -19,7 +19,13 @@ passport.use(
 
             knex("user_account")
                 .where({ email: email })
-                .select("id", "name", "email", "password")
+                .select(
+                    "id",
+                    "name",
+                    "email",
+                    "password",
+                    "past_matches_last_visited_at"
+                )
                 .first()
                 .then((user) => {
                     if (user === undefined) {

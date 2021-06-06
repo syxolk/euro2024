@@ -1,75 +1,72 @@
-const bluebird = require('bluebird');
-const instance = require('../models').instance;
-const Bet = instance.model('Bet');
-const User = instance.model('User');
+const { knex } = require("../db");
+const router = require("express-promise-router")();
+module.exports = router;
 
-module.exports = function(app) {
-    app.get('/past', function(req, res) {
-        instance.query(`
-            SELECT "Match"."id" as id,
-            "Match"."when" as when,
-            (SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
-            (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as score_factor,
-             "Match"."goalsHome" as goalshome,
-             "Match"."goalsAway" as goalsaway,
-            (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
-            (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
-            array_agg("Bet"."goalsHome" order by "User".name asc) as listhome,
-            array_agg("Bet"."goalsAway" order by "User".name asc) as listaway,
-            array_agg("User"."name" order by "User".name asc) as listname,
-            array_agg("User"."id" order by "User".name asc) as listid,
-            array_agg(calc_bet_result("Match"."goalsHome", "Match"."goalsAway", "Bet"."goalsHome", "Bet"."goalsAway") order by "User".name asc) as listresult,
-            array_agg("User"."id" in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = $id) order by "User".name asc) as listfriends,
-            array_agg("User"."id" = $id order by "User".name asc) as listme,
-            count("Bet"."id") as countbets,
-            round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
-            round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
-            avg("Bet"."goalsHome") as avghome,
-            avg("Bet"."goalsAway") as avgaway,
-            $logged_in and ("goalsInsertedAt" > $last_visited or $last_visited is null) as unseen,
-            "goalsInsertedAt"
-            FROM "Match"
+router.get("/past", async (req, res) => {
+    const matches = await knex.raw(
+        `
+            SELECT match.id as id,
+            match.starts_at as starts_at,
+            (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
+            (SELECT score_factor FROM match_type WHERE match_type.id = match.match_type_id) as score_factor,
+             match.goals_home as goalshome,
+             match.goals_away as goalsaway,
+            (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
+            (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
+            array_agg(bet.goals_home order by user_account.name asc) as listhome,
+            array_agg(bet.goals_away order by user_account.name asc) as listaway,
+            array_agg(user_account.name order by user_account.name asc) as listname,
+            array_agg(user_account.id order by user_account.name asc) as listid,
+            array_agg(calc_bet_result(match.goals_home, match.goals_away, bet.goals_home, bet.goals_away)::text order by user_account.name asc) as listresult,
+            array_agg(user_account.id in (SELECT to_user_id FROM friend WHERE from_user_id = :id) order by user_account.name asc) as listfriends,
+            array_agg(user_account.id = :id order by user_account.name asc) as listme,
+            count(bet.id) as countbets,
+            round(100.0 * count(CASE WHEN bet.goals_home > bet.goals_away THEN 1 END) / count(bet.id)) as winnerhome,
+            round(100.0 * count(CASE WHEN bet.goals_home < bet.goals_away THEN 1 END) / count(bet.id)) as winneraway,
+            avg(bet.goals_home) as avghome,
+            avg(bet.goals_away) as avgaway,
+            :logged_in and (goals_inserted_at > :last_visited or :last_visited::timestamptz is null) as unseen,
+            goals_inserted_at
+            FROM match
              -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
-            JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
-            JOIN "User" ON "User"."id" = "Bet"."UserId"
-            WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NOT NULL AND "Match"."goalsAway" IS NOT NULL
-            GROUP BY "Match"."id"
-            ORDER BY "Match"."when" DESC
-        `, {
-            type: instance.QueryTypes.SELECT,
-            bind: {
-                id: (req.user ? req.user.id : 0),
-                logged_in: !!req.user,
-                last_visited: (req.user ? req.user.past_matches_last_visited_at : null),
-            },
-        })
-        .then(function(matches) {
-            for(var i = 0; i < matches.length; i++) {
-                var match = matches[i];
-                match.draw = 100 - match.winnerhome - match.winneraway;
-                var bets = {'correct': [], 'diff': [], 'winner': [], 'wrong': []};
-                for(var j = 0; j < match.listresult.length; j++) {
-                    bets[match.listresult[j]].push({
-                        name: match.listname[j],
-                        goalsHome: match.listhome[j],
-                        goalsAway: match.listaway[j],
-                        id: match.listid[j],
-                        friend: match.listfriends[j],
-                        me: match.listme[j],
-                    });
-                }
-                match.bets = bets;
-            }
+            JOIN bet ON match.id = bet.match_id
+            JOIN user_account ON user_account.id = bet.user_id
+            WHERE now() > match.starts_at AND match.goals_home IS NOT NULL AND match.goals_away IS NOT NULL
+            GROUP BY match.id
+            ORDER BY match.starts_at DESC
+        `,
+        {
+            id: req.user ? req.user.id : 0,
+            logged_in: !!req.user,
+            last_visited: req.user
+                ? req.user.past_matches_last_visited_at
+                : null,
+        }
+    );
 
-            // Last step: Update the timestamp when the past matches page was last visited.
-            if(req.user) {
-                req.user.past_matches_last_visited_at = new Date();
-                req.user.save().then(() => {
-                    res.render('past', {matches});
-                });
-            } else {
-                res.render('past', {matches});
-            }
-        });
-    });
-};
+    for (var i = 0; i < matches.rows.length; i++) {
+        var match = matches.rows[i];
+        match.draw = 100 - match.winnerhome - match.winneraway;
+        var bets = { correct: [], diff: [], winner: [], wrong: [] };
+        for (var j = 0; j < match.listresult.length; j++) {
+            bets[match.listresult[j]].push({
+                name: match.listname[j],
+                goalsHome: match.listhome[j],
+                goalsAway: match.listaway[j],
+                id: match.listid[j],
+                friend: match.listfriends[j],
+                me: match.listme[j],
+            });
+        }
+        match.bets = bets;
+    }
+
+    // Last step: Update the timestamp when the past matches page was last visited.
+    if (req.user) {
+        await knex("user_account")
+            .update({ past_matches_last_visited_at: knex.fn.now() })
+            .where({ id: req.user.id });
+    }
+
+    res.render("past", { matches: matches.rows });
+});

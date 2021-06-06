@@ -26,7 +26,7 @@
         <strong>{{hometeam}} : {{awayteam}}</strong> ({{matchtype}})
         <span class="label label-default">{{tv}}</span>
         {{> score_factor score_factor }}
-        <small>{{newsDate when}}</small>
+        <small>{{newsDate starts_at}}</small>
     </div>
     <div class="card-body">
         <div class="progress">
@@ -99,10 +99,10 @@
     <ul class="list-group list-group-flush">
         {{#each nextMatches}}
         <li class="list-group-item"><div class="row">
-            <div class="col-md-3 order-md-1 order-1 col-12">{{MatchType.name}} <span class="label label-default">{{tv}}</span> {{> score_factor MatchType.scoreFactor }}</div>
-            <div class="order-md-2 text-md-right order-2 col text-right"><strong>{{#if HomeTeam}}{{HomeTeam.name}}{{else}}{{placeholderHome}}{{/if}}</strong></div>
-            <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{newsDate when}}</div>
-            <div class="order-md-4 text-md-left order-2 col"><strong>{{#if AwayTeam}}{{AwayTeam.name}}{{else}}{{placeholderAway}}{{/if}}</strong></div>
+            <div class="col-md-3 order-md-1 order-1 col-12">{{match_type_name}} <span class="label label-default">{{tv}}</span> {{> score_factor match_type_score_factor }}</div>
+            <div class="order-md-2 text-md-right order-2 col text-right"><strong>{{#if home_team_name}}{{home_team_name}}{{else}}{{placeholder_home}}{{/if}}</strong></div>
+            <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{newsDate starts_at}}</div>
+            <div class="order-md-4 text-md-left order-2 col"><strong>{{#if away_team_name}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>
         </div></li>
         {{/each}}
     </ul>

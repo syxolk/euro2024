@@ -25,6 +25,17 @@ router.get("/user/:id", async (req, res) => {
     const matches = await knex("match")
         .whereRaw("starts_at < now()")
         .select(
+            "match.goals_home as match_goals_home",
+            "match.goals_away as match_goals_away",
+            "bet.goals_home as bet_goals_home",
+            "bet.goals_away as bet_goals_away",
+            "home_team.name as home_team_name",
+            "away_team.name as away_team_name",
+            "home_team.code as home_team_code",
+            "away_team.code as away_team_code",
+            "match_type.name as match_type_name",
+            "match_type.code as match_type.code",
+            "match_type.score_factor as match_type_score_factor",
             knex.raw(
                 `coalesce(
                     calc_bet_result(match.goals_home, match.goals_away, bet.goals_home, bet.goals_away),
@@ -40,13 +51,14 @@ router.get("/user/:id", async (req, res) => {
                 ) as score
             `)
         )
-        .leftJoin("bet", "bet.match_id", "match.id")
+        .joinRaw(`left join bet on (bet.match_id = match.id and bet.user_id = ?)`, [
+            user,
+        ])
         .join("team as home_team", "home_team.id", "match.home_team_id")
         .join("team as away_team", "away_team.id", "match.away_team_id")
         .join("match_type", "match_type.id", "match.match_type_id")
-        .where("bet.user_id", user)
         .orderBy("starts_at", "desc")
-        .orderBy("id", "desc");
+        .orderBy("match.id", "desc");
 
     res.render("user", { displayedUser, matches });
 });

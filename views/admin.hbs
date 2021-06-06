@@ -25,7 +25,7 @@
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each matchesWithoutTeams}}
-                <option value="{{id}}">{{placeholderHome}} : {{placeholderAway}} ({{calendarShort when}}) {{MatchType.name}}</option>
+                <option value="{{id}}">{{placeholder_home}} : {{placeholder_away}} ({{calendarShort starts_at}}) {{match_type_name}}</option>
                 {{/each}}
             </select>
         </div>
@@ -61,7 +61,7 @@
             <select name="match" class="form-control">
                 <option selected disabled>--- Match ---</option>
                 {{#each liveMatches}}
-                <option value="{{id}}">{{HomeTeam.name}} : {{AwayTeam.name}} ({{calendarShort when}}) {{MatchType.name}}</option>
+                <option value="{{id}}">{{home_team_name}} : {{away_team_name}} ({{calendarShort starts_at}}) {{match_type_name}}</option>
                 {{/each}}
             </select>
         </div>

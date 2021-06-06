@@ -65,8 +65,6 @@ exports.up = async (knex) => {
             goals_away integer not null,
             user_id integer not null references user_account(id) on delete cascade,
             match_id integer not null references match(id) on delete cascade,
-            created_at timestamptz not null,
-            updated_at timestamptz not null,
             unique (user_id, match_id)
         )
     `)

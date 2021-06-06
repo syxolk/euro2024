@@ -3,38 +3,38 @@ const { knex } = require("../db");
 const router = require("express-promise-router")();
 module.exports = router;
 
-app.get("/live", async (req, res) => {
+router.get("/live", async (req, res) => {
     const matches = await knex.raw(
         `
-        SELECT "Match"."id" as id,
-        "Match"."when" as when,
-        (SELECT name FROM "MatchType" WHERE "MatchType"."id" = "Match"."MatchTypeId") as matchtype,
-        (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."HomeTeamId") as hometeam,
-        (SELECT name FROM "Team" WHERE "Team"."id" = "Match"."AwayTeamId") as awayteam,
-        count("Bet"."id") as countbets,
-        round(100.0 * count(CASE WHEN "Bet"."goalsHome" > "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winnerhome,
-        round(100.0 * count(CASE WHEN "Bet"."goalsHome" < "Bet"."goalsAway" THEN 1 END) / count("Bet"."id")) as winneraway,
-        avg("Bet"."goalsHome") as avghome,
-        avg("Bet"."goalsAway") as avgaway,
-        "Match"."tv" as tv,
-        (SELECT "scoreFactor" FROM "MatchType" WHERE "MatchType".id = "Match"."MatchTypeId") as score_factor,
-        array_agg("Bet"."goalsHome" order by "User".name asc) as listhome,
-        array_agg("Bet"."goalsAway" order by "User".name asc) as listaway,
-        array_agg("User"."name" order by "User".name asc) as listname,
-        array_agg("User"."id" order by "User".name asc) as listid,
-        array_agg("User"."id" in (SELECT "ToUserId" FROM "Friend" WHERE "FromUserId" = :id) order by "User".name asc) as listfriends,
-        array_agg("User"."id" = :id order by "User".name asc) as listme
-        FROM "Match"
+        SELECT match.id as id,
+        match.starts_at as starts_at,
+        (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
+        (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
+        (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
+        count(bet.id) as countbets,
+        round(100.0 * count(CASE WHEN bet.goals_home > bet.goals_away THEN 1 END) / count(bet.id)) as winnerhome,
+        round(100.0 * count(CASE WHEN bet.goals_home < bet.goals_away THEN 1 END) / count(bet.id)) as winneraway,
+        avg(bet.goals_home) as avghome,
+        avg(bet.goals_away) as avgaway,
+        match.tv as tv,
+        (SELECT score_factor FROM match_type WHERE match_type.id = match.match_type_id) as score_factor,
+        array_agg(bet.goals_home order by user_account.name asc) as listhome,
+        array_agg(bet.goals_away order by user_account.name asc) as listaway,
+        array_agg(user_account.name order by user_account.name asc) as listname,
+        array_agg(user_account.id order by user_account.name asc) as listid,
+        array_agg(user_account.id in (SELECT to_user_id FROM friend WHERE from_user_id = :id) order by user_account.name asc) as listfriends,
+        array_agg(user_account.id = :id order by user_account.name asc) as listme
+        FROM match
         -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
-        JOIN "Bet" ON "Match"."id" = "Bet"."MatchId"
-        JOIN "User" ON "User"."id" = "Bet"."UserId"
-        WHERE now() > "Match"."when" AND "Match"."goalsHome" IS NULL AND "Match"."goalsAway" IS NULL
-        GROUP BY "Match"."id";
+        JOIN bet ON match.id = bet.match_id
+        JOIN user_account ON user_account.id = bet.user_id
+        WHERE now() > match.starts_at AND match.goals_home IS NULL AND match.goals_away IS NULL
+        GROUP BY match.id;
     `,
         { id: req.user ? req.user.id : 0 }
     );
 
-    for (const match of matches) {
+    for (const match of matches.rows) {
         match.draw = 100 - match.winnerhome - match.winneraway;
         match.bets = { home: [], draw: [], away: [] };
         for (var j = 0; j < match.listid.length; j++) {
@@ -57,14 +57,25 @@ app.get("/live", async (req, res) => {
 
     const nextMatches = await knex.raw(`
         select
+            match_type.name as match_type_name,
+            tv,
+            match_type.score_factor as match_type_score_factor,
+            starts_at,
+            home_team.name as home_team_name,
+            away_team.name as away_team_name,
+            placeholder_home,
+            placeholder_away
         from match
-        join team as home_team on (home_team.id = match.home_team_id)
-        join team as away_team on (away_team.id = match.away_team_id)
+        left join team as home_team on (home_team.id = match.home_team_id)
+        left join team as away_team on (away_team.id = match.away_team_id)
         join match_type on (match_type.id = match.match_type_id)
         where starts_at > now()
         order by match.starts_at asc
         limit 3
     `);
 
-    res.render("live", { matches, nextMatches: nextMatches.rows });
+    res.render("live", {
+        matches: matches.rows,
+        nextMatches: nextMatches.rows,
+    });
 });

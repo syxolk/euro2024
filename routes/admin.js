@@ -1,109 +1,93 @@
-const bluebird = require('bluebird');
-const instance = require('../models').instance;
-const Team = instance.model('Team');
-const MatchType = instance.model('MatchType');
-const Match = instance.model('Match');
-const moment = require('moment');
-const Op = require('sequelize').Sequelize.Op;
+const { knex } = require("../db");
+const router = require("express-promise-router")();
 
-module.exports = function(app) {
-    app.get('/admin', function(req, res) {
-        if(!req.user || req.user.admin !== true) {
-            res.status(404).render('404');
-            return;
-        }
+module.exports = router;
 
-        const now = new Date();
+router.get("/admin", async (req, res) => {
+    if (!req.user || req.user.admin !== true) {
+        res.status(404).render("404");
+        return;
+    }
 
-        bluebird.join(
-            Match.findAll({
-                where: {
-                    "HomeTeamId": null,
-                    "AwayTeamId": null,
-                },
-                include: [
-                    {
-                        model: MatchType
-                    }
-                ],
-                order: [['when', 'ASC']],
-            }),
-            Team.findAll({order: [['code', 'ASC']]}),
-            Match.findAll({
-                where: {
-                    when: { [Op.lt]: instance.fn('now') },
-                    goalsHome: null,
-                    goalsAway: null
-                },
-                include: [
-                    {
-                        model: Team,
-                        as: 'HomeTeam'
-                    }, {
-                        model: Team,
-                        as: 'AwayTeam'
-                    }, {
-                        model: MatchType
-                    }
-                ],
-                order: [['when', 'ASC']]
-            }),
-            function(matchesWithoutTeams, teams, liveMatches) {
-            res.render('admin', {
-                matchesWithoutTeams,
-                teams,
-                liveMatches,
-                message: req.flash('message'),
-                error: req.flash('error')
-            });
-        });
+    const now = new Date();
+
+    const matchesWithoutTeams = await knex("match")
+        .join("match_type", "match_type.id", "match.match_type_id")
+        .select(
+            "match.id",
+            "placeholder_home",
+            "placeholder_away",
+            "starts_at",
+            "match_type.name as match_type_name"
+        )
+        .whereNull("home_team_id")
+        .whereNull("away_team_id")
+        .orderBy("starts_at");
+
+    const teams = await knex("team")
+        .select("id", "name", "code")
+        .orderBy("code");
+
+    const liveMatches = await knex("match")
+        .select(
+            "match.id as id",
+            "home_team.name as home_team_name",
+            "away_team.name as away_team_name",
+            "starts_at",
+            "match_type.name as match_type_name"
+        )
+        .whereRaw("starts_at < now()")
+        .whereNull("goals_home")
+        .whereNull("goals_away")
+        .join("team as home_team", "home_team.id", "match.home_team_id")
+        .join("team as away_team", "away_team.id", "match.away_team_id")
+        .join("match_type", "match_type.id", "match.match_type_id")
+        .orderBy("match.starts_at");
+
+    res.render("admin", {
+        matchesWithoutTeams,
+        teams,
+        liveMatches,
+        message: req.flash("message"),
+        error: req.flash("error"),
     });
+});
 
-    app.post('/admin', function(req, res) {
-        if(!req.user || req.user.admin !== true) {
-            res.redirect('/admin');
-            return;
-        }
+router.post("/admin", async (req, res) => {
+    if (!req.user || req.user.admin !== true) {
+        res.redirect("/admin");
+        return;
+    }
 
-        if(req.body.command === 'set_teams') {
-            const matchId = parseInt(req.body.match);
-            Match.update({
-                HomeTeamId: parseInt(req.body.home),
-                AwayTeamId: parseInt(req.body.away),
-            }, {
-                where: {
-                    id: matchId
-                }
-            }).then(() => {
-                req.flash('message', 'Match ' + matchId + ' teams set.');
-                res.redirect('/admin');
-            }).catch(function(err) {
-                req.flash('error', 'Failed to set teams.');
-                res.redirect('/admin');
+    if (req.body.command === "set_teams") {
+        const matchId = parseInt(req.body.match);
+
+        await knex("match")
+            .update({
+                home_team_id: parseInt(req.body.home),
+                away_team_id: parseInt(req.body.away),
+            })
+            .where({
+                id: matchId,
             });
-        } else if(req.body.command === 'match_result') {
-            instance.query(`
-                UPDATE "Match"
-                SET "goalsHome" = $home, "goalsAway" = $away, "goalsInsertedAt" = now()
-                WHERE id = $id;
-            `, {
-                raw: true,
-                bind: {
-                    id: parseInt(req.body.match),
-                    home: parseInt(req.body.home),
-                    away: parseInt(req.body.away)
-                }
-            }).then(() => {
-                req.flash('message', 'Match ' + req.body.match + ' was updated.');
-                res.redirect('/admin');
-            }).catch(function(err) {
-                console.error(err);
-                req.flash('error', 'Failed to set match result');
-                res.redirect('/admin');
+
+        req.flash("message", "Match " + matchId + " teams set.");
+        res.redirect("/admin");
+    } else if (req.body.command === "match_result") {
+        await knex("match")
+            .update({
+                goals_home: parseInt(req.body.home),
+                goals_away: parseInt(req.body.away),
+                goals_inserted_at: knex.fn.now(),
+            })
+            .where({
+                id: parseInt(req.body.match),
             });
-        } else {
-            req.flash('error', 'Unknown command');
-            res.redirect('/admin');
-        }
-    });
-};
+
+        req.flash("message", "Match " + req.body.match + " was updated.");
+        res.redirect("/admin");
+    } else {
+        req.flash("error", "Unknown command");
+        res.redirect("/admin");
+    }
+});

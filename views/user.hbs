@@ -30,23 +30,27 @@
     </tr>
     </thead>
     {{#each matches}}
-    <tr class="result-{{dataValues.result}}">
-        <td class="small"><span class="d-none d-sm-inline">{{calendar when}}</span><span class="d-sm-none">{{calendarShort when}}</span></td>
-        <td class="small"><span class="d-none d-sm-inline">{{MatchType.name}}</span><span class="d-sm-none">{{MatchType.code}}</span> {{> score_factor MatchType.scoreFactor}}</td>
+    <tr class="result-{{result}}">
+        <td class="small"><span class="d-none d-sm-inline">{{calendar starts_at}}</span><span class="d-sm-none">{{calendarShort starts_at}}</span></td>
+        <td class="small">
+            <span class="d-none d-sm-inline">{{match_type_name}}</span>
+            <span class="d-sm-none">{{match_type_code}}</span>
+            {{> score_factor match_type_score_factor}}
+        </td>
         <td class="text-right">
-            <em class="d-none d-sm-inline">{{HomeTeam.name}}</em><em class="d-sm-none">{{HomeTeam.code}}</em>
+            <em class="d-none d-sm-inline">{{home_team_name}}</em><em class="d-sm-none">{{home_team_code}}</em>
         </td>
         <td class="text-center">
-            <strong>{{showGoals goalsHome}}</strong> : <strong>{{showGoals goalsAway}}</strong>
+            <strong>{{showGoals match_goals_home}}</strong> : <strong>{{showGoals match_goals_away}}</strong>
         </td>
         <td class="text-left">
-            <em class="d-none d-sm-inline">{{AwayTeam.name}}</em><em class="d-sm-none">{{AwayTeam.code}}</em>
+            <em class="d-none d-sm-inline">{{away_team_name}}</em><em class="d-sm-none">{{away_team_code}}</em>
         </td>
         <td class="text-center">
-        {{showGoals Bets.0.goalsHome}} : {{showGoals Bets.0.goalsAway}}
+        {{showGoals bet_goals_home}} : {{showGoals bet_goals_away}}
         </td>
-        <td class="text-center {{#if (isZero dataValues.score)}}is-zero{{/if}}">
-        {{dataValues.score}}
+        <td class="text-center {{#if (isZero score)}}is-zero{{/if}}">
+        {{score}}
         </td>
     </tr>
     {{/each}}

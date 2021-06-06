@@ -28,7 +28,7 @@
             {{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam~}}
         </a>
         ({{matchtype}}) {{> score_factor score_factor }}
-        <small>{{calendar when}}{{#if goalsInsertedAt}} / {{calendar goalsInsertedAt}}{{/if}}</small>
+        <small>{{calendar starts_at}}{{#if goals_inserted_at}} / {{calendar goals_inserted_at}}{{/if}}</small>
     </div>
     <div id="match-{{id}}" class="collapse {{#if unseen}}show{{/if}}" role="tabpanel">
         <div class="card-body">
