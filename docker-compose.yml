@@ -1,0 +1,46 @@
+version: "3"
+services:
+    caddy:
+        image: caddy:2.4.1-alpine
+        restart: unless-stopped
+        ports:
+        - "80:80"
+        - "443:443"
+        volumes:
+        - $PWD/Caddyfile:/etc/caddy/Caddyfile
+        - caddy_data:/data
+        - caddy_config:/config
+        networks:
+        - proxy
+    web:
+        build: .
+        restart: unless-stopped
+        environment:
+        - PGHOST=db
+        - PGPORT=5432
+        - PGDATABASE=euro2020
+        - PGUSER=euro2020
+        - PGPASSWORD=123456
+        networks:
+        - db
+        - proxy
+    db:
+        image: postgres:13.3
+        restart: unless-stopped
+        environment:
+        - POSTGRES_USER=euro2020
+        - POSTGRES_DB=euro2020
+        - POSTGRES_PASSWORD=123456
+        networks:
+        - db
+        volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+networks:
+    proxy:
+    db:
+
+volumes:
+    caddy_data:
+    caddy_config:
+    postgres_data:

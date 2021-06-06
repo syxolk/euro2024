@@ -50,5 +50,6 @@ if (process.env.MAIL_SOLUTION === "smtp") {
     module.exports.mailParams = {
         domain: process.env.MAILGUN_DOMAIN,
         apiKey: process.env.MAILGUN_API_KEY,
+        host: process.env.MAILGUN_HOST,
     };
 }

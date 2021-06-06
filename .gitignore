@@ -2,3 +2,4 @@
 /config.coffee
 /bower_components
 /app.yml
+/postgres-data
