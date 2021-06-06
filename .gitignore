@@ -3,3 +3,4 @@
 /bower_components
 /app.yml
 /postgres-data
+/prod.env

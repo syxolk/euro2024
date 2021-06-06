@@ -21,6 +21,8 @@ services:
         - PGDATABASE=euro2020
         - PGUSER=euro2020
         - PGPASSWORD=123456
+        env_file:
+        - prod.env        
         networks:
         - db
         - proxy
