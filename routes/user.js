@@ -52,9 +52,10 @@ router.get("/user/:id", async (req, res) => {
                 ) as score
             `)
         )
-        .joinRaw(`left join bet on (bet.match_id = match.id and bet.user_id = ?)`, [
-            user,
-        ])
+        .joinRaw(
+            `left join bet on (bet.match_id = match.id and bet.user_id = ?)`,
+            [user]
+        )
         .join("team as home_team", "home_team.id", "match.home_team_id")
         .join("team as away_team", "away_team.id", "match.away_team_id")
         .join("match_type", "match_type.id", "match.match_type_id")
@@ -64,7 +65,7 @@ router.get("/user/:id", async (req, res) => {
     res.render("user", { displayedUser, matches });
 });
 
-router.get("/friend_history", function (req, res) {
+router.get("/friend_history", async (req, res) => {
     if (!req.user) {
         return res.status(403).json({
             ok: false,
@@ -72,112 +73,63 @@ router.get("/friend_history", function (req, res) {
         });
     }
 
-    Friend.findAll({
-        where: {
-            FromUserId: req.user.id,
-        },
-    })
-        .then(function (friends) {
-            return bluebird.resolve(
-                [req.user.id].concat(
-                    friends.map((friend) => {
-                        return friend.ToUserId;
-                    })
+    const friends = await knex("friend")
+        .where({ from_user_id: req.user.id })
+        .select("to_user_id");
+
+    const userIds = [req.user.id, ...friends.map((x) => x.to_user_id)];
+
+    const users = await knex("user_account")
+        .select("id", "name")
+        .whereIn("id", userIds);
+
+    const scoresList = await Promise.all(
+        users.map((user) => {
+            return knex("match")
+                .select(
+                    "home_team.code as home_team_code",
+                    "away_team.code as away_team_code",
+                    knex.raw(`
+                        coalesce(
+                            calc_bet_score(
+                                calc_bet_result(match.goals_home, match.goals_away, bet.goals_home, bet.goals_away),
+                                match_type.score_factor
+                            ),
+                            0
+                        ) as score
+                    `)
                 )
-            );
+                .whereRaw("match.starts_at < now()")
+                .whereNotNull("match.goals_home")
+                .whereNotNull("match.goals_away")
+                .joinRaw(
+                    `left join bet on (bet.match_id = match.id and bet.user_id = ?)`,
+                    [user.id]
+                )
+                .join("team as home_team", "home_team.id", "match.home_team_id")
+                .join("team as away_team", "away_team.id", "match.away_team_id")
+                .join("match_type", "match_type.id", "match.match_type_id")
+                .orderBy("match.starts_at")
+                .orderBy("match.id");
         })
-        .then(function (users) {
-            return bluebird.join(
-                bluebird.all(
-                    users.map((user) => {
-                        return User.findById(user);
-                    })
-                ),
-                bluebird.all(
-                    users.map((user) => {
-                        return Match.findAll({
-                            where: {
-                                when: { [Op.lt]: instance.fn("now") },
-                                goalsHome: { [Op.ne]: null },
-                                goalsAway: { [Op.ne]: null },
-                            },
-                            attributes: [
-                                [
-                                    instance.fn(
-                                        "coalesce",
-                                        instance.fn(
-                                            "calc_bet_score",
-                                            instance.fn(
-                                                "calc_bet_result",
-                                                instance.col("Match.goalsHome"),
-                                                instance.col("Match.goalsAway"),
-                                                instance.col("Bets.goalsHome"),
-                                                instance.col("Bets.goalsAway")
-                                            ),
-                                            instance.col(
-                                                "MatchType.scoreFactor"
-                                            )
-                                        ),
-                                        0
-                                    ),
-                                    "score",
-                                ],
-                            ],
-                            include: [
-                                {
-                                    model: Bet,
-                                    required: false,
-                                    where: {
-                                        UserId: user,
-                                    },
-                                },
-                                {
-                                    model: Team,
-                                    as: "HomeTeam",
-                                },
-                                {
-                                    model: Team,
-                                    as: "AwayTeam",
-                                },
-                                {
-                                    model: MatchType,
-                                },
-                            ],
-                            order: [["when", "ASC"]],
-                        });
-                    })
-                ),
-                function (users, scoresList) {
-                    return {
-                        // the first scoresList entry is the current user
-                        // and should always be there
-                        labels: scoresList[0].map(
-                            (row) => row.HomeTeam.code + " " + row.AwayTeam.code
-                        ),
-                        data: users.map((user, index) => {
-                            return {
-                                id: user.id,
-                                name: user.name,
-                                scores: scoresList[index].map((row) =>
-                                    row.get("score")
-                                ),
-                            };
-                        }),
-                    };
-                }
-            );
-        })
-        .then(function (result) {
-            res.json({
-                ok: true,
-                data: result.data,
-                labels: result.labels,
-            });
-        })
-        .catch(function (error) {
-            res.status(500).json({
-                ok: false,
-                error: "INTERNAL",
-            });
-        });
+    );
+
+    const result = {
+        labels: scoresList[0].map(
+            (row) => `${row.home_team_code} ${row.away_team_code}`
+        ),
+        data: users.map((user, index) => {
+            return {
+                id: user.id,
+                name: user.name,
+                scores: scoresList[index].map((row) => row.score),
+            };
+        }),
+    };
+
+    res.json({
+        ok: true,
+        data: result.data,
+        labels: result.labels,
+    });
 });
