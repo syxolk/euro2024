@@ -23,7 +23,7 @@
     "connect-flash": "0.1.1",
     "connect-session-knex": "^2.1.0",
     "csurf": "^1.11.0",
-    "datatables.net": "^1.10.18",
+    "datatables.net": "^1.10.22",
     "datatables.net-bs4": "^1.10.18",
     "express": "^4.17.1",
     "express-promise-router": "^4.1.0",
