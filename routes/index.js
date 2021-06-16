@@ -16,6 +16,7 @@ router.use(require("./past"));
 router.use(require("./highscore"));
 router.use(require("./friend"));
 router.use(require("./password_recovery"));
+router.use(require("./autoupdate_match_result"))
 
 router.use((req, res, next) => {
     res.status(404).render("404");

@@ -37,6 +37,11 @@ services:
         - db
         volumes:
         - postgres_data:/var/lib/postgresql/data
+    autoupdater:
+        build: ./autoupdater
+        restart: unless-stopped
+        networks:
+        - proxy
 
 networks:
     proxy:
