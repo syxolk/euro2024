@@ -46,6 +46,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
             .update({
                 goals_home: goals.home,
                 goals_away: goals.away,
+                goals_inserted_at: knex.fn.now(),
             })
             .where({
                 id: match.id,
