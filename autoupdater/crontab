@@ -1,3 +1,3 @@
 SHELL=/bin/sh
 
-* * * * * curl http://web:8080/autoupdate_match_result
+* * * * * curl -s http://web:8080/autoupdate_match_result 2>&1
