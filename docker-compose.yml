@@ -42,6 +42,13 @@ services:
         restart: unless-stopped
         networks:
         - proxy
+    backup-daemon:
+        build: ./backup-daemon
+        restart: unless-stopped
+        networks:
+        - db
+        volumes:
+        - backups:/backups
 
 networks:
     proxy:
@@ -51,3 +58,4 @@ volumes:
     caddy_data:
     caddy_config:
     postgres_data:
+    backups:
