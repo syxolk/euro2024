@@ -2,7 +2,6 @@ const ms = require("ms");
 const uuid = require("uuid");
 const mustache = require("mustache");
 const bcrypt = require("bcrypt");
-const bluebird = require("bluebird");
 const config = require("../config");
 const sendRawMail = require("./send_mail.js").sendRawMail;
 
