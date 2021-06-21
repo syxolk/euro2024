@@ -1,7 +1,7 @@
 $(function() {
     var csrfToken = $('input[name=_csrf]').val();
 
-    $('.toggle-friend').click(function() {
+    $('.toggle-friend').on("click", function() {
         var button = $(this);
         var row = button.parent().parent();
 

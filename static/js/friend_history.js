@@ -33,20 +33,19 @@ $(function() {
                 })
             },
             options: {
-                maintainAspectRatio: true,
                 scales: {
-                    yAxes: [{
+                    y: {
                         ticks: {
                             min: 0
                         }
-                    }]
+                    }
                 }
             }
         });
     });
 });
 
-$(document).ready( function () {
+$(function () {
     $('#highscore').DataTable({
         paging: false,
         order: [[0, 'asc'], [2, 'asc']],
