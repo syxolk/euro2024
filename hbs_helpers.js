@@ -19,7 +19,7 @@ module.exports = () => {
     });
 
     hbs.registerHelper('calendar', function(when) {
-        return moment.tz(when, config.timezone).format('dddd, MMMM Do, HH:mm');
+        return moment.tz(when, config.timezone).format('ddd, MMMM Do, HH:mm');
     });
 
     hbs.registerHelper('calendarShort', function(when) {

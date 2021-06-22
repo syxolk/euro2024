@@ -37,20 +37,18 @@
 
 {{#each matches}}
 <div class="row autosave mb-1 pb-1 border-bottom">
-    <div class="col-md-2 col-6 order-1 small"><span class="d-none d-lg-inline">{{calendar starts_at}}</span><span class="d-lg-none">{{calendarShort starts_at}}</span></div>
-    <div class="col-md-2 col-6 order-1 small text-right text-md-left">
-        <span class="d-none d-lg-inline">{{match_type_name}}</span>
-        <span class="d-lg-none">{{match_type_code}}</span>
-        {{> score_factor match_type_score_factor}}
+    <div class="col-md-2 col-6 order-md-1 order-1 small">
+        <span class="d-none d-lg-inline">{{calendar starts_at}}</span>
+        <span class="d-lg-none">{{calendarShort starts_at}}</span>
     </div>
-    <div class="col-md-2 col-6 order-md-1 order-2 text-right">
+    <div class="col-md-3 col-6 order-md-1 order-2 text-right">
         {{#if home_team_name}}
-            <strong class="d-none d-sm-inline">{{home_team_name}}</strong><strong class="d-sm-none">{{home_team_code}}</strong>
+            <strong>{{home_team_name}}</strong>
         {{else}}
             <strong>{{placeholder_home}}</strong>
         {{/if}}
     </div>
-    <div class="col-auto order-md-1 order-3 text-center m-auto m-md-0">
+    <div class="col-auto order-md-2 order-3 text-center m-auto m-md-0">
         <input type="number" min="0" max="20" autocomplete="off"
             {{#if (not has_teams)}}disabled{{/if}}
             class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}"
@@ -62,12 +60,17 @@
             class="form-control text-center {{#if (contains @upcomingMatchesWithoutBetIds id) }}not-betted{{/if}}"
             style="display:inline;width:80px;" name="away" value="{{bet_goals_away}}">
     </div>
-    <div class="col-md-2 col-6 order-md-1 order-2 text-left">
+    <div class="col-md-3 col-6 order-md-3 order-2 text-left">
         {{#if away_team_name}}
-            <strong class="d-none d-sm-inline">{{away_team_name}}</strong><strong class="d-sm-none">{{away_team_code}}</strong>
+            <strong>{{away_team_name}}</strong>
         {{else}}
             <strong>{{placeholder_away}}</strong>
         {{/if}}
+    </div>
+    <div class="col-md order-md-4 col-6 order-1 small text-right">
+        <span class="d-none d-lg-inline">{{match_type_name}}</span>
+        <span class="d-lg-none">{{match_type_code}}</span>
+        {{> score_factor match_type_score_factor}}
     </div>
 </div>
 {{/each}}
