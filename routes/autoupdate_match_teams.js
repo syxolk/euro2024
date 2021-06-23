@@ -21,7 +21,7 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
 
     if (uefaTeamId === null) {
         // team is not yet known -> skip it
-        return;
+        return false;
     }
 
     const team = await trx("team")
@@ -34,7 +34,7 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
     }
 
     const match = await trx("match")
-        .select("id")
+        .select("id", column)
         .where({ uefa_id: uefaMatchId })
         .first();
 
@@ -42,9 +42,16 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
         throw new Error(`Could not find match with id: ${uefaMatchId}`);
     }
 
+    if (match[column] !== null) {
+        // team is already set -> skip it
+        return false;
+    }
+
     await trx("match")
         .update({ [column]: team.id })
         .where({ id: match.id });
+
+    return true;
 }
 
 router.get("/autoupdate_match_teams", async (req, res) => {
@@ -59,24 +66,36 @@ router.get("/autoupdate_match_teams", async (req, res) => {
         },
     });
 
+    const result = [];
+
     await knex.transaction(async (trx) => {
         for (const matchData of data) {
-            await updateMatchTeam(
-                trx,
-                matchData.id,
-                matchData.homeTeam,
-                "home_team_id"
-            );
-            await updateMatchTeam(
-                trx,
-                matchData.id,
-                matchData.awayTeam,
-                "away_team_id"
-            );
+            if (
+                await updateMatchTeam(
+                    trx,
+                    matchData.id,
+                    matchData.homeTeam,
+                    "home_team_id"
+                )
+            ) {
+                result.push(`Home team updated for match ${matchData.id}`);
+            }
+
+            if (
+                await updateMatchTeam(
+                    trx,
+                    matchData.id,
+                    matchData.awayTeam,
+                    "away_team_id"
+                )
+            ) {
+                result.push(`Away team updated for match ${matchData.id}`);
+            }
         }
     });
 
     res.json({
         ok: true,
+        result,
     });
 });
