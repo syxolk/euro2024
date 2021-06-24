@@ -13,15 +13,26 @@ module.exports.sendRawMail = (mail) => {
             });
         });
     } else if (config.mail === "mailgun") {
-        const mailgun = require("mailgun-js")(config.mailParams);
-        return new Promise((resolve, reject) => {
-            mailgun.messages().send(mail, (err, body) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(body);
-            });
-        });
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(mail)) {
+            params.append(key, value);
+        }
+
+        const { data } = await axios.post(
+            `https://${config.mailParams.host}/v3/${config.mailParams.domain}/messages`,
+            params.toString(),
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                auth: {
+                    username: "api",
+                    password: config.mailParams.apiKey,
+                },
+            }
+        );
+
+        return data;
     } else {
         console.log(mail);
     }

@@ -32,7 +32,6 @@
     "helmet": "^4.6.0",
     "jquery": "^3.6.0",
     "knex": "^0.95.6",
-    "mailgun-js": "^0.22.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "morgan": "^1.10.0",
