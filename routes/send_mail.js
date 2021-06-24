@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const config = require("../config");
 
-module.exports.sendRawMail = (mail) => {
+module.exports.sendRawMail = async (mail) => {
     if (config.mail === "smtp") {
         const transporter = nodemailer.createTransport(config.mailParams);
         return new Promise((resolve, reject) => {
