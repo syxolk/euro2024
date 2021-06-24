@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 const config = require("../config");
 
 module.exports.sendRawMail = async (mail) => {
