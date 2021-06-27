@@ -40,7 +40,9 @@ router.get("/autoupdate_match_result", async (req, res) => {
             continue;
         }
 
-        const goals = matchData.score.regular;
+        // score.regular = goals after 90 minutes
+        // score.total = goals after 120 minutes or penalty shoot-out (?)
+        const goals = matchData.score.total;
 
         await knex("match")
             .update({
