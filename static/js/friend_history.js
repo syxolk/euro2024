@@ -23,10 +23,13 @@ $(function() {
             data: {
                 labels: result.labels,
                 datasets: result.data.map(function(user, index) {
+                    var color = 'hsl(' + (index * 360.0 / result.data.length) + ',100%,50%)';
+
                     return {
                         label: user.name,
                         lineTension: 0,
-                        borderColor: 'hsl(' + (index * 360.0 / result.data.length) + ',100%,50%)',
+                        borderColor: color,
+                        backgroundColor: color,
                         fill: false,
                         data: integrateScores(user.scores)
                     };
