@@ -60,6 +60,7 @@ router.get("/past", async (req, res) => {
                 from friend
                 join bet as friend_bet on (friend_bet.user_id = friend.to_user_id)
                 where friend.from_user_id = :id
+                and friend_bet.match_id = match.id
             ) as avg_friend_score,
 
             calc_bet_score(
@@ -87,6 +88,7 @@ router.get("/past", async (req, res) => {
                     from friend
                     join bet as friend_bet on (friend_bet.user_id = friend.to_user_id)
                     where friend.from_user_id = :id
+                    and friend_bet.match_id = match.id
                 )
             ) as my_gain
 
