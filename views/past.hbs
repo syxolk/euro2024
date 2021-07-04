@@ -19,28 +19,54 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
+
+{{#if is_logged_in}}
+    <div class="mb-3">
+        {{#if order_by_gain}}
+            <a href="/past">Order by Date</a>
+        {{else}}
+            <a href="/past?gain=1">Order by Gain</a>
+        {{/if}}
+    </div>
+{{/if}}
+
 {{#if matches}}
 <div id="accordion" role="tablist">
 {{#each matches}}
 <div class="card mb-2">
     <div class="card-header">
-        <a role="button" data-toggle="collapse" href="#match-{{id}}">
-            {{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam~}}
-        </a>
-        ({{matchtype}}) {{> score_factor score_factor }}
-        <small>{{calendar starts_at}}{{#if goals_inserted_at}} / {{calendar goals_inserted_at}}{{/if}}</small>
+        <div class="form-row">
+            <div class="col">
+                <a role="button" data-toggle="collapse" href="#match-{{id}}">
+                    {{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam~}}
+                </a>
+                ({{matchtype}}) {{> score_factor score_factor }}
+                <br/>
+                <small class="text-muted">{{calendar starts_at}}{{#if goals_inserted_at}} / {{calendar goals_inserted_at}}{{/if}}</small>
+            </div>
+            {{#if @root.is_logged_in}}
+                <div class="col-4 text-right">
+                    Gain: {{my_gain}}
+                    <br/>
+                    <small class="text-muted">
+                        My score: {{my_score}},
+                        Avg. friend score: {{avg_friend_score}}
+                    </small>
+                </div>
+            {{/if}}
+        </div>
     </div>
     <div id="match-{{id}}" class="collapse {{#if unseen}}show{{/if}}" role="tabpanel">
         <div class="card-body">
             <div class="progress">
-                <div class="progress-bar bg-dark" role="progressbar" style="width: {{winnerhome}}%;">
-                    {{winnerhome}}% {{hometeam}}
+                <div class="progress-bar bg-dark" role="progressbar" style="width: {{percent.home}}%;">
+                    {{percent.home}}% {{hometeam}}
                 </div>
-                <div class="progress-bar text-dark" role="progressbar" style="width: {{draw}}%;background-color:#ccc;">
-                    {{draw}}% Draw
+                <div class="progress-bar text-dark" role="progressbar" style="width: {{percent.draw}}%;background-color:#ccc;">
+                    {{percent.draw}}% Draw
                 </div>
-                <div class="progress-bar bg-secondary" role="progressbar" style="width: {{winneraway}}%;">
-                    {{winneraway}}% {{awayteam}}
+                <div class="progress-bar bg-secondary" role="progressbar" style="width: {{percent.away}}%;">
+                    {{percent.away}}% {{awayteam}}
                 </div>
             </div>
         </div>
@@ -50,7 +76,7 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_bet}}</div>
                     <div class="col-md-10">
-                        {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a>{{/each}}
+                        {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a>{{/each}}
                     </div>
                 </div>
             </li>
@@ -60,7 +86,7 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_diff}}</div>
                     <div class="col-md-10">
-                        {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+                        {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
                     </div>
                 </div>
             </li>
@@ -70,7 +96,7 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_winner}}</div>
                     <div class="col-md-10">
-                        {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+                        {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
                     </div>
                 </div>
             </li>
@@ -80,7 +106,7 @@
                 <div class="row">
                     <div class="col-md-2">{{> wrong_bet}}</div>
                     <div class="col-md-10">
-                        {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a> {{goalsHome}}:{{goalsAway}}{{/each}}
+                        {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
                     </div>
                 </div>
             </li>
