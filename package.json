@@ -15,7 +15,7 @@
     "migrate:list": "knex migrate:list"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "bcrypt": "^5.0.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^3.3.2",
