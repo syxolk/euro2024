@@ -1,0 +1,796 @@
+{
+    "teams": [
+        {
+            "name": "Argentina",
+            "code": "ARG",
+            "fifa_id": "43922"
+        },
+        {
+            "name": "Australia",
+            "code": "AUS",
+            "fifa_id": "43976"
+        },
+        {
+            "name": "Belgium",
+            "code": "BEL",
+            "fifa_id": "43935"
+        },
+        {
+            "name": "Brazil",
+            "code": "BRA",
+            "fifa_id": "43924"
+        },
+        {
+            "name": "Canada",
+            "code": "CAN",
+            "fifa_id": "43899"
+        },
+        {
+            "name": "Cameroon",
+            "code": "CMR",
+            "fifa_id": "43849"
+        },
+        {
+            "name": "Costa Rica",
+            "code": "CRC",
+            "fifa_id": "43901"
+        },
+        {
+            "name": "Croatia",
+            "code": "CRO",
+            "fifa_id": "43938"
+        },
+        {
+            "name": "Denmark",
+            "code": "DEN",
+            "fifa_id": "43941"
+        },
+        {
+            "name": "Ecuador",
+            "code": "ECU",
+            "fifa_id": "43927"
+        },
+        {
+            "name": "England",
+            "code": "ENG",
+            "fifa_id": "43942"
+        },
+        {
+            "name": "Spain",
+            "code": "ESP",
+            "fifa_id": "43969"
+        },
+        {
+            "name": "France",
+            "code": "FRA",
+            "fifa_id": "43946"
+        },
+        {
+            "name": "Germany",
+            "code": "GER",
+            "fifa_id": "43948"
+        },
+        {
+            "name": "Ghana",
+            "code": "GHA",
+            "fifa_id": "43860"
+        },
+        {
+            "name": "Iran",
+            "code": "IRN",
+            "fifa_id": "43817"
+        },
+        {
+            "name": "Japan",
+            "code": "JPN",
+            "fifa_id": "43819"
+        },
+        {
+            "name": "Korea Republic",
+            "code": "KOR",
+            "fifa_id": "43822"
+        },
+        {
+            "name": "Saudi Arabia",
+            "code": "KSA",
+            "fifa_id": "43835"
+        },
+        {
+            "name": "Morocco",
+            "code": "MAR",
+            "fifa_id": "43872"
+        },
+        {
+            "name": "Mexico",
+            "code": "MEX",
+            "fifa_id": "43911"
+        },
+        {
+            "name": "Netherlands",
+            "code": "NED",
+            "fifa_id": "43960"
+        },
+        {
+            "name": "Poland",
+            "code": "POL",
+            "fifa_id": "43962"
+        },
+        {
+            "name": "Portugal",
+            "code": "POR",
+            "fifa_id": "43963"
+        },
+        {
+            "name": "Qatar",
+            "code": "QAT",
+            "fifa_id": "43834"
+        },
+        {
+            "name": "Senegal",
+            "code": "SEN",
+            "fifa_id": "43879"
+        },
+        {
+            "name": "Serbia",
+            "code": "SRB",
+            "fifa_id": "1902465"
+        },
+        {
+            "name": "Switzerland",
+            "code": "SUI",
+            "fifa_id": "43971"
+        },
+        {
+            "name": "Tunisia",
+            "code": "TUN",
+            "fifa_id": "43888"
+        },
+        {
+            "name": "Uruguay",
+            "code": "URU",
+            "fifa_id": "43930"
+        },
+        {
+            "name": "United States",
+            "code": "USA",
+            "fifa_id": "43921"
+        },
+        {
+            "name": "Wales",
+            "code": "WAL",
+            "fifa_id": "43974"
+        }
+    ],
+    "matches": [
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 24,
+            "away_team_id": 9,
+            "match_type_id": 1,
+            "starts_at": "2022-11-20T16:00:00Z",
+            "fifa_id": "400128082"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 15,
+            "match_type_id": 2,
+            "starts_at": "2022-11-21T13:00:00Z",
+            "fifa_id": "400235458"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 25,
+            "away_team_id": 21,
+            "match_type_id": 1,
+            "starts_at": "2022-11-21T16:00:00Z",
+            "fifa_id": "400235449"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 30,
+            "away_team_id": 31,
+            "match_type_id": 2,
+            "starts_at": "2022-11-21T19:00:00Z",
+            "fifa_id": "400235455"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 0,
+            "away_team_id": 18,
+            "match_type_id": 3,
+            "starts_at": "2022-11-22T10:00:00Z",
+            "fifa_id": "400235461"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 8,
+            "away_team_id": 28,
+            "match_type_id": 4,
+            "starts_at": "2022-11-22T13:00:00Z",
+            "fifa_id": "400235466"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 20,
+            "away_team_id": 22,
+            "match_type_id": 3,
+            "starts_at": "2022-11-22T16:00:00Z",
+            "fifa_id": "400235463"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 12,
+            "away_team_id": 1,
+            "match_type_id": 4,
+            "starts_at": "2022-11-22T19:00:00Z",
+            "fifa_id": "400235470"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 19,
+            "away_team_id": 7,
+            "match_type_id": 6,
+            "starts_at": "2022-11-23T10:00:00Z",
+            "fifa_id": "400235481"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 13,
+            "away_team_id": 16,
+            "match_type_id": 5,
+            "starts_at": "2022-11-23T13:00:00Z",
+            "fifa_id": "400235476"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 11,
+            "away_team_id": 6,
+            "match_type_id": 5,
+            "starts_at": "2022-11-23T16:00:00Z",
+            "fifa_id": "400235472"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 2,
+            "away_team_id": 4,
+            "match_type_id": 6,
+            "starts_at": "2022-11-23T19:00:00Z",
+            "fifa_id": "400235477"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 27,
+            "away_team_id": 5,
+            "match_type_id": 7,
+            "starts_at": "2022-11-24T10:00:00Z",
+            "fifa_id": "400235488"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 29,
+            "away_team_id": 17,
+            "match_type_id": 8,
+            "starts_at": "2022-11-24T13:00:00Z",
+            "fifa_id": "400235491"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 23,
+            "away_team_id": 14,
+            "match_type_id": 8,
+            "starts_at": "2022-11-24T16:00:00Z",
+            "fifa_id": "400235493"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 3,
+            "away_team_id": 26,
+            "match_type_id": 7,
+            "starts_at": "2022-11-24T19:00:00Z",
+            "fifa_id": "400235484"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 31,
+            "away_team_id": 15,
+            "match_type_id": 2,
+            "starts_at": "2022-11-25T10:00:00Z",
+            "fifa_id": "400235453"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 24,
+            "away_team_id": 25,
+            "match_type_id": 1,
+            "starts_at": "2022-11-25T13:00:00Z",
+            "fifa_id": "400235448"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 21,
+            "away_team_id": 9,
+            "match_type_id": 1,
+            "starts_at": "2022-11-25T16:00:00Z",
+            "fifa_id": "400235452"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 30,
+            "match_type_id": 2,
+            "starts_at": "2022-11-25T19:00:00Z",
+            "fifa_id": "400235457"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 28,
+            "away_team_id": 1,
+            "match_type_id": 4,
+            "starts_at": "2022-11-26T10:00:00Z",
+            "fifa_id": "400235469"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 22,
+            "away_team_id": 18,
+            "match_type_id": 3,
+            "starts_at": "2022-11-26T13:00:00Z",
+            "fifa_id": "400235459"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 12,
+            "away_team_id": 8,
+            "match_type_id": 4,
+            "starts_at": "2022-11-26T16:00:00Z",
+            "fifa_id": "400235467"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 0,
+            "away_team_id": 20,
+            "match_type_id": 3,
+            "starts_at": "2022-11-26T19:00:00Z",
+            "fifa_id": "400235462"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 16,
+            "away_team_id": 6,
+            "match_type_id": 5,
+            "starts_at": "2022-11-27T10:00:00Z",
+            "fifa_id": "400235471"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 2,
+            "away_team_id": 19,
+            "match_type_id": 6,
+            "starts_at": "2022-11-27T13:00:00Z",
+            "fifa_id": "400235480"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 4,
+            "match_type_id": 6,
+            "starts_at": "2022-11-27T16:00:00Z",
+            "fifa_id": "400235482"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 11,
+            "away_team_id": 13,
+            "match_type_id": 5,
+            "starts_at": "2022-11-27T19:00:00Z",
+            "fifa_id": "400235474"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 5,
+            "away_team_id": 26,
+            "match_type_id": 7,
+            "starts_at": "2022-11-28T10:00:00Z",
+            "fifa_id": "400235487"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 17,
+            "away_team_id": 14,
+            "match_type_id": 8,
+            "starts_at": "2022-11-28T13:00:00Z",
+            "fifa_id": "400235489"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 3,
+            "away_team_id": 27,
+            "match_type_id": 7,
+            "starts_at": "2022-11-28T16:00:00Z",
+            "fifa_id": "400235485"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 23,
+            "away_team_id": 29,
+            "match_type_id": 8,
+            "starts_at": "2022-11-28T19:00:00Z",
+            "fifa_id": "400235492"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 21,
+            "away_team_id": 24,
+            "match_type_id": 1,
+            "starts_at": "2022-11-29T15:00:00Z",
+            "fifa_id": "400235450"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 9,
+            "away_team_id": 25,
+            "match_type_id": 1,
+            "starts_at": "2022-11-29T15:00:00Z",
+            "fifa_id": "400235451"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 31,
+            "away_team_id": 10,
+            "match_type_id": 2,
+            "starts_at": "2022-11-29T19:00:00Z",
+            "fifa_id": "400235454"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 15,
+            "away_team_id": 30,
+            "match_type_id": 2,
+            "starts_at": "2022-11-29T19:00:00Z",
+            "fifa_id": "400235456"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 1,
+            "away_team_id": 8,
+            "match_type_id": 4,
+            "starts_at": "2022-11-30T15:00:00Z",
+            "fifa_id": "400235468"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 28,
+            "away_team_id": 12,
+            "match_type_id": 4,
+            "starts_at": "2022-11-30T15:00:00Z",
+            "fifa_id": "400235465"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 22,
+            "away_team_id": 0,
+            "match_type_id": 3,
+            "starts_at": "2022-11-30T19:00:00Z",
+            "fifa_id": "400235464"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 18,
+            "away_team_id": 20,
+            "match_type_id": 3,
+            "starts_at": "2022-11-30T19:00:00Z",
+            "fifa_id": "400235460"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 2,
+            "match_type_id": 6,
+            "starts_at": "2022-12-01T15:00:00Z",
+            "fifa_id": "400235478"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 4,
+            "away_team_id": 19,
+            "match_type_id": 6,
+            "starts_at": "2022-12-01T15:00:00Z",
+            "fifa_id": "400235479"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 16,
+            "away_team_id": 11,
+            "match_type_id": 5,
+            "starts_at": "2022-12-01T19:00:00Z",
+            "fifa_id": "400235475"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 6,
+            "away_team_id": 13,
+            "match_type_id": 5,
+            "starts_at": "2022-12-01T19:00:00Z",
+            "fifa_id": "400235473"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 14,
+            "away_team_id": 29,
+            "match_type_id": 8,
+            "starts_at": "2022-12-02T15:00:00Z",
+            "fifa_id": "400235494"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 17,
+            "away_team_id": 23,
+            "match_type_id": 8,
+            "starts_at": "2022-12-02T15:00:00Z",
+            "fifa_id": "400235490"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 26,
+            "away_team_id": 27,
+            "match_type_id": 7,
+            "starts_at": "2022-12-02T19:00:00Z",
+            "fifa_id": "400235486"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 5,
+            "away_team_id": 3,
+            "match_type_id": 7,
+            "starts_at": "2022-12-02T19:00:00Z",
+            "fifa_id": "400235483"
+        },
+        {
+            "placeholder_home": "1A",
+            "placeholder_away": "2B",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-03T15:00:00Z",
+            "fifa_id": "400128136"
+        },
+        {
+            "placeholder_home": "1C",
+            "placeholder_away": "2D",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-03T19:00:00Z",
+            "fifa_id": "400128131"
+        },
+        {
+            "placeholder_home": "1D",
+            "placeholder_away": "2C",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-04T15:00:00Z",
+            "fifa_id": "400128135"
+        },
+        {
+            "placeholder_home": "1B",
+            "placeholder_away": "2A",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-04T19:00:00Z",
+            "fifa_id": "400128134"
+        },
+        {
+            "placeholder_home": "1E",
+            "placeholder_away": "2F",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-05T15:00:00Z",
+            "fifa_id": "400128132"
+        },
+        {
+            "placeholder_home": "1G",
+            "placeholder_away": "2H",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-05T19:00:00Z",
+            "fifa_id": "400128133"
+        },
+        {
+            "placeholder_home": "1F",
+            "placeholder_away": "2E",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-06T15:00:00Z",
+            "fifa_id": "400128137"
+        },
+        {
+            "placeholder_home": "1H",
+            "placeholder_away": "2G",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 11,
+            "starts_at": "2022-12-06T19:00:00Z",
+            "fifa_id": "400128130"
+        },
+        {
+            "placeholder_home": "W53",
+            "placeholder_away": "W54",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 10,
+            "starts_at": "2022-12-09T15:00:00Z",
+            "fifa_id": "400128141"
+        },
+        {
+            "placeholder_home": "W49",
+            "placeholder_away": "W50",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 10,
+            "starts_at": "2022-12-09T19:00:00Z",
+            "fifa_id": "400128139"
+        },
+        {
+            "placeholder_home": "W55",
+            "placeholder_away": "W56",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 10,
+            "starts_at": "2022-12-10T15:00:00Z",
+            "fifa_id": "400128140"
+        },
+        {
+            "placeholder_home": "W51",
+            "placeholder_away": "W52",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 10,
+            "starts_at": "2022-12-10T19:00:00Z",
+            "fifa_id": "400128138"
+        },
+        {
+            "placeholder_home": "W57",
+            "placeholder_away": "W58",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 12,
+            "starts_at": "2022-12-13T19:00:00Z",
+            "fifa_id": "400128143"
+        },
+        {
+            "placeholder_home": "W59",
+            "placeholder_away": "W60",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 12,
+            "starts_at": "2022-12-14T19:00:00Z",
+            "fifa_id": "400128142"
+        },
+        {
+            "placeholder_home": "RU61",
+            "placeholder_away": "RU62",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 9,
+            "starts_at": "2022-12-17T15:00:00Z",
+            "fifa_id": "400128144"
+        },
+        {
+            "placeholder_home": "W61",
+            "placeholder_away": "W62",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 0,
+            "starts_at": "2022-12-18T15:00:00Z",
+            "fifa_id": "400128145"
+        }
+    ],
+    "types": [
+        {
+            "name": "Final",
+            "code": "Final"
+        },
+        {
+            "name": "Group A",
+            "code": "Group A"
+        },
+        {
+            "name": "Group B",
+            "code": "Group B"
+        },
+        {
+            "name": "Group C",
+            "code": "Group C"
+        },
+        {
+            "name": "Group D",
+            "code": "Group D"
+        },
+        {
+            "name": "Group E",
+            "code": "Group E"
+        },
+        {
+            "name": "Group F",
+            "code": "Group F"
+        },
+        {
+            "name": "Group G",
+            "code": "Group G"
+        },
+        {
+            "name": "Group H",
+            "code": "Group H"
+        },
+        {
+            "name": "Play-off for third place",
+            "code": "Play-off for third place"
+        },
+        {
+            "name": "Quarter-final",
+            "code": "Quarter-final"
+        },
+        {
+            "name": "Round of 16",
+            "code": "Round of 16"
+        },
+        {
+            "name": "Semi-final",
+            "code": "Semi-final"
+        }
+    ]
+}
