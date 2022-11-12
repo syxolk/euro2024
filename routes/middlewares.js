@@ -5,7 +5,7 @@ router.use(async (req, res) => {
     res.locals.user = req.user;
     res.locals.loggedIn = !!req.user;
     res.locals.csrfToken = req.csrfToken();
-    res.locals.websiteName = "Euro 2020";
+    res.locals.websiteName = "WorldCup 2022";
     return "next";
 });
 

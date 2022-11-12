@@ -8,7 +8,7 @@ const { knex } = require("../db");
 const router = require("express-promise-router")();
 
 const MAIL_TEMPLATE = `Hello {{{name}}},
-thank you for registering for the Euro 2020 Betting Game.
+thank you for registering for the WorldCup 2022 Betting Game.
 
 Place your bets on the first matches!
 You can place bets as long as a match has not started already.
@@ -28,7 +28,7 @@ function sendMail(user) {
     const mail = {
         from: config.mailFrom,
         to: user.email,
-        subject: "Activate your Euro 2020 Account",
+        subject: "Activate your WorldCup 2022 Account",
         text: mustache.render(MAIL_TEMPLATE, {
             name: user.name,
             url: config.origin + "/activate/" + user.email_confirm_token,
