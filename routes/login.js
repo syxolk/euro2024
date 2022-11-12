@@ -84,8 +84,9 @@ router.post(
 );
 
 router.post("/logout", function (req, res) {
-    req.logout();
-    res.redirect("/");
+    req.logout(() => {
+        res.redirect("/");
+    });
 });
 
 // Redirect to my personal user page
