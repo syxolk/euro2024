@@ -52,4 +52,9 @@ if (process.env.MAIL_SOLUTION === "smtp") {
         apiKey: process.env.MAILGUN_API_KEY,
         host: process.env.MAILGUN_HOST,
     };
+} else if (process.env.MAIL_SOLUTION === "mailjet") {
+    module.exports.mailParams = {
+        apiKey: process.env.MAILJET_API_KEY,
+        apiSecret: process.env.MAILJET_API_SECRET,
+    };
 }

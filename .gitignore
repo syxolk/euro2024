@@ -4,3 +4,4 @@
 /app.yml
 /postgres-data
 /prod.env
+/start.sh

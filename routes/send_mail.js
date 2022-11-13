@@ -1,9 +1,42 @@
 const nodemailer = require("nodemailer");
 const axios = require("axios");
+const Mailjet = require("node-mailjet");
 const config = require("../config");
 
+/*
+    mail should have:
+    - from
+    - to
+    - subject
+    - text
+*/
 module.exports.sendRawMail = async (mail) => {
-    if (config.mail === "smtp") {
+    if (config.mail === "mailjet") {
+        const client = new Mailjet({
+            apiKey: config.mailParams.apiKey,
+            apiSecret: config.mailParams.apiSecret,
+        });
+
+        const response = await client.post("send", { version: "v3.1" }).request({
+            Messages: [
+                {
+                    From: {
+                        Email: mail.from,
+                        Name: "Wetten2022",
+                    },
+                    To: [
+                        {
+                            Email: mail.to,
+                        },
+                    ],
+                    Subject: mail.subject,
+                    TextPart: mail.text,
+                },
+            ],
+        });
+
+        console.log(response.body);
+    } else if (config.mail === "smtp") {
         const transporter = nodemailer.createTransport(config.mailParams);
         return new Promise((resolve, reject) => {
             transporter.sendMail(mail, (error, info) => {
