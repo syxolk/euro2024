@@ -19,17 +19,25 @@ passport.use(
 
             knex("user_account")
                 .where({ email: email })
+                .whereNotNull("email")
                 .select(
                     "id",
                     "name",
                     "email",
                     "password",
-                    "past_matches_last_visited_at"
+                    "past_matches_last_visited_at",
+                    "google_id as googleId",
+                    "facebook_id as facebookId"
                 )
                 .first()
                 .then((user) => {
                     if (user === undefined) {
                         done(null, false, { message: "Wrong email address!" });
+                        return;
+                    }
+
+                    if (user.password === null) {
+                        done(null, false, { message: "User has no password!" });
                         return;
                     }
 

@@ -21,7 +21,15 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     knex("user_account")
         .where({ id: id })
-        .select("id", "name", "email", "admin", "past_matches_last_visited_at")
+        .select(
+            "id",
+            "name",
+            "email",
+            "admin",
+            "past_matches_last_visited_at",
+            "google_id as googleId",
+            "facebook_id as facebookId"
+        )
         .first()
         .then((user) => done(null, user))
         .catch((err) => done(err, false));
@@ -103,7 +111,9 @@ app.use(
         cookie: {
             // secure: !!config.https,
             maxAge: ms("30 days"),
-            sameSite: "strict",
+
+            // sameSite=strict does not seem to work well with Google OAuth
+            sameSite: "lax",
         },
     })
 );

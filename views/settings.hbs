@@ -29,7 +29,7 @@
 <strong>You've connected your Facebook account!</strong>
 <form method="post" action="/disconnect/facebook">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <button type="submit" class="btn btn-danger">Disconnect Facebook</button>
+    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">Disconnect Facebook</button>
 </form>
 </div>
 {{else}}
@@ -51,7 +51,7 @@ We will NOT store any additional information except for your profile ID.
 <strong>You've connected your Google account!</strong>
 <form method="post" action="/disconnect/google">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <button type="submit" class="btn btn-danger">Disconnect Google</button>
+    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">Disconnect Google</button>
 </form>
 </div>
 {{else}}
