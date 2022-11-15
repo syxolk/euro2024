@@ -6,7 +6,7 @@ module.exports = router;
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
-        .select("id", "uefa_id")
+        .select("id", "fifa_id")
         .whereNull("goals_away")
         .whereNull("goals_home")
         .whereRaw("now() > match.starts_at");
@@ -14,40 +14,41 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const errors = [];
     const success = [];
 
+    const { data } = await axios.get(
+        "https://api.fifa.com/api/v3/calendar/matches?count=100&idSeason=255711"
+    );
+    const matchList = data.Results;
+
+    if (matchList.length === 0) {
+        errors.push("Match data is empty");
+    }
+
+    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
+
     for (const match of liveMatches) {
-        const { data } = await axios.get("https://match.uefa.com/v2/matches", {
-            params: {
-                offset: "0",
-                limit: "1",
-                matchId: match.uefa_id,
-            },
-        });
-
-        if (data.length === 0) {
-            errors.push(`HTTP Response is empty for ${match.uefa_id}`);
-            continue;
-        }
-
-        const matchData = data.find((x) => x.id === match.uefa_id);
+        const matchData = matchMap.get(match.fifa_id);
 
         if (matchData === undefined) {
             errors.push(`Match ${match.uefa_id} not found in result`);
             continue;
         }
 
-        if (matchData.status !== "FINISHED") {
-            errors.push(`Match ${match.uefa_id} status is ${matchData.status}`);
+        // TODO I'm not sure if the result type is correct here
+        if (matchData.ResultType !== 1) {
+            errors.push(
+                `Match ${match.uefa_id} result type is ${matchData.ResultType}`
+            );
             continue;
         }
 
-        // score.regular = goals after 90 minutes
-        // score.total = goals after 120 minutes or penalty shoot-out (?)
-        const goals = matchData.score.total;
+        // TODO I'm not sure if this is the number of goals after 90+30 minutes without penalty shoot-out
+        const goalsHome = matchData.HomeTeamScore;
+        const goalsAway = matchData.AwayTeamScore;
 
         await knex("match")
             .update({
-                goals_home: goals.home,
-                goals_away: goals.away,
+                goals_home: goalsHome,
+                goals_away: goalsAway,
                 goals_inserted_at: knex.fn.now(),
             })
             .where({
@@ -55,7 +56,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
             });
 
         success.push(
-            `Match ${match.uefa_id} result set as ${goals.home}:${goals.away}`
+            `Match ${match.fifa_id} result set as ${goalsHome}:${goalsAway}`
         );
     }
 

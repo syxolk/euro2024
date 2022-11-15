@@ -4,42 +4,25 @@ const { knex } = require("../db");
 const router = require("express-promise-router")();
 module.exports = router;
 
-function getTeamId(teamData) {
-    const type = teamData.typeTeam;
-
-    if (type === "PLACEHOLDER") {
-        return null;
-    } else if (type === "NATIONAL") {
-        return teamData.id;
-    } else {
-        throw new Error(`Unknown team type: ${type}`);
-    }
-}
-
-async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
-    const uefaTeamId = getTeamId(teamData);
-
-    if (uefaTeamId === null) {
-        // team is not yet known -> skip it
-        return false;
-    }
+async function updateMatchTeam(trx, fifaMatchId, teamData, column) {
+    const fifaTeamId = teamData.IdTeam;
 
     const team = await trx("team")
         .select("id")
-        .where({ uefa_id: uefaTeamId })
+        .where({ fifa_id: fifaTeamId })
         .first();
 
     if (team === undefined) {
-        throw new Error(`Could not find team with id: ${uefaTeamId}`);
+        throw new Error(`Could not find team with id: ${fifaTeamId}`);
     }
 
     const match = await trx("match")
         .select("id", column)
-        .where({ uefa_id: uefaMatchId })
+        .where({ fifa_id: fifaMatchId })
         .first();
 
     if (match === undefined) {
-        throw new Error(`Could not find match with id: ${uefaMatchId}`);
+        throw new Error(`Could not find match with id: ${fifaMatchId}`);
     }
 
     if (match[column] !== null) {
@@ -56,40 +39,49 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
 
 router.get("/autoupdate_match_teams", async (req, res) => {
     const matches = await knex("match")
-        .select("id", "uefa_id")
+        .select("id", "fifa_id")
         .whereRaw("home_team_id is null OR away_team_id is null");
 
-    const { data } = await axios.get("https://match.uefa.com/v2/matches", {
-        params: {
-            offset: "0",
-            matchId: matches.map((x) => x.uefa_id).join(","),
-        },
-    });
+    const { data } = await axios.get(
+        "https://api.fifa.com/api/v3/calendar/matches?count=100&idSeason=255711"
+    );
+    const matchMap = new Map(data.Results.map((x) => [x.IdMatch, x]));
 
     const result = [];
 
     await knex.transaction(async (trx) => {
-        for (const matchData of data) {
-            if (
-                await updateMatchTeam(
-                    trx,
-                    matchData.id,
-                    matchData.homeTeam,
-                    "home_team_id"
-                )
-            ) {
-                result.push(`Home team updated for match ${matchData.id}`);
+        for (const m of matches) {
+            const matchData = matchMap.get(m.fifa_id);
+
+            if (matchData === undefined) {
+                result.push(`Match not found for id=${m.fifa_id}`);
+                continue;
             }
 
-            if (
-                await updateMatchTeam(
+            if (matchData.Home) {
+                const ok = await updateMatchTeam(
                     trx,
-                    matchData.id,
-                    matchData.awayTeam,
+                    m.fifa_id,
+                    matchData.Home,
+                    "home_team_id"
+                );
+
+                if (ok) {
+                    result.push(`Home team updated for match ${matchData.id}`);
+                }
+            }
+
+            if (matchData.Away) {
+                const ok = await updateMatchTeam(
+                    trx,
+                    m.fifa_id,
+                    matchData.Away,
                     "away_team_id"
-                )
-            ) {
-                result.push(`Away team updated for match ${matchData.id}`);
+                );
+
+                if (ok) {
+                    result.push(`Away team updated for match ${matchData.id}`);
+                }
             }
         }
     });
