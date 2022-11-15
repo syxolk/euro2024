@@ -11,6 +11,14 @@ router.get("/autoupdate_match_result", async (req, res) => {
         .whereNull("goals_home")
         .whereRaw("now() > match.starts_at");
 
+    if (liveMatches.length === 0) {
+        res.json({
+            ok: true,
+            message: "No live matches to update",
+        });
+        return;
+    }
+
     const errors = [];
     const success = [];
 

@@ -42,6 +42,14 @@ router.get("/autoupdate_match_teams", async (req, res) => {
         .select("id", "fifa_id")
         .whereRaw("home_team_id is null OR away_team_id is null");
 
+    if (matches.length === 0) {
+        res.json({
+            ok: true,
+            message: "No matches with missing teams to update",
+        });
+        return;
+    }
+
     const { data } = await axios.get(
         "https://api.fifa.com/api/v3/calendar/matches?count=100&idSeason=255711"
     );
