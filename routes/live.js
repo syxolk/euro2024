@@ -64,7 +64,12 @@ router.get("/live", async (req, res) => {
             home_team.name as home_team_name,
             away_team.name as away_team_name,
             placeholder_home,
-            placeholder_away
+            placeholder_away,
+            (
+                select count(*)
+                from bet
+                where bet.match_id = match.id
+            ) as bet_count
         from match
         left join team as home_team on (home_team.id = match.home_team_id)
         left join team as away_team on (away_team.id = match.away_team_id)

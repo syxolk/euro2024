@@ -98,12 +98,15 @@
     <div class="card-header bg-success"><strong>Upcoming Matches</strong></div>
     <ul class="list-group list-group-flush">
         {{#each nextMatches}}
-        <li class="list-group-item"><div class="row">
+        <li class="list-group-item">
+        <div class="row">
             <div class="col-md-3 order-md-1 order-1 col-12">{{match_type_name}} <span class="label label-default">{{tv}}</span> {{> score_factor match_type_score_factor }}</div>
             <div class="order-md-2 text-md-right order-2 col text-right"><strong>{{#if home_team_name}}{{home_team_name}}{{else}}{{placeholder_home}}{{/if}}</strong></div>
             <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{newsDate starts_at}}</div>
             <div class="order-md-4 text-md-left order-2 col"><strong>{{#if away_team_name}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>
-        </div></li>
+        </div>
+        <div class="text-right small text-muted">Number of bets: {{ bet_count }}</div>
+        </li>
         {{/each}}
     </ul>
 </div>
