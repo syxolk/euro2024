@@ -105,7 +105,16 @@
             <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{newsDate starts_at}}</div>
             <div class="order-md-4 text-md-left order-2 col"><strong>{{#if away_team_name}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>
         </div>
-        <div class="text-right small text-muted">Number of bets: {{ bet_count }}</div>
+        <div class="small text-muted">Number of bets: {{ bet_count }}</div>
+        {{#if friends_without_bet}}
+            <details>
+                <summary>Friends without bets</summary>
+                {{#each friends_without_bet}}
+                    {{#if @first}}{{else}}, {{/if}}
+                    <a href="/user/{{id}}">{{name}}</a>
+                {{/each}}
+            </details>
+        {{/if}}
         </li>
         {{/each}}
     </ul>

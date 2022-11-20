@@ -69,7 +69,23 @@ router.get("/live", async (req, res) => {
                 select count(*)
                 from bet
                 where bet.match_id = match.id
-            ) as bet_count
+            ) as bet_count,
+            (
+                select coalesce(array_agg(jsonb_build_object(
+                    'id', user_account.id,
+                    'name', user_account.name
+                )), array[]::jsonb[])
+                from user_account
+                join friend on (friend.to_user_id = user_account.id)
+                where friend.from_user_id = :id
+                and
+                    not exists (
+                        select 1
+                        from bet
+                        where bet.user_id = user_account.id
+                        and bet.match_id = match.id
+                    )
+            ) as friends_without_bet
         from match
         left join team as home_team on (home_team.id = match.home_team_id)
         left join team as away_team on (away_team.id = match.away_team_id)
@@ -77,7 +93,7 @@ router.get("/live", async (req, res) => {
         where starts_at > now()
         order by match.starts_at asc
         limit 3
-    `);
+    `, { id: req.user ? req.user.id : 0 });
 
     res.render("live", {
         matches: matches.rows,
