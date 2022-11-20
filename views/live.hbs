@@ -106,14 +106,18 @@
             <div class="order-md-4 text-md-left order-2 col"><strong>{{#if away_team_name}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>
         </div>
         <div class="small text-muted">Number of bets: {{ bet_count }}</div>
-        {{#if friends_without_bet}}
-            <details>
-                <summary>Friends without bets</summary>
-                {{#each friends_without_bet}}
-                    {{#if @first}}{{else}}, {{/if}}
-                    <a href="/user/{{id}}">{{name}}</a>
-                {{/each}}
-            </details>
+        {{#if ../is_logged_in}}
+            {{#if friends_without_bet}}
+                <details>
+                    <summary class="text-danger">&#x274C; Friends without bets (click to show)</summary>
+                    {{#each friends_without_bet}}
+                        {{#if @first}}{{else}}, {{/if}}
+                        <a href="/user/{{id}}">{{name}}</a>
+                    {{/each}}
+                </details>
+            {{else}}
+            <div class="text-success">&#xFE0F; All of your friends have made their bets!</div>
+            {{/if}}
         {{/if}}
         </li>
         {{/each}}

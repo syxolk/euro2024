@@ -55,7 +55,8 @@ router.get("/live", async (req, res) => {
         }
     }
 
-    const nextMatches = await knex.raw(`
+    const nextMatches = await knex.raw(
+        `
         select
             match_type.name as match_type_name,
             tv,
@@ -93,10 +94,13 @@ router.get("/live", async (req, res) => {
         where starts_at > now()
         order by match.starts_at asc
         limit 3
-    `, { id: req.user ? req.user.id : 0 });
+    `,
+        { id: req.user ? req.user.id : 0 }
+    );
 
     res.render("live", {
         matches: matches.rows,
         nextMatches: nextMatches.rows,
+        is_logged_in: !!req.user,
     });
 });
