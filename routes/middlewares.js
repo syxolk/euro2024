@@ -23,7 +23,7 @@ router.use(async (req, res) => {
             FROM match m
             WHERE m.starts_at > now()
             ORDER BY m.starts_at ASC
-            LIMIT 6)
+            LIMIT 8)
         SELECT m.id as id
         FROM upcoming_matches m
         WHERE

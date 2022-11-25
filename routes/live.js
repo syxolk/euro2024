@@ -93,7 +93,7 @@ router.get("/live", async (req, res) => {
         join match_type on (match_type.id = match.match_type_id)
         where starts_at > now()
         order by match.starts_at asc
-        limit 3
+        limit 4
     `,
         { id: req.user ? req.user.id : 0 }
     );
