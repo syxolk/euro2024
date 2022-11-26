@@ -1,4 +1,6 @@
 const { knex } = require("../db");
+const moment = require("moment-timezone");
+const config = require("../config");
 
 const router = require("express-promise-router")();
 module.exports = router;
@@ -39,7 +41,30 @@ router.get("/mybets", async (req, res) => {
         .leftJoin("team as home_team", "home_team.id", "match.home_team_id")
         .leftJoin("team as away_team", "away_team.id", "match.away_team_id")
         .join("match_type", "match_type.id", "match.match_type_id")
-        .orderBy("starts_at");
+        .orderBy("starts_at")
+        .orderBy("id");
 
-    res.render("mybets", { matches });
+    const matchesPerDayMap = new Map();
+
+    for (const m of matches) {
+        const date = moment
+            .tz(m.starts_at, config.timezone)
+            .format("YYYY-MM-DD");
+
+        let list = matchesPerDayMap.get(date);
+        if (list === undefined) {
+            list = [];
+            matchesPerDayMap.set(date, list);
+        }
+        list.push(m);
+    }
+
+    const allDates = [...matchesPerDayMap.keys()].sort();
+
+    const matchesPerDayList = allDates.map((x) => ({
+        date: x,
+        matches: matchesPerDayMap.get(x),
+    }));
+
+    res.render("mybets", { matchesPerDayList });
 });
