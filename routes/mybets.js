@@ -59,12 +59,9 @@ router.get("/mybets", async (req, res) => {
         list.push(m);
     }
 
-    const allDates = [...matchesPerDayMap.keys()].sort();
-
-    const matchesPerDayList = allDates.map((x) => ({
-        date: x,
-        matches: matchesPerDayMap.get(x),
-    }));
+    const matchesPerDayList = [...matchesPerDayMap.entries()]
+        .map(([date, matches]) => ({ date, matches }))
+        .sort((a, b) => a.date.localeCompare(b.date));
 
     res.render("mybets", { matchesPerDayList });
 });

@@ -1,5 +1,8 @@
 const { knex } = require("../db");
+const config = require("../config");
+const moment = require("moment-timezone");
 const router = require("express-promise-router")();
+
 module.exports = router;
 
 router.get("/user/:id", async (req, res) => {
@@ -62,7 +65,26 @@ router.get("/user/:id", async (req, res) => {
         .orderBy("starts_at", "desc")
         .orderBy("match.id", "desc");
 
-    res.render("user", { displayedUser, matches });
+    const matchesPerDayMap = new Map();
+
+    for (const m of matches) {
+        const date = moment
+            .tz(m.starts_at, config.timezone)
+            .format("YYYY-MM-DD");
+
+        let list = matchesPerDayMap.get(date);
+        if (list === undefined) {
+            list = [];
+            matchesPerDayMap.set(date, list);
+        }
+        list.push(m);
+    }
+
+    const matchesPerDayList = [...matchesPerDayMap.entries()]
+        .map(([date, matches]) => ({ date, matches }))
+        .sort((a, b) => b.date.localeCompare(a.date));
+
+    res.render("user", { displayedUser, matchesPerDayList });
 });
 
 router.get("/friend_history", async (req, res) => {
