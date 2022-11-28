@@ -6,6 +6,11 @@
 {{> navbar}}
 <div class="container form-signin">
     <h2 class="form-signin-heading">New Account</h2>
+    {{#if disabled}}
+    <div class="alert alert-danger">
+        User Registration disabled!
+    </div>
+    {{else}}
     <form action="/register" method="POST">
         {{#if error}}
         <div class="alert alert-danger" role="alert">
@@ -34,6 +39,7 @@
         </div>
         <button class="btn btn-primary btn-block" type="submit">Register</button>
     </form>
+    {{/if}}
 </div>
 {{/inline}}
 {{/layout}}

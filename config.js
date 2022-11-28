@@ -58,3 +58,6 @@ if (process.env.MAIL_SOLUTION === "smtp") {
         apiSecret: process.env.MAILJET_API_SECRET,
     };
 }
+
+module.exports.disableUserRegistration =
+    process.env.DISABLE_USER_REGISTRATION === "1";

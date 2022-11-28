@@ -48,10 +48,17 @@ router.get("/register", function (req, res) {
         error: req.flash("error"),
         name: req.flash("name"),
         email: req.flash("email"),
+        disabled: config.disableUserRegistration,
     });
 });
 
 router.post("/register", async (req, res) => {
+    if (config.disableUserRegistration) {
+        req.flash("error", "User registration disabled!");
+        res.redirect("/register");
+        return;
+    }
+
     // Save name and email in flash
     req.flash("name", req.body.name);
     req.flash("email", req.body.email);
@@ -79,7 +86,7 @@ router.post("/register", async (req, res) => {
                 "email",
                 "admin",
                 "past_matches_last_visited_at",
-                "email_confirm_token"
+                "email_confirm_token",
             ]);
 
         user = result[0];
