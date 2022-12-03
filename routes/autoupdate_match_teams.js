@@ -75,7 +75,7 @@ router.get("/autoupdate_match_teams", async (req, res) => {
                 );
 
                 if (ok) {
-                    result.push(`Home team updated for match ${matchData.id}`);
+                    result.push(`Home team updated for match ${matchData.IdMatch}`);
                 }
             }
 
@@ -88,7 +88,7 @@ router.get("/autoupdate_match_teams", async (req, res) => {
                 );
 
                 if (ok) {
-                    result.push(`Away team updated for match ${matchData.id}`);
+                    result.push(`Away team updated for match ${matchData.IdMatch}`);
                 }
             }
         }
