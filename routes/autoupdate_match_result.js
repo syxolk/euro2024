@@ -41,8 +41,11 @@ router.get("/autoupdate_match_result", async (req, res) => {
             continue;
         }
 
-        // TODO I'm not sure if the result type is correct here
-        if (matchData.ResultType !== 1) {
+        // ResultType
+        // 0 = future match or unfinished?
+        // 1 = normal match end
+        // 2 = penalty shoot out
+        if (![1, 2].includes(matchData.ResultType)) {
             errors.push(
                 `Match ${match.fifa_id} result type is ${matchData.ResultType}`
             );
