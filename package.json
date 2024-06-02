@@ -27,7 +27,7 @@
     "datatables.net-bs4": "^1.13.1",
     "express": "^4.19.2",
     "express-promise-router": "^4.1.0",
-    "express-session": "^1.17.2",
+    "express-session": "^1.18.0",
     "hbs": "^4.1.2",
     "helmet": "^4.6.0",
     "jquery": "^3.6.0",
@@ -44,7 +44,7 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.6.0",
+    "pg": "^8.11.5",
     "prettier": "^2.3.1",
     "uuid": "^8.3.2"
   }

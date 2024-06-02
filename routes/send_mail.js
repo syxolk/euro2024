@@ -22,7 +22,7 @@ module.exports.sendRawMail = async (mail) => {
                 {
                     From: {
                         Email: mail.from,
-                        Name: "Wetten2022",
+                        Name: "Wetten2024",
                     },
                     To: [
                         {
