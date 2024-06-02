@@ -3,5 +3,5 @@ www.wetten2022.de {
 }
 
 wetten2022.de {
-    redir https://www.wetten2022.de{uri}
+    redir https://www.wetten2024.de{uri}
 }

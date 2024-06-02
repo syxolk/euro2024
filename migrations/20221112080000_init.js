@@ -28,7 +28,7 @@ exports.up = async (knex) => {
             id serial primary key not null,
             name text not null,
             code text not null,
-            fifa_id text not null
+            uefa_id text not null
         )
     `);
 
@@ -54,7 +54,7 @@ exports.up = async (knex) => {
             placeholder_home text,
             placeholder_away text,
             goals_inserted_at timestamptz,
-            fifa_id text not null
+            uefa_id text not null
         )
     `);
 

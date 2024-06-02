@@ -1,4 +1,4 @@
-FROM node:18.12.1-slim
+FROM node:22.2.0-slim
 RUN apt-get update && apt-get install -y postgresql-client
 
 WORKDIR /app

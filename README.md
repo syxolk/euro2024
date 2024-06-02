@@ -1,10 +1,10 @@
-# Euro 2016 / WorldCup 2018 / Euro 2020 / WorldCup 2022
+# Euro 2016 / WorldCup 2018 / Euro 2020 / WorldCup 2022 / Euro 2024
 
 [![Code Climate](https://codeclimate.com/github/syxolk/euro2016/badges/gpa.svg)](https://codeclimate.com/github/syxolk/euro2016)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/35f72d8dc9964c9389aa4937c98dd571)](https://www.codacy.com/app/hans-kirchner-info/euro2016)
 [![David DM](https://david-dm.org/syxolk/euro2016.svg)](https://david-dm.org/syxolk/euro2016)
 
-~~Euro 2016~~ ~~WorldCup 2018~~ ~~Euro 2020~~ WorldCup 2022 is a web service written in [Node.js][nodejs],
+~~Euro 2016~~ ~~WorldCup 2018~~ ~~Euro 2020~~ ~~WorldCup 2022~~ Euro 2024 is a web service written in [Node.js][nodejs],
 giving you and your friends :boy: :girl: a platform of competition: Who is the
 better forecaster of football :soccer: matches? Make bets for football matches,
 collect scores and win the crown :crown:.
@@ -17,7 +17,7 @@ collect scores and win the crown :crown:.
 
 Additionally, there's a match score factor that is multiplied with the points.
 
-The [FIFA WorldCup 2022][fifa] is taking place in Qatar from November 20 to December 18.
+The [Uefa Euro 2024][uefa] is taking place in Germany from June 14 to July 14.
 Happy betting!
 
 ## Install
@@ -161,7 +161,7 @@ Icons made by [Papedesign][papedesign] from [www.flaticon.com][flaticon] is
 licensed by [CC 3.0 BY][ccby]
 
 [nodejs]: https://nodejs.org/en/
-[fifa]: https://www.fifa.com/fifaplus/de/tournaments/mens/worldcup/qatar2022
+[uefa]: https://de.uefa.com/euro2024/
 [postgres]: http://www.postgresql.org/
 [papedesign]: http://www.flaticon.com/authors/papedesign
 [flaticon]: http://www.flaticon.com
