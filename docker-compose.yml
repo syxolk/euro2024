@@ -1,7 +1,7 @@
 version: "3"
 services:
     caddy:
-        image: caddy:2.6.2-alpine
+        image: caddy:2.8.1-alpine
         restart: unless-stopped
         ports:
         - "80:80"
@@ -19,8 +19,8 @@ services:
         environment:
         - PGHOST=db
         - PGPORT=5432
-        - PGDATABASE=cup2022
-        - PGUSER=cup2022
+        - PGDATABASE=cup2024
+        - PGUSER=cup2024
         - PGPASSWORD=123456
         env_file:
         - prod.env        
@@ -28,11 +28,11 @@ services:
         - db
         - proxy
     db:
-        image: postgres:14.6
+        image: postgres:16.3
         restart: unless-stopped
         environment:
-        - POSTGRES_USER=cup2022
-        - POSTGRES_DB=cup2022
+        - POSTGRES_USER=cup2024
+        - POSTGRES_DB=cup2024
         - POSTGRES_PASSWORD=123456
         networks:
         - db

@@ -1,4 +1,4 @@
-FROM alpine:3.16.3
+FROM alpine:3.20.0
 RUN apk update && apk upgrade && apk add postgresql-client
 
 COPY ./crontab /etc/crontabs/root
