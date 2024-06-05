@@ -34,8 +34,6 @@ module.exports.sendRawMail = async (mail) => {
                 },
             ],
         });
-
-        console.log(response.body);
     } else if (config.mail === "smtp") {
         const transporter = nodemailer.createTransport(config.mailParams);
         return new Promise((resolve, reject) => {
