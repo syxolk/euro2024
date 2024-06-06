@@ -89,13 +89,17 @@
 {{/each}}
 {{else}}
 <div class="alert alert-danger" role="alert">
-    <strong>There are currently no live matches.</strong>
+    <strong>
+        {{ t "live.no_live" }}
+    </strong>
 </div>
 {{/if}}
 
 {{#if nextMatches}}
 <div class="card mb-2">
-    <div class="card-header bg-success"><strong>Upcoming Matches</strong></div>
+    <div class="card-header bg-success"><strong>
+        {{ t "live.upcoming_matches_header" }}
+    </strong></div>
     <ul class="list-group list-group-flush">
         {{#each nextMatches}}
         <li class="list-group-item">
@@ -105,18 +109,18 @@
             <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{newsDate starts_at}}</div>
             <div class="order-md-4 text-md-left order-2 col"><strong>{{#if away_team_name}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>
         </div>
-        <div class="small text-muted">Number of bets: {{ bet_count }}</div>
+        <div class="small text-muted">{{ @tr "live.number_of_bets" count=bet_count }}</div>
         {{#if ../is_logged_in}}
             {{#if friends_without_bet}}
                 <details>
-                    <summary class="text-danger">&#x274C; Friends without bets (click to show)</summary>
+                    <summary class="text-danger">&#x274C; {{ @t "live.friends_without_bets" }}</summary>
                     {{#each friends_without_bet}}
                         {{#if @first}}{{else}}, {{/if}}
                         <a href="/user/{{id}}">{{name}}</a>
                     {{/each}}
                 </details>
             {{else}}
-            <div class="text-success">&#x2705; All of your friends have made their bets!</div>
+            <div class="text-success">&#x2705; {{ @t "live.all_friends_have_bets" }}</div>
             {{/if}}
         {{/if}}
         </li>

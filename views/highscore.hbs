@@ -54,15 +54,18 @@ tr.user-is-me > td {
 {{#if loggedIn}}
 {{#if (not hasFriends)}}
 <div class="alert alert-info">
-    You can add friends by clicking on the &#x2795; button.
-    This will highlight them on the live and past matches overview.
+    {{ t "highscore.friend_info" }}
 </div>
 {{/if}}
 <p>
 {{#if friends}}
-<a href="/highscore">Show all</a>
+<a href="/highscore">
+    {{ t "highscore.show_all" }}
+</a>
 {{else}}
-<a href="/highscore?friends=1">Show only friends</a>
+<a href="/highscore?friends=1">
+    {{ t "highscore.show_only_friends" }}
+</a>
 {{/if}}
 </p>
 {{/if}}

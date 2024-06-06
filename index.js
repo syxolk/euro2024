@@ -5,14 +5,29 @@ const KnexSessionStore = require("connect-session-knex")(session);
 const passport = require("passport");
 const compression = require("compression");
 const csrf = require("csurf");
-const fs = require("fs");
 const helmet = require("helmet");
 const ms = require("ms");
 const morgan = require("morgan");
 const flash = require("connect-flash");
-const packageJson = require("./package.json");
 const config = require("./config");
 const { knex } = require("./db");
+const i18next = require("i18next");
+const middleware = require("i18next-http-middleware");
+
+i18next.use(middleware.LanguageDetector).init({
+    fallbackLng: "en",
+    resources: {
+        en: {
+            translation: require("./locales/en.json"),
+        },
+        de: {
+            translation: require("./locales/de.json"),
+        },
+    },
+    detection: {
+        order: ["header"],
+    },
+});
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -44,6 +59,12 @@ app.set("trust proxy", config.trustProxy);
 app.disable("x-powered-by");
 app.enable("strict routing");
 app.enable("case sensitive routing");
+
+app.use(
+    middleware.handle(i18next, {
+        removeLngFromUrl: false, // removes the language from the url when language detected in path
+    })
+);
 
 app.locals.origin = config.origin;
 hbs.localsAsTemplateData(app);

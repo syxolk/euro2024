@@ -5,39 +5,43 @@
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container form-signin">
-    <h2 class="form-signin-heading">New Account</h2>
+    <h2 class="form-signin-heading">{{ t "register.header" }}</h2>
     {{#if disabled}}
     <div class="alert alert-danger">
-        User Registration disabled!
+        {{ t "register.registration_disabled" }}
     </div>
     {{else}}
     <form action="/register" method="POST">
         {{#if error}}
         <div class="alert alert-danger" role="alert">
-            <strong>Registration failed.</strong> {{error}}
+            <strong>{{ t "register.registration_failed" }}</strong> {{error}}
         </div>
         {{/if}}
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">{{ t "register.name" }}</label>
             <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="30" required value="{{name}}">
             <small class="form-text text-muted">
-                Maximum length is 30 characters.
-                Your name will be visible to anyone.
-                You can change your name at any time.
+                {{ t "register.name_info" }}
             </small>
         </div>
         <div class="form-group">
-            <label for="email">Email address</label>
+            <label for="email">{{ t "register.email" }}</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required value="{{email}}">
-            <small class="form-text text-muted">We will send a confirmation link to your email account.</small>
+            <small class="form-text text-muted">
+                {{ t "register.email_info" }}
+            </small>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">{{ t "register.password" }}</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="correct horse battery staple" minlength="6" required>
-            <small class="form-text text-muted">We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.</small>
+            <small class="form-text text-muted">
+                {{ t "register.password_info" }}
+            </small>
         </div>
-        <button class="btn btn-primary btn-block" type="submit">Register</button>
+        <button class="btn btn-primary btn-block" type="submit">
+            {{ t "register.submit_button" }}
+        </button>
     </form>
     {{/if}}
 </div>

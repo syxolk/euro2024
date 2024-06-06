@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>My Bets - {{@websiteName}}</title>
+<title>{{ t "mybets.title" }} - {{@websiteName}}</title>
 <style>
 .not-betted {
     background-color: #e6ff99;
@@ -27,7 +27,7 @@
 <input type="hidden" name="_action" value="/save_bet">
 <div class="container">
 
-<h2>My Bets</h2>
+<h2>{{ t "mybets.header" }}</h2>
 
 {{#if (gt upcomingMatchesWithoutBet 0)}}
 <div class="alert alert-warning">

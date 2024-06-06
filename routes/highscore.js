@@ -5,16 +5,56 @@ module.exports = router;
 
 router.get("/highscore", async (req, res) => {
     const columns = [
-        { title: "Name", orderBy: "name", orderDir: "asc" },
-        { title: "Score", orderBy: "score", orderDir: "desc" },
-        { title: "Change", orderBy: "score_change", orderDir: "desc" },
-        { title: "CNT", orderBy: "count3", orderDir: "desc" },
-        { title: "PTS", orderBy: "total3", orderDir: "desc" },
-        { title: "CNT", orderBy: "count2", orderDir: "desc" },
-        { title: "PTS", orderBy: "total2", orderDir: "desc" },
-        { title: "CNT", orderBy: "count1", orderDir: "desc" },
-        { title: "PTS", orderBy: "total1", orderDir: "desc" },
-        { title: "CNT", orderBy: "count0", orderDir: "desc" },
+        {
+            title: req.t("highscore.column.name"),
+            orderBy: "name",
+            orderDir: "asc",
+        },
+        {
+            title: req.t("highscore.column.score"),
+            orderBy: "score",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.change"),
+            orderBy: "score_change",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.cnt"),
+            orderBy: "count3",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.pts"),
+            orderBy: "total3",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.cnt"),
+            orderBy: "count2",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.pts"),
+            orderBy: "total2",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.cnt"),
+            orderBy: "count1",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.pts"),
+            orderBy: "total1",
+            orderDir: "desc",
+        },
+        {
+            title: req.t("highscore.column.cnt"),
+            orderBy: "count0",
+            orderDir: "desc",
+        },
     ];
 
     const orderBy = columns.some((c) => c.orderBy === req.query.order)

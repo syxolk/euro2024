@@ -30,6 +30,8 @@
     "express-session": "^1.18.0",
     "hbs": "^4.1.2",
     "helmet": "^4.6.0",
+    "i18next": "^23.11.5",
+    "i18next-http-middleware": "^3.6.0",
     "jquery": "^3.6.0",
     "knex": "^3.1.0",
     "moment": "^2.29.3",

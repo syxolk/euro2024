@@ -7,18 +7,25 @@
         <div id="navbarSupportedContent" class="navbar-collapse collapse">
             <ul class="navbar-nav w-100">
                 {{#if loggedIn}}
-                <li class="nav-item"><a class="nav-link" href="/me">Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="/mybets">My Bets
+                <li class="nav-item"><a class="nav-link" href="/me">
+                    {{ t "navbar.profile" }}
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="/mybets">
+                    {{ t "navbar.my_bets" }}
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge badge-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
-                <li class="nav-item"><a class="nav-link" href="/live">Live Matches
+                <li class="nav-item"><a class="nav-link" href="/live">
+                    {{ t "navbar.live_matches" }}
                     {{#if hasLiveMatches}}<span class="badge badge-success">NOW</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/past">Past Matches
+                <li class="nav-item"><a class="nav-link" href="/past">
+                    {{ t "navbar.past_matches" }}
                     {{#if (gt unseenPastMatches 0)}}<span class="badge badge-warning">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/highscore">Highscore</a></li>
+                <li class="nav-item"><a class="nav-link" href="/highscore">
+                    {{ t "navbar.highscore" }}
+                </a></li>
                 {{#if loggedIn}}
                 <li class="nav-item ml-auto dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.name}}
@@ -26,17 +33,25 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
-                        <a class="dropdown-item" href="/settings">Settings</a>
+                        <a class="dropdown-item" href="/settings">
+                            {{ t "navbar.settings" }}
+                        </a>
                         <div class="dropdown-divider"></div>
                         <form method="post" action="/logout">
                             <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                            <button type="submit" class="btn btn-link dropdown-item">Logout</button>
+                            <button type="submit" class="btn btn-link dropdown-item">
+                                {{ t "navbar.logout" }}
+                            </button>
                         </form>
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item ml-auto"><a class="nav-link" href="/register">Register</a><li>
-                <li class="nav-item"><a class="nav-link" href="/login">Login</a><li>
+                <li class="nav-item ml-auto"><a class="nav-link" href="/register">
+                    {{ t "navbar.register" }}
+                </a><li>
+                <li class="nav-item"><a class="nav-link" href="/login">
+                    {{ t "navbar.login" }}
+                </a><li>
                 {{/if}}
             </ul>
         </div>

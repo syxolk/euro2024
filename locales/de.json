@@ -1,0 +1,53 @@
+{
+    "register": {
+        "header": "Neues Konto",
+        "registration_disabled": "Konto-Registrierung deaktiviert!",
+        "registration_failed": "Konto-Registrierung fehlgeschlagen!",
+        "name": "Name:",
+        "name_info": " Maximale Länge ist 30 Zeichen. Dein Name wird für Jeden sichtbar sein. Du kannst deinen Namen jederzeit ändern.",
+        "email": "EMail-Addresse:",
+        "email_info": "Wir senden dir einen Bestätigungslink an dein EMail-Konto.",
+        "password": "Passwort:",
+        "password_info": "Wir verschlüsseln alle Passwörter mit bcrypt, einem der besten Passwort-Hashing-Algorithmen die verfügbar sind.",
+        "submit_button": "Registrieren"
+    },
+    "highscore": {
+        "friend_info": "Du kannst Freunde hinzufügen, in dem du auf den &#x2795; Button drückst. Dadurch werden diese Nutzer auf der Laufende und Vergangene Spiele Seite hervorgehoben.",
+        "show_all": "Zeige alle",
+        "show_only_friends": "Zeige nur Freunde",
+        "column": {
+            "name": "Name",
+            "score": "Punkte",
+            "change": "Änderung",
+            "cnt": "ANZ",
+            "pts": "PKT"
+        }
+    },
+    "live": {
+        "no_live": "Es gibt gerade keine laufenden Spiele.",
+        "upcoming_matches_header": "Nächste Spiele",
+        "friends_without_bets": "Freunde ohne Tipps (klicken zum Anzeigen)",
+        "all_friends_have_bets": "Alle deine Freunde haben ihre Tipps abgegeben!",
+        "number_of_bets": "Anzahl Tipps: {{count}}"
+    },
+    "login": {
+        "title": "Anmelden",
+        "failed": "Anmeldung fehlgeschlagen!",
+        "email": "E-Mail-Adresse:",
+        "password": "Passwort:",
+        "forgot_password": "Passwort vergessen?",
+        "no_account": "Du hast kein Konto?",
+        "submit_button": "Anmelden"
+    },
+    "navbar": {
+        "profile": "Profil",
+        "my_bets": "Meine Tipps",
+        "live_matches": "Laufende Spiele",
+        "past_matches": "Vergangene Spiele",
+        "highscore": "Rangliste",
+        "settings": "Einstellungen",
+        "logout": "Abmelden",
+        "register": "Registrieren",
+        "login": "Anmelden"
+    }
+}

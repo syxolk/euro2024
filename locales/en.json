@@ -1,0 +1,53 @@
+{
+    "register": {
+        "header": "New Account",
+        "registration_disabled": "User Registration disabled!",
+        "registration_failed": "User registration failed!",
+        "name": "Name:",
+        "name_info": " Maximum length is 30 characters. Your name will be visible to anyone. You can change your name at any time.",
+        "email": "Email address:",
+        "email_info": "We will send a confirmation link to your email account.",
+        "password": "Password:",
+        "password_info": "We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.",
+        "submit_button": "Register"
+    },
+    "highscore": {
+        "friend_info": "You can add friends by clicking on the &#x2795; button. This will highlight them on the live and past matches overview.",
+        "show_all": "Show all",
+        "show_only_friends": "Show only friends",
+        "column": {
+            "name": "Name",
+            "score": "Score",
+            "change": "Change",
+            "cnt": "CNT",
+            "pts": "PTS"
+        }
+    },
+    "live": {
+        "no_live": "There are currently no live matches.",
+        "upcoming_matches_header": "Upcoming Matches",
+        "friends_without_bets": "Friends without bets (click to show)",
+        "all_friends_have_bets": "All of your friends have made their bets!",
+        "number_of_bets": "Number of bets: {{count}}"
+    },
+    "login": {
+        "title": "Login",
+        "failed": "Login failed!",
+        "email": "Email address:",
+        "password": "Password:",
+        "forgot_password": "Forgot your password?",
+        "no_account": "Don't have an account?",
+        "submit_button": "Login"
+    },
+    "navbar": {
+        "profile": "Profile",
+        "my_bets": "My Bets",
+        "live_matches": "Live Matches",
+        "past_matches": "Past Matches",
+        "highscore": "Highscore",
+        "settings": "Settings",
+        "logout": "Logout",
+        "register": "Register",
+        "login": "Login"
+    }
+}

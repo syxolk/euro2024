@@ -1,11 +1,21 @@
 const { knex } = require("../db");
 const router = require("express-promise-router")();
+const i18next = require("i18next");
 
 router.use(async (req, res) => {
     res.locals.user = req.user;
     res.locals.loggedIn = !!req.user;
     res.locals.csrfToken = req.csrfToken();
     res.locals.websiteName = "Euro 2024";
+
+    // We need our own helper function here so that we can call i18next's "t"-function with interpolation
+    res.locals.tr = (key, options) => {
+        return i18next.t(key, {
+            ...options.hash,
+            lng: req.language
+        });
+    };
+
     return "next";
 });
 
