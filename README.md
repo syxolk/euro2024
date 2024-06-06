@@ -20,61 +20,76 @@ Additionally, there's a match score factor that is multiplied with the points.
 The [Uefa Euro 2024][uefa] is taking place in Germany from June 14 to July 14.
 Happy betting!
 
-## Install
-You need to have [PostgreSQL][postgres] :elephant: >= 9.6 installed and
+## Running for Development
+You need to have [PostgreSQL][postgres] :elephant: >= 14 installed and
 configured with a new database. Node.js is required of course, recommended
-versions are >=8.
+versions are >= 20.
 
-    git clone https://github.com/syxolk/euro2016.git
-    cd euro2016
-    npm install
+```
+git clone https://github.com/syxolk/euro2024.git
+cd euro2016
+npm install
 
-Now create a shell script (e.g. `run.sh`):
+# Create a new development user in your PostgreSQL database
+sudo -u postgres psql -c "create user cup2024 with encrypted password '123456';"
+
+# Create a new development database
+sudo -u postgres createdb cup2024 --owner=cup2024
+
+# Run all database migrations
+npm run migrate:latest
+```
+
+To start everything (with automatic code reload powered by `nodemon`):
+
 ```sh
-#!/usr/bin/env bash
-
-# Set publicly available domain name (without trailing slash)
-export ORIGIN=http://localhost:8080
-
-# PostgreSQL connection
-export DB_HOST=localhost
-export DB_USER=my_postgres_user
-export DB_PASSWORD=my_postgres_password
-export DB_NAME=my_postgres_database_name
-
-# Used by express-session to secure the session cookies
-export SESSION_SECRET=s0me_r4ndom_str1ng
-
 npm start
 ```
 
-You should make your run script executable:
-```
-chmod +x run.sh
+Visit `http://localhost:8080` in your browser.
+
+## Running for Production
+
+We use Docker and Docker-Compose for running the code in production on a server.
+
+```sh
+git clone https://github.com/syxolk/euro2024.git
+cd euro2024
 ```
 
-## Run
-The database structure will be created and migrated automatically.
+Create a file `prod.env` with the following content:
 
-Use your own run script:
 ```
-./run.sh
+ORIGIN=https://www.wetten2024.de
+SESSION_SECRET=long-automatically-generated-string
+
+MAIL_SOLUTION=mailjet
+MAIL_FROM=no-reply@wetten2024.de
+MAILJET_API_KEY=your-api-key
+MAILJET_API_SECRET=your-api-secret
 ```
 
-or just use `npm start` if you set the environment variables with another method.
+Tips:
+- Set your own domain for `ORIGIN`.
+- You can generate the `SESSION_SECRET` using `openssl rand -base64 36`.
+- You probably have to edit `Caddyfile` and set your own domain there.
+- You can use your own email solution, see below for SMTP or Mailgun
+
+Finally start everything:
+
+```
+docker compose up --build -d
+```
+
+This starts 5 containers:
+- `caddy` - Reverse proxy with automatic TLS certificate
+- `web` - the main Javascript code
+- `db` - PostgreSQL database
+- `autoupdater` - runs a cronjob to update match results and set teams for matches
+- `backup-daemon` - creates backups of the PostgreSQL database
 
 ## Configure
 You can add additional environment variables for additional functionality.
-
-### Time Zone
-All match dates and other time related stuff is saved in UTC in the database. If
-you want to show all dates in another timezone than the default one
-(Central European Summer Time) you can add this in your run script:
-```
-export UTC_OFFSET="+0200"
-```
-
-Related docs: https://momentjs.com/docs/#/manipulating/utc-offset/
 
 ### Trust Proxy
 If your server runs behind a proxy that sets `X-Forwarded-*` headers, you should
@@ -86,27 +101,21 @@ export TRUST_PROXY=1
 
 related docs: https://expressjs.com/de/guide/behind-proxies.html
 
-### Redirect to HTTPS
-If your server is available over HTTPS and you always want to redirect your users
-to be redirected to the HTTPS-version you can set this:
-
-```
-export REDIRECT_HTTPS=1
-```
+This is enabled by default in our `Dockerfile` for production.
 
 ### Facebook Login (optional)
 If you want to enable Facebook login you need to create a [Facebook App][facebookapp],
 enable 'Facebook Login' for it and add valid OAuth Redirect URIs
 (use your own domain of course):
 ```
-https://www.wetten2022.de/auth/facebook/callback
-https://www.wetten2022.de/connect/facebook/callback
+https://www.wetten2024.de/auth/facebook/callback
+https://www.wetten2024.de/connect/facebook/callback
 ```
 
 Then add this in your run script (with your own app id and secret):
 ```
-export FACEBOOK_APP_ID=987654321
-export FACEBOOK_APP_SECRET=1234567890
+FACEBOOK_APP_ID=987654321
+FACEBOOK_APP_SECRET=1234567890
 ```
 
 You have to set the app's status to 'Live' so that other people can use it.
@@ -116,14 +125,14 @@ If you want to enable Google login you need to create a
 [Google Cloud Platform Project][gcpproject], create an OAuth-Client-ID and
 set the Redirection-URIs to (using your own domain):
 ```
-https://www.wetten2022.de/auth/google/callback
-https://www.wetten2022.de/connect/google/callback
+https://www.wetten2024.de/auth/google/callback
+https://www.wetten2024.de/connect/google/callback
 ```
 
 Then add this in your run script:
 ```
-export GOOGLE_APP_ID=987654321.apps.googleusercontent.com
-export GOOGLE_APP_SECRET=abcdefgh
+GOOGLE_APP_ID=987654321.apps.googleusercontent.com
+GOOGLE_APP_SECRET=abcdefgh
 ```
 
 ### SMTP (optional)
@@ -131,12 +140,12 @@ To send transactional emails (e.g. email confirmation), you need to configure
 either an SMTP connection or a Mailgun account.
 
 ```
-export MAIL_SOLUTION=smtp
-export MAIL_FROM=no-reply@wetten2022.de
-export SMTP_HOST=localhost
-export SMTP_PORT=465
-export SMTP_USER=smtp_user
-export SMTP_PASSWORD=smtp_password
+MAIL_SOLUTION=smtp
+MAIL_FROM=no-reply@wetten2024.de
+SMTP_HOST=localhost
+SMTP_PORT=465
+SMTP_USER=smtp_user
+SMTP_PASSWORD=smtp_password
 ```
 
 ### Mailgun (optional)
@@ -144,17 +153,31 @@ Register an account on [Mailgun][mailgun], configure a new domain and set
 this in your run script:
 
 ```
-export MAIL_SOLUTION=mailgun
-export MAIL_FROM=no-reply@wetten2022.de
-export MAILGUN_DOMAIN=wetten2022.de
-export MAILGUN_API_KEY=your-mailgun-api-key
+MAIL_SOLUTION=mailgun
+MAIL_FROM=no-reply@wetten2024.de
+MAILGUN_DOMAIN=wetten2024.de
+MAILGUN_API_KEY=your-mailgun-api-key
+```
+
+### Mailjet (optional)
+
+```
+MAIL_SOLUTION=mailjet
+MAIL_FROM=no-reply@wetten2024.de
+MAILJET_API_KEY=your-api-key
+MAILJET_API_SECRET=your-api-secret
 ```
 
 ## Update
-How to update euro2016 to the newest version:
+How to update euro2024 to the newest version:
 
-    git pull
-    npm install
+```
+git pull
+npm install
+
+# For development: run migrations manually
+npm run migrate:latest
+```
 
 ## Credits
 Icons made by [Papedesign][papedesign] from [www.flaticon.com][flaticon] is
