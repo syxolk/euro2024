@@ -49,5 +49,10 @@
         "logout": "Logout",
         "register": "Register",
         "login": "Login"
+    },
+    "mybets": {
+        "title": "My Bets",
+        "header": "My Bets",
+        "no_bets_info": "You should place bets for the upcoming matches!"
     }
 }

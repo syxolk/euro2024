@@ -31,7 +31,9 @@
 
 {{#if (gt upcomingMatchesWithoutBet 0)}}
 <div class="alert alert-warning">
-    <strong>You should place bets for the upcoming matches!</strong>
+    <strong>
+        {{ t "mybets.no_bets_info" }}
+    </strong>
 </div>
 {{/if}}
 

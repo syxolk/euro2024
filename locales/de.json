@@ -49,5 +49,10 @@
         "logout": "Abmelden",
         "register": "Registrieren",
         "login": "Anmelden"
+    },
+    "mybets": {
+        "title": "Meine Tipps",
+        "header": "Meine Tipps",
+        "no_bets_info": "Du solltest Tipps für die bevorstehenden Spiele abgeben!"
     }
 }
