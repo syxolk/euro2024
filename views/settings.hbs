@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Settings - {{@websiteName}}</title>
+<title>{{ t "settings.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -12,16 +12,20 @@
 </div>
 {{/if}}
 
-<h2>General Settings</h2>
 <form method="post" action="/settings">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <div class="form-group">
-        <label for="name">Name (3 to 30 characters)</label>
+        <label for="name">
+            {{ @t "settings.name" }}
+        </label>
         <input type="text" minlength="3" maxlength="30" required name="name" class="form-control" id="name" placeholder="Μορφεύς" value="{{user.name}}">
     </div>
-    <button type="submit" class="btn btn-secondary">Save</button>
+    <button type="submit" class="btn btn-primary">
+        {{ @t "settings.submit_button" }}
+    </button>
 </form>
-<h2>Connected Accounts</h2>
+
+<hr/>
 
 {{#if enabledFacebook}}
 {{#if user.facebookId}}
@@ -40,7 +44,7 @@ We will NOT store any additional information except for your profile ID.
 </div>
 {{/if}}
 {{else}}
-<div class="alert alert-warning">
+<div class="small text-muted">
     Facebook Login disabled.
 </div>
 {{/if}}
@@ -62,7 +66,7 @@ We will NOT store any additional information except for your profile ID.
 </div>
 {{/if}}
 {{else}}
-<div class="alert alert-warning">
+<div class="small text-muted">
     Google Login disabled.
 </div>
 {{/if}}

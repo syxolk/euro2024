@@ -69,5 +69,25 @@
         "team_info": "Choose 1 team for {{name}}.",
         "team_info_other": "Choose {{count}} teams for {{name}}.",
         "score_info": "For every correct team you will receive {{scoreFactor}} points."
+    },
+    "settings": {
+        "title": "Settings",
+        "name": "Name (3 to 30 characters)",
+        "submit_button": "Save"
+    },
+    "intro": {
+        "title": "Intro",
+        "welcome": "Welcome to the Euro 2024 Betting Game!",
+        "description": "On this site, you can place bets for matches of the football euro 2024. It's totally free and you cannot actually win anything except for fame and glory. This site was designed as a competition: Who is the better forecaster for football matches? Compete with your friends and random people!",
+        "quickstart": "Quickstart",
+        "my_bets_title": "Place Bets",
+        "my_bets_description": "Set the number of goals for the home and away team for the next matches. You cannot place bets for any match that has started already.",
+        "my_bets_link": "Go to my Bets",
+        "live_matches_title": "Live Matches",
+        "live_matches_description": " Look at currently running matches. You can see all bets other users have placed.",
+        "live_matches_link": "See live Matches",
+        "highscore_title": "Highscore",
+        "highscore_description": "See how many points you have and how good you are compared to your friends and other users.",
+        "highscore_link": "View Highscore"
     }
 }

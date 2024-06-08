@@ -1,57 +1,67 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Intro - {{@websiteName}}</title>
+<title>{{ t "intro.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
-    <h3>Welcome to the Euro 2024 <small><s>WorldCup 2022</s> <s>Euro 2020/21</s> <s>WorldCup 2018</s> <s>Euro 2016</s></small> Betting Game!</h3>
+    <h3>
+        {{ t "intro.welcome" }}
+    </h3>
     <p>
-        On this site, you can place bets for matches of the football euro 2024.
-        It's totally free and you cannot actually win anything except for fame and glory.
-        This site was designed as a competition: Who is the better forecaster for football matches?
-        Compete with your friends and random people!
+        {{ t "intro.description" }}
     </p>
 
-    <h4>Quickstart</h4>
-    <div class="row">
-        <div class="col-md-4">
+    <h4>
+        {{ t "intro.quickstart" }}
+    </h4>
+    <div class="card-deck">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Place Bets</h5>
+                    <h5 class="card-title">
+                        {{ t "intro.my_bets_title" }}
+                    </h5>
                     <p class="card-text">
-                        Set the number of goals for the home and away team
-                        for the next matches. You cannot place bets
-                        for any match that has started already.
+                        {{ t "intro.my_bets_description" }}
                     </p>
-
-                    <a href="/mybets" class="btn btn-primary {{#if (not loggedIn)}}disabled{{/if}}">Go to my Bets</a>
+                </div>
+                <div class="card-footer">
+                    <a href="/mybets" class="btn btn-primary {{#if (not loggedIn)}}disabled{{/if}}">
+                        {{ t "intro.my_bets_link" }}
+                    </a>
                     {{#if (not loggedIn)}}<br><small class="text-muted">You need an account to see your own bets.</small>{{/if}}
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Live Matches</h5>
+                    <h5 class="card-title">
+                        {{ t "intro.live_matches_title" }}
+                    </h5>
                     <p class="card-text">
-                        Look at currently running matches.
-                        You can see all bets other users have placed.
+                        {{ t "intro.live_matches_description" }}
                     </p>
-                    <a href="/live" class="btn btn-primary">See live Matches</a>
+                </div>
+                <div class="card-footer">
+                     <a href="/live" class="btn btn-primary">
+                        {{ t "intro.live_matches_link" }}
+                    </a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Highscore</h5>
-                    <p class="card-text">See how many points you have and how
-                    good you are compared to your friends and other users.</p>
-                    <a href="/highscore" class="btn btn-primary">View Highscore</a>
+                    <h5 class="card-title">
+                        {{ t "intro.highscore_title" }}
+                    </h5>
+                    <p class="card-text">
+                        {{ t "intro.highscore_description" }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="/highscore" class="btn btn-primary">
+                        {{ t "intro.highscore_link" }}
+                    </a>
                 </div>
             </div>
-        </div>
     </div>
 
     <h4 class="mt-3">FAQ</h4>
@@ -86,7 +96,7 @@
             <div id="invite-friends" class="collapse" data-parent="#faq">
                 <div class="card-body">
                     <b>Yes!</b> You are free to invite your friends, colleagues and family to play
-                    here. If you feel proficient enough you can <a href="https://github.com/syxolk/euro2016">host this site on your own server (open-source on GitHub)</a>.
+                    here. If you feel proficient enough you can <a href="https://github.com/syxolk/euro2024">host this site on your own server (open-source on GitHub)</a>.
                 </div>
             </div>
         </div>

@@ -69,5 +69,25 @@
         "team_info": "Wähle 1 Team für {{name}}.",
         "team_info_other": "Wähle {{count}} Teams für {{name}}.",
         "score_info": "Für jedes korrekte Team bekommst du {{scoreFactor}} Punkte."
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "name": "Name (3 bis 30 Zeichen)",
+        "submit_button": "Speichern"
+    },
+    "intro": {
+        "title": "Einführung",
+        "welcome": "Willkommen zum Euro 2024 Tipp-Spiel!",
+        "description": "Auf dieser Website kannst du Tipps für die Spiele der Fußball-Euro 2024 abgeben. Es ist völlig kostenlos und Du kannst eigentlich nichts gewinnen, außer Ruhm und Ehre. Diese Seite wurde als Wettbewerb konzipiert: Wer ist der bessere Vorhersager für Fußballspiele? Messe dich mit deinen Freunden und anderen Nutzern!",
+        "quickstart": "Schnellstart",
+        "my_bets_title": "Tipps abgeben",
+        "my_bets_description": "Gib deine Tipps ab für die Spielergebnisse. Du kannst jedoch keine Tipps abgeben für Spiele die bereits begonnen haben.",
+        "my_bets_link": "Meine Tipps ändern",
+        "live_matches_title": "Laufende Spiele",
+        "live_matches_description": " Sieh dir aktuell laufende Spiele an und siehe welche Tipps andere Nutzer abgegeben haben.",
+        "live_matches_link": "Live-Spiele anzeigen",
+        "highscore_title": "Rangliste",
+        "highscore_description": "Siehe wie viele Punkte du hast und wie du im Vergleich mit deinen Freunden und anderen Nutzern stehst.",
+        "highscore_link": "Rangliste anschauen"
     }
 }
