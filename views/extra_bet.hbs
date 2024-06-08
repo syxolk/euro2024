@@ -1,16 +1,16 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{ t "mybets.title" }} - {{@websiteName}}</title>
+<title>{{ extraBet.name }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
 
-<a href="/mybets" class="btn btn-outline-secondary btn-sm mb-2">&larr; Back to My Bets</a>
+<a href="/mybets" class="btn btn-outline-secondary btn-sm mb-2">&larr; {{ t "extra_bet.back_link" }}</a>
 <h2>{{ extraBet.name }}</h2>
 <div class="alert alert-info">
-    Choose <b>{{ extraBet.numberOfTeams }}</b> team(s) for <b>{{extraBet.name}}</b>.
-    For every correct team you will receive <b>{{extraBet.scoreFactor}}</b> points.
+    {{ @tr "extra_bet.team_info" count=extraBet.numberOfTeams name=extraBet.name }}
+    {{ @tr "extra_bet.score_info" scoreFactor=extraBet.scoreFactor }}
 </div>
 
 <form class="extra_bet" method="post" action="/extra_bet/{{extraBet.id}}">
@@ -25,9 +25,16 @@
     </div>
     {{/each}}
     <div class="alert alert-warning d-none mt-2 max-teams-warning">
-        You are not allowed to select more than {{extraBet.numberOfTeams}} team(s).
+        {{ @tr "extra_bet.max_teams_warning" count=extraBet.numberOfTeams }}
     </div>
-    <button type="submit" class="btn btn-primary mt-2 mb-2">Save</button>
+    <div class="row mt-2 mb-5">
+        <div class="col-12 col-md-auto">
+            <button type="submit" class="btn btn-primary btn-block">
+                {{ @t "extra_bet.submit_button" }}
+            </button>
+        </div>
+    </div>
+    
 </form>
 
 </div>

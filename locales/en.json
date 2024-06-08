@@ -12,7 +12,7 @@
         "submit_button": "Register"
     },
     "highscore": {
-        "friend_info": "You can add friends by clicking on the &#x2795; button. This will highlight them on the live and past matches overview.",
+        "friend_info": "You can add friends by clicking on the \u2795 button. This will highlight them on the live and past matches overview.",
         "show_all": "Show all",
         "show_only_friends": "Show only friends",
         "column": {
@@ -53,6 +53,21 @@
     "mybets": {
         "title": "My Bets",
         "header": "My Bets",
-        "no_bets_info": "You should place bets for the upcoming matches!"
+        "no_bets_info": "You should place bets for the upcoming matches!",
+        "edit_disabled": "You can no longer edit your bet.",
+        "edit_bet_until": "Change your bet until {{date}}.",
+        "edit_bet_button": "Edit my bet",
+        "no_team_selected": "You have chosen no team so far.",
+        "extra_bet_info": "1 Team for {{ scoreFactor }} points.",
+        "extra_bet_info_other": "{{count}} Teams for {{ scoreFactor }} points each."
+    },
+    "extra_bet": {
+        "back_link": "Back to My Bets",
+        "max_teams_warning": "You are not allowed to select more than 1 team.",
+        "max_teams_warning_other": "You are not allowed to select more than {{count}} teams.",
+        "submit_button": "Save",
+        "team_info": "Choose 1 team for {{name}}.",
+        "team_info_other": "Choose {{count}} teams for {{name}}.",
+        "score_info": "For every correct team you will receive {{scoreFactor}} points."
     }
 }

@@ -33,7 +33,9 @@
 <div class="card mb-3">
     <div class="card-header">
         {{ name }}
-        <div class="small text-muted">{{numberOfTeams}} Team(s) for {{ scoreFactor }} points each.</div>
+        <div class="small text-muted">
+            {{ @tr "mybets.extra_bet_info" count=numberOfTeams scoreFactor=scoreFactor }}
+        </div>
     </div>
     <div class="card-body">
         {{#each selectedTeams}}
@@ -42,17 +44,19 @@
         </div>
         {{else}}
         <div class="text-muted small">
-            You have chosen no team so far.
+            {{ @t "mybets.no_team_selected" }}
         </div>
         {{/each}}
         {{#if isEditable}}
-        <a href="/extra_bet/{{id}}" class="btn btn-outline-info mt-3">Edit my Bet</a>
+        <a href="/extra_bet/{{id}}" class="btn btn-outline-info mt-3">
+            {{ @t "mybets.edit_bet_button" }}
+        </a>
         <div class="small text-muted text-right">
-            Change your bet until {{calendar editableUntil}}.
+            {{ @tr "mybets.edit_bet_until" date=(calendar editableUntil) }}
         </div>
         {{else}}
-        <div class="text-muted small">
-            You can no longer edit your bet here.
+        <div class="text-muted small text-right">
+            {{ @t "mybets.edit_disabled" }}
         </div>
         {{/if}}
     </div>

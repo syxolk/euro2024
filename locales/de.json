@@ -12,7 +12,7 @@
         "submit_button": "Registrieren"
     },
     "highscore": {
-        "friend_info": "Du kannst Freunde hinzufügen, in dem du auf den &#x2795; Button drückst. Dadurch werden diese Nutzer auf der Laufende und Vergangene Spiele Seite hervorgehoben.",
+        "friend_info": "Du kannst Freunde hinzufügen, in dem du auf den \u2795 Button drückst. Dadurch werden diese Nutzer auf der Laufende und Vergangene Spiele Seite hervorgehoben.",
         "show_all": "Zeige alle",
         "show_only_friends": "Zeige nur Freunde",
         "column": {
@@ -53,6 +53,21 @@
     "mybets": {
         "title": "Meine Tipps",
         "header": "Meine Tipps",
-        "no_bets_info": "Du solltest Tipps für die bevorstehenden Spiele abgeben!"
+        "no_bets_info": "Du solltest Tipps für die bevorstehenden Spiele abgeben!",
+        "edit_disabled": "Du kannst deinen Tipp nicht mehr bearbeiten.",
+        "edit_bet_until": "Ändere deinen Tipp bis {{date}}.",
+        "edit_bet_button": "Tipp bearbeiten",
+        "no_team_selected": "Du hast bisher keine Teams ausgewählt.",
+        "extra_bet_info": "1 Team für {{ scoreFactor }} Punkte.",
+        "extra_bet_info_other": "{{count}} Teams für je {{ scoreFactor }} Punkte."
+    },
+    "extra_bet": {
+        "back_link": "Zurück zu Meine Tipps",
+        "max_teams_warning": "Du darfst nicht mehr als 1 Team auswählen.",
+        "max_teams_warning_other": "Du darfst nicht mehr als {{count}} Teams auswählen.",
+        "submit_button": "Speichern",
+        "team_info": "Wähle 1 Team für {{name}}.",
+        "team_info_other": "Wähle {{count}} Teams für {{name}}.",
+        "score_info": "Für jedes korrekte Team bekommst du {{scoreFactor}} Punkte."
     }
 }
