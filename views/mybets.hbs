@@ -33,7 +33,7 @@
 <div class="card mb-3">
     <div class="card-header">
         {{ name }}
-        {{> score_factor scoreFactor }}
+        <div class="small text-muted">{{numberOfTeams}} Team(s) for {{ scoreFactor }} points each.</div>
     </div>
     <div class="card-body">
         {{#each selectedTeams}}
