@@ -1,0 +1,34 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>{{ t "mybets.title" }} - {{@websiteName}}</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+
+<a href="/mybets" class="btn btn-outline-secondary btn-sm mb-2">&larr; Back to My Bets</a>
+<h2>{{ extraBet.name }}</h2>
+<div class="alert alert-info">
+    Choose <b>{{ extraBet.numberOfTeams }}</b> team(s) for <b>{{extraBet.name}}</b>.
+    For every correct team you will receive <b>{{extraBet.scoreFactor}}</b> points.
+</div>
+
+<form method="post" action="/extra_bet/{{extraBet.id}}">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    {{#each teams}}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="1" id="team_{{id}}" name="team_{{id}}" {{#if isSelected}}checked{{/if}}>
+        <label class="form-check-label" for="team_{{id}}">
+            {{name}}
+        </label>
+    </div>
+    {{/each}}
+    <button type="submit" class="btn btn-primary mt-2 mb-2">Save</button>
+</form>
+
+</div>
+{{/inline}}
+{{#*inline "scripts"}}
+
+{{/inline}}
+{{/layout}}

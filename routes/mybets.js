@@ -63,5 +63,39 @@ router.get("/mybets", async (req, res) => {
         .map(([date, matches]) => ({ date, matches }))
         .sort((a, b) => a.date.localeCompare(b.date));
 
-    res.render("mybets", { matchesPerDayList });
+    const extraBets = await knex("extra_bet")
+        .joinRaw(
+            `
+            left join user_account_extra_bet on (
+                user_account_extra_bet.extra_bet_id = extra_bet.id
+                and user_account_extra_bet.user_id = :userId
+            )
+        `,
+            {
+                userId: req.user.id,
+            }
+        )
+        .select(
+            "id",
+            "name",
+            "number_of_teams as numberOfTeams",
+            "editable_until as editableUntil",
+            "score_factor as scoreFactor",
+            knex.raw(`(editable_until > now()) as "isEditable"`),
+            knex.raw(`
+            (
+                select coalesce(array_agg(jsonb_build_object(
+                    'id', team.id,
+                    'name', team.name,
+                    'code', team.code
+                ) order by team.name), array[]::jsonb[])
+                from team
+                join unnest(selected_team_ids) as st(id) on (
+                    team.id = st.id
+                )
+            ) as "selectedTeams"
+            `)
+        );
+
+    res.render("mybets", { matchesPerDayList, extraBets });
 });

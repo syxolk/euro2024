@@ -29,6 +29,36 @@
 
 <h2>{{ t "mybets.header" }}</h2>
 
+{{#each extraBets}}
+<div class="card mb-3">
+    <div class="card-header">
+        {{ name }}
+        {{> score_factor scoreFactor }}
+    </div>
+    <div class="card-body">
+        {{#each selectedTeams}}
+        <div>
+            {{ name }}
+        </div>
+        {{else}}
+        <div class="text-muted small">
+            You have chosen no team so far.
+        </div>
+        {{/each}}
+        {{#if isEditable}}
+        <a href="/extra_bet/{{id}}" class="btn btn-outline-info mt-3">Edit my Bet</a>
+        <div class="small text-muted text-right">
+            Change your bet until {{calendar editableUntil}}.
+        </div>
+        {{else}}
+        <div class="text-muted small">
+            You can no longer edit your bet here.
+        </div>
+        {{/if}}
+    </div>
+</div>
+{{/each}}
+
 {{#if (gt upcomingMatchesWithoutBet 0)}}
 <div class="alert alert-warning">
     <strong>
