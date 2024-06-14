@@ -1,5 +1,4 @@
 SHELL=/bin/sh
 
-# TOOD fix auto-updater
-#* * * * * curl -s http://web:8080/autoupdate_match_result 2>&1
+* * * * * curl -s http://web:8080/autoupdate_match_result 2>&1
 #0 * * * * curl -s http://web:8080/autoupdate_match_teams 2>&1
