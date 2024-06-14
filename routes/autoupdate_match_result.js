@@ -6,7 +6,7 @@ module.exports = router;
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
-        .select("id", "fifa_id")
+        .select("id", "uefa_id")
         .whereNull("goals_away")
         .whereNull("goals_home")
         .whereRaw("now() > match.starts_at");
@@ -23,38 +23,38 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const success = [];
 
     const { data } = await axios.get(
-        "https://api.fifa.com/api/v3/calendar/matches?count=100&idSeason=255711"
+        "https://match.uefa.com/v5/matches?competitionId=3&offset=0&limit=51"
     );
-    const matchList = data.Results;
+    const matchList = data;
 
     if (matchList.length === 0) {
         errors.push("Match data is empty");
     }
 
-    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
+    const matchMap = new Map(matchList.map((x) => [x.id, x]));
 
     for (const match of liveMatches) {
-        const matchData = matchMap.get(match.fifa_id);
+        const matchData = matchMap.get(match.uefa_id);
 
         if (matchData === undefined) {
-            errors.push(`Match ${match.fifa_id} not found in result`);
+            errors.push(`Match ${match.uefa_id} not found in result`);
             continue;
         }
 
-        // ResultType
-        // 0 = future match or unfinished?
-        // 1 = normal match end
-        // 2 = penalty shoot out
-        if (![1, 2].includes(matchData.ResultType)) {
+        // Status
+        // "FINISHED" - match finished successfully
+        // "UPCOMING" - match will be played in the future
+        if (matchData.status !== "FINISHED") {
             errors.push(
-                `Match ${match.fifa_id} result type is ${matchData.ResultType}`
+                `Match ${match.uefa_id} result type is ${matchData.status}`
             );
             continue;
         }
 
+
         // TODO I'm not sure if this is the number of goals after 90+30 minutes without penalty shoot-out
-        const goalsHome = matchData.HomeTeamScore;
-        const goalsAway = matchData.AwayTeamScore;
+        const goalsHome = matchData.score.total.home;
+        const goalsAway = matchData.score.total.away;
 
         await knex("match")
             .update({
@@ -67,7 +67,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
             });
 
         success.push(
-            `Match ${match.fifa_id} result set as ${goalsHome}:${goalsAway}`
+            `Match ${match.uefa_id} result set as ${goalsHome}:${goalsAway}`
         );
     }
 
