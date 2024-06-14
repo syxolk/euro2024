@@ -19,6 +19,7 @@ router.use(require("./password_recovery"));
 router.use(require("./autoupdate_match_result"));
 router.use(require("./autoupdate_match_teams"));
 router.use(require("./extra_bet"));
+router.use(require("./extra_bet_list"));
 
 if (config.google) {
     require("./google")(router);

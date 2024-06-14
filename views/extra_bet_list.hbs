@@ -1,0 +1,48 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>Extra Bets - {{@websiteName}}</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+
+{{#each extraBets}}
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ name }} 
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Users</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each teams }}
+                <tr>
+                    <td>
+                        {{ team.name }}
+                        ({{ userCount }})
+                    </td>
+                    <td>
+                        {{#each users }}
+                            {{#if @first}}{{else}}, {{/if}}
+                            <a href="/user/{{id}}">
+                                {{ name }}
+                            </a>
+                        {{/each}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{/each}}
+
+</div>
+{{/inline}}
+{{#*inline "scripts"}}
+
+{{/inline}}
+{{/layout}}
