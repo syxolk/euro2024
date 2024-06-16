@@ -49,8 +49,10 @@
                 <div class="col-md-10">
                     {{#each bets.home}}
                         {{#if @first}}{{else}}, {{/if}}
-                        <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a>
-                        {{goalsHome}}:{{goalsAway}}
+                        <span {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>
+                            <a href="/user/{{id}}">{{name}}</a>
+                            {{#if friend}}<b>{{/if}}{{goalsHome}}:{{goalsAway}}{{#if friend}}</b>{{/if}}
+                        </span>
                     {{/each}}
                 </div>
             </div>
@@ -63,8 +65,10 @@
                 <div class="col-md-10">
                     {{#each bets.draw}}
                         {{#if @first}}{{else}}, {{/if}}
-                        <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a>
-                        {{goalsHome}}:{{goalsAway}}
+                        <span {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>
+                            <a href="/user/{{id}}">{{name}}</a>
+                            {{#if friend}}<b>{{/if}}{{goalsHome}}:{{goalsAway}}{{#if friend}}</b>{{/if}}
+                        </span>
                     {{/each}}
                 </div>
             </div>
@@ -77,8 +81,10 @@
                 <div class="col-md-10">
                     {{#each bets.away}}
                         {{#if @first}}{{else}}, {{/if}}
-                        <a href="/user/{{id}}" {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>{{name}}</a>
-                        {{goalsHome}}:{{goalsAway}}
+                        <span {{#if friend}}class="highlight-friend"{{/if}}{{#if me}}class="highlight-me"{{/if}}>
+                            <a href="/user/{{id}}">{{name}}</a>
+                            {{#if friend}}<b>{{/if}}{{goalsHome}}:{{goalsAway}}{{#if friend}}</b>{{/if}}
+                        </span>
                     {{/each}}
                 </div>
             </div>
