@@ -10,7 +10,8 @@ router.get("/extra_bet_list", async (req, res) => {
             "name",
             "number_of_teams as numberOfTeams",
             "score_factor as scoreFactor",
-            knex.raw(`
+            knex.raw(
+                `
             (
                 select array_agg(row_to_json(grouped_team))
                 from (
@@ -23,7 +24,9 @@ router.get("/extra_bet_list", async (req, res) => {
                         where team.id = t.id
                     ) as "team", array_agg(jsonb_build_object(
                         'id', user_account.id,
-                        'name', user_account.name
+                        'name', user_account.name,
+                        'isFriend', :friendCheck,
+                        'isMe', :meCheck
                     )) as "users", count(*) as "userCount"
                     from user_account_extra_bet
                     cross join unnest(selected_team_ids) as t(id)
@@ -33,7 +36,28 @@ router.get("/extra_bet_list", async (req, res) => {
                     order by count(*) desc
                 ) grouped_team
             ) as teams
-            `)
+            `,
+                {
+                    friendCheck: req.user
+                        ? knex.raw(
+                              `
+                            (exists (
+                                select 1
+                                from friend
+                                where from_user_id = :userId
+                                and to_user_id = user_account.id
+                            ))
+                        `,
+                              { userId: req.user.id }
+                          )
+                        : knex.raw("false"),
+                    meCheck: req.user
+                        ? knex.raw("(user_account.id = :userId)", {
+                              userId: req.user.id,
+                          })
+                        : knex.raw("false"),
+                }
+            )
         )
         .whereRaw("editable_until < now()")
         .orderBy("id");

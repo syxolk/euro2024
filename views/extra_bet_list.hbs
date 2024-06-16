@@ -1,6 +1,20 @@
 {{#> layout}}
 {{#*inline "head"}}
 <title>Extra Bets - {{@websiteName}}</title>
+<style>
+    .highlight-friend {
+        background-color: #F8DE7E;
+        padding: 3px 5px;
+        display:inline-block;
+        border-radius: 3px;
+    }
+    .highlight-me {
+        background-color: #ffd700;
+        padding: 3px 5px;
+        display:inline-block;
+        border-radius: 3px;
+    }
+</style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -28,9 +42,11 @@
                     <td>
                         {{#each users }}
                             {{#if @first}}{{else}}, {{/if}}
-                            <a href="/user/{{id}}">
-                                {{ name }}
-                            </a>
+                            <span {{#if isFriend}}class="highlight-friend"{{/if}}{{#if isMe}}class="highlight-me"{{/if}}>
+                                <a href="/user/{{id}}">
+                                    {{ name }}
+                                </a>
+                            </span>
                         {{/each}}
                     </td>
                 </tr>
