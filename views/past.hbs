@@ -76,7 +76,12 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_bet}}</div>
                     <div class="col-md-10">
-                        {{#each bets.correct}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a>{{/each}}
+                        {{#each bets.correct}}
+                            {{#if @first}}{{else}},{{/if}}
+                            <span <{{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="hig>hlight-me"{{/if}}>
+                                <a href="/user/{{id}}">{{name}}</a>
+                            </span>
+                        {{/each}}
                     </div>
                 </div>
             </li>
@@ -86,7 +91,13 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_diff}}</div>
                     <div class="col-md-10">
-                        {{#each bets.diff}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
+                        {{#each bets.diff}}
+                            {{#if @first}}{{else}},{{/if}}
+                            <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                <a href="/user/{{id}}">{{name}}</a>
+                                {{#if is_friend}}<b>{{/if}}{{goals_home}}:{{goals_away}}{{#if is_friend}}</b>{{/if}}
+                            </span>
+                        {{/each}}
                     </div>
                 </div>
             </li>
@@ -96,7 +107,13 @@
                 <div class="row">
                     <div class="col-md-2">{{> correct_winner}}</div>
                     <div class="col-md-10">
-                        {{#each bets.winner}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
+                        {{#each bets.winner}}
+                            {{#if @first}}{{else}},{{/if}}
+                            <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                <a href="/user/{{id}}">{{name}}</a>
+                                {{#if is_friend}}<b>{{/if}}{{goals_home}}:{{goals_away}}{{#if is_friend}}</b>{{/if}}
+                            </span>
+                        {{/each}}
                     </div>
                 </div>
             </li>
@@ -106,7 +123,13 @@
                 <div class="row">
                     <div class="col-md-2">{{> wrong_bet}}</div>
                     <div class="col-md-10">
-                        {{#each bets.wrong}}{{#if @first}}{{else}},{{/if}} <a href="/user/{{id}}" {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>{{name}}</a> {{goals_home}}:{{goals_away}}{{/each}}
+                        {{#each bets.wrong}}
+                            {{#if @first}}{{else}},{{/if}}
+                            <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                <a href="/user/{{id}}">{{name}}</a>
+                                {{#if is_friend}}<b>{{/if}}{{goals_home}}:{{goals_away}}{{#if is_friend}}</b>{{/if}}
+                            </span>
+                        {{/each}}
                     </div>
                 </div>
             </li>
