@@ -20,7 +20,7 @@ router.get("/past", async (req, res) => {
             home_team.name as hometeam,
             away_team.name as awayteam,
             (
-                select array_agg(
+                select coalesce(array_agg(
                     jsonb_build_object(
                         'goals_home', bet.goals_home,
                         'goals_away', bet.goals_away,
@@ -30,7 +30,7 @@ router.get("/past", async (req, res) => {
                         'is_friend', user_account.id in (SELECT to_user_id FROM friend WHERE from_user_id = :id),
                         'is_me', user_account.id = :id
                     )
-                )
+                ), array[]::jsonb[])
                 from bet
                 join user_account on (bet.user_id = user_account.id)
                 where bet.match_id = match.id
