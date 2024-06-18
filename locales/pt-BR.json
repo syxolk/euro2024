@@ -4,7 +4,7 @@
         "registration_disabled": "Registro de Usuário desativado!",
         "registration_failed": "Falha no registro de usuário!",
         "name": "Nome:",
-        "name_info": "O comprimento máximo é de 30 caracteres. Seu nome será visível para todos. Você pode alterar seu nome a qualquer momento.",
+        "name_info": "O comprimento máximo permitido é de 30 caracteres. Seu nome será visível para todos os usuários. Você pode alterar seu nome a qualquer momento.",
         "email": "Endereço de email:",
         "email_info": "Enviaremos um link de confirmação para sua conta de email.",
         "password": "Senha:",
@@ -19,14 +19,14 @@
             "name": "Nome",
             "score": "Pontuação",
             "change": "Alteração",
-            "cnt": "CNT",
+            "cnt": "Jogos",
             "pts": "PTS"
         }
     },
     "live": {
         "no_live": "Atualmente não há partidas ao vivo.",
         "upcoming_matches_header": "Próximas Partidas",
-        "friends_without_bets": "Amigos sem apostas (clique para mostrar)",
+        "friends_without_bets": "Amigos que não fizeram apostas (clique para mostrar)",
         "all_friends_have_bets": "Todos os seus amigos fizeram suas apostas!",
         "number_of_bets": "Número de apostas: {{count}}"
     },
@@ -55,7 +55,7 @@
         "header": "Minhas Apostas",
         "no_bets_info": "Você deve fazer apostas para as próximas partidas!",
         "edit_disabled": "Você não pode mais editar sua aposta.",
-        "edit_bet_until": "Altere sua aposta até {{date}}.",
+        "edit_bet_until": "Você pode alterar sua aposta até {{date}}.",
         "edit_bet_button": "Editar minha aposta",
         "no_team_selected": "Você ainda não escolheu um time.",
         "extra_bet_info": "1 Time por {{ scoreFactor }} pontos.",
@@ -66,13 +66,13 @@
         "max_teams_warning": "Você não pode selecionar mais de 1 time.",
         "max_teams_warning_other": "Você não pode selecionar mais de {{count}} times.",
         "submit_button": "Salvar",
-        "team_info": "Escolha 1 time para {{name}}.",
+        "team_info": "Escolha um time para {{name}}.",
         "team_info_other": "Escolha {{count}} times para {{name}}.",
         "score_info": "Para cada time correto, você receberá {{scoreFactor}} pontos."
     },
     "settings": {
         "title": "Configurações",
-        "name": "Nome (3 a 30 caracteres)",
+        "name": "Nome (mínimo de 3 e máximo de 30 caracteres)",
         "submit_button": "Salvar"
     },
     "intro": {
