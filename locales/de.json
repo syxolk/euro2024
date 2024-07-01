@@ -133,7 +133,7 @@
         "score": "Punkte"
     },
     "past": {
-        "no_past_matches": "Es gibt keine vergangenen Spiele.",
+        "no_past_matches": "Keine vergangenen Spiele.",
         "order_by_date": "Reihenfolge nach Datum",
         "order_by_gained_points": "Reihenfolge nach erreichten Punkten"
     }
