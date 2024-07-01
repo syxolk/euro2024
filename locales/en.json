@@ -1,93 +1,140 @@
 {
-    "register": {
-        "header": "New Account",
-        "registration_disabled": "User Registration disabled!",
-        "registration_failed": "User registration failed!",
-        "name": "Name:",
-        "name_info": " Maximum length is 30 characters. Your name will be visible to anyone. You can change your name at any time.",
-        "email": "Email address:",
-        "email_info": "We will send a confirmation link to your email account.",
-        "password": "Password:",
-        "password_info": "We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.",
-        "submit_button": "Register"
-    },
-    "highscore": {
-        "friend_info": "You can add friends by clicking on the \u2795 button. This will highlight them on the live and past matches overview.",
-        "show_all": "Show all",
-        "show_only_friends": "Show only friends",
-        "column": {
-            "name": "Name",
-            "score": "Score",
-            "change": "Change",
-            "cnt": "CNT",
-            "pts": "PTS"
-        }
-    },
-    "live": {
-        "no_live": "There are currently no live matches.",
-        "upcoming_matches_header": "Upcoming Matches",
-        "friends_without_bets": "Friends without bets (click to show)",
-        "all_friends_have_bets": "All of your friends have made their bets!",
-        "number_of_bets": "Number of bets: {{count}}"
-    },
-    "login": {
-        "title": "Login",
-        "failed": "Login failed!",
-        "email": "Email address:",
-        "password": "Password:",
-        "forgot_password": "Forgot your password?",
-        "no_account": "Don't have an account?",
-        "submit_button": "Login"
-    },
-    "navbar": {
-        "profile": "Profile",
-        "my_bets": "My Bets",
-        "live_matches": "Live Matches",
-        "past_matches": "Past Matches",
-        "highscore": "Highscore",
-        "settings": "Settings",
-        "logout": "Logout",
-        "register": "Register",
-        "login": "Login"
-    },
-    "mybets": {
-        "title": "My Bets",
-        "header": "My Bets",
-        "no_bets_info": "You should place bets for the upcoming matches!",
-        "edit_disabled": "You can no longer edit your bet.",
-        "edit_bet_until": "Change your bet until {{date}}.",
-        "edit_bet_button": "Edit my bet",
-        "no_team_selected": "You have chosen no team so far.",
-        "extra_bet_info": "1 Team for {{ scoreFactor }} points.",
-        "extra_bet_info_other": "{{count}} Teams for {{ scoreFactor }} points each."
-    },
-    "extra_bet": {
-        "back_link": "Back to My Bets",
-        "max_teams_warning": "You are not allowed to select more than 1 team.",
-        "max_teams_warning_other": "You are not allowed to select more than {{count}} teams.",
-        "submit_button": "Save",
-        "team_info": "Choose 1 team for {{name}}.",
-        "team_info_other": "Choose {{count}} teams for {{name}}.",
-        "score_info": "For every correct team you will receive {{scoreFactor}} points."
-    },
-    "settings": {
-        "title": "Settings",
-        "name": "Name (3 to 30 characters)",
-        "submit_button": "Save"
-    },
-    "intro": {
-        "title": "Intro",
-        "welcome": "Welcome to the Euro 2024 Betting Game!",
-        "description": "On this site, you can place bets for matches of the football euro 2024. It's totally free and you cannot actually win anything except for fame and glory. This site was designed as a competition: Who is the better forecaster for football matches? Compete with your friends and random people!",
-        "quickstart": "Quickstart",
-        "my_bets_title": "Place Bets",
-        "my_bets_description": "Set the number of goals for the home and away team for the next matches. You cannot place bets for any match that has started already.",
-        "my_bets_link": "Go to my Bets",
-        "live_matches_title": "Live Matches",
-        "live_matches_description": " Look at currently running matches. You can see all bets other users have placed.",
-        "live_matches_link": "See live Matches",
-        "highscore_title": "Highscore",
-        "highscore_description": "See how many points you have and how good you are compared to your friends and other users.",
-        "highscore_link": "View Highscore"
+  "register": {
+    "header": "New Account",
+    "registration_disabled": "User Registration disabled!",
+    "registration_failed": "User registration failed!",
+    "name": "Name:",
+    "name_info": " Maximum length is 30 characters. Your name will be visible to anyone. You can change your name at any time.",
+    "email": "Email address:",
+    "email_info": "We will send a confirmation link to your email account.",
+    "password": "Password:",
+    "password_info": "We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.",
+    "submit_button": "Register"
+  },
+  "highscore": {
+    "friend_info": "You can add friends by clicking on the \u2795 button. This will highlight them on the live and past matches overview.",
+    "show_all": "Show all",
+    "show_only_friends": "Show only friends",
+    "column": {
+      "name": "Name",
+      "score": "Score",
+      "change": "Change",
+      "cnt": "CNT",
+      "pts": "PTS"
     }
+  },
+  "live": {
+    "no_live": "There are currently no live matches.",
+    "upcoming_matches_header": "Upcoming Matches",
+    "friends_without_bets": "Friends without bets (click to show)",
+    "all_friends_have_bets": "All of your friends have made their bets!",
+    "number_of_bets": "Number of bets: {{count}}"
+  },
+  "login": {
+    "title": "Login",
+    "failed": "Login failed!",
+    "email": "Email address:",
+    "password": "Password:",
+    "forgot_password": "Forgot your password?",
+    "no_account": "Don't have an account?",
+    "submit_button": "Login"
+  },
+  "navbar": {
+    "profile": "Profile",
+    "my_bets": "My Bets",
+    "live_matches": "Live Matches",
+    "past_matches": "Past Matches",
+    "highscore": "Highscore",
+    "settings": "Settings",
+    "logout": "Logout",
+    "register": "Register",
+    "login": "Login",
+    "now": "Now"
+  },
+  "mybets": {
+    "title": "My Bets",
+    "header": "My Bets",
+    "no_bets_info": "You should place bets for the upcoming matches!",
+    "edit_disabled": "You can no longer edit your bet.",
+    "edit_bet_until": "Change your bet until {{date}}.",
+    "edit_bet_button": "Edit my bet",
+    "no_team_selected": "You have chosen no team so far.",
+    "extra_bet_info": "1 Team for {{ scoreFactor }} points.",
+    "extra_bet_info_other": "{{count}} Teams for {{ scoreFactor }} points each."
+  },
+  "extra_bet": {
+    "back_link": "Back to My Bets",
+    "max_teams_warning": "You are not allowed to select more than 1 team.",
+    "max_teams_warning_other": "You are not allowed to select more than {{count}} teams.",
+    "submit_button": "Save",
+    "team_info": "Choose 1 team for {{name}}.",
+    "team_info_other": "Choose {{count}} teams for {{name}}.",
+    "score_info": "For every correct team you will receive {{scoreFactor}} points."
+  },
+  "settings": {
+    "title": "Settings",
+    "name": "Name (3 to 30 characters)",
+    "submit_button": "Save",
+    "facebook_login": {
+      "header": "Connect Facebook",
+      "connected": "You've connected your Facebook account!",
+      "disconnect" : "Disconnect",
+      "info": "You want to use your Facebook account for login?",
+      "info2": "We will NOT store any additional information except for your profile ID.",
+      "disabled": "Facebook Login disabled."
+    },
+    "google_login": {
+      "header": "Connect Google",
+      "connected": "You've connected your Google account!",
+      "disconnect" : "Disconnect",
+      "info": "You want to use your Google account for login?",
+      "info2": "We will NOT store any additional information except for your profile ID.",
+      "disabled": "Google Login disabled."
+    }
+  },
+  "intro": {
+    "title": "Intro",
+    "welcome": "Welcome to the Euro 2024 Betting Game!",
+    "description": "On this site, you can place bets for matches of the football euro 2024. It's totally free and you cannot actually win anything except for fame and glory. This site was designed as a competition: Who is the better forecaster for football matches? Compete with your friends and random people!",
+    "quickstart": "Quickstart",
+    "my_bets_title": "Place Bets",
+    "my_bets_description": "Set the number of goals for the home and away team for the next matches. You cannot place bets for any match that has started already.",
+    "my_bets_link": "Go to my Bets",
+    "live_matches_title": "Live Matches",
+    "live_matches_description": " Look at currently running matches. You can see all bets other users have placed.",
+    "live_matches_link": "See live Matches",
+    "highscore_title": "Highscore",
+    "highscore_description": "See how many points you have and how good you are compared to your friends and other users.",
+    "highscore_link": "View Highscore",
+    "faq": {
+      "who_made_this": "Who made this?",
+      "who_made_this_answer": "This site was made by me, Hans, a <a href=\"https://github.com/syxolk\">software engineer living in Munich</a>.I made it for fun in my spare time for the UEFA Euro 2016. Six years ago, this site became refurbished and got some new features for the FIFA WorldCup 2018. For the Euro 2020 in 2021, the code has been put on a more modern base. In 2022, not much has changed for the FIFA WorldCup 2022. Feel free to contact me if you've got any questions or found a bug: <a href=\"mailto:hans.kirchner.info@gmail.com\">hans.kirchner.info@gmail.com</a>",
+      "invite_friends": "Can I invite friends?",
+      "invite_friends_answer": "<b>Yes!</b> You are free to invite your friends, colleagues and family to play here. If you feel proficient enough you can <a href=\"https://github.com/syxolk/euro2024\">host this site on your own server (open-source on GitHub)</a>.",
+      "how_score": "How do I score?",
+      "penalty": "Are goals from the penalty shoot-out included in the match result?",
+      "penalty_answer": "<b>No.</b> Only goals made during the 90+30 minutes (two halftimes + overtime) period of the match will be used as the match result.",
+      "see_bets": "Can I see the bets of other users?",
+      "see_bets_answer": "<b>Yes and no.</b> Yes, you can see bets of other users once a match has started or is finished. No, you can only see your own bets as long as the match has not yet started.",
+      "new_features": " What are the new features?",
+      "new_features_answer": "Highlights:<ul><li>Rescaled points from 0-1-2-3 to 0-2-3-4</li><li>Added match score factor</li><li>You can place bets for every match from the beginning (Round of 16, *-finals)</li><li>Notify users of matches without bets in navbar</li><li>Notify users of live matches</li><li>Notify users of unseen past matches</li></ul>"
+    },
+    "legal_rules": {
+      "title": "Legal rules",
+      "description": "<ul><li>You may not change your name to anything offensive.</li><li>The game master may exclude you from the game at any time.</li><li>Recourse to the courts is not permitted.</li></ul>"
+    }
+  },
+  "user": {
+    "score": "Score",
+    "ranking": "Ranking",
+    "match_result": "Match Result",
+    "bet": "Bet",
+    "point": "Point",
+    "no_bets_to_show": "There are no bets to show."
+  },
+  "past": {
+    "order_by_date": "Order by date",
+    "order_by_gained_points": "Order by gained points",
+    "no_past_matches": "There are no past matches."
+  }
 }
