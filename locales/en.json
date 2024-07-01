@@ -114,5 +114,9 @@
     "bet": "Bet",
     "point": "Point",
     "no_bets_to_show": "There are no bets to show."
+  },
+  "past": {
+    "order_by_date": "Order by date",
+    "order_by_gained_points": "Order by gained points"
   }
 }
