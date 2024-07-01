@@ -48,7 +48,8 @@
         "settings": "Einstellungen",
         "logout": "Abmelden",
         "register": "Registrieren",
-        "login": "Anmelden"
+        "login": "Anmelden",
+        "now": "Jetzt"
     },
     "mybets": {
         "title": "Meine Tipps",
@@ -73,21 +74,67 @@
     "settings": {
         "title": "Einstellungen",
         "name": "Name (3 bis 30 Zeichen)",
-        "submit_button": "Speichern"
+        "submit_button": "Speichern",
+        "facebook_login": {
+            "connected": "Sie haben Ihr Facebook-Konto verknüpft!",
+            "disabled": "Facebook-Login deaktiviert.",
+            "disconnect": "Trennen Sie die Verbindung",
+            "header": "Facebook verbinden",
+            "info": "Sie möchten Ihr Facebook-Konto für die Anmeldung verwenden?",
+            "info2": "Wir werden KEINE weiteren Informationen außer Ihrer Profil-ID speichern."
+        },
+        "google_login": {
+            "connected": "Sie haben Ihr Google-Konto verknüpft!",
+            "disabled": "Google Login deaktiviert.",
+            "disconnect": "Trennen Sie die Verbindung",
+            "header": "Google verbinden",
+            "info": "Sie möchten Ihr Google-Konto für die Anmeldung verwenden?",
+            "info2": "Wir werden KEINE weiteren Informationen außer Ihrer Profil-ID speichern."
+        }
     },
     "intro": {
-        "title": "Einführung",
-        "welcome": "Willkommen zum Euro 2024 Tipp-Spiel!",
-        "description": "Auf dieser Website kannst du Tipps für die Spiele der Fußball-Euro 2024 abgeben. Es ist völlig kostenlos und Du kannst eigentlich nichts gewinnen, außer Ruhm und Ehre. Diese Seite wurde als Wettbewerb konzipiert: Wer ist der bessere Vorhersager für Fußballspiele? Messe dich mit deinen Freunden und anderen Nutzern!",
-        "quickstart": "Schnellstart",
-        "my_bets_title": "Tipps abgeben",
-        "my_bets_description": "Gib deine Tipps ab für die Spielergebnisse. Du kannst jedoch keine Tipps abgeben für Spiele die bereits begonnen haben.",
-        "my_bets_link": "Meine Tipps ändern",
-        "live_matches_title": "Laufende Spiele",
-        "live_matches_description": " Sieh dir aktuell laufende Spiele an und siehe welche Tipps andere Nutzer abgegeben haben.",
-        "live_matches_link": "Live-Spiele anzeigen",
-        "highscore_title": "Rangliste",
-        "highscore_description": "Siehe wie viele Punkte du hast und wie du im Vergleich mit deinen Freunden und anderen Nutzern stehst.",
-        "highscore_link": "Rangliste anschauen"
+        "description": "Auf dieser Website können Sie Wetten für die Spiele der Fußball-Euro 2024 abgeben. Es ist völlig kostenlos und Sie können eigentlich nichts gewinnen, außer Ruhm und Ehre. Diese Seite wurde als Wettbewerb konzipiert: Wer ist der bessere Vorhersager für Fußballspiele? Messen Sie sich mit Ihren Freunden und anderen Personen!",
+        "faq": {
+            "how_score": "Wie kann ich punkten?",
+            "invite_friends": "Kann ich Freunde einladen?",
+            "invite_friends_answer": "<b>Ja!</b> Du kannst deine Freunde, Kollegen und Familie einladen, hier zu spielen. Wenn du dich kompetent genug fühlst, kannst du <a href=\"https://github.com/syxolk/euro2024\">auf deinem eigenen Server hosten (Open-Source auf GitHub)</a>.",
+            "new_features": " Was sind die neuen Funktionen?",
+            "new_features_answer": "Highlights:<ul><li>Skalierung der Punkte von 0-1-2-3 auf 0-2-3-4</li><li>Faktor für den Spielstand hinzugefügt</li><li>Sie können Wetten für jedes Spiel von Anfang an platzieren (Achtelfinale, *-Finale)</li><li>Benachrichtigung der Benutzer über Spiele ohne Wetten in der Navigationsleiste</li><li>Benachrichtigung der Benutzer über Live-Spiele</li><li>Benachrichtigung der Benutzer über nicht gesehene vergangene Spiele</li></ul>",
+            "penalty": "Werden Tore aus dem Elfmeterschießen in das Spielergebnis einbezogen?",
+            "penalty_answer": "<b>Nr.</b> Nur Tore, die während der 90+30 Minuten (zwei Halbzeiten + Verlängerung) des Spiels erzielt wurden, werden als Spielergebnis gewertet.",
+            "see_bets": "Kann ich die Wetten anderer Nutzer sehen?",
+            "see_bets_answer": "<b>Ja und nein.</b> Ja, Sie können die Wetten anderer Benutzer sehen, sobald ein Spiel begonnen hat oder beendet ist. Nein, Sie können nur Ihre eigenen Wetten sehen, solange das Spiel noch nicht begonnen hat.",
+            "who_made_this": "Wer hat das gemacht?",
+            "who_made_this_answer": "Diese Seite wurde von mir, Hans, einem <a href=\"https://github.com/syxolk\">Software-Ingenieur, der in München lebt, erstellt</a>. Ich habe sie aus Spaß in meiner Freizeit für die UEFA Euro 2016 erstellt. Vor sechs Jahren wurde die Seite überarbeitet und erhielt einige neue Funktionen für die FIFA Weltmeisterschaft 2018. Für die Euro 2020 im Jahr 2021 wurde der Code auf eine modernere Basis gestellt. Für die FIFA Fussball-Weltmeisterschaft 2022 hat sich nicht viel geändert. Wenn Sie Fragen haben oder einen Fehler gefunden haben, können Sie mich gerne kontaktieren: <a href=\"mailto:hans.kirchner.info@gmail.com\">hans.kirchner.info@gmail.com</a>"
+        },
+        "highscore_description": "Sehen Sie, wie viele Punkte Sie haben und wie gut Sie im Vergleich zu Ihren Freunden und anderen Nutzern sind.",
+        "highscore_link": "Highscore anzeigen",
+        "highscore_title": "Highscore",
+        "legal_rules": {
+            "description": "<ul><li>Sie dürfen Ihren Namen nicht in etwas Beleidigendes ändern.</li><li>Der Spielleiter kann Sie jederzeit vom Spiel ausschließen.</li><li>Der Rechtsweg ist ausgeschlossen.</li></ul>",
+            "title": "Rechtliche Bestimmungen"
+        },
+        "live_matches_description": " Sehen Sie sich die aktuell laufenden Spiele an. Sie können alle Wetten sehen, die andere Benutzer abgegeben haben.",
+        "live_matches_link": "Matches live sehen",
+        "live_matches_title": "Live-Spiele",
+        "my_bets_description": "Legen Sie die Anzahl der Tore für das Heim- und das Auswärtsteam für die nächsten Spiele fest. Sie können keine Wetten für Spiele abgeben, die bereits begonnen haben.",
+        "my_bets_link": "Zu meinen Wetten gehen",
+        "my_bets_title": "Wetten platzieren",
+        "quickstart": "QuickStart",
+        "title": "Intro",
+        "welcome": "Willkommen beim Euro 2024-Tippspiel!"
+    },
+    "user": {
+        "bet": "Wette",
+        "match_result": "Spiel Ergebnis",
+        "no_bets_to_show": "Es sind keine Einsätze zu verzeichnen.",
+        "point": "Punkt",
+        "ranking": "Rangliste",
+        "score": "Punkte"
+    },
+    "past": {
+        "no_past_matches": "Es gibt keine vergangenen Spiele.",
+        "order_by_date": "Reihenfolge nach Datum",
+        "order_by_gained_points": "Reihenfolge nach erreichten Punkten"
     }
 }
