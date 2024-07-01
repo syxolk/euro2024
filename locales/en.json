@@ -48,7 +48,8 @@
     "settings": "Settings",
     "logout": "Logout",
     "register": "Register",
-    "login": "Login"
+    "login": "Login",
+    "now": "Now"
   },
   "mybets": {
     "title": "My Bets",
@@ -73,7 +74,23 @@
   "settings": {
     "title": "Settings",
     "name": "Name (3 to 30 characters)",
-    "submit_button": "Save"
+    "submit_button": "Save",
+    "facebook_login": {
+      "header": "Connect Facebook",
+      "connected": "You've connected your Facebook account!",
+      "disconnect" : "Disconnect",
+      "info": "You want to use your Facebook account for login?",
+      "info2": "We will NOT store any additional information except for your profile ID.",
+      "disabled": "Facebook Login disabled."
+    },
+    "google_login": {
+      "header": "Connect Google",
+      "connected": "You've connected your Google account!",
+      "disconnect" : "Disconnect",
+      "info": "You want to use your Google account for login?",
+      "info2": "We will NOT store any additional information except for your profile ID.",
+      "disabled": "Google Login disabled."
+    }
   },
   "intro": {
     "title": "Intro",
@@ -117,6 +134,7 @@
   },
   "past": {
     "order_by_date": "Order by date",
-    "order_by_gained_points": "Order by gained points"
+    "order_by_gained_points": "Order by gained points",
+    "no_past_matches": "There are no past matches."
   }
 }
