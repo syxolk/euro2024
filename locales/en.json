@@ -106,5 +106,13 @@
       "title": "Legal rules",
       "description": "<ul><li>You may not change your name to anything offensive.</li><li>The game master may exclude you from the game at any time.</li><li>Recourse to the courts is not permitted.</li></ul>"
     }
+  },
+  "user": {
+    "score": "Score",
+    "ranking": "Ranking",
+    "match_result": "Match Result",
+    "bet": "Bet",
+    "point": "Point",
+    "no_bets_to_show": "There are no bets to show."
   }
 }
