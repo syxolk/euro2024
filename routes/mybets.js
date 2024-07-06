@@ -95,7 +95,8 @@ router.get("/mybets", async (req, res) => {
                 )
             ) as "selectedTeams"
             `)
-        );
+        )
+        .whereRaw("editable_until > now()");
 
     res.render("mybets", { matchesPerDayList, extraBets });
 });

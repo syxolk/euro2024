@@ -9,6 +9,7 @@ router.use(require("./settings"));
 router.use(require("./intro"));
 router.use(require("./user"));
 router.use(require("./admin"));
+router.use(require("./admin_extra_bet"));
 router.use(require("./mybets"));
 router.use(require("./save_bet"));
 router.use(require("./live"));

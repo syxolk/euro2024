@@ -84,7 +84,38 @@ router.get("/user/:id", async (req, res) => {
         .map(([date, matches]) => ({ date, matches }))
         .sort((a, b) => b.date.localeCompare(a.date));
 
-    res.render("user", { displayedUser, matchesPerDayList });
+    const extraBets = await knex("extra_bet")
+        .join(
+            "user_account_extra_bet",
+            "user_account_extra_bet.extra_bet_id",
+            "extra_bet.id"
+        )
+        .where({
+            "user_account_extra_bet.user_id": user,
+        })
+        .whereRaw("editable_until < now()")
+        .select(
+            "id",
+            "name",
+            "score_factor as scoreFactor",
+            knex.raw(`
+                cardinality(array_intersect(extra_bet.team_ids, user_account_extra_bet.selected_team_ids)) as "numberOfCorrectTeams"
+            `),
+            knex.raw(`
+                cardinality(array_intersect(extra_bet.team_ids, user_account_extra_bet.selected_team_ids)) * score_factor as "totalScore"
+            `),
+            knex.raw(`(
+                select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
+                    select id, name, (team.id = any(extra_bet.team_ids)) as "isCorrect"
+                    from team
+                    where team.id = any(user_account_extra_bet.selected_team_ids)
+                    order by team.name
+                ) t
+            ) as teams`)
+        )
+        .orderBy("id");
+
+    res.render("user", { displayedUser, matchesPerDayList, extraBets });
 });
 
 router.get("/friend_history", async (req, res) => {

@@ -55,6 +55,11 @@ router.get("/highscore", async (req, res) => {
             orderBy: "count0",
             orderDir: "desc",
         },
+        {
+            title: "Extra",
+            orderBy: "extra_bet_total",
+            orderDir: "desc"
+        }
     ];
 
     const orderBy = columns.some((c) => c.orderBy === req.query.order)
@@ -68,6 +73,7 @@ router.get("/highscore", async (req, res) => {
                 rank, rank_past, rank_past - rank as rank_change,
                 count3, count2, count1, count0,
                 total3, total2, total1,
+                extra_bet_total,
                 id = :id as isme, id in (SELECT to_user_id FROM friend WHERE from_user_id = :id) as isfriend
             FROM highscore ` +
             (onlyFriends

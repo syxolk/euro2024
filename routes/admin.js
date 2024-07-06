@@ -44,10 +44,24 @@ router.get("/admin", async (req, res) => {
         .join("match_type", "match_type.id", "match.match_type_id")
         .orderBy("match.starts_at");
 
+    const extraBets = await knex("extra_bet")
+        .select("id", "name", knex.raw(`
+            (
+                select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
+                    select id, name
+                    from team
+                    where team.id = any(extra_bet.team_ids)
+                    order by team.name
+                ) t
+            ) as teams
+        `))
+        .orderBy("id");
+
     res.render("admin", {
         matchesWithoutTeams,
         teams,
         liveMatches,
+        extraBets,
         message: req.flash("message"),
         error: req.flash("error"),
     });

@@ -1,0 +1,41 @@
+{{#> layout}}
+{{#*inline "head"}}
+<title>{{ extraBet.name }} - {{@websiteName}}</title>
+{{/inline}}
+{{#*inline "body"}}
+{{> navbar}}
+<div class="container">
+
+<a href="/admin" class="btn btn-outline-secondary btn-sm mb-2">&larr; Back to Admin Panel</a>
+<h2>{{ extraBet.name }}</h2>
+
+<form class="extra_bet" method="post" action="/admin_extra_bet/{{extraBet.id}}">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="max_teams" value="{{extraBet.numberOfTeams}}">
+    {{#each teams}}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="1" id="team_{{id}}" name="team_{{id}}" {{#if isSelected}}checked{{/if}}>
+        <label class="form-check-label" for="team_{{id}}">
+            {{name}}
+        </label>
+    </div>
+    {{/each}}
+    <div class="alert alert-warning d-none mt-2 max-teams-warning">
+        {{ @tr "extra_bet.max_teams_warning" count=extraBet.numberOfTeams }}
+    </div>
+    <div class="row mt-2 mb-5">
+        <div class="col-12 col-md-auto">
+            <button type="submit" class="btn btn-primary btn-block">
+                {{ @t "extra_bet.submit_button" }}
+            </button>
+        </div>
+    </div>
+    
+</form>
+
+</div>
+{{/inline}}
+{{#*inline "scripts"}}
+<script type="text/javascript" src="/static/js/extra_bet.js"></script>
+{{/inline}}
+{{/layout}}

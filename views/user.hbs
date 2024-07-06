@@ -11,6 +11,21 @@
 .result-winner {
     background-color: #ccffcc;
 }
+
+.extra-bet-correct {
+    display: inline-block;
+    padding: 3px;
+    background-color: #009900;
+    color: white;
+    border-radius: 3px;
+}
+
+.extra-bet-wrong {
+    display: inline-block;
+    padding: 3px;
+    background-color: #eee;
+    border-radius: 3px;
+}
 </style>
 {{/inline}}
 {{#*inline "body"}}
@@ -18,6 +33,23 @@
 <div class="container">
 
 <h3>{{displayedUser.name}} <small class="text-muted">Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
+
+<div class="card-deck">
+{{#each extraBets}}
+    <div class="card mb-2">
+        <div class="card-header">
+            {{name}} ({{numberOfCorrectTeams}} &#xd7; {{scoreFactor}} = {{totalScore}} points)
+        </div>
+        <div class="card-body">
+            {{#each teams}}
+                <div {{#if isCorrect}}class="extra-bet-correct"{{else}}class="extra-bet-wrong"{{/if}}>{{name}}</div>
+            {{else}}
+                <span class="text-muted small">No teams selected.</span>
+            {{/each}}
+        </div>
+    </div>
+{{/each}}
+</div>
 
 {{#if matchesPerDayList}}
 <table class="table table-sm">

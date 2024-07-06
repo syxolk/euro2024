@@ -87,6 +87,7 @@ tr.user-is-me > td {
     <th colspan="2" class="text-center">{{> correct_diff}}</th>
     <th colspan="2" class="text-center">{{> correct_winner}}</th>
     <th>{{> wrong_bet}}</th>
+    <th></th>
     {{#if loggedIn}}<th></th>{{/if}}
 </tr>
 <tr>
@@ -128,6 +129,7 @@ tr.user-is-me > td {
     <td class="{{#if (isZero count1)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count1}}</td>
     <td class="{{#if (isZero total1)}}is-zero{{/if}}">{{total1}}</td>
     <td class="{{#if (isZero count0)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{count0}}</td>
+    <td class="{{#if (isZero extra_bet_total)}}is-zero{{/if}}" style="border-left:1px solid #aaa;">{{extra_bet_total}}</td>
     {{#if @root.loggedIn}}
     <td style="border-left:1px solid #aaa;">
         {{#if isme}}
