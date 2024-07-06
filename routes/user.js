@@ -170,6 +170,7 @@ router.get("/friend_history", async (req, res) => {
     const extraBets = await knex("extra_bet")
         .select("id", "name")
         .whereRaw("editable_until < now()")
+        .whereRaw("cardinality(team_ids) > 0")
         .orderBy("score_factor");
 
     const extraBetScores = await knex("extra_bet")
