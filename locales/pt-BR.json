@@ -1,0 +1,93 @@
+{
+    "register": {
+        "header": "Nova Conta",
+        "registration_disabled": "Registro de Usuário desativado!",
+        "registration_failed": "Falha no registro de usuário!",
+        "name": "Nome:",
+        "name_info": "O comprimento máximo permitido é de 30 caracteres. Seu nome será visível para todos os usuários. Você pode alterar seu nome a qualquer momento.",
+        "email": "Endereço de email:",
+        "email_info": "Enviaremos um link de confirmação para sua conta de email.",
+        "password": "Senha:",
+        "password_info": "Criptografamos todas as senhas com bcrypt, um dos melhores algoritmos de hashing de senhas disponíveis.",
+        "submit_button": "Registrar"
+    },
+    "highscore": {
+        "friend_info": "Você pode adicionar amigos clicando no botão \u2795. Isso os destacará na visão geral das partidas ao vivo e passadas.",
+        "show_all": "Mostrar todos",
+        "show_only_friends": "Mostrar apenas amigos",
+        "column": {
+            "name": "Nome",
+            "score": "Pontuação",
+            "change": "Alteração",
+            "cnt": "Jogos",
+            "pts": "PTS"
+        }
+    },
+    "live": {
+        "no_live": "Atualmente não há partidas ao vivo.",
+        "upcoming_matches_header": "Próximas Partidas",
+        "friends_without_bets": "Amigos que não fizeram apostas (clique para mostrar)",
+        "all_friends_have_bets": "Todos os seus amigos fizeram suas apostas!",
+        "number_of_bets": "Número de apostas: {{count}}"
+    },
+    "login": {
+        "title": "Login",
+        "failed": "Falha no login!",
+        "email": "Endereço de email:",
+        "password": "Senha:",
+        "forgot_password": "Esqueceu sua senha?",
+        "no_account": "Não tem uma conta?",
+        "submit_button": "Entrar"
+    },
+    "navbar": {
+        "profile": "Perfil",
+        "my_bets": "Minhas Apostas",
+        "live_matches": "Ao Vivo",
+        "past_matches": "Partidas Passadas",
+        "highscore": "Pontuação Máxima",
+        "settings": "Configurações",
+        "logout": "Sair",
+        "register": "Registrar",
+        "login": "Entrar"
+    },
+    "mybets": {
+        "title": "Minhas Apostas",
+        "header": "Minhas Apostas",
+        "no_bets_info": "Você deve fazer apostas para as próximas partidas!",
+        "edit_disabled": "Você não pode mais editar sua aposta.",
+        "edit_bet_until": "Você pode alterar sua aposta até {{date}}.",
+        "edit_bet_button": "Editar minha aposta",
+        "no_team_selected": "Você ainda não escolheu um time.",
+        "extra_bet_info": "1 Time por {{ scoreFactor }} pontos.",
+        "extra_bet_info_other": "{{count}} Times por {{ scoreFactor }} pontos cada."
+    },
+    "extra_bet": {
+        "back_link": "Voltar para Minhas Apostas",
+        "max_teams_warning": "Você não pode selecionar mais de 1 time.",
+        "max_teams_warning_other": "Você não pode selecionar mais de {{count}} times.",
+        "submit_button": "Salvar",
+        "team_info": "Escolha um time para {{name}}.",
+        "team_info_other": "Escolha {{count}} times para {{name}}.",
+        "score_info": "Para cada time correto, você receberá {{scoreFactor}} pontos."
+    },
+    "settings": {
+        "title": "Configurações",
+        "name": "Nome (mínimo de 3 e máximo de 30 caracteres)",
+        "submit_button": "Salvar"
+    },
+    "intro": {
+        "title": "Introdução",
+        "welcome": "Bem-vindo ao Jogo de Apostas da Euro 2024!",
+        "description": "Neste site, você pode fazer apostas para as partidas da Eurocopa de futebol 2024. É totalmente gratuito e você não pode ganhar nada além de fama e glória. Este site foi projetado como uma competição: Quem é o melhor palpiteiro de futebol? Compita com seus amigos e pessoas aleatórias!",
+        "quickstart": "Início Rápido",
+        "my_bets_title": "Fazer Apostas",
+        "my_bets_description": "Defina o número de gols para o time da casa e o time visitante para as próximas partidas. Você não pode fazer apostas para nenhuma partida que já tenha começado.",
+        "my_bets_link": "Ir para Minhas Apostas",
+        "live_matches_title": "Partidas Ao Vivo",
+        "live_matches_description": "Veja as partidas que estão acontecendo atualmente. Você pode ver todas as apostas que outros usuários fizeram.",
+        "live_matches_link": "Ver Partidas Ao Vivo",
+        "highscore_title": "Pontuação Máxima",
+        "highscore_description": "Veja quantos pontos você tem e como você está em comparação com seus amigos e outros usuários.",
+        "highscore_link": "Ver Pontuação Máxima"
+    }
+}

@@ -23,6 +23,9 @@ i18next.use(middleware.LanguageDetector).init({
         de: {
             translation: require("./locales/de.json"),
         },
+        'pt-BR': {
+            translation: require("./locales/pt-BR.json"),
+        },
     },
     detection: {
         order: ["header"],
