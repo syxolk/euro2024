@@ -23,9 +23,9 @@
 {{#if is_logged_in}}
     <div class="mb-3">
         {{#if order_by_gain}}
-            <a href="/past">Order by Date</a>
+            <a href="/past"> {{ t "past.order_by_date" }}</a>
         {{else}}
-            <a href="/past?gain=1">Order by Gain</a>
+            <a href="/past?gain=1"> {{ t "past.order_by_gained_points" }}</a>
         {{/if}}
     </div>
 {{/if}}
@@ -141,7 +141,7 @@
 </div>
 {{else}}
 <div class="alert alert-danger" role="alert">
-    <strong>There are no past matches.</strong>
+    <strong>{{ t "past.no_past_matches" }}</strong>
 </div>
 {{/if}}
 </div>

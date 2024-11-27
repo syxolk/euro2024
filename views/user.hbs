@@ -32,7 +32,7 @@
 {{> navbar}}
 <div class="container">
 
-<h3>{{displayedUser.name}} <small class="text-muted">Score {{displayedUser.score}}, Ranking {{displayedUser.rank}}</small></h3>
+<h3>{{displayedUser.name}} <small class="text-muted">{{ t "user.score" }} {{displayedUser.score}}, {{ t "user.ranking" }} {{displayedUser.rank}}</small></h3>
 
 <div class="card-deck">
 {{#each extraBets}}
@@ -56,9 +56,9 @@
     <thead class="thead-light">
     <tr>
         <th colspan="2"></th>
-        <th colspan="3" class="text-center">Match Result</th>
-        <th class="text-center">Bet</th>
-        <th class="text-center">Points</th>
+        <th colspan="3" class="text-center">{{ t "user.match_result" }}</th>
+        <th class="text-center">{{ t "user.bet" }}</th>
+        <th class="text-center">{{ t "user.point" }}</th>
     </tr>
     </thead>
     {{#each matchesPerDayList}}
@@ -96,7 +96,7 @@
 </table>
 {{else}}
 <div class="alert alert-danger" role="alert">
-    <strong>There are no bets to show.</strong>
+    <strong> {{ t "user.no_bets_to_show" }}</strong>
 </div>
 {{/if}}
 </div>
