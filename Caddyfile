@@ -1,7 +1,7 @@
-www.wetten2024.de {
+www.wetten2026.de {
     reverse_proxy web:8080   
 }
 
-wetten2024.de {
-    redir https://www.wetten2024.de{uri}
+wetten2026.de {
+    redir https://www.wetten2026.de{uri}
 }

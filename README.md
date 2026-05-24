@@ -60,11 +60,11 @@ cd euro2024
 Create a file `prod.env` with the following content:
 
 ```
-ORIGIN=https://www.wetten2024.de
+ORIGIN=https://www.wetten2026.de
 SESSION_SECRET=long-automatically-generated-string
 
 MAIL_SOLUTION=mailjet
-MAIL_FROM=no-reply@wetten2024.de
+MAIL_FROM=no-reply@wetten2026.de
 MAILJET_API_KEY=your-api-key
 MAILJET_API_SECRET=your-api-secret
 ```
@@ -108,8 +108,8 @@ If you want to enable Facebook login you need to create a [Facebook App][faceboo
 enable 'Facebook Login' for it and add valid OAuth Redirect URIs
 (use your own domain of course):
 ```
-https://www.wetten2024.de/auth/facebook/callback
-https://www.wetten2024.de/connect/facebook/callback
+https://www.wetten2026.de/auth/facebook/callback
+https://www.wetten2026.de/connect/facebook/callback
 ```
 
 Then add this in your run script (with your own app id and secret):
@@ -125,8 +125,8 @@ If you want to enable Google login you need to create a
 [Google Cloud Platform Project][gcpproject], create an OAuth-Client-ID and
 set the Redirection-URIs to (using your own domain):
 ```
-https://www.wetten2024.de/auth/google/callback
-https://www.wetten2024.de/connect/google/callback
+https://www.wetten2026.de/auth/google/callback
+https://www.wetten2026.de/connect/google/callback
 ```
 
 Then add this in your run script:
@@ -141,7 +141,7 @@ either an SMTP connection or a Mailgun account.
 
 ```
 MAIL_SOLUTION=smtp
-MAIL_FROM=no-reply@wetten2024.de
+MAIL_FROM=no-reply@wetten2026.de
 SMTP_HOST=localhost
 SMTP_PORT=465
 SMTP_USER=smtp_user
@@ -154,8 +154,8 @@ this in your run script:
 
 ```
 MAIL_SOLUTION=mailgun
-MAIL_FROM=no-reply@wetten2024.de
-MAILGUN_DOMAIN=wetten2024.de
+MAIL_FROM=no-reply@wetten2026.de
+MAILGUN_DOMAIN=wetten2026.de
 MAILGUN_API_KEY=your-mailgun-api-key
 ```
 
@@ -163,7 +163,7 @@ MAILGUN_API_KEY=your-mailgun-api-key
 
 ```
 MAIL_SOLUTION=mailjet
-MAIL_FROM=no-reply@wetten2024.de
+MAIL_FROM=no-reply@wetten2026.de
 MAILJET_API_KEY=your-api-key
 MAILJET_API_SECRET=your-api-secret
 ```
