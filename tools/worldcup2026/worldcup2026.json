@@ -1,0 +1,1256 @@
+{
+    "teams": [
+        {
+            "name": "Algeria",
+            "code": "ALG",
+            "fifa_id": "43843"
+        },
+        {
+            "name": "Argentina",
+            "code": "ARG",
+            "fifa_id": "43922"
+        },
+        {
+            "name": "Australia",
+            "code": "AUS",
+            "fifa_id": "43976"
+        },
+        {
+            "name": "Austria",
+            "code": "AUT",
+            "fifa_id": "43934"
+        },
+        {
+            "name": "Belgium",
+            "code": "BEL",
+            "fifa_id": "43935"
+        },
+        {
+            "name": "Bosnia and Herzegovina",
+            "code": "BIH",
+            "fifa_id": "44037"
+        },
+        {
+            "name": "Brazil",
+            "code": "BRA",
+            "fifa_id": "43924"
+        },
+        {
+            "name": "Canada",
+            "code": "CAN",
+            "fifa_id": "43899"
+        },
+        {
+            "name": "C\u00f4te d'Ivoire",
+            "code": "CIV",
+            "fifa_id": "43854"
+        },
+        {
+            "name": "Congo DR",
+            "code": "COD",
+            "fifa_id": "20014"
+        },
+        {
+            "name": "Colombia",
+            "code": "COL",
+            "fifa_id": "43926"
+        },
+        {
+            "name": "Cabo Verde",
+            "code": "CPV",
+            "fifa_id": "43850"
+        },
+        {
+            "name": "Croatia",
+            "code": "CRO",
+            "fifa_id": "43938"
+        },
+        {
+            "name": "Cura\u00e7ao",
+            "code": "CUW",
+            "fifa_id": "1895293"
+        },
+        {
+            "name": "Czechia",
+            "code": "CZE",
+            "fifa_id": "43995"
+        },
+        {
+            "name": "Ecuador",
+            "code": "ECU",
+            "fifa_id": "43927"
+        },
+        {
+            "name": "Egypt",
+            "code": "EGY",
+            "fifa_id": "43855"
+        },
+        {
+            "name": "England",
+            "code": "ENG",
+            "fifa_id": "43942"
+        },
+        {
+            "name": "Spain",
+            "code": "ESP",
+            "fifa_id": "43969"
+        },
+        {
+            "name": "France",
+            "code": "FRA",
+            "fifa_id": "43946"
+        },
+        {
+            "name": "Germany",
+            "code": "GER",
+            "fifa_id": "43948"
+        },
+        {
+            "name": "Ghana",
+            "code": "GHA",
+            "fifa_id": "43860"
+        },
+        {
+            "name": "Haiti",
+            "code": "HAI",
+            "fifa_id": "43908"
+        },
+        {
+            "name": "IR Iran",
+            "code": "IRN",
+            "fifa_id": "43817"
+        },
+        {
+            "name": "Iraq",
+            "code": "IRQ",
+            "fifa_id": "43818"
+        },
+        {
+            "name": "Jordan",
+            "code": "JOR",
+            "fifa_id": "43820"
+        },
+        {
+            "name": "Japan",
+            "code": "JPN",
+            "fifa_id": "43819"
+        },
+        {
+            "name": "Korea Republic",
+            "code": "KOR",
+            "fifa_id": "43822"
+        },
+        {
+            "name": "Saudi Arabia",
+            "code": "KSA",
+            "fifa_id": "43835"
+        },
+        {
+            "name": "Morocco",
+            "code": "MAR",
+            "fifa_id": "43872"
+        },
+        {
+            "name": "Mexico",
+            "code": "MEX",
+            "fifa_id": "43911"
+        },
+        {
+            "name": "Netherlands",
+            "code": "NED",
+            "fifa_id": "43960"
+        },
+        {
+            "name": "Norway",
+            "code": "NOR",
+            "fifa_id": "43961"
+        },
+        {
+            "name": "New Zealand",
+            "code": "NZL",
+            "fifa_id": "43978"
+        },
+        {
+            "name": "Panama",
+            "code": "PAN",
+            "fifa_id": "43914"
+        },
+        {
+            "name": "Paraguay",
+            "code": "PAR",
+            "fifa_id": "43928"
+        },
+        {
+            "name": "Portugal",
+            "code": "POR",
+            "fifa_id": "43963"
+        },
+        {
+            "name": "Qatar",
+            "code": "QAT",
+            "fifa_id": "43834"
+        },
+        {
+            "name": "South Africa",
+            "code": "RSA",
+            "fifa_id": "43883"
+        },
+        {
+            "name": "Scotland",
+            "code": "SCO",
+            "fifa_id": "43967"
+        },
+        {
+            "name": "Senegal",
+            "code": "SEN",
+            "fifa_id": "43879"
+        },
+        {
+            "name": "Switzerland",
+            "code": "SUI",
+            "fifa_id": "43971"
+        },
+        {
+            "name": "Sweden",
+            "code": "SWE",
+            "fifa_id": "43970"
+        },
+        {
+            "name": "Tunisia",
+            "code": "TUN",
+            "fifa_id": "43888"
+        },
+        {
+            "name": "T\u00fcrkiye",
+            "code": "TUR",
+            "fifa_id": "43972"
+        },
+        {
+            "name": "Uruguay",
+            "code": "URU",
+            "fifa_id": "43930"
+        },
+        {
+            "name": "USA",
+            "code": "USA",
+            "fifa_id": "43921"
+        },
+        {
+            "name": "Uzbekistan",
+            "code": "UZB",
+            "fifa_id": "44005"
+        }
+    ],
+    "matches": [
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 30,
+            "away_team_id": 38,
+            "match_type_id": 1,
+            "starts_at": "2026-06-11T19:00:00Z",
+            "fifa_id": "400021443"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 27,
+            "away_team_id": 14,
+            "match_type_id": 1,
+            "starts_at": "2026-06-12T02:00:00Z",
+            "fifa_id": "400021441"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 5,
+            "match_type_id": 2,
+            "starts_at": "2026-06-12T19:00:00Z",
+            "fifa_id": "400021449"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 46,
+            "away_team_id": 35,
+            "match_type_id": 4,
+            "starts_at": "2026-06-13T01:00:00Z",
+            "fifa_id": "400021458"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 37,
+            "away_team_id": 41,
+            "match_type_id": 2,
+            "starts_at": "2026-06-13T19:00:00Z",
+            "fifa_id": "400021447"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 6,
+            "away_team_id": 29,
+            "match_type_id": 3,
+            "starts_at": "2026-06-13T22:00:00Z",
+            "fifa_id": "400021456"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 22,
+            "away_team_id": 39,
+            "match_type_id": 3,
+            "starts_at": "2026-06-14T01:00:00Z",
+            "fifa_id": "400021453"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 2,
+            "away_team_id": 44,
+            "match_type_id": 4,
+            "starts_at": "2026-06-14T04:00:00Z",
+            "fifa_id": "400021463"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 20,
+            "away_team_id": 13,
+            "match_type_id": 5,
+            "starts_at": "2026-06-14T17:00:00Z",
+            "fifa_id": "400021464"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 31,
+            "away_team_id": 26,
+            "match_type_id": 6,
+            "starts_at": "2026-06-14T20:00:00Z",
+            "fifa_id": "400021470"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 8,
+            "away_team_id": 15,
+            "match_type_id": 5,
+            "starts_at": "2026-06-14T23:00:00Z",
+            "fifa_id": "400021467"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 42,
+            "away_team_id": 43,
+            "match_type_id": 6,
+            "starts_at": "2026-06-15T02:00:00Z",
+            "fifa_id": "400021474"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 18,
+            "away_team_id": 11,
+            "match_type_id": 8,
+            "starts_at": "2026-06-15T16:00:00Z",
+            "fifa_id": "400021482"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 4,
+            "away_team_id": 16,
+            "match_type_id": 7,
+            "starts_at": "2026-06-15T19:00:00Z",
+            "fifa_id": "400021478"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 28,
+            "away_team_id": 45,
+            "match_type_id": 8,
+            "starts_at": "2026-06-15T22:00:00Z",
+            "fifa_id": "400021486"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 23,
+            "away_team_id": 33,
+            "match_type_id": 7,
+            "starts_at": "2026-06-16T01:00:00Z",
+            "fifa_id": "400021476"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 19,
+            "away_team_id": 40,
+            "match_type_id": 9,
+            "starts_at": "2026-06-16T19:00:00Z",
+            "fifa_id": "400021490"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 24,
+            "away_team_id": 32,
+            "match_type_id": 9,
+            "starts_at": "2026-06-16T22:00:00Z",
+            "fifa_id": "400021488"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 1,
+            "away_team_id": 0,
+            "match_type_id": 10,
+            "starts_at": "2026-06-17T01:00:00Z",
+            "fifa_id": "400021496"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 3,
+            "away_team_id": 25,
+            "match_type_id": 10,
+            "starts_at": "2026-06-17T04:00:00Z",
+            "fifa_id": "400021498"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 36,
+            "away_team_id": 9,
+            "match_type_id": 11,
+            "starts_at": "2026-06-17T17:00:00Z",
+            "fifa_id": "400021502"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 17,
+            "away_team_id": 12,
+            "match_type_id": 12,
+            "starts_at": "2026-06-17T20:00:00Z",
+            "fifa_id": "400021507"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 21,
+            "away_team_id": 34,
+            "match_type_id": 12,
+            "starts_at": "2026-06-17T23:00:00Z",
+            "fifa_id": "400021510"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 47,
+            "away_team_id": 10,
+            "match_type_id": 11,
+            "starts_at": "2026-06-18T02:00:00Z",
+            "fifa_id": "400021504"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 14,
+            "away_team_id": 38,
+            "match_type_id": 1,
+            "starts_at": "2026-06-18T16:00:00Z",
+            "fifa_id": "400021440"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 41,
+            "away_team_id": 5,
+            "match_type_id": 2,
+            "starts_at": "2026-06-18T19:00:00Z",
+            "fifa_id": "400021446"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 7,
+            "away_team_id": 37,
+            "match_type_id": 2,
+            "starts_at": "2026-06-18T22:00:00Z",
+            "fifa_id": "400021450"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 30,
+            "away_team_id": 27,
+            "match_type_id": 1,
+            "starts_at": "2026-06-19T01:00:00Z",
+            "fifa_id": "400021442"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 46,
+            "away_team_id": 2,
+            "match_type_id": 4,
+            "starts_at": "2026-06-19T19:00:00Z",
+            "fifa_id": "400021462"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 39,
+            "away_team_id": 29,
+            "match_type_id": 3,
+            "starts_at": "2026-06-19T22:00:00Z",
+            "fifa_id": "400021454"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 6,
+            "away_team_id": 22,
+            "match_type_id": 3,
+            "starts_at": "2026-06-20T00:30:00Z",
+            "fifa_id": "400021457"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 44,
+            "away_team_id": 35,
+            "match_type_id": 4,
+            "starts_at": "2026-06-20T03:00:00Z",
+            "fifa_id": "400021460"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 31,
+            "away_team_id": 42,
+            "match_type_id": 6,
+            "starts_at": "2026-06-20T17:00:00Z",
+            "fifa_id": "400021472"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 20,
+            "away_team_id": 8,
+            "match_type_id": 5,
+            "starts_at": "2026-06-20T20:00:00Z",
+            "fifa_id": "400021469"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 15,
+            "away_team_id": 13,
+            "match_type_id": 5,
+            "starts_at": "2026-06-21T00:00:00Z",
+            "fifa_id": "400021465"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 43,
+            "away_team_id": 26,
+            "match_type_id": 6,
+            "starts_at": "2026-06-21T04:00:00Z",
+            "fifa_id": "400021475"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 18,
+            "away_team_id": 28,
+            "match_type_id": 8,
+            "starts_at": "2026-06-21T16:00:00Z",
+            "fifa_id": "400021483"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 4,
+            "away_team_id": 23,
+            "match_type_id": 7,
+            "starts_at": "2026-06-21T19:00:00Z",
+            "fifa_id": "400021477"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 45,
+            "away_team_id": 11,
+            "match_type_id": 8,
+            "starts_at": "2026-06-21T22:00:00Z",
+            "fifa_id": "400021487"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 33,
+            "away_team_id": 16,
+            "match_type_id": 7,
+            "starts_at": "2026-06-22T01:00:00Z",
+            "fifa_id": "400021480"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 1,
+            "away_team_id": 3,
+            "match_type_id": 10,
+            "starts_at": "2026-06-22T17:00:00Z",
+            "fifa_id": "400021494"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 19,
+            "away_team_id": 24,
+            "match_type_id": 9,
+            "starts_at": "2026-06-22T21:00:00Z",
+            "fifa_id": "400021492"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 32,
+            "away_team_id": 40,
+            "match_type_id": 9,
+            "starts_at": "2026-06-23T00:00:00Z",
+            "fifa_id": "400021491"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 25,
+            "away_team_id": 0,
+            "match_type_id": 10,
+            "starts_at": "2026-06-23T03:00:00Z",
+            "fifa_id": "400021499"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 36,
+            "away_team_id": 47,
+            "match_type_id": 11,
+            "starts_at": "2026-06-23T17:00:00Z",
+            "fifa_id": "400021503"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 17,
+            "away_team_id": 21,
+            "match_type_id": 12,
+            "starts_at": "2026-06-23T20:00:00Z",
+            "fifa_id": "400021506"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 34,
+            "away_team_id": 12,
+            "match_type_id": 12,
+            "starts_at": "2026-06-23T23:00:00Z",
+            "fifa_id": "400021511"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 9,
+            "match_type_id": 11,
+            "starts_at": "2026-06-24T02:00:00Z",
+            "fifa_id": "400021501"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 5,
+            "away_team_id": 37,
+            "match_type_id": 2,
+            "starts_at": "2026-06-24T19:00:00Z",
+            "fifa_id": "400021448"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 41,
+            "away_team_id": 7,
+            "match_type_id": 2,
+            "starts_at": "2026-06-24T19:00:00Z",
+            "fifa_id": "400021451"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 29,
+            "away_team_id": 22,
+            "match_type_id": 3,
+            "starts_at": "2026-06-24T22:00:00Z",
+            "fifa_id": "400021452"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 39,
+            "away_team_id": 6,
+            "match_type_id": 3,
+            "starts_at": "2026-06-24T22:00:00Z",
+            "fifa_id": "400021455"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 38,
+            "away_team_id": 27,
+            "match_type_id": 1,
+            "starts_at": "2026-06-25T01:00:00Z",
+            "fifa_id": "400021445"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 14,
+            "away_team_id": 30,
+            "match_type_id": 1,
+            "starts_at": "2026-06-25T01:00:00Z",
+            "fifa_id": "400021444"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 13,
+            "away_team_id": 8,
+            "match_type_id": 5,
+            "starts_at": "2026-06-25T20:00:00Z",
+            "fifa_id": "400021468"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 15,
+            "away_team_id": 20,
+            "match_type_id": 5,
+            "starts_at": "2026-06-25T20:00:00Z",
+            "fifa_id": "400021466"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 43,
+            "away_team_id": 31,
+            "match_type_id": 6,
+            "starts_at": "2026-06-25T23:00:00Z",
+            "fifa_id": "400021473"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 26,
+            "away_team_id": 42,
+            "match_type_id": 6,
+            "starts_at": "2026-06-25T23:00:00Z",
+            "fifa_id": "400021471"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 35,
+            "away_team_id": 2,
+            "match_type_id": 4,
+            "starts_at": "2026-06-26T02:00:00Z",
+            "fifa_id": "400021461"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 44,
+            "away_team_id": 46,
+            "match_type_id": 4,
+            "starts_at": "2026-06-26T02:00:00Z",
+            "fifa_id": "400021459"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 40,
+            "away_team_id": 24,
+            "match_type_id": 9,
+            "starts_at": "2026-06-26T19:00:00Z",
+            "fifa_id": "400021493"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 32,
+            "away_team_id": 19,
+            "match_type_id": 9,
+            "starts_at": "2026-06-26T19:00:00Z",
+            "fifa_id": "400021489"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 45,
+            "away_team_id": 18,
+            "match_type_id": 8,
+            "starts_at": "2026-06-27T00:00:00Z",
+            "fifa_id": "400021484"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 11,
+            "away_team_id": 28,
+            "match_type_id": 8,
+            "starts_at": "2026-06-27T00:00:00Z",
+            "fifa_id": "400021485"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 33,
+            "away_team_id": 4,
+            "match_type_id": 7,
+            "starts_at": "2026-06-27T03:00:00Z",
+            "fifa_id": "400021481"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 16,
+            "away_team_id": 23,
+            "match_type_id": 7,
+            "starts_at": "2026-06-27T03:00:00Z",
+            "fifa_id": "400021479"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 34,
+            "away_team_id": 17,
+            "match_type_id": 12,
+            "starts_at": "2026-06-27T21:00:00Z",
+            "fifa_id": "400021508"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 12,
+            "away_team_id": 21,
+            "match_type_id": 12,
+            "starts_at": "2026-06-27T21:00:00Z",
+            "fifa_id": "400021509"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 9,
+            "away_team_id": 47,
+            "match_type_id": 11,
+            "starts_at": "2026-06-27T23:30:00Z",
+            "fifa_id": "400021500"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 10,
+            "away_team_id": 36,
+            "match_type_id": 11,
+            "starts_at": "2026-06-27T23:30:00Z",
+            "fifa_id": "400021505"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 0,
+            "away_team_id": 3,
+            "match_type_id": 10,
+            "starts_at": "2026-06-28T02:00:00Z",
+            "fifa_id": "400021497"
+        },
+        {
+            "placeholder_home": null,
+            "placeholder_away": null,
+            "home_team_id": 25,
+            "away_team_id": 1,
+            "match_type_id": 10,
+            "starts_at": "2026-06-28T02:00:00Z",
+            "fifa_id": "400021495"
+        },
+        {
+            "placeholder_home": "2A",
+            "placeholder_away": "2B",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-28T19:00:00Z",
+            "fifa_id": "400021518"
+        },
+        {
+            "placeholder_home": "1C",
+            "placeholder_away": "2F",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-29T17:00:00Z",
+            "fifa_id": "400021516"
+        },
+        {
+            "placeholder_home": "1E",
+            "placeholder_away": "3ABCDF",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-29T20:30:00Z",
+            "fifa_id": "400021513"
+        },
+        {
+            "placeholder_home": "1F",
+            "placeholder_away": "2C",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-30T01:00:00Z",
+            "fifa_id": "400021522"
+        },
+        {
+            "placeholder_home": "2E",
+            "placeholder_away": "2I",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-30T17:00:00Z",
+            "fifa_id": "400021514"
+        },
+        {
+            "placeholder_home": "1I",
+            "placeholder_away": "3CDFGH",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-06-30T21:00:00Z",
+            "fifa_id": "400021523"
+        },
+        {
+            "placeholder_home": "1A",
+            "placeholder_away": "3CEFHI",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-01T01:00:00Z",
+            "fifa_id": "400021520"
+        },
+        {
+            "placeholder_home": "1L",
+            "placeholder_away": "3EHIJK",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-01T16:00:00Z",
+            "fifa_id": "400021512"
+        },
+        {
+            "placeholder_home": "1G",
+            "placeholder_away": "3AEHIJ",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-01T20:00:00Z",
+            "fifa_id": "400021525"
+        },
+        {
+            "placeholder_home": "1D",
+            "placeholder_away": "3BEFIJ",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-02T00:00:00Z",
+            "fifa_id": "400021524"
+        },
+        {
+            "placeholder_home": "1H",
+            "placeholder_away": "2J",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-02T19:00:00Z",
+            "fifa_id": "400021519"
+        },
+        {
+            "placeholder_home": "2K",
+            "placeholder_away": "2L",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-02T23:00:00Z",
+            "fifa_id": "400021526"
+        },
+        {
+            "placeholder_home": "1B",
+            "placeholder_away": "3EFGIJ",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-03T03:00:00Z",
+            "fifa_id": "400021527"
+        },
+        {
+            "placeholder_home": "2D",
+            "placeholder_away": "2G",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-03T18:00:00Z",
+            "fifa_id": "400021515"
+        },
+        {
+            "placeholder_home": "1J",
+            "placeholder_away": "2H",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-03T22:00:00Z",
+            "fifa_id": "400021521"
+        },
+        {
+            "placeholder_home": "1K",
+            "placeholder_away": "3DEIJL",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 16,
+            "starts_at": "2026-07-04T01:30:00Z",
+            "fifa_id": "400021517"
+        },
+        {
+            "placeholder_home": "W73",
+            "placeholder_away": "W75",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-04T17:00:00Z",
+            "fifa_id": "400021530"
+        },
+        {
+            "placeholder_home": "W74",
+            "placeholder_away": "W77",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-04T21:00:00Z",
+            "fifa_id": "400021533"
+        },
+        {
+            "placeholder_home": "W76",
+            "placeholder_away": "W78",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-05T20:00:00Z",
+            "fifa_id": "400021532"
+        },
+        {
+            "placeholder_home": "W79",
+            "placeholder_away": "W80",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-06T00:00:00Z",
+            "fifa_id": "400021531"
+        },
+        {
+            "placeholder_home": "W83",
+            "placeholder_away": "W84",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-06T19:00:00Z",
+            "fifa_id": "400021529"
+        },
+        {
+            "placeholder_home": "W81",
+            "placeholder_away": "W82",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-07T00:00:00Z",
+            "fifa_id": "400021534"
+        },
+        {
+            "placeholder_home": "W86",
+            "placeholder_away": "W88",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-07T16:00:00Z",
+            "fifa_id": "400021528"
+        },
+        {
+            "placeholder_home": "W85",
+            "placeholder_away": "W87",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 15,
+            "starts_at": "2026-07-07T20:00:00Z",
+            "fifa_id": "400021535"
+        },
+        {
+            "placeholder_home": "W89",
+            "placeholder_away": "W90",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 14,
+            "starts_at": "2026-07-09T20:00:00Z",
+            "fifa_id": "400021536"
+        },
+        {
+            "placeholder_home": "W93",
+            "placeholder_away": "W94",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 14,
+            "starts_at": "2026-07-10T19:00:00Z",
+            "fifa_id": "400021538"
+        },
+        {
+            "placeholder_home": "W91",
+            "placeholder_away": "W92",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 14,
+            "starts_at": "2026-07-11T21:00:00Z",
+            "fifa_id": "400021539"
+        },
+        {
+            "placeholder_home": "W95",
+            "placeholder_away": "W96",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 14,
+            "starts_at": "2026-07-12T01:00:00Z",
+            "fifa_id": "400021537"
+        },
+        {
+            "placeholder_home": "W97",
+            "placeholder_away": "W98",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 17,
+            "starts_at": "2026-07-14T19:00:00Z",
+            "fifa_id": "400021541"
+        },
+        {
+            "placeholder_home": "W99",
+            "placeholder_away": "W100",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 17,
+            "starts_at": "2026-07-15T19:00:00Z",
+            "fifa_id": "400021540"
+        },
+        {
+            "placeholder_home": "RU101",
+            "placeholder_away": "RU102",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 13,
+            "starts_at": "2026-07-18T21:00:00Z",
+            "fifa_id": "400021542"
+        },
+        {
+            "placeholder_home": "W101",
+            "placeholder_away": "W102",
+            "home_team_id": null,
+            "away_team_id": null,
+            "match_type_id": 0,
+            "starts_at": "2026-07-19T19:00:00Z",
+            "fifa_id": "400021543"
+        }
+    ],
+    "types": [
+        {
+            "name": "Final",
+            "code": "Final"
+        },
+        {
+            "name": "Group A",
+            "code": "Group A"
+        },
+        {
+            "name": "Group B",
+            "code": "Group B"
+        },
+        {
+            "name": "Group C",
+            "code": "Group C"
+        },
+        {
+            "name": "Group D",
+            "code": "Group D"
+        },
+        {
+            "name": "Group E",
+            "code": "Group E"
+        },
+        {
+            "name": "Group F",
+            "code": "Group F"
+        },
+        {
+            "name": "Group G",
+            "code": "Group G"
+        },
+        {
+            "name": "Group H",
+            "code": "Group H"
+        },
+        {
+            "name": "Group I",
+            "code": "Group I"
+        },
+        {
+            "name": "Group J",
+            "code": "Group J"
+        },
+        {
+            "name": "Group K",
+            "code": "Group K"
+        },
+        {
+            "name": "Group L",
+            "code": "Group L"
+        },
+        {
+            "name": "Play-off for third place",
+            "code": "Play-off for third place"
+        },
+        {
+            "name": "Quarter-final",
+            "code": "Quarter-final"
+        },
+        {
+            "name": "Round of 16",
+            "code": "Round of 16"
+        },
+        {
+            "name": "Round of 32",
+            "code": "Round of 32"
+        },
+        {
+            "name": "Semi-final",
+            "code": "Semi-final"
+        }
+    ]
+}
