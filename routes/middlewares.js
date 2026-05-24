@@ -6,7 +6,7 @@ router.use(async (req, res) => {
     res.locals.user = req.user;
     res.locals.loggedIn = !!req.user;
     res.locals.csrfToken = req.csrfToken();
-    res.locals.websiteName = "Euro 2024";
+    res.locals.websiteName = "Worldcup 2026";
 
     // We need our own helper function here so that we can call i18next's "t"-function with interpolation
     res.locals.tr = (key, options) => {

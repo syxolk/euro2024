@@ -31,7 +31,7 @@ function sendMail(user, token) {
     const mail = {
         from: config.mailFrom,
         to: user.email,
-        subject: "Reset your Euro 2024 Password",
+        subject: "Reset your Worldcup 2026 Password",
         text: mustache.render(MAIL_TEMPLATE, {
             name: user.name,
             url: config.origin + "/password_reset/" + token,

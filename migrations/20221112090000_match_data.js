@@ -1,4 +1,4 @@
-const data = require("../tools/euro2024/euro2024.json");
+const data = require("../tools/worldcup2026/worldcup2026.json");
 
 exports.up = async (knex) => {
     const teams = await knex("team").insert(data.teams).returning(["id"]);

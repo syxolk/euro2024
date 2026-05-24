@@ -19,8 +19,8 @@ services:
         environment:
         - PGHOST=db
         - PGPORT=5432
-        - PGDATABASE=cup2024
-        - PGUSER=cup2024
+        - PGDATABASE=cup2026
+        - PGUSER=cup2026
         - PGPASSWORD=123456
         env_file:
         - prod.env        
@@ -31,8 +31,8 @@ services:
         image: postgres:16.3
         restart: unless-stopped
         environment:
-        - POSTGRES_USER=cup2024
-        - POSTGRES_DB=cup2024
+        - POSTGRES_USER=cup2026
+        - POSTGRES_DB=cup2026
         - POSTGRES_PASSWORD=123456
         networks:
         - db
