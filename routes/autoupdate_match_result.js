@@ -6,7 +6,7 @@ module.exports = router;
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
-        .select("id", "uefa_id")
+        .select("id", "fifa_id")
         .whereNull("goals_away")
         .whereNull("goals_home")
         .whereRaw("now() > match.starts_at");
@@ -34,10 +34,10 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const matchMap = new Map(matchList.map((x) => [x.id, x]));
 
     for (const match of liveMatches) {
-        const matchData = matchMap.get(match.uefa_id);
+        const matchData = matchMap.get(match.fifa_id);
 
         if (matchData === undefined) {
-            errors.push(`Match ${match.uefa_id} not found in result`);
+            errors.push(`Match ${match.fifa_id} not found in result`);
             continue;
         }
 
@@ -46,7 +46,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
         // "UPCOMING" - match will be played in the future
         if (matchData.status !== "FINISHED") {
             errors.push(
-                `Match ${match.uefa_id} result type is ${matchData.status}`
+                `Match ${match.fifa_id} result type is ${matchData.status}`
             );
             continue;
         }
@@ -67,7 +67,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
             });
 
         success.push(
-            `Match ${match.uefa_id} result set as ${goalsHome}:${goalsAway}`
+            `Match ${match.fifa_id} result set as ${goalsHome}:${goalsAway}`
         );
     }
 

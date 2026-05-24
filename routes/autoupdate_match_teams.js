@@ -9,7 +9,7 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
 
     const team = await trx("team")
         .select("id")
-        .where({ uefa_id: uefaTeamId })
+        .where({ fifa_id: uefaTeamId })
         .first();
 
     if (team === undefined) {
@@ -18,7 +18,7 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
 
     const match = await trx("match")
         .select("id", column)
-        .where({ uefa_id: uefaMatchId })
+        .where({ fifa_id: uefaMatchId })
         .first();
 
     if (match === undefined) {
@@ -39,7 +39,7 @@ async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
 
 router.get("/autoupdate_match_teams", async (req, res) => {
     const matches = await knex("match")
-        .select("id", "uefa_id")
+        .select("id", "fifa_id")
         .whereRaw("home_team_id is null OR away_team_id is null");
 
     if (matches.length === 0) {
@@ -59,17 +59,17 @@ router.get("/autoupdate_match_teams", async (req, res) => {
 
     await knex.transaction(async (trx) => {
         for (const m of matches) {
-            const matchData = matchMap.get(m.uefa_id);
+            const matchData = matchMap.get(m.fifa_id);
 
             if (matchData === undefined) {
-                result.push(`Match not found for id=${m.uefa_id}`);
+                result.push(`Match not found for id=${m.fifa_id}`);
                 continue;
             }
 
             if (matchData.homeTeam.typeTeam !== "PLACEHOLDER") {
                 const ok = await updateMatchTeam(
                     trx,
-                    m.uefa_id,
+                    m.fifa_id,
                     matchData.homeTeam,
                     "home_team_id"
                 );
@@ -82,7 +82,7 @@ router.get("/autoupdate_match_teams", async (req, res) => {
             if (matchData.awayTeam.typeTeam !== "PLACEHOLDER") {
                 const ok = await updateMatchTeam(
                     trx,
-                    m.uefa_id,
+                    m.fifa_id,
                     matchData.awayTeam,
                     "away_team_id"
                 );
