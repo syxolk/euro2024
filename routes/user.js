@@ -106,7 +106,7 @@ router.get("/user/:id", async (req, res) => {
             `),
             knex.raw(`(
                 select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
-                    select id, name, (team.id = any(extra_bet.team_ids)) as "isCorrect"
+                    select id, name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
                     from team
                     where team.id = any(user_account_extra_bet.selected_team_ids)
                     order by team.name

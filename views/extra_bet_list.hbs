@@ -36,7 +36,7 @@
                 {{#each teams }}
                 <tr>
                     <td>
-                        {{ team.name }}
+                        {{#if team.code}}<img class="flag-icon me-1" src="{{flagUrl team.code}}" alt="{{team.name}} flag" loading="lazy">{{/if}}{{ team.name }}
                         ({{ userCount }})
                     </td>
                     <td>

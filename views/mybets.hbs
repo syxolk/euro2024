@@ -40,7 +40,7 @@
     <div class="card-body">
         {{#each selectedTeams}}
         <div>
-            {{ name }}
+            {{#if code}}<img class="flag-icon me-1" src="{{flagUrl code}}" alt="{{name}} flag" loading="lazy">{{/if}}{{ name }}
         </div>
         {{else}}
         <div class="alert alert-danger">
@@ -85,7 +85,7 @@
         </div>
         <div class="col-md-3 col-6 order-md-1 order-2 text-end">
             {{#if home_team_name}}
-                <strong>{{home_team_name}}</strong>
+                <strong>{{home_team_name}}{{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}</strong>
             {{else}}
                 <strong>{{placeholder_home}}</strong>
             {{/if}}
@@ -104,7 +104,7 @@
         </div>
         <div class="col-md-3 col-6 order-md-3 order-2 text-start">
             {{#if away_team_name}}
-                <strong>{{away_team_name}}</strong>
+                <strong>{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}</strong>
             {{else}}
                 <strong>{{placeholder_away}}</strong>
             {{/if}}

@@ -18,7 +18,8 @@ router.get("/extra_bet_list", async (req, res) => {
                     select (
                         select jsonb_build_object(
                             'id', team.id,
-                            'name', team.name
+                            'name', team.name,
+                            'code', team.code
                         )
                         from team
                         where team.id = t.id

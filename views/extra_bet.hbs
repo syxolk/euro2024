@@ -20,7 +20,7 @@
     <div class="form-check">
         <input class="form-check-input" type="checkbox" value="1" id="team_{{id}}" name="team_{{id}}" {{#if isSelected}}checked{{/if}}>
         <label class="form-check-label" for="team_{{id}}">
-            {{name}}
+            {{#if code}}<img class="flag-icon me-1" src="{{flagUrl code}}" alt="{{name}} flag" loading="lazy">{{/if}}{{name}}
         </label>
     </div>
     {{/each}}

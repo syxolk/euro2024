@@ -11,6 +11,8 @@ router.get("/live", async (req, res) => {
         (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
         (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
         (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
+        (SELECT code FROM team WHERE team.id = match.home_team_id) as home_team_code,
+        (SELECT code FROM team WHERE team.id = match.away_team_id) as away_team_code,
         count(bet.id) as countbets,
         round(100.0 * count(CASE WHEN bet.goals_home > bet.goals_away THEN 1 END) / count(bet.id)) as winnerhome,
         round(100.0 * count(CASE WHEN bet.goals_home < bet.goals_away THEN 1 END) / count(bet.id)) as winneraway,
@@ -64,6 +66,8 @@ router.get("/live", async (req, res) => {
             starts_at,
             home_team.name as home_team_name,
             away_team.name as away_team_name,
+            home_team.code as home_team_code,
+            away_team.code as away_team_code,
             placeholder_home,
             placeholder_away,
             (

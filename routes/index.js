@@ -2,6 +2,7 @@ const config = require("../config");
 const router = require("express").Router();
 
 router.use(require("./middlewares"));
+router.use(require("./flags"));
 
 router.use(require("./login"));
 router.use(require("./register"));

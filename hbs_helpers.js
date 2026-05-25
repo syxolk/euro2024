@@ -18,6 +18,14 @@ module.exports = () => {
         return path;
     });
 
+    hbs.registerHelper("flagUrl", function (code) {
+        if (!code) {
+            return "";
+        }
+
+        return `/flags/${encodeURIComponent(String(code).toUpperCase())}`;
+    });
+
     hbs.registerHelper("calendar", function (when) {
         return moment.tz(when, config.timezone).format("ddd, MMMM Do, HH:mm");
     });

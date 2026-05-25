@@ -43,7 +43,7 @@
                 </div>
                 <div class="card-body">
                     {{#each teams}}
-                        <div {{#if isCorrect}}class="extra-bet-correct"{{else}}class="extra-bet-wrong"{{/if}}>{{name}}</div>
+                        <div {{#if isCorrect}}class="extra-bet-correct"{{else}}class="extra-bet-wrong"{{/if}}>{{#if code}}<img class="flag-icon me-1" src="{{flagUrl code}}" alt="{{name}} flag" loading="lazy">{{/if}}{{name}}</div>
                     {{else}}
                         <span class="text-muted small">No teams selected.</span>
                     {{/each}}
@@ -79,13 +79,13 @@
                 {{> score_factor match_type_score_factor}}
             </td>
             <td class="text-end">
-                <em class="d-none d-sm-inline">{{home_team_name}}</em><em class="d-sm-none">{{home_team_code}}</em>
+                <em class="d-none d-sm-inline">{{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}{{home_team_name}}</em><em class="d-sm-none">{{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}{{home_team_code}}</em>
             </td>
             <td class="text-center">
                 <strong>{{showGoals match_goals_home}}</strong> : <strong>{{showGoals match_goals_away}}</strong>
             </td>
             <td class="text-start">
-                <em class="d-none d-sm-inline">{{away_team_name}}</em><em class="d-sm-none">{{away_team_code}}</em>
+                <em class="d-none d-sm-inline">{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}</em><em class="d-sm-none">{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_code}}</em>
             </td>
             <td class="text-center">
             {{showGoals bet_goals_home}} : {{showGoals bet_goals_away}}

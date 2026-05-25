@@ -19,6 +19,8 @@ router.get("/past", async (req, res) => {
             match.goals_away as goalsaway,
             home_team.name as hometeam,
             away_team.name as awayteam,
+            home_team.code as home_team_code,
+            away_team.code as away_team_code,
             (
                 select coalesce(array_agg(
                     jsonb_build_object(

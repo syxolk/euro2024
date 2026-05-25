@@ -5,3 +5,4 @@
 /postgres-data
 /prod.env
 /start.sh
+/.cache

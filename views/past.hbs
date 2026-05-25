@@ -38,7 +38,7 @@
         <div class="row g-2 align-items-start">
             <div class="col">
                 <a role="button" data-bs-toggle="collapse" href="#match-{{id}}" aria-expanded="false" aria-controls="match-{{id}}">
-                    {{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam~}}
+                    {{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{hometeam}} flag" loading="lazy">{{/if}}{{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{#if away_team_code}}<img class="flag-icon mx-1" src="{{flagUrl away_team_code}}" alt="{{awayteam}} flag" loading="lazy">{{/if}}{{awayteam~}}
                 </a>
                 ({{matchtype}}) {{> score_factor score_factor }}
                 <br/>

@@ -26,6 +26,8 @@ services:
         networks:
         - db
         - proxy
+        volumes:
+        - flags_cache:/app/.cache
     db:
         image: postgres:18.4
         restart: unless-stopped
@@ -59,3 +61,4 @@ volumes:
     caddy_config:
     postgres_data:
     backups:
+    flags_cache:
