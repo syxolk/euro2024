@@ -4,7 +4,7 @@ exports.up = async (knex) => {
         UPDATE match_type SET score_factor = 3 WHERE code = 'Quarter-final';
         UPDATE match_type SET score_factor = 4 WHERE code = 'Semi-final';
         UPDATE match_type SET score_factor = 5 WHERE code = 'Final';
-        UPDATE match_type SET score_factor = 5 WHERE code = 'Play-off for third place';
+        UPDATE match_type SET score_factor = 3 WHERE code = 'Play-off for third place';
     `);
 };
 

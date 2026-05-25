@@ -18,7 +18,7 @@ exports.up = async (knex) => {
             name: "Semi-Finalists",
             number_of_teams: 4,
             editable_until: "2026-06-11T19:00:00Z",
-            score_factor: 6,
+            score_factor: 5,
         },
     ]);
 
