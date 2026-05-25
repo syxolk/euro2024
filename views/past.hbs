@@ -35,9 +35,9 @@
 {{#each matches}}
 <div class="card mb-2">
     <div class="card-header">
-        <div class="form-row">
+        <div class="row g-2 align-items-start">
             <div class="col">
-                <a role="button" data-toggle="collapse" href="#match-{{id}}">
+                <a role="button" data-bs-toggle="collapse" href="#match-{{id}}" aria-expanded="false" aria-controls="match-{{id}}">
                     {{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{awayteam~}}
                 </a>
                 ({{matchtype}}) {{> score_factor score_factor }}
@@ -45,7 +45,7 @@
                 <small class="text-muted">{{calendar starts_at}}{{#if goals_inserted_at}} / {{calendar goals_inserted_at}}{{/if}}</small>
             </div>
             {{#if @root.is_logged_in}}
-                <div class="col-4 text-right">
+                <div class="col-12 col-md-4 text-md-end text-start">
                     Gain: {{my_gain}}
                     <br/>
                     <small class="text-muted">

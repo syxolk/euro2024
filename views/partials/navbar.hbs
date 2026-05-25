@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/intro">{{@websiteName}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navbarSupportedContent" class="navbar-collapse collapse">
@@ -12,16 +12,16 @@
                 </a></li>
                 <li class="nav-item"><a class="nav-link" href="/mybets">
                     {{ t "navbar.my_bets" }}
-                    {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge badge-warning">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
+                    {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge bg-warning text-dark">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
                 <li class="nav-item"><a class="nav-link" href="/live">
                     {{ t "navbar.live_matches" }}
-                    {{#if hasLiveMatches}}<span class="badge badge-success">NOW</span>{{/if}}
+                    {{#if hasLiveMatches}}<span class="badge bg-success">NOW</span>{{/if}}
                 </a></li>
                 <li class="nav-item"><a class="nav-link" href="/past">
                     {{ t "navbar.past_matches" }}
-                    {{#if (gt unseenPastMatches 0)}}<span class="badge badge-warning">{{unseenPastMatches}}</span>{{/if}}
+                    {{#if (gt unseenPastMatches 0)}}<span class="badge bg-warning text-dark">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
                 <li class="nav-item"><a class="nav-link" href="/highscore">
                     {{ t "navbar.highscore" }}
@@ -30,11 +30,9 @@
                     Extra Bets
                 </a></li>
                 {{#if loggedIn}}
-                <li class="nav-item ml-auto dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.name}}
-                        <span class="caret"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
+                <li class="nav-item ms-auto dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
+                    <div class="dropdown-menu dropdown-menu-end">
                         {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
                         <a class="dropdown-item" href="/settings">
                             {{ t "navbar.settings" }}
@@ -49,12 +47,12 @@
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item ml-auto"><a class="nav-link" href="/register">
+                <li class="nav-item ms-auto"><a class="nav-link" href="/register">
                     {{ t "navbar.register" }}
-                </a><li>
+                </a></li>
                 <li class="nav-item"><a class="nav-link" href="/login">
                     {{ t "navbar.login" }}
-                </a><li>
+                </a></li>
                 {{/if}}
             </ul>
         </div>

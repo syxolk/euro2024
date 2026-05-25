@@ -3,15 +3,15 @@ const crypto = require("crypto");
 
 const scripts = [
     "./node_modules/jquery/dist/jquery.min.js",
-    "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+    "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
     "./node_modules/chart.js/dist/chart.min.js",
     "./node_modules/datatables.net/js/jquery.dataTables.min.js",
-    "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
+    "./node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
 ];
 
 const styles = [
     "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-    "./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+    "./node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
 ];
 
 const vendorJs = scripts.map((path) => {

@@ -15,8 +15,9 @@
     <h4>
         {{ t "intro.quickstart" }}
     </h4>
-    <div class="card-deck">
-            <div class="card">
+    <div class="row row-cols-1 row-cols-lg-3 g-3">
+            <div class="col">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ t "intro.my_bets_title" }}
@@ -32,7 +33,9 @@
                     {{#if (not loggedIn)}}<br><small class="text-muted">You need an account to see your own bets.</small>{{/if}}
                 </div>
             </div>
-            <div class="card">
+            </div>
+            <div class="col">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ t "intro.live_matches_title" }}
@@ -47,7 +50,9 @@
                     </a>
                 </div>
             </div>
-            <div class="card">
+            </div>
+            <div class="col">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ t "intro.highscore_title" }}
@@ -62,6 +67,7 @@
                     </a>
                 </div>
             </div>
+            </div>
     </div>
 
     <h4 class="mt-3">FAQ</h4>
@@ -69,12 +75,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#who-made-this">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#who-made-this" aria-expanded="false" aria-controls="who-made-this">
                         Who made this?
                     </button>
                 </h5>
             </div>
-            <div id="who-made-this" class="collapse" data-parent="#faq">
+            <div id="who-made-this" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     This site was made by me, Hans, a <a href="https://github.com/syxolk">software engineer living in Munich</a>.
                     I made it for fun in my spare time for the UEFA Euro 2016.
@@ -88,12 +94,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#invite-friends">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#invite-friends" aria-expanded="false" aria-controls="invite-friends">
                         Can I invite my friends?
                     </button>
                 </h5>
             </div>
-            <div id="invite-friends" class="collapse" data-parent="#faq">
+            <div id="invite-friends" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     <b>Yes!</b> You are free to invite your friends, colleagues and family to play
                     here. If you feel proficient enough you can <a href="https://github.com/syxolk/euro2024">host this site on your own server (open-source on GitHub)</a>.
@@ -103,12 +109,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#get-points">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#get-points" aria-expanded="false" aria-controls="get-points">
                         How do I score?
                     </button>
                 </h5>
             </div>
-            <div id="get-points" class="collapse" data-parent="#faq">
+            <div id="get-points" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     <p>You get points if you made a bet for a match and the match is over.</p>
                     <ul>
@@ -142,12 +148,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#rank">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#rank" aria-expanded="false" aria-controls="rank">
                         How is the rank calculated?
                     </button>
                 </h5>
             </div>
-            <div id="rank" class="collapse" data-parent="#faq">
+            <div id="rank" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     <p>The rank on the highscore is not only based on the score
                     but also on the number of stars someone received (the <i>CNT</i> column on the <a href="/highscore">highscore</a>).
@@ -214,12 +220,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#penalty">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#penalty" aria-expanded="false" aria-controls="penalty">
                         Are goals from the penalty shoot-out included in the match result?
                     </button>
                 </h5>
             </div>
-            <div id="penalty" class="collapse" data-parent="#faq">
+            <div id="penalty" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     <b>No.</b> Only goals made during the 90+30 minutes (two halftimes + overtime) period of the match will be used as the match result.
                 </div>
@@ -228,12 +234,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#see-bets">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#see-bets" aria-expanded="false" aria-controls="see-bets">
                         Can I see bets of other users?
                     </button>
                 </h5>
             </div>
-            <div id="see-bets" class="collapse" data-parent="#faq">
+            <div id="see-bets" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     <b>Yes and no.</b> Yes, you can see bets of other users once a match
                     has started or is finished. No, you can only see your own bets as long as
@@ -244,12 +250,12 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#new-features">
+                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#new-features" aria-expanded="false" aria-controls="new-features">
                         What are the new features?
                     </button>
                 </h5>
             </div>
-            <div id="new-features" class="collapse" data-parent="#faq">
+            <div id="new-features" class="collapse" data-bs-parent="#faq">
                 <div class="card-body">
                     Highlights:
                     <ul>
