@@ -23,15 +23,26 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const success = [];
 
     const { data } = await axios.get(
-        "https://match.uefa.com/v5/matches?competitionId=3&offset=0&limit=51"
+        "https://api.fifa.com/api/v3/calendar/matches",
+        {
+            params: {
+                count: 200,
+                idSeason: 285023,
+            },
+            headers: {
+                Accept: "application/json",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
+            },
+            timeout: 30000,
+        }
     );
-    const matchList = data;
+    const matchList = data.Results;
 
-    if (matchList.length === 0) {
+    if (!Array.isArray(matchList) || matchList.length === 0) {
         errors.push("Match data is empty");
     }
 
-    const matchMap = new Map(matchList.map((x) => [x.id, x]));
+    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
 
     for (const match of liveMatches) {
         const matchData = matchMap.get(match.fifa_id);
@@ -41,20 +52,18 @@ router.get("/autoupdate_match_result", async (req, res) => {
             continue;
         }
 
-        // Status
-        // "FINISHED" - match finished successfully
-        // "UPCOMING" - match will be played in the future
-        if (matchData.status !== "FINISHED") {
+        if (
+            matchData.HomeTeamScore === null ||
+            matchData.AwayTeamScore === null
+        ) {
             errors.push(
-                `Match ${match.fifa_id} result type is ${matchData.status}`
+                `Match ${match.fifa_id} has no final result yet (status ${matchData.MatchStatus})`
             );
             continue;
         }
 
-
-        // TODO I'm not sure if this is the number of goals after 90+30 minutes without penalty shoot-out
-        const goalsHome = matchData.score.total.home;
-        const goalsAway = matchData.score.total.away;
+        const goalsHome = matchData.HomeTeamScore;
+        const goalsAway = matchData.AwayTeamScore;
 
         await knex("match")
             .update({

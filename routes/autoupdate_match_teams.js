@@ -4,25 +4,25 @@ const { knex } = require("../db");
 const router = require("express-promise-router")();
 module.exports = router;
 
-async function updateMatchTeam(trx, uefaMatchId, teamData, column) {
-    const uefaTeamId = teamData.id;
+async function updateMatchTeam(trx, fifaMatchId, teamData, column) {
+    const fifaTeamId = teamData.IdTeam;
 
     const team = await trx("team")
         .select("id")
-        .where({ fifa_id: uefaTeamId })
+        .where({ fifa_id: fifaTeamId })
         .first();
 
     if (team === undefined) {
-        throw new Error(`Could not find team with id: ${uefaTeamId}`);
+        throw new Error(`Could not find team with id: ${fifaTeamId}`);
     }
 
     const match = await trx("match")
         .select("id", column)
-        .where({ fifa_id: uefaMatchId })
+        .where({ fifa_id: fifaMatchId })
         .first();
 
     if (match === undefined) {
-        throw new Error(`Could not find match with id: ${uefaMatchId}`);
+        throw new Error(`Could not find match with id: ${fifaMatchId}`);
     }
 
     if (match[column] !== null) {
@@ -51,9 +51,21 @@ router.get("/autoupdate_match_teams", async (req, res) => {
     }
 
     const { data } = await axios.get(
-        "https://match.uefa.com/v5/matches?competitionId=3&offset=0&limit=51"
+        "https://api.fifa.com/api/v3/calendar/matches",
+        {
+            params: {
+                count: 200,
+                idSeason: 285023,
+            },
+            headers: {
+                Accept: "application/json",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
+            },
+            timeout: 30000,
+        }
     );
-    const matchMap = new Map(data.map((x) => [x.id, x]));
+    const matchList = Array.isArray(data.Results) ? data.Results : [];
+    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
 
     const result = [];
 
@@ -66,29 +78,33 @@ router.get("/autoupdate_match_teams", async (req, res) => {
                 continue;
             }
 
-            if (matchData.homeTeam.typeTeam !== "PLACEHOLDER") {
+            if (matchData.Home?.IdTeam) {
                 const ok = await updateMatchTeam(
                     trx,
                     m.fifa_id,
-                    matchData.homeTeam,
+                    matchData.Home,
                     "home_team_id"
                 );
 
                 if (ok) {
-                    result.push(`Home team updated for match ${matchData.id}`);
+                    result.push(
+                        `Home team updated for match ${matchData.IdMatch}`
+                    );
                 }
             }
 
-            if (matchData.awayTeam.typeTeam !== "PLACEHOLDER") {
+            if (matchData.Away?.IdTeam) {
                 const ok = await updateMatchTeam(
                     trx,
                     m.fifa_id,
-                    matchData.awayTeam,
+                    matchData.Away,
                     "away_team_id"
                 );
 
                 if (ok) {
-                    result.push(`Away team updated for match ${matchData.id}`);
+                    result.push(
+                        `Away team updated for match ${matchData.IdMatch}`
+                    );
                 }
             }
         }
