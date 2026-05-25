@@ -43,12 +43,12 @@
             {{ name }}
         </div>
         {{else}}
-        <div class="text-muted small">
+        <div class="alert alert-danger">
             {{ @t "mybets.no_team_selected" }}
         </div>
         {{/each}}
         {{#if isEditable}}
-        <a href="/extra_bet/{{id}}" class="btn btn-outline-info mt-3">
+        <a href="/extra_bet/{{id}}" class="btn btn-outline-primary mt-2">
             {{ @t "mybets.edit_bet_button" }}
         </a>
         <div class="small text-muted text-end">
