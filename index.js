@@ -4,7 +4,7 @@ const session = require("express-session");
 const KnexSessionStore = require("connect-session-knex")(session);
 const passport = require("passport");
 const compression = require("compression");
-const csrf = require("csurf");
+const { csrfSync } = require("csrf-sync");
 const helmet = require("helmet");
 const ms = require("ms");
 const morgan = require("morgan");
@@ -74,6 +74,10 @@ hbs.localsAsTemplateData(app);
 
 require("./hbs_helpers.js")();
 
+const { csrfSynchronisedProtection } = csrfSync({
+    getTokenFromRequest: (req) => req.body._csrf || req.headers["x-csrf-token"],
+});
+
 app.use(compression());
 require("./routes/static.js")(app);
 app.use("/static", express.static(__dirname + "/static"));
@@ -142,7 +146,7 @@ app.use(
     })
 );
 app.use(flash());
-app.use(csrf());
+app.use(csrfSynchronisedProtection);
 app.use(passport.initialize());
 app.use(passport.session());
 

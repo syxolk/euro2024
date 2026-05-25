@@ -22,7 +22,7 @@
     "compression": "^1.8.1",
     "connect-flash": "0.1.1",
     "connect-session-knex": "4.0.0",
-    "csurf": "^1.11.0",
+    "csrf-sync": "^4.2.1",
     "datatables.net": "^1.13.1",
     "datatables.net-bs4": "^1.13.1",
     "express": "^4.22.2",
