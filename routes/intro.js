@@ -1,4 +1,4 @@
-const router = require("express-promise-router")();
+const router = require("express").Router();
 
 router.get("/intro", function (req, res) {
     res.render("intro");

@@ -2,7 +2,7 @@ const { knex } = require("../db");
 const moment = require("moment-timezone");
 const config = require("../config");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 module.exports = router;
 
 router.get("/mybets", async (req, res) => {

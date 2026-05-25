@@ -1,6 +1,6 @@
 const { knex } = require("../db");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 module.exports = router;
 
 router.get("/live", async (req, res) => {

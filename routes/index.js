@@ -1,5 +1,5 @@
 const config = require("../config");
-const router = require("express-promise-router")();
+const router = require("express").Router();
 
 router.use(require("./middlewares"));
 

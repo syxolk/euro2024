@@ -4,7 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const config = require("../config");
 const { knex } = require("../db");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 
 passport.use(
     new LocalStrategy(

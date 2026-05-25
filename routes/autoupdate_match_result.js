@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { knex } = require("../db");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 module.exports = router;
 
 router.get("/autoupdate_match_result", async (req, res) => {

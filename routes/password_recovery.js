@@ -7,7 +7,7 @@ const sendRawMail = require("./send_mail.js").sendRawMail;
 
 const { knex } = require("../db");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 module.exports = router;
 
 const BCRYPT_ROUNDS = 10;

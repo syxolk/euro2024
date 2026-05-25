@@ -1,8 +1,8 @@
 const { knex } = require("../db");
-const router = require("express-promise-router")();
+const router = require("express").Router();
 const i18next = require("i18next");
 
-router.use(async (req, res) => {
+router.use(async (req, res, next) => {
     res.locals.user = req.user;
     res.locals.loggedIn = !!req.user;
     res.locals.csrfToken = req.csrfToken();
@@ -16,13 +16,13 @@ router.use(async (req, res) => {
         });
     };
 
-    return "next";
+    next();
 });
 
-router.use(async (req, res) => {
+router.use(async (req, res, next) => {
     if (!req.user) {
         // If not logged in there's nothing more to do
-        return "next";
+        return next();
     }
 
     const result = await knex.raw(
@@ -49,10 +49,10 @@ router.use(async (req, res) => {
     res.locals.upcomingMatchesWithoutBet = result.rows.length;
     res.locals.upcomingMatchesWithoutBetIds = result.rows.map((x) => x.id);
 
-    return "next";
+    next();
 });
 
-router.use(async (req, res) => {
+router.use(async (req, res, next) => {
     const result = await knex.raw(
         `
         SELECT count(1)
@@ -65,13 +65,13 @@ router.use(async (req, res) => {
 
     res.locals.hasLiveMatches = result.rows[0].count > 0;
 
-    return "next";
+    next();
 });
 
-router.use(async (req, res) => {
+router.use(async (req, res, next) => {
     if (!req.user) {
         // If not logged in there's nothing more to do
-        return "next";
+        return next();
     }
 
     try {
@@ -96,7 +96,7 @@ router.use(async (req, res) => {
         console.error(err);
     }
 
-    return "next";
+    return next();
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const config = require("../config");
 const { knex } = require("../db");
 
-const router = require("express-promise-router")();
+const router = require("express").Router();
 
 router.get("/settings", (req, res) => {
     if (!req.user) {

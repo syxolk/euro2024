@@ -5,7 +5,7 @@ const mustache = require("mustache");
 const sendRawMail = require("./send_mail.js").sendRawMail;
 const BCRYPT_ROUNDS = 10;
 const { knex } = require("../db");
-const router = require("express-promise-router")();
+const router = require("express").Router();
 
 const MAIL_TEMPLATE = `Hello {{{name}}},
 thank you for registering for the Worldcup 2026 Betting Game.
