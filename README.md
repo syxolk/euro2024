@@ -34,7 +34,7 @@ npm install
 sudo -u postgres psql -c "create user cup2026 with encrypted password '123456';"
 
 # Create a new development database
-sudo -u postgres createdb cup2024 --owner=cup2026
+sudo -u postgres createdb cup2026 --owner=cup2026
 
 # Run all database migrations
 npm run migrate:latest

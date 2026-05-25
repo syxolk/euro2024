@@ -36,7 +36,7 @@ services:
         networks:
         - db
         volumes:
-        - postgres_data:/var/lib/postgresql/data
+        - postgres_data:/var/lib/postgresql
     autoupdater:
         build: ./autoupdater
         restart: unless-stopped
