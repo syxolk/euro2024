@@ -1,7 +1,6 @@
-version: "3"
 services:
     caddy:
-        image: caddy:2.8.1-alpine
+        image: caddy:2.11.3-alpine
         restart: unless-stopped
         ports:
         - "80:80"
@@ -28,7 +27,7 @@ services:
         - db
         - proxy
     db:
-        image: postgres:16.3
+        image: postgres:18.4
         restart: unless-stopped
         environment:
         - POSTGRES_USER=cup2026

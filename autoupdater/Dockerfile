@@ -1,4 +1,4 @@
-FROM alpine:3.20.0
+FROM alpine:3.23.4
 RUN apk update && apk upgrade && apk add curl
 COPY ./crontab /etc/crontabs/root
 
