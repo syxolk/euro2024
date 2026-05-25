@@ -30,7 +30,7 @@
                     Extra Bets
                 </a></li>
                 {{#if loggedIn}}
-                <li class="nav-item ms-auto dropdown">
+                <li class="nav-item ms-lg-auto dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
                         {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
@@ -47,7 +47,7 @@
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item ms-auto"><a class="nav-link" href="/register">
+                <li class="nav-item ms-lg-auto"><a class="nav-link" href="/register">
                     {{ t "navbar.register" }}
                 </a></li>
                 <li class="nav-item"><a class="nav-link" href="/login">
