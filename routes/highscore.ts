@@ -1,10 +1,22 @@
-const { knex } = require("../db");
+import { Router } from "express";
+import { Request, Response } from "express";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.get("/highscore", async (req, res) => {
-    const columns = [
+const router = Router();
+
+interface HighscoreColumn {
+    title: string;
+    orderBy: string;
+    orderDir: string;
+    active?: boolean;
+    url?: string;
+}
+
+router.get("/highscore", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    const columns: HighscoreColumn[] = [
         {
             title: req.t("highscore.column.name"),
             orderBy: "name",
@@ -58,8 +70,8 @@ router.get("/highscore", async (req, res) => {
         {
             title: "Extra",
             orderBy: "extra_bet_total",
-            orderDir: "desc"
-        }
+            orderDir: "desc",
+        },
     ];
 
     const orderBy = columns.some((c) => c.orderBy === req.query.order)
@@ -84,7 +96,7 @@ router.get("/highscore", async (req, res) => {
             " " +
             orderDir +
             ", rank ASC, name ASC",
-        { id: req.user ? req.user.id : 0 }
+        { id: user ? user.id : 0 }
     );
 
     columns.forEach((m) => {
@@ -102,6 +114,8 @@ router.get("/highscore", async (req, res) => {
         users: results.rows,
         columns,
         friends: onlyFriends,
-        hasFriends: results.rows.some((x) => x.isfriend),
+        hasFriends: results.rows.some((x: { isfriend: boolean }) => x.isfriend),
     });
 });
+
+export default router;

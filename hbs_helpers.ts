@@ -1,8 +1,13 @@
-const moment = require("moment-timezone");
-const hbs = require("hbs");
-const config = require("./config");
+import hbs from "hbs";
+import moment from "moment-timezone";
 
-module.exports = () => {
+import config from "./config";
+
+type HbsWithObjectHelpers = typeof hbs & {
+    registerHelper(helpers: Record<string, (...args: any[]) => any>): void;
+};
+
+export default function registerHbsHelpers() {
     moment.updateLocale("en", {
         calendar: {
             lastDay: "[Yesterday at] H:mm",
@@ -14,11 +19,11 @@ module.exports = () => {
         },
     });
 
-    hbs.registerHelper("asset", function (path) {
+    hbs.registerHelper("asset", function (path: string) {
         return path;
     });
 
-    hbs.registerHelper("flagUrl", function (code) {
+    hbs.registerHelper("flagUrl", function (code: string | null | undefined) {
         if (!code) {
             return "";
         }
@@ -26,73 +31,73 @@ module.exports = () => {
         return `/flags/${encodeURIComponent(String(code).toUpperCase())}`;
     });
 
-    hbs.registerHelper("calendar", function (when) {
+    hbs.registerHelper("calendar", function (when: Date | string) {
         return moment.tz(when, config.timezone).format("ddd, MMMM Do, HH:mm");
     });
 
-    hbs.registerHelper("calendarShort", function (when) {
+    hbs.registerHelper("calendarShort", function (when: Date | string) {
         return moment.tz(when, config.timezone).format("MMM D, HH:mm");
     });
 
-    hbs.registerHelper("formatTime", (when) => {
+    hbs.registerHelper("formatTime", (when: Date | string) => {
         return moment.tz(when, config.timezone).format("HH:mm");
     });
 
-    hbs.registerHelper("formatDate", (when) => {
+    hbs.registerHelper("formatDate", (when: Date | string) => {
         return moment.tz(when, config.timezone).format("ddd, MMMM Do");
     });
 
-    hbs.registerHelper("newsDate", function (when) {
+    hbs.registerHelper("newsDate", function (when: Date | string) {
         return moment.tz(when, config.timezone).calendar();
     });
 
-    hbs.registerHelper("toFixed1", function (number) {
+    hbs.registerHelper("toFixed1", function (number: number) {
         return Math.round(number * 10) / 10;
     });
 
-    hbs.registerHelper("showGoals", function (goals) {
+    hbs.registerHelper("showGoals", function (goals: number | null | undefined) {
         return goals === undefined || goals === null ? "-" : goals + "";
     });
 
-    hbs.registerHelper("isZero", function (num) {
+    hbs.registerHelper("isZero", function (num: number | string) {
         return num === 0 || num === "0";
     });
 
-    hbs.registerHelper("gt0", function (val) {
+    hbs.registerHelper("gt0", function (val: number) {
         return val > 0;
     });
 
-    hbs.registerHelper("lt0", function (val) {
+    hbs.registerHelper("lt0", function (val: number) {
         return val < 0;
     });
 
-    hbs.registerHelper("contains", function (arr, val) {
+    hbs.registerHelper("contains", function (arr: unknown[] | null | undefined, val: unknown) {
         if (arr === undefined || arr === null) {
             return false;
         }
         return arr.includes(val);
     });
 
-    hbs.registerHelper({
-        eq: function (v1, v2) {
+    (hbs as HbsWithObjectHelpers).registerHelper({
+        eq: function (v1: unknown, v2: unknown) {
             return v1 === v2;
         },
-        ne: function (v1, v2) {
+        ne: function (v1: unknown, v2: unknown) {
             return v1 !== v2;
         },
-        lt: function (v1, v2) {
+        lt: function (v1: number | string, v2: number | string) {
             return v1 < v2;
         },
-        gt: function (v1, v2) {
+        gt: function (v1: number | string, v2: number | string) {
             return v1 > v2;
         },
-        lte: function (v1, v2) {
+        lte: function (v1: number | string, v2: number | string) {
             return v1 <= v2;
         },
-        gte: function (v1, v2) {
+        gte: function (v1: number | string, v2: number | string) {
             return v1 >= v2;
         },
-        not: function (v) {
+        not: function (v: unknown) {
             return !v;
         },
         and: function () {
@@ -102,4 +107,4 @@ module.exports = () => {
             return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
         },
     });
-};
+}

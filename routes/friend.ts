@@ -1,17 +1,20 @@
-const { knex } = require("../db");
+import { knex } from "../db";
+import { Router } from "express";
+import { Request, Response } from "express";
+import { getUser } from "../request_helper";
 
-const router = require("express").Router();
-module.exports = router;
+const router = Router();
 
-router.get("/friend", async (req, res) => {
-    if (!req.user) {
+router.get("/friend", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.status(401).json({ ok: false, error: "AUTH" });
         return;
     }
 
     const friends = await knex("friend")
         .where({
-            from_user_id: req.user.id,
+            from_user_id: user.id,
         })
         .select("to_user_id");
 
@@ -21,30 +24,34 @@ router.get("/friend", async (req, res) => {
     });
 });
 
-router.post("/friend", async (req, res) => {
-    if (!req.user) {
+router.post("/friend", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.status(401).json({ ok: false, error: "AUTH" });
         return;
     }
 
     await knex("friend").insert({
-        from_user_id: req.user.id,
+        from_user_id: user.id,
         to_user_id: req.body.id,
     });
 
     res.json({ ok: true });
 });
 
-router.delete("/friend/:id", async (req, res) => {
-    if (!req.user) {
+router.delete("/friend/:id", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.status(401).json({ ok: false, error: "AUTH" });
         return;
     }
 
     await knex("friend").where({
-        from_user_id: req.user.id,
+        from_user_id: user.id,
         to_user_id: req.params.id,
     }).del();
 
     res.json({ ok: true });
 });
+
+export default router;

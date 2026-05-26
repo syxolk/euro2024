@@ -1,12 +1,15 @@
-const { knex } = require("../db");
-const config = require("../config");
-const moment = require("moment-timezone");
-const router = require("express").Router();
+import { Router } from "express";
+import { Request, Response } from "express";
+import moment from "moment-timezone";
 
-module.exports = router;
+import config from "../config";
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.get("/user/:id", async (req, res) => {
-    const user = parseInt(req.params.id);
+const router = Router();
+
+router.get("/user/:id", async (req: Request, res: Response) => {
+    const user = parseInt(String(req.params.id), 10);
 
     if (!Number.isInteger(user)) {
         res.status(404).render("404");
@@ -118,8 +121,9 @@ router.get("/user/:id", async (req, res) => {
     res.render("user", { displayedUser, matchesPerDayList, extraBets });
 });
 
-router.get("/friend_history", async (req, res) => {
-    if (!req.user) {
+router.get("/friend_history", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         return res.status(403).json({
             ok: false,
             error: "AUTH",
@@ -127,10 +131,10 @@ router.get("/friend_history", async (req, res) => {
     }
 
     const friends = await knex("friend")
-        .where({ from_user_id: req.user.id })
+        .where({ from_user_id: user.id })
         .select("to_user_id");
 
-    const userIds = [req.user.id, ...friends.map((x) => x.to_user_id)];
+    const userIds = [user.id, ...friends.map((x) => x.to_user_id)];
 
     const users = await knex("user_account")
         .select("id", "name")
@@ -224,3 +228,5 @@ router.get("/friend_history", async (req, res) => {
         labels: result.labels,
     });
 });
+
+export default router;

@@ -1,10 +1,74 @@
-const { knex } = require("../db");
+import { Router } from "express";
+import { Request, Response } from "express";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.get("/live", async (req, res) => {
-    const matches = await knex.raw(
+const router = Router();
+
+interface MatchBetEntry {
+    name: string;
+    goalsHome: number;
+    goalsAway: number;
+    id: number;
+    friend: boolean;
+    me: boolean;
+}
+
+interface LiveMatchRow {
+    id: number;
+    starts_at: Date;
+    matchtype: string;
+    hometeam: string;
+    awayteam: string;
+    home_team_code: string | null;
+    away_team_code: string | null;
+    countbets: string | number;
+    winnerhome: number;
+    winneraway: number;
+    avghome: number | null;
+    avgaway: number | null;
+    tv: string | null;
+    score_factor: number;
+    listhome: number[];
+    listaway: number[];
+    listname: string[];
+    listid: number[];
+    listfriends: boolean[];
+    listme: boolean[];
+    draw?: number;
+    bets?: {
+        home: MatchBetEntry[];
+        draw: MatchBetEntry[];
+        away: MatchBetEntry[];
+    };
+}
+
+interface FriendWithoutBet {
+    id: number;
+    name: string;
+}
+
+interface NextMatchRow {
+    match_type_name: string;
+    tv: string | null;
+    match_type_score_factor: number;
+    starts_at: Date;
+    home_team_name: string | null;
+    away_team_name: string | null;
+    home_team_code: string | null;
+    away_team_code: string | null;
+    placeholder_home: string | null;
+    placeholder_away: string | null;
+    bet_count: string | number;
+    friends_without_bet: FriendWithoutBet[];
+}
+
+router.get("/live", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    const userId = user?.id ?? 0;
+
+    const matchesResult = (await knex.raw(
         `
         SELECT match.id as id,
         match.starts_at as starts_at,
@@ -33,31 +97,33 @@ router.get("/live", async (req, res) => {
         WHERE now() > match.starts_at AND match.goals_home IS NULL AND match.goals_away IS NULL
         GROUP BY match.id;
     `,
-        { id: req.user ? req.user.id : 0 }
-    );
+        { id: userId }
+    )) as { rows: LiveMatchRow[] };
 
-    for (const match of matches.rows) {
+    for (const match of matchesResult.rows) {
         match.draw = 100 - match.winnerhome - match.winneraway;
         match.bets = { home: [], draw: [], away: [] };
-        for (var j = 0; j < match.listid.length; j++) {
+
+        for (let index = 0; index < match.listid.length; index += 1) {
             const betType =
-                match.listhome[j] > match.listaway[j]
+                match.listhome[index] > match.listaway[index]
                     ? "home"
-                    : match.listhome[j] < match.listaway[j]
-                    ? "away"
-                    : "draw";
+                    : match.listhome[index] < match.listaway[index]
+                      ? "away"
+                      : "draw";
+
             match.bets[betType].push({
-                name: match.listname[j],
-                goalsHome: match.listhome[j],
-                goalsAway: match.listaway[j],
-                id: match.listid[j],
-                friend: match.listfriends[j],
-                me: match.listme[j],
+                name: match.listname[index],
+                goalsHome: match.listhome[index],
+                goalsAway: match.listaway[index],
+                id: match.listid[index],
+                friend: match.listfriends[index],
+                me: match.listme[index],
             });
         }
     }
 
-    const nextMatches = await knex.raw(
+    const nextMatchesResult = (await knex.raw(
         `
         select
             match_type.name as match_type_name,
@@ -99,12 +165,14 @@ router.get("/live", async (req, res) => {
         order by match.starts_at asc
         limit 4
     `,
-        { id: req.user ? req.user.id : 0 }
-    );
+        { id: userId }
+    )) as { rows: NextMatchRow[] };
 
     res.render("live", {
-        matches: matches.rows,
-        nextMatches: nextMatches.rows,
-        is_logged_in: !!req.user,
+        matches: matchesResult.rows,
+        nextMatches: nextMatchesResult.rows,
+        is_logged_in: Boolean(user),
     });
 });
+
+export default router;

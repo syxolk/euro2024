@@ -1,10 +1,14 @@
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const config = require("../config");
-const { knex } = require("../db");
+import bcrypt from "bcrypt";
+import { Router } from "express";
+import { Request, Response } from "express";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
 
-const router = require("express").Router();
+import config from "../config";
+import { knex } from "../db";
+import { getUser } from "../request_helper";
+
+const router = Router();
 
 passport.use(
     new LocalStrategy(
@@ -64,12 +68,12 @@ passport.use(
     )
 );
 
-router.get("/login", function (req, res) {
+router.get("/login", function (req: Request, res: Response) {
     res.redirect("/");
 });
 
-router.get("/", function (req, res) {
-    if (req.user) {
+router.get("/", function (req: Request, res: Response) {
+    if (getUser(req)) {
         res.redirect("/me");
         return;
     }
@@ -91,20 +95,21 @@ router.post(
     })
 );
 
-router.post("/logout", function (req, res) {
+router.post("/logout", function (req: Request, res: Response) {
     req.logout(() => {
         res.redirect("/");
     });
 });
 
 // Redirect to my personal user page
-router.get("/me", function (req, res) {
-    if (!req.user) {
+router.get("/me", function (req: Request, res: Response) {
+    const user = getUser(req);
+    if (!user) {
         res.redirect("/login");
         return;
     }
 
-    res.redirect("/user/" + req.user.id);
+    res.redirect("/user/" + user.id);
 });
 
-module.exports = router;
+export default router;

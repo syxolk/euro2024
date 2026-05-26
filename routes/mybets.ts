@@ -1,12 +1,16 @@
-const { knex } = require("../db");
-const moment = require("moment-timezone");
-const config = require("../config");
+import { Router } from "express";
+import { Request, Response } from "express";
+import moment from "moment-timezone";
 
-const router = require("express").Router();
-module.exports = router;
+import config from "../config";
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.get("/mybets", async (req, res) => {
-    if (!req.user) {
+const router = Router();
+
+router.get("/mybets", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.redirect("/login");
         return;
     }
@@ -36,7 +40,7 @@ router.get("/mybets", async (req, res) => {
         .whereRaw("starts_at > now()")
         .joinRaw(
             `left join bet on (bet.match_id = match.id and bet.user_id = ?)`,
-            [req.user.id]
+            [user.id]
         )
         .leftJoin("team as home_team", "home_team.id", "match.home_team_id")
         .leftJoin("team as away_team", "away_team.id", "match.away_team_id")
@@ -72,7 +76,7 @@ router.get("/mybets", async (req, res) => {
             )
         `,
             {
-                userId: req.user.id,
+                userId: user.id,
             }
         )
         .select(
@@ -100,3 +104,5 @@ router.get("/mybets", async (req, res) => {
 
     res.render("mybets", { matchesPerDayList, extraBets });
 });
+
+export default router;

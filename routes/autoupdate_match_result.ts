@@ -1,8 +1,16 @@
-const axios = require("axios");
-const { knex } = require("../db");
+import axios from "axios";
+import { Router } from "express";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
+
+const router = Router();
+
+interface FifaMatchResult {
+    IdMatch: number;
+    HomeTeamScore: number | null;
+    AwayTeamScore: number | null;
+    MatchStatus: string;
+}
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
@@ -22,7 +30,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const errors = [];
     const success = [];
 
-    const { data } = await axios.get(
+    const { data } = (await axios.get(
         "https://api.fifa.com/api/v3/calendar/matches",
         {
             params: {
@@ -35,14 +43,16 @@ router.get("/autoupdate_match_result", async (req, res) => {
             },
             timeout: 30000,
         }
-    );
-    const matchList = data.Results;
+    )) as { data: { Results?: FifaMatchResult[] } };
+    const matchList = Array.isArray(data.Results) ? data.Results : [];
 
     if (!Array.isArray(matchList) || matchList.length === 0) {
         errors.push("Match data is empty");
     }
 
-    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
+    const matchMap = new Map<number, FifaMatchResult>(
+        matchList.map((matchItem) => [matchItem.IdMatch, matchItem])
+    );
 
     for (const match of liveMatches) {
         const matchData = matchMap.get(match.fifa_id);
@@ -86,3 +96,5 @@ router.get("/autoupdate_match_result", async (req, res) => {
         success,
     });
 });
+
+export default router;

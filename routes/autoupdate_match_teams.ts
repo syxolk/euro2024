@@ -1,10 +1,27 @@
-const axios = require("axios");
-const { knex } = require("../db");
+import axios from "axios";
+import { Router } from "express";
+import type { Knex } from "knex";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
 
-async function updateMatchTeam(trx, fifaMatchId, teamData, column) {
+const router = Router();
+
+interface FifaTeamRef {
+    IdTeam: number;
+}
+
+interface FifaMatchTeams {
+    IdMatch: number;
+    Home?: FifaTeamRef;
+    Away?: FifaTeamRef;
+}
+
+async function updateMatchTeam(
+    trx: Knex.Transaction,
+    fifaMatchId: number,
+    teamData: FifaTeamRef,
+    column: "home_team_id" | "away_team_id"
+) {
     const fifaTeamId = teamData.IdTeam;
 
     const team = await trx("team")
@@ -50,7 +67,7 @@ router.get("/autoupdate_match_teams", async (req, res) => {
         return;
     }
 
-    const { data } = await axios.get(
+    const { data } = (await axios.get(
         "https://api.fifa.com/api/v3/calendar/matches",
         {
             params: {
@@ -63,11 +80,13 @@ router.get("/autoupdate_match_teams", async (req, res) => {
             },
             timeout: 30000,
         }
-    );
+    )) as { data: { Results?: FifaMatchTeams[] } };
     const matchList = Array.isArray(data.Results) ? data.Results : [];
-    const matchMap = new Map(matchList.map((x) => [x.IdMatch, x]));
+    const matchMap = new Map<number, FifaMatchTeams>(
+        matchList.map((matchItem) => [matchItem.IdMatch, matchItem])
+    );
 
-    const result = [];
+    const result: string[] = [];
 
     await knex.transaction(async (trx) => {
         for (const m of matches) {
@@ -115,3 +134,5 @@ router.get("/autoupdate_match_teams", async (req, res) => {
         result,
     });
 });
+
+export default router;

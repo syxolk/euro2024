@@ -1,8 +1,13 @@
-const { knex } = require("../db");
-const router = require("express").Router();
-module.exports = router;
+import { Router } from "express";
+import { Request, Response } from "express";
 
-router.get("/past", async (req, res) => {
+import { knex } from "../db";
+import { getUser } from "../request_helper";
+
+const router = Router();
+
+router.get("/past", async (req: Request, res: Response) => {
+    const user = getUser(req);
     const orderByGain = req.query.gain === "1";
 
     const orderBy = orderByGain
@@ -103,11 +108,9 @@ router.get("/past", async (req, res) => {
             ORDER BY ${orderBy}
         `,
         {
-            id: req.user ? req.user.id : 0,
-            logged_in: !!req.user,
-            last_visited: req.user
-                ? req.user.past_matches_last_visited_at
-                : null,
+            id: user ? user.id : 0,
+            logged_in: !!user,
+            last_visited: user ? user.past_matches_last_visited_at : null,
         }
     );
 
@@ -122,23 +125,30 @@ router.get("/past", async (req, res) => {
         };
         match.percent.draw = 100 - match.percent.home - match.percent.away;
 
-        const bets = { correct: [], diff: [], winner: [], wrong: [] };
-        for (const bet of match.all_bets) {
+        const bets: Record<string, unknown[]> = {
+            correct: [],
+            diff: [],
+            winner: [],
+            wrong: [],
+        };
+        for (const bet of match.all_bets as Array<{ result: string }>) {
             bets[bet.result].push(bet);
         }
         match.bets = bets;
     }
 
     // Last step: Update the timestamp when the past matches page was last visited.
-    if (req.user) {
+    if (user) {
         await knex("user_account")
             .update({ past_matches_last_visited_at: knex.fn.now() })
-            .where({ id: req.user.id });
+            .where({ id: user.id });
     }
 
     res.render("past", {
         matches: matches.rows,
-        is_logged_in: !!req.user,
+        is_logged_in: !!user,
         order_by_gain: orderByGain,
     });
 });
+
+export default router;

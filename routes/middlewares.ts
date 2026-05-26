@@ -1,26 +1,37 @@
-const { knex } = require("../db");
-const router = require("express").Router();
-const i18next = require("i18next");
+import { NextFunction, Router } from "express";
+import { Request, Response } from "express";
 
-router.use(async (req, res, next) => {
-    res.locals.user = req.user;
-    res.locals.loggedIn = !!req.user;
-    res.locals.csrfToken = req.csrfToken();
+import i18next from "i18next";
+
+import { knex } from "../db";
+import { getUser } from "../request_helper";
+
+const router = Router();
+
+router.use(async (req: Request, res: Response, next: NextFunction) => {
+    const user = getUser(req);
+    res.locals.user = user;
+    res.locals.loggedIn = !!user;
+    res.locals.csrfToken = req.csrfToken?.() ?? "";
     res.locals.websiteName = "Worldcup 2026";
 
     // We need our own helper function here so that we can call i18next's "t"-function with interpolation
-    res.locals.tr = (key, options) => {
+    res.locals.tr = (
+        key: string,
+        options: { hash?: Record<string, unknown> } = {}
+    ) => {
         return i18next.t(key, {
-            ...options.hash,
-            lng: req.language
+            ...(options.hash ?? {}),
+            lng: req.language,
         });
     };
 
     next();
 });
 
-router.use(async (req, res, next) => {
-    if (!req.user) {
+router.use(async (req: Request, res: Response, next: NextFunction) => {
+    const user = getUser(req);
+    if (!user) {
         // If not logged in there's nothing more to do
         return next();
     }
@@ -43,16 +54,18 @@ router.use(async (req, res, next) => {
                 WHERE b.user_id = :user_id AND
                 b.match_id = m.id)
     `,
-        { user_id: req.user.id }
+        { user_id: user.id }
     );
 
     res.locals.upcomingMatchesWithoutBet = result.rows.length;
-    res.locals.upcomingMatchesWithoutBetIds = result.rows.map((x) => x.id);
+    res.locals.upcomingMatchesWithoutBetIds = result.rows.map(
+        (x: { id: number }) => x.id
+    );
 
     next();
 });
 
-router.use(async (req, res, next) => {
+router.use(async (req: Request, res: Response, next: NextFunction) => {
     const result = await knex.raw(
         `
         SELECT count(1)
@@ -68,8 +81,9 @@ router.use(async (req, res, next) => {
     next();
 });
 
-router.use(async (req, res, next) => {
-    if (!req.user) {
+router.use(async (req: Request, res: Response, next: NextFunction) => {
+    const user = getUser(req);
+    if (!user) {
         // If not logged in there's nothing more to do
         return next();
     }
@@ -85,9 +99,7 @@ router.use(async (req, res, next) => {
             (goals_inserted_at > :last_visited or :last_visited::timestamptz is null)
     `,
             {
-                last_visited: req.user
-                    ? req.user.past_matches_last_visited_at
-                    : null,
+                last_visited: user.past_matches_last_visited_at,
             }
         );
 
@@ -99,4 +111,4 @@ router.use(async (req, res, next) => {
     return next();
 });
 
-module.exports = router;
+export default router;

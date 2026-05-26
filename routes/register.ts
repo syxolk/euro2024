@@ -1,11 +1,16 @@
-const config = require("../config");
-const bcrypt = require("bcrypt");
-const uuid = require("uuid");
-const mustache = require("mustache");
-const sendRawMail = require("./send_mail.js").sendRawMail;
+import bcrypt from "bcrypt";
+import { Router } from "express";
+import { Request, Response } from "express";
+import mustache from "mustache";
+import { v4 as uuidv4 } from "uuid";
+
+import config from "../config";
+import { knex } from "../db";
+import { getUser } from "../request_helper";
+import { sendRawMail } from "./send_mail";
+
 const BCRYPT_ROUNDS = 10;
-const { knex } = require("../db");
-const router = require("express").Router();
+const router = Router();
 
 const MAIL_TEMPLATE = `Hello {{{name}}},
 thank you for registering for the Worldcup 2026 Betting Game.
@@ -24,9 +29,18 @@ Please confirm your email address:
 Happy Betting!
 the Game Master`;
 
-function sendMail(user) {
+interface RegistrationUser {
+    id: number;
+    name: string;
+    email: string;
+    admin?: boolean;
+    past_matches_last_visited_at?: Date | null;
+    email_confirm_token: string;
+}
+
+function sendMail(user: RegistrationUser) {
     const mail = {
-        from: config.mailFrom,
+        from: config.mailFrom ?? "",
         to: user.email,
         subject: "Activate your Worldcup 2026 Account",
         text: mustache.render(MAIL_TEMPLATE, {
@@ -38,8 +52,8 @@ function sendMail(user) {
     return sendRawMail(mail);
 }
 
-router.get("/register", function (req, res) {
-    if (req.user) {
+router.get("/register", function (req: Request, res: Response) {
+    if (getUser(req)) {
         res.redirect("/me");
         return;
     }
@@ -65,9 +79,9 @@ router.post("/register", async (req, res) => {
 
     const encrypted = await bcrypt.hash(req.body.password, BCRYPT_ROUNDS);
 
-    const token = uuid.v4();
+    const token = uuidv4();
 
-    let user = null;
+    let user: RegistrationUser | null = null;
 
     try {
         const result = await knex("user_account")
@@ -93,6 +107,12 @@ router.post("/register", async (req, res) => {
     } catch (err) {
         console.error(err);
         req.flash("error", "Email address is already in use.");
+        res.redirect("/register");
+        return;
+    }
+
+    if (!user) {
+        req.flash("error", "Could not create user.");
         res.redirect("/register");
         return;
     }
@@ -148,4 +168,4 @@ router.post("/activate/:code", async (req, res) => {
     res.render("activate", { success: true });
 });
 
-module.exports = router;
+export default router;

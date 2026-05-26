@@ -1,7 +1,8 @@
-const nodemailer = require("nodemailer");
-const axios = require("axios");
-const Mailjet = require("node-mailjet");
-const config = require("../config");
+import axios from "axios";
+import Mailjet from "node-mailjet";
+import nodemailer from "nodemailer";
+
+import config from "../config";
 
 /*
     mail should have:
@@ -10,14 +11,25 @@ const config = require("../config");
     - subject
     - text
 */
-module.exports.sendRawMail = async (mail) => {
+interface MailPayload {
+    from: string;
+    to: string;
+    subject: string;
+    text: string;
+}
+
+export async function sendRawMail(mail: MailPayload) {
     if (config.mail === "mailjet") {
+        const mailParams = config.mailParams as {
+            apiKey?: string;
+            apiSecret?: string;
+        };
         const client = new Mailjet({
-            apiKey: config.mailParams.apiKey,
-            apiSecret: config.mailParams.apiSecret,
+            apiKey: mailParams.apiKey,
+            apiSecret: mailParams.apiSecret,
         });
 
-        const response = await client.post("send", { version: "v3.1" }).request({
+        await client.post("send", { version: "v3.1" }).request({
             Messages: [
                 {
                     From: {
@@ -35,7 +47,15 @@ module.exports.sendRawMail = async (mail) => {
             ],
         });
     } else if (config.mail === "smtp") {
-        const transporter = nodemailer.createTransport(config.mailParams);
+        const mailParams = config.mailParams as {
+            host?: string;
+            port?: number;
+            auth?: {
+                user?: string;
+                pass?: string;
+            };
+        };
+        const transporter = nodemailer.createTransport(mailParams);
         return new Promise((resolve, reject) => {
             transporter.sendMail(mail, (error, info) => {
                 if (error) {
@@ -45,13 +65,18 @@ module.exports.sendRawMail = async (mail) => {
             });
         });
     } else if (config.mail === "mailgun") {
+        const mailParams = config.mailParams as {
+            host?: string;
+            domain?: string;
+            apiKey?: string;
+        };
         const params = new URLSearchParams();
         for (const [key, value] of Object.entries(mail)) {
-            params.append(key, value);
+            params.append(key, String(value));
         }
 
         const { data } = await axios.post(
-            `https://${config.mailParams.host}/v3/${config.mailParams.domain}/messages`,
+            `https://${mailParams.host}/v3/${mailParams.domain}/messages`,
             params.toString(),
             {
                 headers: {
@@ -59,7 +84,7 @@ module.exports.sendRawMail = async (mail) => {
                 },
                 auth: {
                     username: "api",
-                    password: config.mailParams.apiKey,
+                    password: mailParams.apiKey ?? "",
                 },
             }
         );
@@ -68,4 +93,4 @@ module.exports.sendRawMail = async (mail) => {
     } else {
         console.log(mail);
     }
-};
+}

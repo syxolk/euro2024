@@ -1,9 +1,13 @@
-const { knex } = require("../db");
+import { Router } from "express";
+import { Request, Response } from "express";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.get("/extra_bet_list", async (req, res) => {
+const router = Router();
+
+router.get("/extra_bet_list", async (req: Request, res: Response) => {
+    const user = getUser(req);
     const query = knex("extra_bet")
         .select(
             "id",
@@ -39,7 +43,7 @@ router.get("/extra_bet_list", async (req, res) => {
             ) as teams
             `,
                 {
-                    friendCheck: req.user
+                    friendCheck: user
                         ? knex.raw(
                               `
                             (exists (
@@ -49,12 +53,12 @@ router.get("/extra_bet_list", async (req, res) => {
                                 and to_user_id = user_account.id
                             ))
                         `,
-                              { userId: req.user.id }
+                                                            { userId: user.id }
                           )
                         : knex.raw("false"),
-                    meCheck: req.user
+                                        meCheck: user
                         ? knex.raw("(user_account.id = :userId)", {
-                              userId: req.user.id,
+                                                            userId: user.id,
                           })
                         : knex.raw("false"),
                 }
@@ -67,3 +71,5 @@ router.get("/extra_bet_list", async (req, res) => {
 
     res.render("extra_bet_list", { extraBets });
 });
+
+export default router;

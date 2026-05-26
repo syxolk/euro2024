@@ -1,10 +1,13 @@
-const { knex } = require("../db");
-const router = require("express").Router();
+import { Router } from "express";
+import { Request, Response } from "express";
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-module.exports = router;
+const router = Router();
 
-router.get("/admin", async (req, res) => {
-    if (!req.user || req.user.admin !== true) {
+router.get("/admin", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user || user.admin !== true) {
         res.status(404).render("404");
         return;
     }
@@ -67,8 +70,9 @@ router.get("/admin", async (req, res) => {
     });
 });
 
-router.post("/admin", async (req, res) => {
-    if (!req.user || req.user.admin !== true) {
+router.post("/admin", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user || user.admin !== true) {
         res.redirect("/admin");
         return;
     }
@@ -105,3 +109,5 @@ router.post("/admin", async (req, res) => {
         res.redirect("/admin");
     }
 });
+
+export default router;

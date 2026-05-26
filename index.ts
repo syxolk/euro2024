@@ -1,30 +1,40 @@
-const express = require("express");
-const hbs = require("hbs");
-const session = require("express-session");
-const KnexSessionStore = require("connect-session-knex")(session);
-const passport = require("passport");
-const compression = require("compression");
-const { csrfSync } = require("csrf-sync");
-const helmet = require("helmet");
-const ms = require("ms");
-const morgan = require("morgan");
-const flash = require("connect-flash");
-const config = require("./config");
-const { knex } = require("./db");
-const i18next = require("i18next");
-const middleware = require("i18next-http-middleware");
+import compression from "compression";
+import connectFlash from "connect-flash";
+import connectSessionKnex from "connect-session-knex";
+import { csrfSync } from "csrf-sync";
+import express from "express";
+import session from "express-session";
+import hbs from "hbs";
+import helmet from "helmet";
+import i18next from "i18next";
+import middleware from "i18next-http-middleware";
+import morgan from "morgan";
+import ms from "ms";
+import passport from "passport";
+
+import config from "./config";
+import { knex } from "./db";
+import registerHbsHelpers from "./hbs_helpers";
+import deTranslations from "./locales/de.json";
+import enTranslations from "./locales/en.json";
+import ptBrTranslations from "./locales/pt-BR.json";
+import routes from "./routes/index";
+import registerStaticAssets from "./routes/static";
+import type { User } from "./request_helper";
+
+const KnexSessionStore = connectSessionKnex(session);
 
 i18next.use(middleware.LanguageDetector).init({
     fallbackLng: "en",
     resources: {
         en: {
-            translation: require("./locales/en.json"),
+            translation: enTranslations,
         },
         de: {
-            translation: require("./locales/de.json"),
+            translation: deTranslations,
         },
-        'pt-BR': {
-            translation: require("./locales/pt-BR.json"),
+        "pt-BR": {
+            translation: ptBrTranslations,
         },
     },
     detection: {
@@ -33,12 +43,12 @@ i18next.use(middleware.LanguageDetector).init({
 });
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    done(null, (user as User).id);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser(function (id: number, done) {
     knex("user_account")
-        .where({ id: id })
+        .where({ id })
         .select(
             "id",
             "name",
@@ -72,14 +82,14 @@ app.use(
 app.locals.origin = config.origin;
 hbs.localsAsTemplateData(app);
 
-require("./hbs_helpers.js")();
+registerHbsHelpers();
 
 const { csrfSynchronisedProtection } = csrfSync({
     getTokenFromRequest: (req) => req.body._csrf || req.headers["x-csrf-token"],
 });
 
 app.use(compression());
-require("./routes/static.js")(app);
+registerStaticAssets(app);
 app.use("/static", express.static(__dirname + "/static"));
 app.use(express.static(__dirname + "/assets/images"));
 app.use(express.static(__dirname + "/webroot"));
@@ -145,12 +155,12 @@ app.use(
         },
     })
 );
-app.use(flash());
+app.use(connectFlash());
 app.use(csrfSynchronisedProtection);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require("./routes"));
+app.use(routes);
 
 app.listen(config.httpPort, function () {
     console.log("Visit %s", config.origin);

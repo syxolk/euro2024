@@ -1,5 +1,6 @@
-const fs = require("fs");
-const crypto = require("crypto");
+import crypto from "crypto";
+import fs from "fs";
+import type { Application } from "express";
 
 const scripts = [
     "./node_modules/jquery/dist/jquery.min.js",
@@ -26,7 +27,7 @@ const vendorCss = styles.map((path) => {
 const vendorCssHash = crypto.createHash("sha1").update(vendorCss).digest("hex");
 const vendorCssPath = `/static/css/vendor-${vendorCssHash}.css`;
 
-module.exports = (app) => {
+export default function registerStaticAssets(app: Application) {
     app.locals.vendorJsPath = vendorJsPath;
     app.get(vendorJsPath, (req, res) => {
         res.set("Content-Type", "application/javascript");
@@ -40,4 +41,4 @@ module.exports = (app) => {
         res.set("Cache-Control", "public, max-age=31536000");
         res.send(vendorCss);
     });
-};
+}

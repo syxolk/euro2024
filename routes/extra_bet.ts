@@ -1,10 +1,14 @@
-const { knex } = require("../db");
+import { Router } from "express";
+import { Request, Response } from "express";
 
-const router = require("express").Router();
-module.exports = router;
+import { knex } from "../db";
+import { getUser } from "../request_helper";
 
-router.post("/extra_bet/:id", async (req, res) => {
-    if (!req.user) {
+const router = Router();
+
+router.post("/extra_bet/:id", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.redirect("/login");
         return;
     }
@@ -43,7 +47,7 @@ router.post("/extra_bet/:id", async (req, res) => {
 
     await knex("user_account_extra_bet")
         .insert({
-            user_id: req.user.id,
+            user_id: user.id,
             extra_bet_id: req.params.id,
             selected_team_ids: teamIdsToSelect,
         })
@@ -53,8 +57,9 @@ router.post("/extra_bet/:id", async (req, res) => {
     res.redirect("/mybets");
 });
 
-router.get("/extra_bet/:id", async (req, res) => {
-    if (!req.user) {
+router.get("/extra_bet/:id", async (req: Request, res: Response) => {
+    const user = getUser(req);
+    if (!user) {
         res.redirect("/login");
         return;
     }
@@ -68,7 +73,7 @@ router.get("/extra_bet/:id", async (req, res) => {
             )
         `,
             {
-                userId: req.user.id,
+                userId: user.id,
             }
         )
         .select(
@@ -102,3 +107,5 @@ router.get("/extra_bet/:id", async (req, res) => {
 
     res.render("extra_bet", { extraBet, teams });
 });
+
+export default router;

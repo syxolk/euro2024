@@ -1,14 +1,14 @@
-const ms = require("ms");
-const uuid = require("uuid");
-const mustache = require("mustache");
-const bcrypt = require("bcrypt");
-const config = require("../config");
-const sendRawMail = require("./send_mail.js").sendRawMail;
+import bcrypt from "bcrypt";
+import { Router } from "express";
+import ms from "ms";
+import mustache from "mustache";
+import { v4 as uuidv4 } from "uuid";
 
-const { knex } = require("../db");
+import config from "../config";
+import { knex } from "../db";
+import { sendRawMail } from "./send_mail";
 
-const router = require("express").Router();
-module.exports = router;
+const router = Router();
 
 const BCRYPT_ROUNDS = 10;
 // Minimum delay between creating a reset token and creating a new one
@@ -27,9 +27,17 @@ It's valid for 24 hours. If you didn't expect this email you can safely ignore i
 Happy Betting!
 the Game Master`;
 
-function sendMail(user, token) {
+interface PasswordRecoveryUser {
+    id: number;
+    name: string;
+    email: string;
+    email_confirmed?: boolean;
+    password_reset_created_at?: Date | null;
+}
+
+function sendMail(user: PasswordRecoveryUser, token: string) {
     const mail = {
-        from: config.mailFrom,
+        from: config.mailFrom ?? "",
         to: user.email,
         subject: "Reset your Worldcup 2026 Password",
         text: mustache.render(MAIL_TEMPLATE, {
@@ -95,7 +103,7 @@ router.post("/password_recovery", async (req, res) => {
     }
 
     // Create new token and memorize creation date
-    const token = uuid.v4();
+    const token = uuidv4();
 
     await knex("user_account")
         .update({
@@ -163,3 +171,5 @@ router.post("/password_reset/:code", async (req, res) => {
     req.flash("message", "You changed your password successfully.");
     res.redirect("/password_reset/" + req.params.code);
 });
+
+export default router;
