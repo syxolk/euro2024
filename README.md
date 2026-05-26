@@ -40,7 +40,7 @@ sudo -u postgres createdb cup2026 --owner=cup2026
 npm run migrate:latest
 ```
 
-To start everything (with automatic code reload powered by `nodemon`):
+To start everything (with automatic code reload powered by `tsx`):
 
 ```sh
 npm start

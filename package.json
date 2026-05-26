@@ -8,7 +8,7 @@
     "url": "https://github.com/syxolk/euro2016"
   },
   "scripts": {
-    "start": "nodemon --exec tsx index.ts",
+    "start": "tsx watch index.ts",
     "typecheck": "tsc --noEmit",
     "migrate:latest": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:latest",
     "migrate:rollback": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:rollback",
@@ -41,7 +41,6 @@
     "mustache": "^4.2.0",
     "node-mailjet": "^6.0.8",
     "nodemailer": "^8.0.5",
-    "nodemon": "^3.1.2",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
