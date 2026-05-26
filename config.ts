@@ -43,7 +43,12 @@ const config: AppConfig = {
     origin: process.env.ORIGIN || "http://localhost:8080",
     httpPort: process.env.PORT || 8080,
     sessionSecret: process.env.SESSION_SECRET || "octocat",
+
+    // Timezone offset used for all datetime outputs (by moment.js)
+    // Defaults to CEST (Central European Summer Time)
     timezone: "Europe/Berlin",
+
+    // Set to true if the node runs behind a proxy that sets X-Forwarded-* headers
     trustProxy: process.env.TRUST_PROXY === "1",
     mail: process.env.MAIL_SOLUTION,
     mailFrom: process.env.MAIL_FROM,

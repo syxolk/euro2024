@@ -3,10 +3,6 @@ import moment from "moment-timezone";
 
 import config from "./config";
 
-type HbsWithObjectHelpers = typeof hbs & {
-    registerHelper(helpers: Record<string, (...args: any[]) => any>): void;
-};
-
 export default function registerHbsHelpers() {
     moment.updateLocale("en", {
         calendar: {
@@ -78,33 +74,39 @@ export default function registerHbsHelpers() {
         return arr.includes(val);
     });
 
-    (hbs as HbsWithObjectHelpers).registerHelper({
-        eq: function (v1: unknown, v2: unknown) {
-            return v1 === v2;
-        },
-        ne: function (v1: unknown, v2: unknown) {
-            return v1 !== v2;
-        },
-        lt: function (v1: number | string, v2: number | string) {
-            return v1 < v2;
-        },
-        gt: function (v1: number | string, v2: number | string) {
-            return v1 > v2;
-        },
-        lte: function (v1: number | string, v2: number | string) {
-            return v1 <= v2;
-        },
-        gte: function (v1: number | string, v2: number | string) {
-            return v1 >= v2;
-        },
-        not: function (v: unknown) {
-            return !v;
-        },
-        and: function () {
-            return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
-        },
-        or: function () {
-            return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
-        },
+    hbs.registerHelper("eq", function (v1: unknown, v2: unknown) {
+        return v1 === v2;
+    });
+
+    hbs.registerHelper("ne", function (v1: unknown, v2: unknown) {
+        return v1 !== v2;
+    });
+
+    hbs.registerHelper("lt", function (v1: number | string, v2: number | string) {
+        return v1 < v2;
+    });
+
+    hbs.registerHelper("gt", function (v1: number | string, v2: number | string) {
+        return v1 > v2;
+    });
+
+    hbs.registerHelper("lte", function (v1: number | string, v2: number | string) {
+        return v1 <= v2;
+    });
+
+    hbs.registerHelper("gte", function (v1: number | string, v2: number | string) {
+        return v1 >= v2;
+    });
+
+    hbs.registerHelper("not", function (v: unknown) {
+        return !v;
+    });
+
+    hbs.registerHelper("and", function () {
+        return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
+    });
+
+    hbs.registerHelper("or", function () {
+        return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
     });
 }
