@@ -5,16 +5,31 @@
 .not-betted {
     background-color: #e6ff99;
 }
+
+[data-bs-theme=dark] .not-betted {
+    background-color: #493d0a;
+}
+
+.autosave {
+    --autosave-success-bg: rgba(25, 135, 84, 0.25);
+    --autosave-error-bg: rgba(220, 53, 69, 0.25);
+}
+
+[data-bs-theme=dark] .autosave {
+    --autosave-success-bg: rgba(25, 135, 84, 0.45);
+    --autosave-error-bg: rgba(220, 53, 69, 0.45);
+}
+
 @keyframes pulse-success {
-    0%, 100% { background-color: white; }
-    30% { background-color: #76FF7A; }
+    0%, 100% { background-color: transparent; }
+    30% { background-color: var(--autosave-success-bg); }
 }
 .autosave-success {
     animation: pulse-success 1s;
 }
 @keyframes pulse-error {
-    0%, 100% { background-color: white; }
-    30% { background-color: #DC381F; }
+    0%, 100% { background-color: transparent; }
+    30% { background-color: var(--autosave-error-bg); }
 }
 .autosave-error {
     animation: pulse-error 1s;

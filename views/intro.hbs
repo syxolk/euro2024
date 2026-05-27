@@ -1,44 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
 <title>{{ t "intro.title" }} - {{@websiteName}}</title>
-<style>
-    .intro-faq {
-        margin-top: 0.75rem;
-    }
-
-    .intro-faq .accordion-item {
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    }
-
-    .intro-faq .accordion-item + .accordion-item {
-        margin-top: 0.9rem;
-    }
-
-    .intro-faq .accordion-button {
-        padding: 1rem 1.25rem;
-        font-weight: 600;
-        color: #0f172a;
-        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    }
-
-    .intro-faq .accordion-button:not(.collapsed) {
-        color: #0f172a;
-        background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
-        box-shadow: none;
-    }
-
-    .intro-faq .accordion-button:focus {
-        box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.2);
-    }
-
-    .intro-faq .accordion-body {
-        color: #334155;
-        background: #ffffff;
-    }
-</style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}

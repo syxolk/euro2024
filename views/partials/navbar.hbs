@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-lg bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/intro">{{@websiteName}}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,8 +29,14 @@
                 <li class="nav-item"><a class="nav-link" href="/extra_bet_list">
                     Extra Bets
                 </a></li>
+                <li class="nav-item ms-lg-auto d-flex align-items-center">
+                    <div class="form-check form-switch my-2 my-lg-0">
+                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch" data-theme-toggle aria-label="{{ t "navbar.dark_mode" }}">
+                        <label class="form-check-label small" for="themeSwitch">{{ t "navbar.dark_mode" }}</label>
+                    </div>
+                </li>
                 {{#if loggedIn}}
-                <li class="nav-item ms-lg-auto dropdown">
+                <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
                         {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
@@ -47,7 +53,7 @@
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item ms-lg-auto"><a class="nav-link" href="/register">
+                <li class="nav-item"><a class="nav-link" href="/register">
                     {{ t "navbar.register" }}
                 </a></li>
                 <li class="nav-item"><a class="nav-link" href="/login">
