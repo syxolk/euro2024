@@ -8,12 +8,48 @@ import { getUser } from "../request_helper";
 
 const router = Router();
 
+function getActiveNav(path: string) {
+    if (path === "/me" || path.startsWith("/user/")) {
+        return "profile";
+    }
+    if (path === "/mybets") {
+        return "mybets";
+    }
+    if (path === "/live") {
+        return "live";
+    }
+    if (path === "/past") {
+        return "past";
+    }
+    if (path === "/highscore") {
+        return "highscore";
+    }
+    if (path === "/extra_bet_list" || path.startsWith("/extra_bet/")) {
+        return "extra_bet_list";
+    }
+    if (path === "/settings") {
+        return "settings";
+    }
+    if (path === "/admin" || path === "/admin_extra_bet") {
+        return "admin";
+    }
+    if (path === "/register") {
+        return "register";
+    }
+    if (path === "/login") {
+        return "login";
+    }
+
+    return null;
+}
+
 router.use(async (req: Request, res: Response, next: NextFunction) => {
     const user = getUser(req);
     res.locals.user = user;
     res.locals.loggedIn = !!user;
     res.locals.csrfToken = req.csrfToken?.() ?? "";
     res.locals.websiteName = "Worldcup 2026";
+    res.locals.activeNav = getActiveNav(req.path);
 
     // We need our own helper function here so that we can call i18next's "t"-function with interpolation
     res.locals.tr = (

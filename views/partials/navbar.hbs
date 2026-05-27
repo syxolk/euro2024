@@ -7,26 +7,26 @@
         <div id="navbarSupportedContent" class="navbar-collapse collapse">
             <ul class="navbar-nav w-100">
                 {{#if loggedIn}}
-                <li class="nav-item"><a class="nav-link" href="/me">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "profile")}} active{{/if}}" href="/me"{{#if (eq activeNav "profile")}} aria-current="page"{{/if}}>
                     {{ t "navbar.profile" }}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/mybets">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "mybets")}} active{{/if}}" href="/mybets"{{#if (eq activeNav "mybets")}} aria-current="page"{{/if}}>
                     {{ t "navbar.my_bets" }}
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge bg-warning text-dark">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
-                <li class="nav-item"><a class="nav-link" href="/live">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "live")}} active{{/if}}" href="/live"{{#if (eq activeNav "live")}} aria-current="page"{{/if}}>
                     {{ t "navbar.live_matches" }}
                     {{#if hasLiveMatches}}<span class="badge bg-success">NOW</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/past">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "past")}} active{{/if}}" href="/past"{{#if (eq activeNav "past")}} aria-current="page"{{/if}}>
                     {{ t "navbar.past_matches" }}
                     {{#if (gt unseenPastMatches 0)}}<span class="badge bg-warning text-dark">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/highscore">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "highscore")}} active{{/if}}" href="/highscore"{{#if (eq activeNav "highscore")}} aria-current="page"{{/if}}>
                     {{ t "navbar.highscore" }}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/extra_bet_list">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "extra_bet_list")}} active{{/if}}" href="/extra_bet_list"{{#if (eq activeNav "extra_bet_list")}} aria-current="page"{{/if}}>
                     Extra Bets
                 </a></li>
                 <li class="nav-item ms-lg-auto d-flex align-items-center">
@@ -37,10 +37,10 @@
                 </li>
                 {{#if loggedIn}}
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
+                    <a href="#" class="nav-link dropdown-toggle{{#if (or (eq activeNav "admin") (eq activeNav "settings"))}} active{{/if}}" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        {{#if user.admin}}<a class="dropdown-item" href="/admin">Admin</a>{{/if}}
-                        <a class="dropdown-item" href="/settings">
+                        {{#if user.admin}}<a class="dropdown-item{{#if (eq activeNav "admin")}} active{{/if}}" href="/admin">Admin</a>{{/if}}
+                        <a class="dropdown-item{{#if (eq activeNav "settings")}} active{{/if}}" href="/settings">
                             {{ t "navbar.settings" }}
                         </a>
                         <div class="dropdown-divider"></div>
@@ -53,10 +53,10 @@
                     </div>
                 </li>
                 {{else}}
-                <li class="nav-item"><a class="nav-link" href="/register">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "register")}} active{{/if}}" href="/register"{{#if (eq activeNav "register")}} aria-current="page"{{/if}}>
                     {{ t "navbar.register" }}
                 </a></li>
-                <li class="nav-item"><a class="nav-link" href="/login">
+                <li class="nav-item"><a class="nav-link{{#if (eq activeNav "login")}} active{{/if}}" href="/login"{{#if (eq activeNav "login")}} aria-current="page"{{/if}}>
                     {{ t "navbar.login" }}
                 </a></li>
                 {{/if}}
