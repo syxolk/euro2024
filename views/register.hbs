@@ -20,21 +20,21 @@
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="mb-3">
             <label for="name">{{ t "register.name" }}</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Anonymous" minlength="3" maxlength="30" required value="{{name}}">
+            <input type="text" class="form-control" name="name" id="name" minlength="3" maxlength="30" required value="{{name}}">
             <small class="form-text text-muted">
                 {{ t "register.name_info" }}
             </small>
         </div>
         <div class="mb-3">
             <label for="email">{{ t "register.email" }}</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required value="{{email}}">
+            <input type="email" class="form-control" name="email" id="email" required value="{{email}}">
             <small class="form-text text-muted">
                 {{ t "register.email_info" }}
             </small>
         </div>
         <div class="mb-3">
             <label for="password">{{ t "register.password" }}</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="correct horse battery staple" minlength="6" required>
+            <input type="password" class="form-control" name="password" id="password" minlength="6" required>
             <small class="form-text text-muted">
                 {{ t "register.password_info" }}
             </small>

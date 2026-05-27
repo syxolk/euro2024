@@ -19,13 +19,13 @@
             <label for="email">
                 {{ @t "login.email" }}
             </label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="info@example.com" required value="{{email}}">
+            <input type="email" class="form-control" name="email" id="email" required value="{{email}}">
         </div>
         <div class="mb-3">
             <label for="password">
                 {{ @t "login.password" }}
             </label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="correct horse battery staple" minlength="6" required>
+            <input type="password" class="form-control" name="password" id="password" minlength="6" required>
         </div>
         <div class="mb-3">
             <button class="btn btn-primary w-100" type="submit">
