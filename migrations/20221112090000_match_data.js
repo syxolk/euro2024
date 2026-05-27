@@ -1,6 +1,6 @@
-const data = require("../tools/worldcup2026/worldcup2026.json");
+import data from "../tools/worldcup2026/worldcup2026.json";
 
-exports.up = async (knex) => {
+export async function up(knex) {
     const teams = await knex("team").insert(data.teams).returning(["id"]);
     const types = await knex("match_type").insert(data.types).returning(["id"]);
 
@@ -14,6 +14,6 @@ exports.up = async (knex) => {
             match_type_id: types[x.match_type_id].id,
         }))
     );
-};
+}
 
-exports.down = function (knex) {};
+export function down(knex) {}
