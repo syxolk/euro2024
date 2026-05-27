@@ -1,5 +1,5 @@
-const { knex } = require("../db");
-const router = require("express").Router();
+ { knex } = require("../db");
+ router = require("express").Router();
 
 module.exports = router;
 
