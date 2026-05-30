@@ -11,6 +11,7 @@ export interface TestUser {
     email: string;
     password: string;
     name: string;
+    admin?: boolean;
 }
 
 /**
@@ -30,7 +31,7 @@ export async function createTestUser(
             email,
             name,
             password: hash,
-            admin: false,
+            admin: overrides.admin ?? false,
             email_confirmed: true,
             created_at: new Date(),
             past_matches_last_visited_at: new Date(),
@@ -65,8 +66,33 @@ export async function authenticatedAgent(
  */
 export async function truncateTables(knex: import("knex").Knex): Promise<void> {
     await knex.raw(
-        "TRUNCATE TABLE bet, friend, user_account, match, team, match_type RESTART IDENTITY CASCADE"
+        "TRUNCATE TABLE bet, friend, user_account, match, team, match_type, extra_bet, user_account_extra_bet RESTART IDENTITY CASCADE"
     );
+}
+
+/**
+ * Seeds an extra_bet row and returns the id.
+ */
+export async function seedExtraBet(
+    knex: import("knex").Knex,
+    overrides: {
+        name?: string;
+        number_of_teams?: number;
+        editable_until?: Date;
+        score_factor?: number;
+        team_ids?: number[];
+    } = {}
+): Promise<number> {
+    const [row] = await knex("extra_bet")
+        .insert({
+            name: overrides.name ?? "Test Extra Bet",
+            number_of_teams: overrides.number_of_teams ?? 1,
+            editable_until: overrides.editable_until ?? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            score_factor: overrides.score_factor ?? 5,
+            team_ids: overrides.team_ids ?? knex.raw("'{}'"),
+        })
+        .returning("id");
+    return row.id;
 }
 
 /**
