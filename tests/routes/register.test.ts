@@ -120,7 +120,7 @@ describe("POST /activate/:code", () => {
 
         const res = await supertest(app).post(`/activate/${token}`).type("form").send({});
         expect(res.status).toBe(200);
-        expect(res.text).toContain("success");
+        expect(res.text).toContain("alert-success");
 
         const dbUser = await knex("user_account")
             .where({ email: "unconfirmed@example.com" })
@@ -138,6 +138,6 @@ describe("POST /activate/:code", () => {
             .type("form")
             .send({});
         expect(res.status).toBe(200);
-        expect(res.text).toContain("error");
+        expect(res.text).toContain("alert-danger");
     });
 });

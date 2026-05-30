@@ -53,6 +53,15 @@ describe("GET /autoupdate_match_result", () => {
 
         const res = await supertest(app).get("/autoupdate_match_result");
         expect(res.status).toBe(200);
+        expect(res.body).toMatchInlineSnapshot(`
+          {
+            "errors": [],
+            "ok": true,
+            "success": [
+              "Match 42001 result set as 2:1",
+            ],
+          }
+        `);
         expect(res.body.ok).toBe(true);
 
         const match = await knex("match").where({ fifa_id: String(fifaId) }).first();
@@ -116,6 +125,14 @@ describe("GET /autoupdate_match_teams", () => {
 
         const res = await supertest(app).get("/autoupdate_match_teams");
         expect(res.status).toBe(200);
+        expect(res.body).toMatchInlineSnapshot(`
+          {
+            "ok": true,
+            "result": [
+              "Home team updated for match 55001",
+            ],
+          }
+        `);
 
         const match = await knex("match").where({ fifa_id: String(fifaMatchId) }).first();
         expect(match.home_team_id).toBe(teamId);

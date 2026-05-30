@@ -18,14 +18,14 @@ interface FifaMatchTeams {
 
 async function updateMatchTeam(
     trx: Knex.Transaction,
-    fifaMatchId: number,
+    fifaMatchId: string,
     teamData: FifaTeamRef,
     column: "home_team_id" | "away_team_id"
 ) {
     const fifaTeamId = teamData.IdTeam;
 
     const team = await trx("team")
-        .select("id")
+        .select<{ id: number }[]>("id")
         .where({ fifa_id: fifaTeamId })
         .first();
 
@@ -34,7 +34,13 @@ async function updateMatchTeam(
     }
 
     const match = await trx("match")
-        .select("id", column)
+        .select<
+            {
+                id: number;
+                home_team_id?: number | null;
+                away_team_id?: number | null;
+            }[]
+        >("id", column)
         .where({ fifa_id: fifaMatchId })
         .first();
 
@@ -56,7 +62,7 @@ async function updateMatchTeam(
 
 router.get("/autoupdate_match_teams", async (req, res) => {
     const matches = await knex("match")
-        .select("id", "fifa_id")
+        .select<{ id: number; fifa_id: string }[]>("id", "fifa_id")
         .whereRaw("home_team_id is null OR away_team_id is null");
 
     if (matches.length === 0) {
@@ -76,14 +82,15 @@ router.get("/autoupdate_match_teams", async (req, res) => {
             },
             headers: {
                 Accept: "application/json",
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
+                "User-Agent":
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
             },
             timeout: 30000,
         }
     )) as { data: { Results?: FifaMatchTeams[] } };
     const matchList = Array.isArray(data.Results) ? data.Results : [];
-    const matchMap = new Map<number, FifaMatchTeams>(
-        matchList.map((matchItem) => [matchItem.IdMatch, matchItem])
+    const matchMap = new Map<string, FifaMatchTeams>(
+        matchList.map((matchItem) => [`${matchItem.IdMatch}`, matchItem])
     );
 
     const result: string[] = [];

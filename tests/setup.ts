@@ -23,6 +23,7 @@ export async function setup(): Promise<void> {
 }
 
 export async function teardown(): Promise<void> {
-    console.log("Stopping test database...");
-    execSync(`docker compose -f "${COMPOSE_FILE}" down`, { stdio: "inherit" });
+    // Don't teardown for faster test iterations during development.
+    // console.log("Stopping test database...");
+    // execSync(`docker compose -f "${COMPOSE_FILE}" down`, { stdio: "inherit" });
 }

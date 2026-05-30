@@ -14,7 +14,7 @@ interface FifaMatchResult {
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
-        .select("id", "fifa_id")
+        .select<{ id: number; fifa_id: string }[]>("id", "fifa_id")
         .whereNull("goals_away")
         .whereNull("goals_home")
         .whereRaw("now() > match.starts_at");
@@ -30,7 +30,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const errors = [];
     const success = [];
 
-    const { data } = (await axios.get(
+    const { data } = await axios.get<{ Results?: FifaMatchResult[] }>(
         "https://api.fifa.com/api/v3/calendar/matches",
         {
             params: {
@@ -39,19 +39,20 @@ router.get("/autoupdate_match_result", async (req, res) => {
             },
             headers: {
                 Accept: "application/json",
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
+                "User-Agent":
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
             },
             timeout: 30000,
         }
-    )) as { data: { Results?: FifaMatchResult[] } };
+    );
     const matchList = Array.isArray(data.Results) ? data.Results : [];
 
     if (!Array.isArray(matchList) || matchList.length === 0) {
         errors.push("Match data is empty");
     }
 
-    const matchMap = new Map<number, FifaMatchResult>(
-        matchList.map((matchItem) => [matchItem.IdMatch, matchItem])
+    const matchMap = new Map<string, FifaMatchResult>(
+        matchList.map((matchItem) => [`${matchItem.IdMatch}`, matchItem])
     );
 
     for (const match of liveMatches) {
