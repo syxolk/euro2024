@@ -1,0 +1,11 @@
+services:
+    db_test:
+        image: postgres:18.4
+        environment:
+            - POSTGRES_USER=cup2026_test
+            - POSTGRES_DB=cup2026_test
+            - POSTGRES_PASSWORD=test1234
+        ports:
+            - "5433:5432"
+        tmpfs:
+            - /var/lib/postgresql/data
