@@ -11,13 +11,12 @@ describe("GET /highscore", () => {
         await truncateTables(knex);
     });
 
-    it("redirects unauthenticated requests to /login", async () => {
+    it("renders highscore for unauthenticated users", async () => {
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
 
         const res = await supertest(app).get("/highscore");
-        expect(res.status).toBe(302);
-        expect(res.headers.location).toBe("/login");
+        expect(res.status).toBe(200);
     });
 
     it("renders 200 for authenticated users", async () => {

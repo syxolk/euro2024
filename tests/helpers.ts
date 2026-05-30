@@ -47,11 +47,16 @@ export async function authenticatedAgent(
     user: Pick<TestUser, "email" | "password">
 ): Promise<ReturnType<typeof supertest.agent>> {
     const ag = supertest.agent(app);
-    await ag
+    const loginRes = await ag
         .post("/login")
-        .send(`email=${encodeURIComponent(user.email)}&password=${encodeURIComponent(user.password)}`)
-        .set("Content-Type", "application/x-www-form-urlencoded")
-        .expect(302);
+        .type("form")
+        .send({ email: user.email, password: user.password });
+
+    if (loginRes.status !== 302 || loginRes.headers.location !== "/me") {
+        throw new Error(
+            `Login failed: status=${loginRes.status} location=${loginRes.headers.location}`
+        );
+    }
     return ag;
 }
 
@@ -60,7 +65,7 @@ export async function authenticatedAgent(
  */
 export async function truncateTables(knex: import("knex").Knex): Promise<void> {
     await knex.raw(
-        "TRUNCATE TABLE bet, friend, user_account, match, team, match_type, session RESTART IDENTITY CASCADE"
+        "TRUNCATE TABLE bet, friend, user_account, match, team, match_type RESTART IDENTITY CASCADE"
     );
 }
 

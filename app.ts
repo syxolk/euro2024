@@ -131,12 +131,16 @@ app.use(helmet.xssFilter());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const store = new KnexSessionStore({
-    knex,
-    tablename: "session",
-    createtable: false,
-    clearInterval: ms("10 min"),
-});
+// Use a fast in-memory store for tests to avoid DB dependency on session table
+const store =
+    process.env.NODE_ENV === "test"
+        ? new session.MemoryStore()
+        : new KnexSessionStore({
+              knex,
+              tablename: "session",
+              createtable: false,
+              clearInterval: ms("10 min"),
+          });
 
 app.use(
     session({

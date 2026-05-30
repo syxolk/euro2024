@@ -21,11 +21,9 @@ describe("POST /save_bet", () => {
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
 
-        const matchId = await seedMatch(knex);
-
         const res = await supertest(app)
             .post("/save_bet")
-            .send({ match: matchId, home: 1, away: 0 })
+            .send({ match: 1, home: 1, away: 0 })
             .set("Content-Type", "application/json");
 
         expect(res.status).toBe(401);
