@@ -1,39 +1,14 @@
-import { execSync, spawnSync } from "child_process";
+import { execSync } from "child_process";
 import path from "path";
 
 const COMPOSE_FILE = path.resolve(__dirname, "../docker-compose.test.yml");
-
-function waitForPostgres(maxAttempts = 30, intervalMs = 1000): void {
-    for (let i = 0; i < maxAttempts; i++) {
-        const result = spawnSync(
-            "docker",
-            [
-                "compose",
-                "-f",
-                COMPOSE_FILE,
-                "exec",
-                "-T",
-                "db_test",
-                "pg_isready",
-                "-U",
-                "cup2026_test",
-            ],
-            { stdio: "pipe" }
-        );
-        if (result.status === 0) return;
-        execSync(`sleep ${intervalMs / 1000}`);
-    }
-    throw new Error("PostgreSQL did not become ready in time");
-}
 
 export async function setup(): Promise<void> {
     process.env.NODE_ENV = "test";
 
     console.log("Starting test database...");
-    execSync(`docker compose -f "${COMPOSE_FILE}" up -d`, { stdio: "inherit" });
-
-    console.log("Waiting for PostgreSQL...");
-    waitForPostgres();
+    // --wait blocks until all services with healthchecks are healthy
+    execSync(`docker compose -f "${COMPOSE_FILE}" up -d --wait`, { stdio: "inherit" });
 
     console.log("Running migrations...");
     execSync(
