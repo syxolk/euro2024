@@ -33,7 +33,11 @@
 {{#if matches}}
 <div id="accordion" role="tablist">
 {{#each matches}}
-<div class="card mb-2">
+<div class="card mb-2"
+    {{#if unseen}}
+        {{#if (gt goalshome goalsaway)}}data-confetti="true" data-confetti-winner-side="home"{{#if home_team_code}} data-confetti-team-code="{{home_team_code}}"{{/if}}{{/if}}
+        {{#if (lt goalshome goalsaway)}}data-confetti="true" data-confetti-winner-side="away"{{#if away_team_code}} data-confetti-team-code="{{away_team_code}}"{{/if}}{{/if}}
+    {{/if}}>
     <div class="card-header">
         <div class="row g-2 align-items-start">
             <div class="col">
@@ -145,5 +149,9 @@
 </div>
 {{/if}}
 </div>
+{{/inline}}
+{{#*inline "scripts"}}
+<script type="text/javascript" src="{{@tsParticlesConfettiPath}}"></script>
+<script type="text/javascript" src="/static/js/past_confetti.js"></script>
 {{/inline}}
 {{/layout}}

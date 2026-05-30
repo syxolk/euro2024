@@ -16,6 +16,7 @@
     "migrate:list": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:list"
   },
   "dependencies": {
+    "@tsparticles/confetti": "^4.0.5",
     "axios": "^1.16.0",
     "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.8",
