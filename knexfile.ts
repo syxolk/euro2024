@@ -22,6 +22,26 @@ export const development: Knex.Config = {
     },
 };
 
+export const test: Knex.Config = {
+    client: "postgresql",
+    connection: {
+        host: process.env.PGHOST || "localhost",
+        port: Number(process.env.PGPORT || 5433),
+        database: "cup2026_test",
+        user: "cup2026_test",
+        password: "test1234",
+        application_name: "knex-test",
+    },
+    migrations: {
+        tableName: "knex_migrations",
+        loadExtensions: [".js", ".ts"],
+    },
+    pool: {
+        min: 0,
+        max: 5,
+    },
+};
+
 export const production: Knex.Config = {
     client: "postgresql",
     connection: {
