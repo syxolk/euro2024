@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import supertest from "supertest";
 import app from "../app";
+import { generateInviteCode } from "../routes/register";
 
 export const agent = () => supertest.agent(app);
 
@@ -33,6 +34,7 @@ export async function createTestUser(
             password: hash,
             admin: overrides.admin ?? false,
             email_confirmed: true,
+            invite_code: generateInviteCode(),
             created_at: new Date(),
             past_matches_last_visited_at: new Date(),
         })
@@ -66,7 +68,7 @@ export async function authenticatedAgent(
  */
 export async function truncateTables(knex: import("knex").Knex): Promise<void> {
     await knex.raw(
-        "TRUNCATE TABLE bet, friend, user_account, match, team, match_type, extra_bet, user_account_extra_bet RESTART IDENTITY CASCADE"
+        "TRUNCATE TABLE bet, friend, invitation, user_account, match, team, match_type, extra_bet, user_account_extra_bet RESTART IDENTITY CASCADE"
     );
 }
 

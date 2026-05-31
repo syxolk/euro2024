@@ -9,6 +9,8 @@
         "email_info": "Enviaremos um link de confirmação para sua conta de email.",
         "password": "Senha:",
         "password_info": "Criptografamos todas as senhas com bcrypt, um dos melhores algoritmos de hashing de senhas disponíveis.",
+        "invite_code": "Código de convite:",
+        "invite_code_info": "Você precisa de um código de convite de um usuário existente para se registrar.",
         "submit_button": "Registrar"
     },
     "highscore": {
@@ -74,7 +76,11 @@
     "settings": {
         "title": "Configurações",
         "name": "Nome (mínimo de 3 e máximo de 30 caracteres)",
-        "submit_button": "Salvar"
+        "submit_button": "Salvar",
+        "invite_heading": "Convidar um amigo",
+        "invite_info": "Compartilhe seu link de convite pessoal com amigos para que eles possam se registrar.",
+        "invite_copy": "Copiar",
+        "invite_code_label": "Seu código de convite"
     },
     "intro": {
         "title": "Introdução",

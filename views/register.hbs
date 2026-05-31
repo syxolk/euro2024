@@ -19,6 +19,13 @@
         {{/if}}
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="mb-3">
+            <label for="invite_code">{{ t "register.invite_code" }}</label>
+            <input type="text" class="form-control" name="invite_code" id="invite_code" maxlength="8" required value="{{inviteCode}}" autocomplete="off" style="text-transform:uppercase">
+            <small class="form-text text-muted">
+                {{ t "register.invite_code_info" }}
+            </small>
+        </div>
+        <div class="mb-3">
             <label for="name">{{ t "register.name" }}</label>
             <input type="text" class="form-control" name="name" id="name" minlength="3" maxlength="30" required value="{{name}}">
             <small class="form-text text-muted">
