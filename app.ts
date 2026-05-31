@@ -1,5 +1,5 @@
 import compression from "compression";
-import connectFlash from "connect-flash";
+import connectFlash from "./lib/connect-flash";
 import connectSessionKnex from "connect-session-knex";
 import { csrfSync } from "csrf-sync";
 import express from "express";
