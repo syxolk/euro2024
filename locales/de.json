@@ -9,6 +9,8 @@
         "email_info": "Wir senden dir einen Bestätigungslink an dein EMail-Konto.",
         "password": "Passwort:",
         "password_info": "Wir verschlüsseln alle Passwörter mit bcrypt, einem der besten Passwort-Hashing-Algorithmen die verfügbar sind.",
+        "invite_code": "Einladungscode:",
+        "invite_code_info": "Du benötigst einen Einladungscode von einem bestehenden Nutzer, um dich zu registrieren.",
         "submit_button": "Registrieren"
     },
     "highscore": {
@@ -74,7 +76,11 @@
     "settings": {
         "title": "Einstellungen",
         "name": "Name (3 bis 30 Zeichen)",
-        "submit_button": "Speichern"
+        "submit_button": "Speichern",
+        "invite_heading": "Freund einladen",
+        "invite_info": "Teile deinen persönlichen Einladungslink mit Freunden, damit sie sich registrieren können.",
+        "invite_copy": "Kopieren",
+        "invite_code_label": "Dein Einladungscode"
     },
     "intro": {
         "title": "Einführung",
