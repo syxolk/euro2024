@@ -27,6 +27,19 @@
 
 <hr/>
 
+{{#if inviteCode}}
+<h3>{{ t "settings.invite_heading" }}</h3>
+<p>{{ t "settings.invite_info" }}</p>
+<div class="input-group mb-2">
+    <input type="text" class="form-control" id="inviteLinkInput" value="{{inviteLink}}" readonly>
+    <button class="btn btn-outline-secondary" type="button" id="copyInviteLinkBtn">
+        {{ t "settings.invite_copy" }}
+    </button>
+</div>
+<p class="text-muted">{{ t "settings.invite_code_label" }}: <strong>{{inviteCode}}</strong></p>
+<hr/>
+{{/if}}
+
 {{#if enabledFacebook}}
 {{#if user.facebookId}}
 <div class="alert alert-success">
@@ -72,5 +85,8 @@ We will NOT store any additional information except for your profile ID.
 {{/if}}
 
 </div>
+{{/inline}}
+{{#*inline "scripts"}}
+<script type="text/javascript" src="/static/js/settings.js"></script>
 {{/inline}}
 {{/layout}}

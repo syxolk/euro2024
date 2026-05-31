@@ -9,6 +9,8 @@
         "email_info": "We will send a confirmation link to your email account.",
         "password": "Password:",
         "password_info": "We encrypt all passwords with bcrypt, one of the best password hashing algorithms available.",
+        "invite_code": "Invite Code:",
+        "invite_code_info": "You need an invite code from an existing user to register.",
         "submit_button": "Register"
     },
     "highscore": {
@@ -74,7 +76,11 @@
     "settings": {
         "title": "Settings",
         "name": "Name (3 to 30 characters)",
-        "submit_button": "Save"
+        "submit_button": "Save",
+        "invite_heading": "Invite a Friend",
+        "invite_info": "Share your personal invite link with friends so they can register.",
+        "invite_copy": "Copy",
+        "invite_code_label": "Your invite code"
     },
     "intro": {
         "title": "Intro",

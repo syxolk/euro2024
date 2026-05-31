@@ -12,6 +12,17 @@ import { sendRawMail } from "./send_mail";
 const BCRYPT_ROUNDS = 10;
 const router = Router();
 
+const INVITE_CODE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const INVITE_CODE_LENGTH = 8;
+
+export function generateInviteCode(): string {
+    let code = "";
+    for (let i = 0; i < INVITE_CODE_LENGTH; i++) {
+        code += INVITE_CODE_CHARS[Math.floor(Math.random() * INVITE_CODE_CHARS.length)];
+    }
+    return code;
+}
+
 const MAIL_TEMPLATE = `Hello {{{name}}},
 thank you for registering for the Worldcup 2026 Betting Game.
 
@@ -62,6 +73,7 @@ router.get("/register", function (req: Request, res: Response) {
         error: req.flash("error"),
         name: req.flash("name"),
         email: req.flash("email"),
+        inviteCode: req.flash("inviteCode")[0] ?? (req.query.invite as string) ?? "",
         disabled: config.disableUserRegistration,
     });
 });
@@ -73,13 +85,33 @@ router.post("/register", async (req, res) => {
         return;
     }
 
-    // Save name and email in flash
+    // Preserve form values across redirect
     req.flash("name", req.body.name);
     req.flash("email", req.body.email);
+    req.flash("inviteCode", req.body.invite_code);
+
+    // Validate invite code
+    const suppliedCode = (req.body.invite_code ?? "").trim().toUpperCase();
+    if (!suppliedCode) {
+        req.flash("error", "An invite code is required to register.");
+        res.redirect("/register");
+        return;
+    }
+
+    const inviter = await knex("user_account")
+        .select("id")
+        .where({ invite_code: suppliedCode })
+        .first();
+
+    if (!inviter) {
+        req.flash("error", "Invalid invite code.");
+        res.redirect("/register");
+        return;
+    }
 
     const encrypted = await bcrypt.hash(req.body.password, BCRYPT_ROUNDS);
-
     const token = uuidv4();
+    const newInviteCode = generateInviteCode();
 
     let user: RegistrationUser | null = null;
 
@@ -91,6 +123,7 @@ router.post("/register", async (req, res) => {
                 email: req.body.email,
                 email_confirmed: false,
                 email_confirm_token: token,
+                invite_code: newInviteCode,
                 created_at: knex.fn.now(),
                 past_matches_last_visited_at: knex.fn.now(),
             })
@@ -116,6 +149,13 @@ router.post("/register", async (req, res) => {
         res.redirect("/register");
         return;
     }
+
+    // Record the invitation relationship
+    await knex("invitation").insert({
+        inviter_id: inviter.id,
+        invitee_id: user.id,
+        created_at: knex.fn.now(),
+    });
 
     if (config.mail) {
         sendMail(user)

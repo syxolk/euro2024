@@ -7,17 +7,26 @@ import { getUser } from "../request_helper";
 
 const router = Router();
 
-router.get("/settings", (req: Request, res: Response) => {
+router.get("/settings", async (req: Request, res: Response) => {
     const user = getUser(req);
     if (!user) {
         res.redirect("/login");
         return;
     }
 
+    const dbUser = await knex("user_account")
+        .select("invite_code")
+        .where({ id: user.id })
+        .first();
+
     res.render("settings", {
         enabledFacebook: !!config.facebook,
         enabledGoogle: !!config.google,
         error: req.flash("error"),
+        inviteCode: dbUser?.invite_code ?? null,
+        inviteLink: dbUser?.invite_code
+            ? config.origin + "/register?invite=" + dbUser.invite_code
+            : null,
     });
 });
 

@@ -1,0 +1,17 @@
+services:
+    db_test:
+        image: postgres:18.4
+        environment:
+            - POSTGRES_USER=cup2026_test
+            - POSTGRES_DB=cup2026_test
+            - POSTGRES_PASSWORD=test1234
+        ports:
+            - "5433:5432"
+        tmpfs:
+            - /var/lib/postgresql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U cup2026_test"]
+            interval: 2s
+            timeout: 5s
+            retries: 15
+            start_period: 5s

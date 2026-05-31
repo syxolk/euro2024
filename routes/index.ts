@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import config from "../config";
 import adminExtraBetRouter from "./admin_extra_bet";
+import adminInvitationsRouter from "./admin_invitations";
 import adminRouter from "./admin";
 import autoupdateMatchResultRouter from "./autoupdate_match_result";
 import autoupdateMatchTeamsRouter from "./autoupdate_match_teams";
@@ -35,6 +36,7 @@ router.use(introRouter);
 router.use(userRouter);
 router.use(adminRouter);
 router.use(adminExtraBetRouter);
+router.use(adminInvitationsRouter);
 router.use(mybetsRouter);
 router.use(saveBetRouter);
 router.use(liveRouter);
