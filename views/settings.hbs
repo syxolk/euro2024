@@ -32,7 +32,7 @@
 <p>{{ t "settings.invite_info" }}</p>
 <div class="input-group mb-2">
     <input type="text" class="form-control" id="inviteLinkInput" value="{{inviteLink}}" readonly>
-    <button class="btn btn-outline-secondary" type="button" onclick="navigator.clipboard.writeText(document.getElementById('inviteLinkInput').value)">
+    <button class="btn btn-outline-secondary" type="button" id="copyInviteLinkBtn">
         {{ t "settings.invite_copy" }}
     </button>
 </div>
@@ -85,5 +85,8 @@ We will NOT store any additional information except for your profile ID.
 {{/if}}
 
 </div>
+{{/inline}}
+{{#*inline "scripts"}}
+<script type="text/javascript" src="/static/js/settings.js"></script>
 {{/inline}}
 {{/layout}}
