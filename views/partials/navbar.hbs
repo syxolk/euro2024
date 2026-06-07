@@ -30,9 +30,13 @@
                     Extra Bets
                 </a></li>
                 <li class="nav-item ms-lg-auto d-flex align-items-center">
-                    <div class="form-check form-switch my-2 my-lg-0">
-                        <input class="form-check-input" type="checkbox" role="switch" id="themeSwitch" data-theme-toggle aria-label="{{ t "navbar.dark_mode" }}">
-                        <label class="form-check-label small" for="themeSwitch">{{ t "navbar.dark_mode" }}</label>
+                    <div class="my-2 my-lg-0">
+                        <label class="form-label small mb-1 visually-hidden" for="themeSelect">{{ t "navbar.theme" }}</label>
+                        <select class="form-select form-select-sm" id="themeSelect" data-theme-select aria-label="{{ t "navbar.theme" }}">
+                            <option value="light">{{ t "navbar.theme" }}: {{ t "navbar.theme_light" }}</option>
+                            <option value="dark">{{ t "navbar.theme" }}: {{ t "navbar.theme_dark" }}</option>
+                            <option value="system">{{ t "navbar.theme" }}: {{ t "navbar.theme_system" }}</option>
+                        </select>
                     </div>
                 </li>
                 {{#if loggedIn}}

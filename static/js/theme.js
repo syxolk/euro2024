@@ -1,7 +1,8 @@
 (function () {
     const storageKey = "theme";
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    function getPreferredTheme() {
+    function getStoredTheme() {
         let theme = null;
 
         try {
@@ -10,19 +11,25 @@
             theme = null;
         }
 
-        if (theme === "light" || theme === "dark") {
+        if (theme === "light" || theme === "dark" || theme === "system") {
             return theme;
         }
 
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+        return "system";
     }
 
-    function applyTheme(theme, themeToggle) {
-        document.documentElement.setAttribute("data-bs-theme", theme);
-        if (themeToggle) {
-            themeToggle.checked = theme === "dark";
+    function resolveTheme(theme) {
+        if (theme === "system") {
+            return mediaQuery.matches ? "dark" : "light";
+        }
+
+        return theme;
+    }
+
+    function applyTheme(theme, themeSelect) {
+        document.documentElement.setAttribute("data-bs-theme", resolveTheme(theme));
+        if (themeSelect) {
+            themeSelect.value = theme;
         }
     }
 
@@ -35,18 +42,24 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-        const themeToggle = document.querySelector("[data-theme-toggle]");
+        const themeSelect = document.querySelector("[data-theme-select]");
 
-        if (!(themeToggle instanceof HTMLInputElement)) {
+        if (!(themeSelect instanceof HTMLSelectElement)) {
             return;
         }
 
-        applyTheme(getPreferredTheme(), themeToggle);
+        applyTheme(getStoredTheme(), themeSelect);
 
-        themeToggle.addEventListener("change", function () {
-            const theme = themeToggle.checked ? "dark" : "light";
+        themeSelect.addEventListener("change", function () {
+            const theme = themeSelect.value;
             persistTheme(theme);
-            applyTheme(theme, themeToggle);
+            applyTheme(theme, themeSelect);
+        });
+
+        mediaQuery.addEventListener("change", function () {
+            if (getStoredTheme() === "system") {
+                applyTheme("system", themeSelect);
+            }
         });
     });
 })();
