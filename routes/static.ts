@@ -27,6 +27,15 @@ const vendorCss = styles.map((path) => {
 const vendorCssHash = crypto.createHash("sha1").update(vendorCss).digest("hex");
 const vendorCssPath = `/static/css/vendor-${vendorCssHash}.css`;
 
+const tsParticlesConfetti = fs.readFileSync(
+    "./node_modules/@tsparticles/confetti/tsparticles.confetti.bundle.min.js",
+    "utf8"
+);
+const tsParticlesConfettiHash = crypto.createHash("sha1")
+    .update(tsParticlesConfetti)
+    .digest("hex");
+const tsParticlesConfettiPath = `/static/js/tsparticles-confetti-${tsParticlesConfettiHash}.js`;
+
 export default function registerStaticAssets(app: Application) {
     app.locals.vendorJsPath = vendorJsPath;
     app.get(vendorJsPath, (req, res) => {
@@ -40,5 +49,12 @@ export default function registerStaticAssets(app: Application) {
         res.set("Content-Type", "text/css");
         res.set("Cache-Control", "public, max-age=31536000");
         res.send(vendorCss);
+    });
+
+    app.locals.tsParticlesConfettiPath = tsParticlesConfettiPath;
+    app.get(tsParticlesConfettiPath, (req, res) => {
+        res.set("Content-Type", "application/javascript");
+        res.set("Cache-Control", "public, max-age=31536000");
+        res.send(tsParticlesConfetti);
     });
 }
