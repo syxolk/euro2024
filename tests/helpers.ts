@@ -97,6 +97,17 @@ export async function seedExtraBet(
     return row.id;
 }
 
+export async function seedUserExtraBet(
+    knex: import("knex").Knex,
+    overrides: { user_id: number; extra_bet_id: number; team_ids: number[] }
+) {
+    await knex("user_account_extra_bet").insert({
+        user_id: overrides.user_id,
+        extra_bet_id: overrides.extra_bet_id,
+        selected_team_ids: overrides.team_ids,
+    });
+}
+
 /**
  * Seeds a match_type row (required FK for matches).
  */
