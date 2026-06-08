@@ -70,6 +70,19 @@ describe("GET /extra_bet/:id", () => {
         const res = await ag.get(`/extra_bet/${extraBetId}`);
         expect(res.status).toBe(200);
     });
+
+    it("renders 200 for existing extra_bet with one selected team", async () => {
+        const user = await createTestUser(knex);
+        const ag = await authenticatedAgent(user);
+        const teamId = await seedTeam(knex, { name: "Brazil", code: "BRA", fifa_id: "bra-1" });
+        const extraBetId = await seedExtraBet(knex, {
+            editable_until: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            team_ids: [teamId],
+        });
+
+        const res = await ag.get(`/extra_bet/${extraBetId}`);
+        expect(res.status).toBe(200);
+    });
 });
 
 describe("POST /extra_bet/:id", () => {
