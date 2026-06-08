@@ -14,9 +14,12 @@
         "submit_button": "Registrieren"
     },
     "highscore": {
-        "friend_info": "Du kannst Freunde hinzufügen, in dem du auf den \u2795 Button drückst. Dadurch werden diese Nutzer auf der Laufende und Vergangene Spiele Seite hervorgehoben.",
+        "title": "Rangliste",
+        "friend_info": "Du kannst Freunde hinzufügen, in dem du auf den + Button drückst. Dadurch werden diese Nutzer auf der Laufende und Vergangene Spiele Seite hervorgehoben.",
         "show_all": "Zeige alle",
         "show_only_friends": "Zeige nur Freunde",
+        "friends_tooltip": "Freunde",
+        "you_tooltip": "Das bist du!",
         "column": {
             "name": "Name",
             "score": "Punkte",
@@ -26,11 +29,13 @@
         }
     },
     "live": {
+        "title": "Laufende Spiele",
         "no_live": "Es gibt gerade keine laufenden Spiele.",
         "upcoming_matches_header": "Nächste Spiele",
         "friends_without_bets": "Freunde ohne Tipps (klicken zum Anzeigen)",
         "all_friends_have_bets": "Alle deine Freunde haben ihre Tipps abgegeben!",
-        "number_of_bets": "Anzahl Tipps: {{count}}"
+        "number_of_bets": "Anzahl Tipps: {{count}}",
+        "draw_label": "Unentschieden"
     },
     "login": {
         "title": "Anmelden",
@@ -39,7 +44,15 @@
         "password": "Passwort:",
         "forgot_password": "Passwort vergessen?",
         "no_account": "Du hast kein Konto?",
-        "submit_button": "Anmelden"
+        "submit_button": "Anmelden",
+        "recover_link": "Passwort zurücksetzen",
+        "recover_suffix": "mit deiner E-Mail-Adresse.",
+        "register_link": "Registrieren",
+        "social_login_suffix": "oder nutze eine der Social-Logins.",
+        "sign_in_facebook": "Mit Facebook anmelden",
+        "facebook_disabled": "Facebook-Login deaktiviert.",
+        "sign_in_google": "Mit Google anmelden",
+        "google_disabled": "Google-Login deaktiviert."
     },
     "navbar": {
         "profile": "Profil",
@@ -54,7 +67,11 @@
         "settings": "Einstellungen",
         "logout": "Abmelden",
         "register": "Registrieren",
-        "login": "Anmelden"
+        "login": "Anmelden",
+        "toggle_navigation": "Navigation umschalten",
+        "now_badge": "JETZT",
+        "extra_bets": "Sondertipps",
+        "admin": "Admin"
     },
     "mybets": {
         "title": "Meine Tipps",
@@ -83,7 +100,18 @@
         "invite_heading": "Freund einladen",
         "invite_info": "Teile deinen persönlichen Einladungslink mit Freunden, damit sie sich registrieren können.",
         "invite_copy": "Kopieren",
-        "invite_code_label": "Dein Einladungscode"
+        "invite_code_label": "Dein Einladungscode",
+        "facebook_connected": "Dein Facebook-Konto ist verbunden!",
+        "disconnect_facebook": "Facebook trennen",
+        "connect_facebook": "Facebook verbinden",
+        "facebook_login_prompt": "Du möchtest dein Facebook-Konto zum Anmelden verwenden?",
+        "social_profile_id_notice": "Wir speichern keine zusätzlichen Informationen außer deiner Profil-ID.",
+        "facebook_disabled": "Facebook-Login deaktiviert.",
+        "google_connected": "Dein Google-Konto ist verbunden!",
+        "disconnect_google": "Google trennen",
+        "connect_google": "Google verbinden",
+        "google_login_prompt": "Du möchtest dein Google-Konto zum Anmelden verwenden?",
+        "google_disabled": "Google-Login deaktiviert."
     },
     "intro": {
         "title": "Einführung",
@@ -98,6 +126,190 @@
         "live_matches_link": "Live-Spiele anzeigen",
         "highscore_title": "Rangliste",
         "highscore_description": "Siehe wie viele Punkte du hast und wie du im Vergleich mit deinen Freunden und anderen Nutzern stehst.",
-        "highscore_link": "Rangliste anschauen"
+        "highscore_link": "Rangliste anschauen",
+        "account_required": "Du brauchst ein Konto, um deine eigenen Tipps zu sehen.",
+        "faq_heading": "FAQ",
+        "faq": {
+            "who_made_this": {
+                "question": "Wer hat das gemacht?",
+                "answer_before_link": "Diese Seite wurde von mir erstellt, Hans, einem",
+                "answer_link_text": "Softwareentwickler aus München",
+                "answer_2016": "Ich habe sie aus Spaß in meiner Freizeit für die UEFA Euro 2016 gebaut.",
+                "answer_2018": "Sechs Jahre später wurde die Seite überarbeitet und bekam einige neue Funktionen für die FIFA-WM 2018.",
+                "answer_2020": "Für die Euro 2020 im Jahr 2021 wurde der Code auf eine modernere Basis gestellt.",
+                "answer_2022": "2022 hat sich für die FIFA-WM 2022 nicht allzu viel geändert.",
+                "answer_contact": "Melde dich gerne bei Fragen oder wenn du einen Fehler gefunden hast:"
+            },
+            "invite_friends": {
+                "question": "Kann ich meine Freunde einladen?",
+                "answer_yes": "Ja!",
+                "answer_before_link": "Du kannst gerne Freunde, Kollegen und Familie zum Mitspielen einladen. Wenn du dich fit genug fühlst, kannst du die Seite auch",
+                "answer_link_text": "auf deinem eigenen Server betreiben (Open Source auf GitHub)"
+            },
+            "get_points": {
+                "question": "Wie bekomme ich Punkte?",
+                "intro": "Du bekommst Punkte, wenn du für ein Spiel einen Tipp abgegeben hast und das Spiel beendet ist.",
+                "correct_bet_prefix": "Du bekommst",
+                "correct_bet_suffix": "(4 Punkte) für einen exakten Tipp ODER",
+                "correct_diff_prefix": "Du bekommst",
+                "correct_diff_suffix": "(3 Punkte) für die richtige Tordifferenz ODER",
+                "correct_winner_prefix": "Du bekommst",
+                "correct_winner_suffix": "(2 Punkte) für den richtigen Sieger ODER",
+                "wrong_bet_prefix": "Du bekommst",
+                "wrong_bet_suffix": "(0 Punkte) in allen anderen Fällen oder wenn du keinen Tipp abgegeben hast",
+                "match_factor_before_badge": "Ein Spiel kann zusätzlich einen",
+                "match_factor_emphasis": "Spielfaktor",
+                "match_factor_badge_intro": "haben. Das wird so angezeigt:",
+                "match_factor_after_badge": "Die Punkte für ein Spiel werden mit diesem Faktor multipliziert.",
+                "example_heading": "Punktebeispiel",
+                "example_one_intro": "Du hast 4:3 im Spiel Deutschland - Dänemark getippt. Dann bekommst du",
+                "example_one_correct_bet": "wenn das Ergebnis 4:3 war",
+                "example_one_correct_diff": "wenn das Ergebnis 1:0, 2:1 oder 3:2 war ...",
+                "example_one_correct_winner": "wenn Deutschland gewonnen hat",
+                "example_two_intro": "Du hast in einem anderen Spiel 2:2 getippt. Dann bekommst du",
+                "example_two_correct_bet": "wenn das Ergebnis 2:2 war",
+                "example_two_correct_diff": "wenn das Ergebnis 0:0, 1:1, 3:3 war ..."
+            },
+            "rank": {
+                "question": "Wie wird der Rang berechnet?",
+                "intro_before_link": "Der Rang in der Rangliste basiert nicht nur auf der Punktzahl,",
+                "intro_with_cnt": "sondern auch auf der Anzahl der Sterne, die jemand bekommen hat (die ANZ-Spalte in der",
+                "intro_link_text": "Rangliste",
+                "intro_after_link": "). Genauer gesagt wird der Rang in dieser Reihenfolge anhand der folgenden Statistiken bestimmt:",
+                "score_item": "Punktzahl (Summe aller Punkte)",
+                "correct_bet_prefix": "ANZ",
+                "correct_bet_suffix": "(Anzahl exakter Tipps)",
+                "correct_diff_prefix": "ANZ",
+                "correct_diff_suffix": "(Anzahl richtiger Tordifferenzen)",
+                "correct_winner_prefix": "ANZ",
+                "correct_winner_suffix": "(Anzahl richtiger Sieger)",
+                "wrong_bet_prefix": "ANZ",
+                "wrong_bet_suffix": "(Anzahl falscher Tipps)",
+                "same_rank_prefix": "Zwei Spieler haben nur dann denselben Rang, wenn",
+                "same_rank_emphasis": "alle fünf",
+                "same_rank_suffix": "Statistiken gleich sind.",
+                "example_heading": "Beispiel für die Rangfolge",
+                "example_part_one": "Spieler A und B teilen sich denselben Rang, weil sie dieselbe Punktzahl und dieselbe Anzahl an Sternen haben.",
+                "example_part_two": "Obwohl Spieler C dieselbe Punktzahl wie A und B hat, steht er weiter hinten",
+                "example_part_three_prefix": "weil er weniger",
+                "example_part_four": "Obwohl Spieler D dieselbe Punktzahl wie A, B und C hat",
+                "example_part_five_prefix": "und dieselbe Anzahl an",
+                "example_part_five_middle": "wie C, steht er weiter hinten, weil er weniger",
+                "table_name": "Name",
+                "table_score": "Punkte",
+                "table_cnt": "ANZ"
+            },
+            "penalty": {
+                "question": "Zählen Tore aus dem Elfmeterschießen zum Spielergebnis?",
+                "answer_no": "Nein.",
+                "answer_text": "Nur Tore aus den 90+30 Minuten des Spiels (zwei Halbzeiten + Verlängerung) gehen in das Spielergebnis ein."
+            },
+            "see_bets": {
+                "question": "Kann ich die Tipps anderer Nutzer sehen?",
+                "answer_prefix": "Ja und nein.",
+                "answer_text": "Ja, du kannst Tipps anderer Nutzer sehen, sobald ein Spiel begonnen hat oder beendet ist. Nein, solange ein Spiel noch nicht begonnen hat, siehst du nur deine eigenen Tipps."
+            },
+            "new_features": {
+                "question": "Was sind die neuen Funktionen?",
+                "heading": "Highlights",
+                "item_rescaled_points": "Punkte von 0-1-2-3 auf 0-2-3-4 umgestellt",
+                "item_score_factor": "Spielfaktor hinzugefügt",
+                "item_early_bets": "Du kannst von Anfang an für jedes Spiel tippen (Achtelfinale, Viertelfinale usw.)",
+                "item_missing_bets_notice": "Hinweis auf Spiele ohne Tipp in der Navigationsleiste",
+                "item_live_notice": "Hinweis auf laufende Spiele",
+                "item_unseen_past_notice": "Hinweis auf ungesehene vergangene Spiele"
+            }
+        },
+        "legal": {
+            "heading": "Rechtliche Regeln",
+            "rule_offensive_name": "Du darfst deinen Namen nicht in etwas Beleidigendes ändern.",
+            "rule_game_master": "Der Spielleiter kann dich jederzeit vom Spiel ausschließen.",
+            "rule_no_recourse": "Der Rechtsweg ist ausgeschlossen."
+        }
+    },
+    "admin": {
+        "title": "Admin",
+        "set_teams_heading": "Teams für zukünftige Spiele festlegen",
+        "match_label": "Spiel",
+        "match_placeholder": "--- Spiel ---",
+        "home_team_label": "Heimteam",
+        "home_team_placeholder": "--- Heimteam ---",
+        "away_team_label": "Auswärtsteam",
+        "away_team_placeholder": "--- Auswärtsteam ---",
+        "set_teams_button": "Teams festlegen",
+        "set_match_result_heading": "Spielergebnis festlegen",
+        "goals_home_label": "Tore Heimteam",
+        "goals_away_label": "Tore Auswärtsteam",
+        "save_match_result_button": "Spielergebnis speichern",
+        "extra_bets_heading": "Sondertipps",
+        "no_teams_selected": "Keine Teams ausgewählt.",
+        "edit_extra_bet_button": "Sondertipp bearbeiten",
+        "invitations_heading": "Einladungen",
+        "view_invitation_graph_button": "Einladungsgraph anzeigen"
+    },
+    "admin_extra_bet": {
+        "back_link": "Zurück zum Admin-Bereich"
+    },
+    "admin_invitations": {
+        "title": "Einladungen",
+        "heading": "Einladungsgraph",
+        "back_link": "Zurück zum Admin",
+        "flat_list_heading": "Flache Liste",
+        "inviter_column": "Einladender",
+        "invitee_column": "Eingeladener",
+        "date_column": "Datum",
+        "empty_flat": "Noch keine Einladungen gespeichert.",
+        "tree_heading": "Baumansicht",
+        "empty_tree": "Noch keine Einladungen."
+    },
+    "activate": {
+        "title": "Aktivieren",
+        "confirm_button": "E-Mail-Adresse bestätigen",
+        "success_title": "Danke!",
+        "success_message": "Deine E-Mail-Adresse ist jetzt bestätigt.",
+        "error_title": "Entschuldigung!",
+        "error_message": "Die E-Mail-Adresse ist bereits bestätigt oder der Link ist ungültig."
+    },
+    "extra_bet_list": {
+        "title": "Sondertipps",
+        "team_column": "Team",
+        "users_column": "Nutzer",
+        "empty_state": "Keine Sondertipps zum Anzeigen."
+    },
+    "password_recovery": {
+        "title": "Passwort-Wiederherstellung",
+        "heading": "Wiederherstellung",
+        "email_label": "E-Mail-Adresse",
+        "email_help": "Wir senden dir einen Link an deine E-Mail-Adresse, mit dem du dein Passwort ändern kannst.",
+        "submit_button": "Weiter"
+    },
+    "password_reset": {
+        "title": "Passwort zurücksetzen",
+        "heading": "Zurücksetzen",
+        "password_label": "Neues Passwort",
+        "password_help": "Das wird dein neues Passwort.",
+        "submit_button": "Bestätigen"
+    },
+    "past": {
+        "title": "Vergangene Spiele",
+        "order_by_date": "Nach Datum sortieren",
+        "order_by_gain": "Nach Gewinn sortieren",
+        "gain_label": "Gewinn:",
+        "my_score_label": "Mein Ergebnis:",
+        "avg_friend_score_label": "Durchschnitt Freunde:",
+        "draw_label": "Unentschieden",
+        "empty_state": "Es gibt keine vergangenen Spiele."
+    },
+    "user": {
+        "summary": "Punkte {{score}}, Rang {{rank}}",
+        "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} Punkte",
+        "no_teams_selected": "Keine Teams ausgewählt.",
+        "match_result_column": "Spielergebnis",
+        "bet_column": "Tipp",
+        "points_column": "Punkte",
+        "empty_state": "Es gibt keine Tipps zum Anzeigen."
+    },
+    "errors": {
+        "not_found_title": "Fehler 404"
     }
 }

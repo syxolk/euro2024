@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Activate - {{@websiteName}}</title>
+<title>{{ @t "activate.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -9,18 +9,18 @@
         <div class="text-center">
         <form method="POST" action="/activate/{{code}}">
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
-            <button type="submit" class="btn btn-success mt-3">Confirm Mail Address</button>
+            <button type="submit" class="btn btn-success mt-3">{{ @t "activate.confirm_button" }}</button>
         </form>
         </div>
     {{/if}}
     {{#if success}}
     <div class="alert alert-success">
-      <strong>Thank you!</strong> Your email address is now confirmed.
+      <strong>{{ @t "activate.success_title" }}</strong> {{ @t "activate.success_message" }}
     </div>
     {{/if}}
     {{#if error}}
     <div class="alert alert-danger">
-      <strong>Sorry!</strong> The email address is already confirmed or the link is invalid.
+      <strong>{{ @t "activate.error_title" }}</strong> {{ @t "activate.error_message" }}
     </div>
     {{/if}}
 </div>

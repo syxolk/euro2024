@@ -5,6 +5,7 @@ import {
     createTestUser,
     seedExtraBet,
     seedTeam,
+    seedUserExtraBet,
     truncateTables,
 } from "../helpers";
 
@@ -28,6 +29,29 @@ describe("GET /extra_bet_list", () => {
     it("renders 200 for authenticated users", async () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
+
+        const res = await ag.get("/extra_bet_list");
+        expect(res.status).toBe(200);
+    });
+
+    it("renders 200 for authenticated users with extra bets", async () => {
+        const user = await createTestUser(knex);
+        const ag = await authenticatedAgent(user);
+
+        const teamId = await seedTeam(knex, {
+            name: "Brazil",
+            code: "BRA",
+            fifa_id: "bra-1",
+        });
+        const extraBetId = await seedExtraBet(knex, {
+            editable_until: new Date(Date.now() - 24 * 60 * 60 * 1000),
+            team_ids: [teamId],
+        });
+        await seedUserExtraBet(knex, {
+            user_id: user.id,
+            extra_bet_id: extraBetId,
+            team_ids: [teamId],
+        });
 
         const res = await ag.get("/extra_bet_list");
         expect(res.status).toBe(200);
@@ -70,6 +94,23 @@ describe("GET /extra_bet/:id", () => {
         const res = await ag.get(`/extra_bet/${extraBetId}`);
         expect(res.status).toBe(200);
     });
+
+    it("renders 200 for existing extra_bet with one selected team", async () => {
+        const user = await createTestUser(knex);
+        const ag = await authenticatedAgent(user);
+        const teamId = await seedTeam(knex, {
+            name: "Brazil",
+            code: "BRA",
+            fifa_id: "bra-1",
+        });
+        const extraBetId = await seedExtraBet(knex, {
+            editable_until: new Date(Date.now() + 24 * 60 * 60 * 1000),
+            team_ids: [teamId],
+        });
+
+        const res = await ag.get(`/extra_bet/${extraBetId}`);
+        expect(res.status).toBe(200);
+    });
 });
 
 describe("POST /extra_bet/:id", () => {
@@ -85,7 +126,10 @@ describe("POST /extra_bet/:id", () => {
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
 
-        const res = await supertest(app).post("/extra_bet/1").type("form").send({});
+        const res = await supertest(app)
+            .post("/extra_bet/1")
+            .type("form")
+            .send({});
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/login");
     });
@@ -105,14 +149,21 @@ describe("POST /extra_bet/:id", () => {
             editable_until: new Date(Date.now() - 60 * 1000), // already past
         });
 
-        const res = await ag.post(`/extra_bet/${extraBetId}`).type("form").send({});
+        const res = await ag
+            .post(`/extra_bet/${extraBetId}`)
+            .type("form")
+            .send({});
         expect(res.status).toBe(404);
     });
 
     it("saves selected teams and redirects to /mybets", async () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
-        const teamId = await seedTeam(knex, { name: "Germany", code: "GER", fifa_id: "ger-1" });
+        const teamId = await seedTeam(knex, {
+            name: "Germany",
+            code: "GER",
+            fifa_id: "ger-1",
+        });
         const extraBetId = await seedExtraBet(knex, {
             number_of_teams: 1,
             editable_until: new Date(Date.now() + 24 * 60 * 60 * 1000),

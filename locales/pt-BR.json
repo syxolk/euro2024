@@ -14,9 +14,12 @@
         "submit_button": "Registrar"
     },
     "highscore": {
-        "friend_info": "Você pode adicionar amigos clicando no botão \u2795. Isso os destacará na visão geral das partidas ao vivo e passadas.",
+        "title": "Classificação",
+        "friend_info": "Você pode adicionar amigos clicando no botão +. Isso os destacará na visão geral das partidas ao vivo e passadas.",
         "show_all": "Mostrar todos",
         "show_only_friends": "Mostrar apenas amigos",
+        "friends_tooltip": "Amigos",
+        "you_tooltip": "É você!",
         "column": {
             "name": "Nome",
             "score": "Pontuação",
@@ -26,11 +29,13 @@
         }
     },
     "live": {
+        "title": "Partidas Ao Vivo",
         "no_live": "Atualmente não há partidas ao vivo.",
         "upcoming_matches_header": "Próximas Partidas",
         "friends_without_bets": "Amigos que não fizeram apostas (clique para mostrar)",
         "all_friends_have_bets": "Todos os seus amigos fizeram suas apostas!",
-        "number_of_bets": "Número de apostas: {{count}}"
+        "number_of_bets": "Número de apostas: {{count}}",
+        "draw_label": "Empate"
     },
     "login": {
         "title": "Login",
@@ -39,14 +44,22 @@
         "password": "Senha:",
         "forgot_password": "Esqueceu sua senha?",
         "no_account": "Não tem uma conta?",
-        "submit_button": "Entrar"
+        "submit_button": "Entrar",
+        "recover_link": "Recupere sua senha",
+        "recover_suffix": "com seu endereço de email.",
+        "register_link": "Registre-se",
+        "social_login_suffix": "ou use um dos logins sociais.",
+        "sign_in_facebook": "Entrar com Facebook",
+        "facebook_disabled": "Login do Facebook desativado.",
+        "sign_in_google": "Entrar com Google",
+        "google_disabled": "Login do Google desativado."
     },
     "navbar": {
         "profile": "Perfil",
         "my_bets": "Minhas Apostas",
         "live_matches": "Ao Vivo",
         "past_matches": "Partidas Passadas",
-        "highscore": "Pontuação Máxima",
+        "highscore": "Classificação",
         "theme": "Tema",
         "theme_light": "Claro",
         "theme_dark": "Escuro",
@@ -54,7 +67,11 @@
         "settings": "Configurações",
         "logout": "Sair",
         "register": "Registrar",
-        "login": "Entrar"
+        "login": "Entrar",
+        "toggle_navigation": "Alternar navegação",
+        "now_badge": "AGORA",
+        "extra_bets": "Apostas extras",
+        "admin": "Administração"
     },
     "mybets": {
         "title": "Minhas Apostas",
@@ -83,7 +100,18 @@
         "invite_heading": "Convidar um amigo",
         "invite_info": "Compartilhe seu link de convite pessoal com amigos para que eles possam se registrar.",
         "invite_copy": "Copiar",
-        "invite_code_label": "Seu código de convite"
+        "invite_code_label": "Seu código de convite",
+        "facebook_connected": "Sua conta do Facebook foi conectada!",
+        "disconnect_facebook": "Desconectar Facebook",
+        "connect_facebook": "Conectar Facebook",
+        "facebook_login_prompt": "Você quer usar sua conta do Facebook para entrar?",
+        "social_profile_id_notice": "Não armazenaremos nenhuma informação adicional além do seu ID de perfil.",
+        "facebook_disabled": "Login do Facebook desativado.",
+        "google_connected": "Sua conta do Google foi conectada!",
+        "disconnect_google": "Desconectar Google",
+        "connect_google": "Conectar Google",
+        "google_login_prompt": "Você quer usar sua conta do Google para entrar?",
+        "google_disabled": "Login do Google desativado."
     },
     "intro": {
         "title": "Introdução",
@@ -96,8 +124,192 @@
         "live_matches_title": "Partidas Ao Vivo",
         "live_matches_description": "Veja as partidas que estão acontecendo atualmente. Você pode ver todas as apostas que outros usuários fizeram.",
         "live_matches_link": "Ver Partidas Ao Vivo",
-        "highscore_title": "Pontuação Máxima",
+        "highscore_title": "Classificação",
         "highscore_description": "Veja quantos pontos você tem e como você está em comparação com seus amigos e outros usuários.",
-        "highscore_link": "Ver Pontuação Máxima"
+        "highscore_link": "Ver Classificação",
+        "account_required": "Você precisa de uma conta para ver suas próprias apostas.",
+        "faq_heading": "FAQ",
+        "faq": {
+            "who_made_this": {
+                "question": "Quem fez isto?",
+                "answer_before_link": "Este site foi feito por mim, Hans, um",
+                "answer_link_text": "engenheiro de software que mora em Munique",
+                "answer_2016": "Eu o criei por diversão no meu tempo livre para a UEFA Euro 2016.",
+                "answer_2018": "Seis anos depois, o site foi reformulado e ganhou alguns recursos novos para a Copa do Mundo FIFA 2018.",
+                "answer_2020": "Para a Euro 2020 em 2021, o código foi colocado sobre uma base mais moderna.",
+                "answer_2022": "Em 2022, pouca coisa mudou para a Copa do Mundo FIFA 2022.",
+                "answer_contact": "Fique à vontade para entrar em contato se tiver alguma pergunta ou encontrar um bug:"
+            },
+            "invite_friends": {
+                "question": "Posso convidar meus amigos?",
+                "answer_yes": "Sim!",
+                "answer_before_link": "Você pode convidar seus amigos, colegas e familiares para jogar aqui. Se se sentir confiante o suficiente, você também pode",
+                "answer_link_text": "hospedar este site no seu próprio servidor (código aberto no GitHub)"
+            },
+            "get_points": {
+                "question": "Como eu marco pontos?",
+                "intro": "Você ganha pontos se fez uma aposta para uma partida e a partida terminou.",
+                "correct_bet_prefix": "Você ganha",
+                "correct_bet_suffix": "(4 pontos) por um palpite exato OU",
+                "correct_diff_prefix": "Você ganha",
+                "correct_diff_suffix": "(3 pontos) pela diferença de gols correta OU",
+                "correct_winner_prefix": "Você ganha",
+                "correct_winner_suffix": "(2 pontos) pelo vencedor correto OU",
+                "wrong_bet_prefix": "Você ganha",
+                "wrong_bet_suffix": "(0 pontos) em qualquer outro caso ou se não fez uma aposta",
+                "match_factor_before_badge": "Qualquer partida pode ter um",
+                "match_factor_emphasis": "fator de partida",
+                "match_factor_badge_intro": "adicional. Isso é indicado assim:",
+                "match_factor_after_badge": "Os pontos que você ganha por uma partida são multiplicados por esse fator.",
+                "example_heading": "Exemplo de pontuação",
+                "example_one_intro": "Você fez esta aposta: 4:3 na partida Alemanha - Dinamarca. Você ganharia",
+                "example_one_correct_bet": "se o resultado fosse 4:3",
+                "example_one_correct_diff": "se o resultado fosse 1:0, 2:1 ou 3:2 ...",
+                "example_one_correct_winner": "se a Alemanha fosse a vencedora",
+                "example_two_intro": "Você fez esta aposta: 2:2 em outra partida. Você ganharia",
+                "example_two_correct_bet": "se o resultado fosse 2:2",
+                "example_two_correct_diff": "se o resultado fosse 0:0, 1:1, 3:3 ..."
+            },
+            "rank": {
+                "question": "Como a classificação é calculada?",
+                "intro_before_link": "A posição na classificação não é baseada apenas na pontuação,",
+                "intro_with_cnt": "mas também no número de estrelas que alguém recebeu (a coluna CNT na",
+                "intro_link_text": "classificação",
+                "intro_after_link": "). Mais precisamente, a posição é baseada nas seguintes estatísticas, nesta ordem:",
+                "score_item": "Pontuação (soma de todos os pontos)",
+                "correct_bet_prefix": "CNT",
+                "correct_bet_suffix": "(número de vezes em que o resultado exato foi apostado)",
+                "correct_diff_prefix": "CNT",
+                "correct_diff_suffix": "(número de vezes em que a diferença de gols correta foi apostada)",
+                "correct_winner_prefix": "CNT",
+                "correct_winner_suffix": "(número de vezes em que o vencedor correto foi apostado)",
+                "wrong_bet_prefix": "CNT",
+                "wrong_bet_suffix": "(número de vezes em que uma aposta errada foi feita)",
+                "same_rank_prefix": "Dois jogadores só terão a mesma posição se",
+                "same_rank_emphasis": "todas as cinco",
+                "same_rank_suffix": "estatísticas forem iguais.",
+                "example_heading": "Exemplo de classificação",
+                "example_part_one": "Os usuários A e B compartilham a mesma posição porque têm a mesma pontuação e o mesmo número de estrelas.",
+                "example_part_two": "Embora o usuário C tenha a mesma pontuação que A e B, ele fica abaixo",
+                "example_part_three_prefix": "porque tem menos",
+                "example_part_four": "Embora o usuário D tenha a mesma pontuação que A, B e C",
+                "example_part_five_prefix": "e o mesmo número de",
+                "example_part_five_middle": "que C, ele fica abaixo porque tem menos",
+                "table_name": "Nome",
+                "table_score": "Pontuação",
+                "table_cnt": "CNT"
+            },
+            "penalty": {
+                "question": "Os gols da disputa de pênaltis entram no resultado da partida?",
+                "answer_no": "Não.",
+                "answer_text": "Somente os gols marcados durante os 90+30 minutos da partida (dois tempos + prorrogação) serão usados como resultado da partida."
+            },
+            "see_bets": {
+                "question": "Posso ver as apostas de outros usuários?",
+                "answer_prefix": "Sim e não.",
+                "answer_text": "Sim, você pode ver as apostas de outros usuários quando uma partida já começou ou terminou. Não, você só pode ver suas próprias apostas enquanto a partida ainda não começou."
+            },
+            "new_features": {
+                "question": "Quais são os novos recursos?",
+                "heading": "Destaques",
+                "item_rescaled_points": "Pontuação reajustada de 0-1-2-3 para 0-2-3-4",
+                "item_score_factor": "Fator de pontuação da partida adicionado",
+                "item_early_bets": "Você pode fazer apostas para todas as partidas desde o início (oitavas, quartas etc.)",
+                "item_missing_bets_notice": "Aviso para partidas sem apostas na barra de navegação",
+                "item_live_notice": "Aviso para partidas ao vivo",
+                "item_unseen_past_notice": "Aviso para partidas passadas ainda não vistas"
+            }
+        },
+        "legal": {
+            "heading": "Regras legais",
+            "rule_offensive_name": "Você não pode mudar seu nome para algo ofensivo.",
+            "rule_game_master": "O organizador pode excluir você do jogo a qualquer momento.",
+            "rule_no_recourse": "Não é permitido recorrer aos tribunais."
+        }
+    },
+    "admin": {
+        "title": "Administração",
+        "set_teams_heading": "Definir times para partidas futuras",
+        "match_label": "Partida",
+        "match_placeholder": "--- Partida ---",
+        "home_team_label": "Time da casa",
+        "home_team_placeholder": "--- Time da casa ---",
+        "away_team_label": "Time visitante",
+        "away_team_placeholder": "--- Time visitante ---",
+        "set_teams_button": "Definir times",
+        "set_match_result_heading": "Definir resultado da partida",
+        "goals_home_label": "Gols do time da casa",
+        "goals_away_label": "Gols do time visitante",
+        "save_match_result_button": "Salvar resultado da partida",
+        "extra_bets_heading": "Apostas extras",
+        "no_teams_selected": "Nenhum time selecionado.",
+        "edit_extra_bet_button": "Editar aposta extra",
+        "invitations_heading": "Convites",
+        "view_invitation_graph_button": "Ver gráfico de convites"
+    },
+    "admin_extra_bet": {
+        "back_link": "Voltar ao painel de administração"
+    },
+    "admin_invitations": {
+        "title": "Convites",
+        "heading": "Gráfico de convites",
+        "back_link": "Voltar para administração",
+        "flat_list_heading": "Lista simples",
+        "inviter_column": "Convidador",
+        "invitee_column": "Convidado",
+        "date_column": "Data",
+        "empty_flat": "Ainda não há convites registrados.",
+        "tree_heading": "Visualização em árvore",
+        "empty_tree": "Ainda não há convites."
+    },
+    "activate": {
+        "title": "Ativar",
+        "confirm_button": "Confirmar endereço de email",
+        "success_title": "Obrigado!",
+        "success_message": "Seu endereço de email foi confirmado.",
+        "error_title": "Desculpe!",
+        "error_message": "O endereço de email já foi confirmado ou o link é inválido."
+    },
+    "extra_bet_list": {
+        "title": "Apostas extras",
+        "team_column": "Time",
+        "users_column": "Usuários",
+        "empty_state": "Não há apostas extras para mostrar."
+    },
+    "password_recovery": {
+        "title": "Recuperação de senha",
+        "heading": "Recuperação",
+        "email_label": "Endereço de email",
+        "email_help": "Enviaremos um link para o seu endereço de email que permitirá alterar sua senha.",
+        "submit_button": "Continuar"
+    },
+    "password_reset": {
+        "title": "Redefinir senha",
+        "heading": "Redefinir",
+        "password_label": "Nova senha",
+        "password_help": "Esta será sua nova senha.",
+        "submit_button": "Confirmar"
+    },
+    "past": {
+        "title": "Partidas passadas",
+        "order_by_date": "Ordenar por data",
+        "order_by_gain": "Ordenar por ganho",
+        "gain_label": "Ganho:",
+        "my_score_label": "Minha pontuação:",
+        "avg_friend_score_label": "Média dos amigos:",
+        "draw_label": "Empate",
+        "empty_state": "Não há partidas passadas."
+    },
+    "user": {
+        "summary": "Pontuação {{score}}, Classificação {{rank}}",
+        "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} pontos",
+        "no_teams_selected": "Nenhum time selecionado.",
+        "match_result_column": "Resultado da partida",
+        "bet_column": "Aposta",
+        "points_column": "Pontos",
+        "empty_state": "Não há apostas para mostrar."
+    },
+    "errors": {
+        "not_found_title": "Erro 404"
     }
 }

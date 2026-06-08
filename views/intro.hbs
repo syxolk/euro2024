@@ -1,36 +1,36 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{ t "intro.title" }} - {{@websiteName}}</title>
+<title>{{ @t "intro.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
     <h3>
-        {{ t "intro.welcome" }}
+        {{ @t "intro.welcome" }}
     </h3>
     <p>
-        {{ t "intro.description" }}
+        {{ @t "intro.description" }}
     </p>
 
     <h4>
-        {{ t "intro.quickstart" }}
+        {{ @t "intro.quickstart" }}
     </h4>
     <div class="row row-cols-1 row-cols-lg-3 g-3">
             <div class="col">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ t "intro.my_bets_title" }}
+                        {{ @t "intro.my_bets_title" }}
                     </h5>
                     <p class="card-text">
-                        {{ t "intro.my_bets_description" }}
+                        {{ @t "intro.my_bets_description" }}
                     </p>
                 </div>
                 <div class="card-footer">
                     <a href="/mybets" class="btn btn-primary {{#if (not loggedIn)}}disabled{{/if}}">
-                        {{ t "intro.my_bets_link" }}
+                        {{ @t "intro.my_bets_link" }}
                     </a>
-                    {{#if (not loggedIn)}}<br><small class="text-muted">You need an account to see your own bets.</small>{{/if}}
+                    {{#if (not loggedIn)}}<br><small class="text-muted">{{ @t "intro.account_required" }}</small>{{/if}}
                 </div>
             </div>
             </div>
@@ -38,15 +38,15 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ t "intro.live_matches_title" }}
+                        {{ @t "intro.live_matches_title" }}
                     </h5>
                     <p class="card-text">
-                        {{ t "intro.live_matches_description" }}
+                        {{ @t "intro.live_matches_description" }}
                     </p>
                 </div>
                 <div class="card-footer">
                      <a href="/live" class="btn btn-primary">
-                        {{ t "intro.live_matches_link" }}
+                        {{ @t "intro.live_matches_link" }}
                     </a>
                 </div>
             </div>
@@ -55,86 +55,86 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ t "intro.highscore_title" }}
+                        {{ @t "intro.highscore_title" }}
                     </h5>
                     <p class="card-text">
-                        {{ t "intro.highscore_description" }}
+                        {{ @t "intro.highscore_description" }}
                     </p>
                 </div>
                 <div class="card-footer">
                     <a href="/highscore" class="btn btn-primary">
-                        {{ t "intro.highscore_link" }}
+                        {{ @t "intro.highscore_link" }}
                     </a>
                 </div>
             </div>
             </div>
     </div>
 
-    <h4 class="mt-3">FAQ</h4>
+    <h4 class="mt-3">{{ @t "intro.faq_heading" }}</h4>
     <div class="accordion intro-faq" id="faq">
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-who-made-this">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#who-made-this" aria-expanded="false" aria-controls="who-made-this">
-                    Who made this?
+                    {{ @t "intro.faq.who_made_this.question" }}
                 </button>
             </h2>
             <div id="who-made-this" class="accordion-collapse collapse" aria-labelledby="faq-heading-who-made-this" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    This site was made by me, Hans, a <a href="https://github.com/syxolk">software engineer living in Munich</a>.
-                    I made it for fun in my spare time for the UEFA Euro 2016.
-                    Six years ago, this site became refurbished and got some new features for the FIFA WorldCup 2018.
-                    For the Euro 2020 in 2021, the code has been put on a more modern base.
-                    In 2022, not much has changed for the FIFA WorldCup 2022.
-                    Feel free to contact me if you've got any questions or found a bug: <a href="mailto:hans.kirchner.info@gmail.com">hans.kirchner.info@gmail.com</a>
+                    {{ @t "intro.faq.who_made_this.answer_before_link" }} <a href="https://github.com/syxolk">{{ @t "intro.faq.who_made_this.answer_link_text" }}</a>.
+                    {{ @t "intro.faq.who_made_this.answer_2016" }}
+                    {{ @t "intro.faq.who_made_this.answer_2018" }}
+                    {{ @t "intro.faq.who_made_this.answer_2020" }}
+                    {{ @t "intro.faq.who_made_this.answer_2022" }}
+                    {{ @t "intro.faq.who_made_this.answer_contact" }} <a href="mailto:hans.kirchner.info@gmail.com">hans.kirchner.info@gmail.com</a>
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-invite-friends">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#invite-friends" aria-expanded="false" aria-controls="invite-friends">
-                    Can I invite my friends?
+                    {{ @t "intro.faq.invite_friends.question" }}
                 </button>
             </h2>
             <div id="invite-friends" class="accordion-collapse collapse" aria-labelledby="faq-heading-invite-friends" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    <b>Yes!</b> You are free to invite your friends, colleagues and family to play
-                    here. If you feel proficient enough you can <a href="https://github.com/syxolk/euro2024">host this site on your own server (open-source on GitHub)</a>.
+                    <b>{{ @t "intro.faq.invite_friends.answer_yes" }}</b> {{ @t "intro.faq.invite_friends.answer_before_link" }}
+                    <a href="https://github.com/syxolk/euro2024">{{ @t "intro.faq.invite_friends.answer_link_text" }}</a>.
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-get-points">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#get-points" aria-expanded="false" aria-controls="get-points">
-                    How do I score?
+                    {{ @t "intro.faq.get_points.question" }}
                 </button>
             </h2>
             <div id="get-points" class="accordion-collapse collapse" aria-labelledby="faq-heading-get-points" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    <p>You get points if you made a bet for a match and the match is over.</p>
+                    <p>{{ @t "intro.faq.get_points.intro" }}</p>
                     <ul>
-                        <li>You get {{> correct_bet}} (4 points) for a correct bet OR</li>
-                        <li>You get {{> correct_diff}} (3 points) for the correct goal difference OR</li>
-                        <li>You get {{> correct_winner}} (2 points) for the correct winner OR</li>
-                        <li>You get {{> wrong_bet}} (0 points) zero points in any other case or if you did not make a bet</li>
+                        <li>{{ @t "intro.faq.get_points.correct_bet_prefix" }} {{> correct_bet}} {{ @t "intro.faq.get_points.correct_bet_suffix" }}</li>
+                        <li>{{ @t "intro.faq.get_points.correct_diff_prefix" }} {{> correct_diff}} {{ @t "intro.faq.get_points.correct_diff_suffix" }}</li>
+                        <li>{{ @t "intro.faq.get_points.correct_winner_prefix" }} {{> correct_winner}} {{ @t "intro.faq.get_points.correct_winner_suffix" }}</li>
+                        <li>{{ @t "intro.faq.get_points.wrong_bet_prefix" }} {{> wrong_bet}} {{ @t "intro.faq.get_points.wrong_bet_suffix" }}</li>
                     </ul>
                     <p>
-                        Any match may have an additional <em>match factor</em>. This is indicated as {{> score_factor 2}}.
-                        The points you get for a match are multiplied by this factor.
+                        {{ @t "intro.faq.get_points.match_factor_before_badge" }} <em>{{ @t "intro.faq.get_points.match_factor_emphasis" }}</em>. {{ @t "intro.faq.get_points.match_factor_badge_intro" }} {{> score_factor 2}}.
+                        {{ @t "intro.faq.get_points.match_factor_after_badge" }}
                     </p>
 
                     <p>
-                        <strong>Scoring Example</strong><br>
-                        You made this bet: 4:3 in the match Germany - Denmark. You would get
+                        <strong>{{ @t "intro.faq.get_points.example_heading" }}</strong><br>
+                        {{ @t "intro.faq.get_points.example_one_intro" }}
                     </p>
                     <ul>
-                        <li>{{> correct_bet}}, if the result was 4:3</li>
-                        <li>{{> correct_diff}}, if the result was 1:0, 2:1 or 3:2 ...</li>
-                        <li>{{> correct_winner}}, if the winner was Germany</li>
+                        <li>{{> correct_bet}}, {{ @t "intro.faq.get_points.example_one_correct_bet" }}</li>
+                        <li>{{> correct_diff}}, {{ @t "intro.faq.get_points.example_one_correct_diff" }}</li>
+                        <li>{{> correct_winner}}, {{ @t "intro.faq.get_points.example_one_correct_winner" }}</li>
                     </ul>
-                    <p>You made this bet: 2:2 in another match. You would get</p>
+                    <p>{{ @t "intro.faq.get_points.example_two_intro" }}</p>
                     <ul>
-                        <li>{{> correct_bet}}, if the result was 2:2</li>
-                        <li>{{> correct_diff}}, if the result was 0:0, 1:1, 3:3 ...</li>
+                        <li>{{> correct_bet}}, {{ @t "intro.faq.get_points.example_two_correct_bet" }}</li>
+                        <li>{{> correct_diff}}, {{ @t "intro.faq.get_points.example_two_correct_diff" }}</li>
                     </ul>
                 </div>
             </div>
@@ -142,37 +142,34 @@
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-rank">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#rank" aria-expanded="false" aria-controls="rank">
-                    How is the rank calculated?
+                    {{ @t "intro.faq.rank.question" }}
                 </button>
             </h2>
             <div id="rank" class="accordion-collapse collapse" aria-labelledby="faq-heading-rank" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    <p>The rank on the highscore is not only based on the score
-                    but also on the number of stars someone received (the <i>CNT</i> column on the <a href="/highscore">highscore</a>).
-                    To be more precise, the rank is based on the following statistics in that order:
+                    <p>{{ @t "intro.faq.rank.intro_before_link" }}
+                    {{ @t "intro.faq.rank.intro_with_cnt" }} <a href="/highscore">{{ @t "intro.faq.rank.intro_link_text" }}</a>.
+                    {{ @t "intro.faq.rank.intro_after_link" }}
                     </p>
                     <ol>
-                        <li>Score (sum of all points)</li>
-                        <li>CNT {{>correct_bet}} (number of times the exact result was betted)</li>
-                        <li>CNT {{>correct_diff}} (number of times the correct goal difference was betted)</li>
-                        <li>CNT {{>correct_winner}} (number of times the correct winner was betted)</li>
-                        <li>CNT {{>wrong_bet}} (number of times a wrong bet was made)</li>
+                        <li>{{ @t "intro.faq.rank.score_item" }}</li>
+                        <li>{{ @t "intro.faq.rank.correct_bet_prefix" }} {{>correct_bet}} {{ @t "intro.faq.rank.correct_bet_suffix" }}</li>
+                        <li>{{ @t "intro.faq.rank.correct_diff_prefix" }} {{>correct_diff}} {{ @t "intro.faq.rank.correct_diff_suffix" }}</li>
+                        <li>{{ @t "intro.faq.rank.correct_winner_prefix" }} {{>correct_winner}} {{ @t "intro.faq.rank.correct_winner_suffix" }}</li>
+                        <li>{{ @t "intro.faq.rank.wrong_bet_prefix" }} {{>wrong_bet}} {{ @t "intro.faq.rank.wrong_bet_suffix" }}</li>
                     </ol>
                     <p>
-                        Two players will only ever have the same rank if <i>all five</i>
-                        statistics are the same.
+                        {{ @t "intro.faq.rank.same_rank_prefix" }} <i>{{ @t "intro.faq.rank.same_rank_emphasis" }}</i>
+                        {{ @t "intro.faq.rank.same_rank_suffix" }}
                     </p>
                     <p>
-                        <strong>Ranking Example</strong><br>
-                        User A and B share the same rank because they have the same score
-                        and the same number of stars.
-                        Although user C has the same score as A and B,
-                        he has a lower rank
-                        because he has a lower number of {{>correct_bet}}.
-                        Although user D has the same score as A, B and C
-                        and the same number of {{>correct_bet}} as C,
-                        he has a lower rank because he has a lower
-                        number of {{>correct_diff}}.
+                        <strong>{{ @t "intro.faq.rank.example_heading" }}</strong><br>
+                        {{ @t "intro.faq.rank.example_part_one" }}
+                        {{ @t "intro.faq.rank.example_part_two" }}
+                        {{ @t "intro.faq.rank.example_part_three_prefix" }} {{>correct_bet}}.
+                        {{ @t "intro.faq.rank.example_part_four" }}
+                        {{ @t "intro.faq.rank.example_part_five_prefix" }} {{>correct_bet}} {{ @t "intro.faq.rank.example_part_five_middle" }}
+                        {{>correct_diff}}.
                     </p>
                     <table class="table table-striped">
                         <tr>
@@ -186,12 +183,12 @@
                         </tr>
                         <tr>
                             <th></th>
-                            <th>Name</th>
-                            <th>Score</th>
-                            <th>CNT</th>
-                            <th>CNT</th>
-                            <th>CNT</th>
-                            <th>CNT</th>
+                            <th>{{ @t "intro.faq.rank.table_name" }}</th>
+                            <th>{{ @t "intro.faq.rank.table_score" }}</th>
+                            <th>{{ @t "intro.faq.rank.table_cnt" }}</th>
+                            <th>{{ @t "intro.faq.rank.table_cnt" }}</th>
+                            <th>{{ @t "intro.faq.rank.table_cnt" }}</th>
+                            <th>{{ @t "intro.faq.rank.table_cnt" }}</th>
                         </tr>
                         <tr>
                             <th>1.</th><td>A</td><td>13</td><td>1</td><td>1</td><td>3</td><td>1</td>
@@ -212,56 +209,54 @@
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-penalty">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#penalty" aria-expanded="false" aria-controls="penalty">
-                    Are goals from the penalty shoot-out included in the match result?
+                    {{ @t "intro.faq.penalty.question" }}
                 </button>
             </h2>
             <div id="penalty" class="accordion-collapse collapse" aria-labelledby="faq-heading-penalty" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    <b>No.</b> Only goals made during the 90+30 minutes (two halftimes + overtime) period of the match will be used as the match result.
+                    <b>{{ @t "intro.faq.penalty.answer_no" }}</b> {{ @t "intro.faq.penalty.answer_text" }}
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-see-bets">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#see-bets" aria-expanded="false" aria-controls="see-bets">
-                    Can I see bets of other users?
+                    {{ @t "intro.faq.see_bets.question" }}
                 </button>
             </h2>
             <div id="see-bets" class="accordion-collapse collapse" aria-labelledby="faq-heading-see-bets" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    <b>Yes and no.</b> Yes, you can see bets of other users once a match
-                    has started or is finished. No, you can only see your own bets as long as
-                    the match has not yet started.
+                    <b>{{ @t "intro.faq.see_bets.answer_prefix" }}</b> {{ @t "intro.faq.see_bets.answer_text" }}
                 </div>
             </div>
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="faq-heading-new-features">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#new-features" aria-expanded="false" aria-controls="new-features">
-                    What are the new features?
+                    {{ @t "intro.faq.new_features.question" }}
                 </button>
             </h2>
             <div id="new-features" class="accordion-collapse collapse" aria-labelledby="faq-heading-new-features" data-bs-parent="#faq">
                 <div class="accordion-body">
-                    Highlights:
+                    {{ @t "intro.faq.new_features.heading" }}:
                     <ul>
-                        <li>Rescaled points from 0-1-2-3 to 0-2-3-4</li>
-                        <li>Added match score factor</li>
-                        <li>You can place bets for every match from the beginning (Round of 16, *-finals)</li>
-                        <li>Notify users of matches without bets in navbar</li>
-                        <li>Notify users of live matches</li>
-                        <li>Notify users of unseen past matches</li>
+                        <li>{{ @t "intro.faq.new_features.item_rescaled_points" }}</li>
+                        <li>{{ @t "intro.faq.new_features.item_score_factor" }}</li>
+                        <li>{{ @t "intro.faq.new_features.item_early_bets" }}</li>
+                        <li>{{ @t "intro.faq.new_features.item_missing_bets_notice" }}</li>
+                        <li>{{ @t "intro.faq.new_features.item_live_notice" }}</li>
+                        <li>{{ @t "intro.faq.new_features.item_unseen_past_notice" }}</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <h4 class="mt-3">Legal rules</h4>
+    <h4 class="mt-3">{{ @t "intro.legal.heading" }}</h4>
     <ul>
-        <li>You may not change your name to anything offensive.</li>
-        <li>The game master may exclude you from the game at any time.</li>
-        <li>Recourse to the courts is not permitted.</li>
+        <li>{{ @t "intro.legal.rule_offensive_name" }}</li>
+        <li>{{ @t "intro.legal.rule_game_master" }}</li>
+        <li>{{ @t "intro.legal.rule_no_recourse" }}</li>
     </ul>
 </div>
 {{/inline}}

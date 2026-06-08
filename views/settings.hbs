@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{ t "settings.title" }} - {{@websiteName}}</title>
+<title>{{ @t "settings.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -28,59 +28,59 @@
 <hr/>
 
 {{#if inviteCode}}
-<h3>{{ t "settings.invite_heading" }}</h3>
-<p>{{ t "settings.invite_info" }}</p>
+<h3>{{ @t "settings.invite_heading" }}</h3>
+<p>{{ @t "settings.invite_info" }}</p>
 <div class="input-group mb-2">
     <input type="text" class="form-control" id="inviteLinkInput" value="{{inviteLink}}" readonly>
     <button class="btn btn-outline-secondary" type="button" id="copyInviteLinkBtn">
-        {{ t "settings.invite_copy" }}
+        {{ @t "settings.invite_copy" }}
     </button>
 </div>
-<p class="text-muted">{{ t "settings.invite_code_label" }}: <strong>{{inviteCode}}</strong></p>
+<p class="text-muted">{{ @t "settings.invite_code_label" }}: <strong>{{inviteCode}}</strong></p>
 <hr/>
 {{/if}}
 
 {{#if enabledFacebook}}
 {{#if user.facebookId}}
 <div class="alert alert-success">
-<strong>You've connected your Facebook account!</strong>
+<strong>{{ @t "settings.facebook_connected" }}</strong>
 <form method="post" action="/disconnect/facebook">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">Disconnect Facebook</button>
+    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">{{ @t "settings.disconnect_facebook" }}</button>
 </form>
 </div>
 {{else}}
 <div class="alert alert-info">
-<a class="btn btn-primary" href="/connect/facebook">Connect Facebook</a>
-<strong>You want to use your Facebook account for login?</strong>
-We will NOT store any additional information except for your profile ID.
+<a class="btn btn-primary" href="/connect/facebook">{{ @t "settings.connect_facebook" }}</a>
+<strong>{{ @t "settings.facebook_login_prompt" }}</strong>
+{{ @t "settings.social_profile_id_notice" }}
 </div>
 {{/if}}
 {{else}}
 <div class="small text-muted">
-    Facebook Login disabled.
+    {{ @t "settings.facebook_disabled" }}
 </div>
 {{/if}}
 
 {{#if enabledGoogle}}
 {{#if user.googleId}}
 <div class="alert alert-success">
-<strong>You've connected your Google account!</strong>
+<strong>{{ @t "settings.google_connected" }}</strong>
 <form method="post" action="/disconnect/google">
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">Disconnect Google</button>
+    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">{{ @t "settings.disconnect_google" }}</button>
 </form>
 </div>
 {{else}}
 <div class="alert alert-info">
-<a class="btn btn-primary" href="/connect/google">Connect Google</a>
-<strong>You want to use your Google account for login?</strong>
-We will NOT store any additional information except for your profile ID.
+<a class="btn btn-primary" href="/connect/google">{{ @t "settings.connect_google" }}</a>
+<strong>{{ @t "settings.google_login_prompt" }}</strong>
+{{ @t "settings.social_profile_id_notice" }}
 </div>
 {{/if}}
 {{else}}
 <div class="small text-muted">
-    Google Login disabled.
+    {{ @t "settings.google_disabled" }}
 </div>
 {{/if}}
 

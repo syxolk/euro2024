@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{ t "login.title" }} - {{@websiteName}}</title>
+<title>{{ @t "login.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
@@ -10,7 +10,7 @@
         {{#if error}}
         <div class="alert alert-danger" role="alert">
             <strong>
-                {{ t "login.failed" }}
+                {{ @t "login.failed" }}
             </strong> {{error}}
         </div>
         {{/if}}
@@ -29,30 +29,30 @@
         </div>
         <div class="mb-3">
             <button class="btn btn-primary w-100" type="submit">
-                {{ t "login.submit_button" }}
+                {{ @t "login.submit_button" }}
             </button>
             <small class="form-text text-muted">
-            {{ t "login.forgot_password" }} <a href="/password_recovery">Recover your password</a> with your email address.<br>
-            {{ t "login.no_account" }} <a href="/register">Register</a> or use one of the social logins.
+            {{ @t "login.forgot_password" }} <a href="/password_recovery">{{ @t "login.recover_link" }}</a> {{ @t "login.recover_suffix" }}<br>
+            {{ @t "login.no_account" }} <a href="/register">{{ @t "login.register_link" }}</a> {{ @t "login.social_login_suffix" }}
             </small>
         </div>
     </form>
     {{#if enabledFacebook}}
         <a class="btn btn-secondary btn-lg w-100" href="/auth/facebook">
-            <i class="fa fa-facebook"></i> Sign in with Facebook
+            <i class="fa fa-facebook"></i> {{ @t "login.sign_in_facebook" }}
         </a>
     {{else}}
         <div class="text-muted small">
-            Facebook Login disabled.
+            {{ @t "login.facebook_disabled" }}
         </div>
     {{/if}}
     {{#if enabledGoogle}}
         <a class="btn btn-secondary btn-lg w-100" href="/auth/google">
-            <i class="fa fa-google"></i> Sign in with Google
+            <i class="fa fa-google"></i> {{ @t "login.sign_in_google" }}
         </a>
     {{else}}
         <div class="text-muted small">
-            Google Login disabled.
+            {{ @t "login.google_disabled" }}
         </div>
     {{/if}}
 </div>

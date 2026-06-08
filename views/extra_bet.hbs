@@ -6,7 +6,7 @@
 {{> navbar}}
 <div class="container">
 
-<a href="/mybets" class="btn btn-outline-secondary btn-sm mb-2">&larr; {{ t "extra_bet.back_link" }}</a>
+<a href="/mybets" class="btn btn-outline-secondary btn-sm mb-2">&larr; {{ @t "extra_bet.back_link" }}</a>
 <h2>{{ extraBet.name }}</h2>
 <div class="alert alert-info">
     {{ @tr "extra_bet.team_info" count=extraBet.numberOfTeams name=extraBet.name }}

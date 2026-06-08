@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Past Matches - {{@websiteName}}</title>
+<title>{{ @t "past.title" }} - {{@websiteName}}</title>
 <style>
     .highlight-friend {
         background-color: #F8DE7E;
@@ -23,9 +23,9 @@
 {{#if is_logged_in}}
     <div class="mb-3">
         {{#if order_by_gain}}
-            <a href="/past">Order by Date</a>
+            <a href="/past">{{ @t "past.order_by_date" }}</a>
         {{else}}
-            <a href="/past?gain=1">Order by Gain</a>
+            <a href="/past?gain=1">{{ @t "past.order_by_gain" }}</a>
         {{/if}}
     </div>
 {{/if}}
@@ -50,11 +50,11 @@
             </div>
             {{#if @root.is_logged_in}}
                 <div class="col-12 col-md-4 text-md-end text-start">
-                    Gain: {{my_gain}}
+                    {{ @t "past.gain_label" }} {{my_gain}}
                     <br/>
                     <small class="text-muted">
-                        My score: {{my_score}},
-                        Avg. friend score: {{avg_friend_score}}
+                        {{ @t "past.my_score_label" }} {{my_score}},
+                        {{ @t "past.avg_friend_score_label" }} {{avg_friend_score}}
                     </small>
                 </div>
             {{/if}}
@@ -67,7 +67,7 @@
                     {{percent.home}}% {{hometeam}}
                 </div>
                 <div class="progress-bar text-dark" role="progressbar" style="width: {{percent.draw}}%;background-color:#ccc;">
-                    {{percent.draw}}% Draw
+                    {{percent.draw}}% {{ @t "past.draw_label" }}
                 </div>
                 <div class="progress-bar bg-secondary" role="progressbar" style="width: {{percent.away}}%;">
                     {{percent.away}}% {{awayteam}}
@@ -145,7 +145,7 @@
 </div>
 {{else}}
 <div class="alert alert-danger" role="alert">
-    <strong>There are no past matches.</strong>
+    <strong>{{ @t "past.empty_state" }}</strong>
 </div>
 {{/if}}
 </div>
