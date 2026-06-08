@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Live Matches - {{@websiteName}}</title>
+<title>{{ @t "live.title" }} - {{@websiteName}}</title>
 <style>
     .highlight-friend {
         background-color: #F8DE7E;
@@ -38,7 +38,7 @@
                 {{winnerhome}}% {{hometeam}}
             </div>
             <div class="progress-bar text-dark" role="progressbar" style="width: {{draw}}%;background-color:#ccc;">
-                {{draw}}% Draw
+                {{draw}}% {{ @t "live.draw_label" }}
             </div>
             <div class="progress-bar bg-secondary" role="progressbar" style="width: {{winneraway}}%;">
                 {{winneraway}}% {{awayteam}}
@@ -65,7 +65,7 @@
         {{#if bets.draw}}
         <li class="list-group-item">
             <div class="row">
-                <div class="col-md-2"><em>Draw</em></div>
+                <div class="col-md-2"><em>{{ @t "live.draw_label" }}</em></div>
                 <div class="col-md-10">
                     {{#each bets.draw}}
                         {{#if @first}}{{else}}, {{/if}}
@@ -100,7 +100,7 @@
 {{else}}
 <div class="alert alert-danger" role="alert">
     <strong>
-        {{ t "live.no_live" }}
+        {{ @t "live.no_live" }}
     </strong>
 </div>
 {{/if}}
@@ -108,7 +108,7 @@
 {{#if nextMatches}}
 <div class="card mb-2">
     <div class="card-header"><strong>
-        {{ t "live.upcoming_matches_header" }}
+        {{ @t "live.upcoming_matches_header" }}
     </strong></div>
     <ul class="list-group list-group-flush">
         {{#each nextMatches}}

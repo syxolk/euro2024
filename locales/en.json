@@ -14,9 +14,12 @@
         "submit_button": "Register"
     },
     "highscore": {
-        "friend_info": "You can add friends by clicking on the \u2795 button. This will highlight them on the live and past matches overview.",
+        "title": "Highscore",
+        "friend_info": "You can add friends by clicking on the + button. This will highlight them on the live and past matches overview.",
         "show_all": "Show all",
         "show_only_friends": "Show only friends",
+        "friends_tooltip": "Friends",
+        "you_tooltip": "That's you!",
         "column": {
             "name": "Name",
             "score": "Score",
@@ -26,11 +29,13 @@
         }
     },
     "live": {
+        "title": "Live Matches",
         "no_live": "There are currently no live matches.",
         "upcoming_matches_header": "Upcoming Matches",
         "friends_without_bets": "Friends without bets (click to show)",
         "all_friends_have_bets": "All of your friends have made their bets!",
-        "number_of_bets": "Number of bets: {{count}}"
+        "number_of_bets": "Number of bets: {{count}}",
+        "draw_label": "Draw"
     },
     "login": {
         "title": "Login",
@@ -39,7 +44,15 @@
         "password": "Password:",
         "forgot_password": "Forgot your password?",
         "no_account": "Don't have an account?",
-        "submit_button": "Login"
+        "submit_button": "Login",
+        "recover_link": "Recover your password",
+        "recover_suffix": "with your email address.",
+        "register_link": "Register",
+        "social_login_suffix": "or use one of the social logins.",
+        "sign_in_facebook": "Sign in with Facebook",
+        "facebook_disabled": "Facebook login disabled.",
+        "sign_in_google": "Sign in with Google",
+        "google_disabled": "Google login disabled."
     },
     "navbar": {
         "profile": "Profile",
@@ -54,7 +67,11 @@
         "settings": "Settings",
         "logout": "Logout",
         "register": "Register",
-        "login": "Login"
+        "login": "Login",
+        "toggle_navigation": "Toggle navigation",
+        "now_badge": "NOW",
+        "extra_bets": "Extra Bets",
+        "admin": "Admin"
     },
     "mybets": {
         "title": "My Bets",
@@ -83,7 +100,18 @@
         "invite_heading": "Invite a Friend",
         "invite_info": "Share your personal invite link with friends so they can register.",
         "invite_copy": "Copy",
-        "invite_code_label": "Your invite code"
+        "invite_code_label": "Your invite code",
+        "facebook_connected": "You've connected your Facebook account!",
+        "disconnect_facebook": "Disconnect Facebook",
+        "connect_facebook": "Connect Facebook",
+        "facebook_login_prompt": "You want to use your Facebook account for login?",
+        "social_profile_id_notice": "We will not store any additional information except for your profile ID.",
+        "facebook_disabled": "Facebook login disabled.",
+        "google_connected": "You've connected your Google account!",
+        "disconnect_google": "Disconnect Google",
+        "connect_google": "Connect Google",
+        "google_login_prompt": "You want to use your Google account for login?",
+        "google_disabled": "Google login disabled."
     },
     "intro": {
         "title": "Intro",
@@ -98,6 +126,190 @@
         "live_matches_link": "See live Matches",
         "highscore_title": "Highscore",
         "highscore_description": "See how many points you have and how good you are compared to your friends and other users.",
-        "highscore_link": "View Highscore"
+        "highscore_link": "View Highscore",
+        "account_required": "You need an account to see your own bets.",
+        "faq_heading": "FAQ",
+        "faq": {
+            "who_made_this": {
+                "question": "Who made this?",
+                "answer_before_link": "This site was made by me, Hans, a",
+                "answer_link_text": "software engineer living in Munich",
+                "answer_2016": "I made it for fun in my spare time for UEFA Euro 2016.",
+                "answer_2018": "Six years ago, this site was refurbished and got some new features for the FIFA World Cup 2018.",
+                "answer_2020": "For Euro 2020 in 2021, the code was put on a more modern base.",
+                "answer_2022": "In 2022, not much changed for the FIFA World Cup 2022.",
+                "answer_contact": "Feel free to contact me if you've got any questions or found a bug:"
+            },
+            "invite_friends": {
+                "question": "Can I invite my friends?",
+                "answer_yes": "Yes!",
+                "answer_before_link": "You are free to invite your friends, colleagues and family to play here. If you feel proficient enough you can",
+                "answer_link_text": "host this site on your own server (open-source on GitHub)"
+            },
+            "get_points": {
+                "question": "How do I score?",
+                "intro": "You get points if you made a bet for a match and the match is over.",
+                "correct_bet_prefix": "You get",
+                "correct_bet_suffix": "(4 points) for a correct bet OR",
+                "correct_diff_prefix": "You get",
+                "correct_diff_suffix": "(3 points) for the correct goal difference OR",
+                "correct_winner_prefix": "You get",
+                "correct_winner_suffix": "(2 points) for the correct winner OR",
+                "wrong_bet_prefix": "You get",
+                "wrong_bet_suffix": "(0 points) in any other case or if you did not make a bet",
+                "match_factor_before_badge": "Any match may have an additional",
+                "match_factor_emphasis": "match factor",
+                "match_factor_badge_intro": "This is indicated as",
+                "match_factor_after_badge": "The points you get for a match are multiplied by this factor.",
+                "example_heading": "Scoring Example",
+                "example_one_intro": "You made this bet: 4:3 in the match Germany - Denmark. You would get",
+                "example_one_correct_bet": "if the result was 4:3",
+                "example_one_correct_diff": "if the result was 1:0, 2:1 or 3:2 ...",
+                "example_one_correct_winner": "if Germany was the winner",
+                "example_two_intro": "You made this bet: 2:2 in another match. You would get",
+                "example_two_correct_bet": "if the result was 2:2",
+                "example_two_correct_diff": "if the result was 0:0, 1:1, 3:3 ..."
+            },
+            "rank": {
+                "question": "How is the rank calculated?",
+                "intro_before_link": "The rank on the highscore is not only based on the score,",
+                "intro_with_cnt": "but also on the number of stars someone received (the CNT column on the",
+                "intro_link_text": "highscore",
+                "intro_after_link": "). To be more precise, the rank is based on the following statistics in that order:",
+                "score_item": "Score (sum of all points)",
+                "correct_bet_prefix": "CNT",
+                "correct_bet_suffix": "(number of times the exact result was bet)",
+                "correct_diff_prefix": "CNT",
+                "correct_diff_suffix": "(number of times the correct goal difference was bet)",
+                "correct_winner_prefix": "CNT",
+                "correct_winner_suffix": "(number of times the correct winner was bet)",
+                "wrong_bet_prefix": "CNT",
+                "wrong_bet_suffix": "(number of times a wrong bet was made)",
+                "same_rank_prefix": "Two players will only ever have the same rank if",
+                "same_rank_emphasis": "all five",
+                "same_rank_suffix": "statistics are the same.",
+                "example_heading": "Ranking Example",
+                "example_part_one": "User A and B share the same rank because they have the same score and the same number of stars.",
+                "example_part_two": "Although user C has the same score as A and B, he has a lower rank",
+                "example_part_three_prefix": "because he has a lower number of",
+                "example_part_four": "Although user D has the same score as A, B and C",
+                "example_part_five_prefix": "and the same number of",
+                "example_part_five_middle": "as C, he has a lower rank because he has a lower number of",
+                "table_name": "Name",
+                "table_score": "Score",
+                "table_cnt": "CNT"
+            },
+            "penalty": {
+                "question": "Are goals from the penalty shoot-out included in the match result?",
+                "answer_no": "No.",
+                "answer_text": "Only goals made during the 90+30 minutes (two halves + overtime) period of the match will be used as the match result."
+            },
+            "see_bets": {
+                "question": "Can I see bets of other users?",
+                "answer_prefix": "Yes and no.",
+                "answer_text": "Yes, you can see bets of other users once a match has started or is finished. No, you can only see your own bets as long as the match has not yet started."
+            },
+            "new_features": {
+                "question": "What are the new features?",
+                "heading": "Highlights",
+                "item_rescaled_points": "Rescaled points from 0-1-2-3 to 0-2-3-4",
+                "item_score_factor": "Added match score factor",
+                "item_early_bets": "You can place bets for every match from the beginning (round of 16, quarter-finals, etc.)",
+                "item_missing_bets_notice": "Notify users of matches without bets in the navbar",
+                "item_live_notice": "Notify users of live matches",
+                "item_unseen_past_notice": "Notify users of unseen past matches"
+            }
+        },
+        "legal": {
+            "heading": "Legal rules",
+            "rule_offensive_name": "You may not change your name to anything offensive.",
+            "rule_game_master": "The game master may exclude you from the game at any time.",
+            "rule_no_recourse": "Recourse to the courts is not permitted."
+        }
+    },
+    "admin": {
+        "title": "Admin",
+        "set_teams_heading": "Set Teams for future Matches",
+        "match_label": "Match",
+        "match_placeholder": "--- Match ---",
+        "home_team_label": "Home Team",
+        "home_team_placeholder": "--- Home Team ---",
+        "away_team_label": "Away Team",
+        "away_team_placeholder": "--- Away Team ---",
+        "set_teams_button": "Set Teams",
+        "set_match_result_heading": "Set Match Result",
+        "goals_home_label": "Goals Home Team",
+        "goals_away_label": "Goals Away Team",
+        "save_match_result_button": "Save Match Result",
+        "extra_bets_heading": "Extra Bets",
+        "no_teams_selected": "No teams selected.",
+        "edit_extra_bet_button": "Edit Extra Bet",
+        "invitations_heading": "Invitations",
+        "view_invitation_graph_button": "View Invitation Graph"
+    },
+    "admin_extra_bet": {
+        "back_link": "Back to Admin Panel"
+    },
+    "admin_invitations": {
+        "title": "Invitations",
+        "heading": "Invitation Graph",
+        "back_link": "Back to Admin",
+        "flat_list_heading": "Flat List",
+        "inviter_column": "Inviter",
+        "invitee_column": "Invitee",
+        "date_column": "Date",
+        "empty_flat": "No invitations recorded yet.",
+        "tree_heading": "Tree View",
+        "empty_tree": "No invitations yet."
+    },
+    "activate": {
+        "title": "Activate",
+        "confirm_button": "Confirm Mail Address",
+        "success_title": "Thank you!",
+        "success_message": "Your email address is now confirmed.",
+        "error_title": "Sorry!",
+        "error_message": "The email address is already confirmed or the link is invalid."
+    },
+    "extra_bet_list": {
+        "title": "Extra Bets",
+        "team_column": "Team",
+        "users_column": "Users",
+        "empty_state": "No extra bets to display."
+    },
+    "password_recovery": {
+        "title": "Password Recovery",
+        "heading": "Recovery",
+        "email_label": "Email address",
+        "email_help": "We'll send a link to your email address that allows you to change your password.",
+        "submit_button": "Continue"
+    },
+    "password_reset": {
+        "title": "Password Reset",
+        "heading": "Reset",
+        "password_label": "New Password",
+        "password_help": "This will be your new password.",
+        "submit_button": "Confirm"
+    },
+    "past": {
+        "title": "Past Matches",
+        "order_by_date": "Order by Date",
+        "order_by_gain": "Order by Gain",
+        "gain_label": "Gain:",
+        "my_score_label": "My score:",
+        "avg_friend_score_label": "Avg. friend score:",
+        "draw_label": "Draw",
+        "empty_state": "There are no past matches."
+    },
+    "user": {
+        "summary": "Score {{score}}, Ranking {{rank}}",
+        "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} points",
+        "no_teams_selected": "No teams selected.",
+        "match_result_column": "Match Result",
+        "bet_column": "Bet",
+        "points_column": "Points",
+        "empty_state": "There are no bets to show."
+    },
+    "errors": {
+        "not_found_title": "Error 404"
     }
 }

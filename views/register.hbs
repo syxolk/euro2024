@@ -1,53 +1,53 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>{{ t "register.header" }} - {{@websiteName}}</title>
+<title>{{ @t "register.header" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container form-signin">
-    <h2 class="form-signin-heading">{{ t "register.header" }}</h2>
+    <h2 class="form-signin-heading">{{ @t "register.header" }}</h2>
     {{#if disabled}}
     <div class="alert alert-danger">
-        {{ t "register.registration_disabled" }}
+        {{ @t "register.registration_disabled" }}
     </div>
     {{else}}
     <form action="/register" method="POST">
         {{#if error}}
         <div class="alert alert-danger" role="alert">
-            <strong>{{ t "register.registration_failed" }}</strong> {{error}}
+            <strong>{{ @t "register.registration_failed" }}</strong> {{error}}
         </div>
         {{/if}}
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="mb-3">
-            <label for="invite_code">{{ t "register.invite_code" }}</label>
+            <label for="invite_code">{{ @t "register.invite_code" }}</label>
             <input type="text" class="form-control" name="invite_code" id="invite_code" maxlength="8" required value="{{inviteCode}}" autocomplete="off" style="text-transform:uppercase">
             <small class="form-text text-muted">
-                {{ t "register.invite_code_info" }}
+                {{ @t "register.invite_code_info" }}
             </small>
         </div>
         <div class="mb-3">
-            <label for="name">{{ t "register.name" }}</label>
+            <label for="name">{{ @t "register.name" }}</label>
             <input type="text" class="form-control" name="name" id="name" minlength="3" maxlength="30" required value="{{name}}">
             <small class="form-text text-muted">
-                {{ t "register.name_info" }}
+                {{ @t "register.name_info" }}
             </small>
         </div>
         <div class="mb-3">
-            <label for="email">{{ t "register.email" }}</label>
+            <label for="email">{{ @t "register.email" }}</label>
             <input type="email" class="form-control" name="email" id="email" required value="{{email}}">
             <small class="form-text text-muted">
-                {{ t "register.email_info" }}
+                {{ @t "register.email_info" }}
             </small>
         </div>
         <div class="mb-3">
-            <label for="password">{{ t "register.password" }}</label>
+            <label for="password">{{ @t "register.password" }}</label>
             <input type="password" class="form-control" name="password" id="password" minlength="6" required>
             <small class="form-text text-muted">
-                {{ t "register.password_info" }}
+                {{ @t "register.password_info" }}
             </small>
         </div>
         <button class="btn btn-primary w-100" type="submit">
-            {{ t "register.submit_button" }}
+            {{ @t "register.submit_button" }}
         </button>
     </form>
     {{/if}}

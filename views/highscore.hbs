@@ -1,7 +1,7 @@
 {{#> layout}}
 {{#*inline "head"}}
 <link rel="canonical" href="/highscore">
-<title>Highscore - {{@websiteName}}</title>
+<title>{{ @t "highscore.title" }} - {{@websiteName}}</title>
 <style>
 .table > tbody tr > td {
     border-top: 1px solid #aaa !important;
@@ -62,17 +62,17 @@ tr.user-is-me > td {
 {{#if loggedIn}}
 {{#if (not hasFriends)}}
 <div class="alert alert-info">
-    {{ t "highscore.friend_info" }}
+    {{ @t "highscore.friend_info" }}
 </div>
 {{/if}}
 <p>
 {{#if friends}}
 <a href="/highscore">
-    {{ t "highscore.show_all" }}
+    {{ @t "highscore.show_all" }}
 </a>
 {{else}}
 <a href="/highscore?friends=1">
-    {{ t "highscore.show_only_friends" }}
+    {{ @t "highscore.show_only_friends" }}
 </a>
 {{/if}}
 </p>
@@ -106,7 +106,7 @@ tr.user-is-me > td {
         {{title}}
     </th>
     {{/each}}
-    {{#if loggedIn}}<th data-orderable='false'><span title="Friends">&#x1F465;</span></th>{{/if}}
+    {{#if loggedIn}}<th data-orderable='false'><span title="{{ @t "highscore.friends_tooltip" }}">&#x1F465;</span></th>{{/if}}
 </tr>
 </thead>
 <tbody>
@@ -141,7 +141,7 @@ tr.user-is-me > td {
     {{#if @root.loggedIn}}
     <td style="border-left:1px solid #aaa;">
         {{#if isme}}
-        <span title="That's you!">&#x1F464;</span>
+        <span title="{{ @t "highscore.you_tooltip" }}">&#x1F464;</span>
         {{else}}
         <button data-id="{{id}}" class="toggle-friend btn btn-outline-secondary btn-sm">{{#if isfriend}}&#x2796;{{else}}&#x2795;{{/if}}</button>
         {{/if}}

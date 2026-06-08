@@ -6,7 +6,7 @@
 {{> navbar}}
 <div class="container">
 
-<a href="/admin" class="btn btn-outline-secondary btn-sm mb-2">&larr; Back to Admin Panel</a>
+<a href="/admin" class="btn btn-outline-secondary btn-sm mb-2">&larr; {{ @t "admin_extra_bet.back_link" }}</a>
 <h2>{{ extraBet.name }}</h2>
 
 <form class="extra_bet" method="post" action="/admin_extra_bet/{{extraBet.id}}">

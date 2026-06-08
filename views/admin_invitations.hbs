@@ -1,21 +1,21 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Invitations - {{@websiteName}}</title>
+<title>{{ @t "admin_invitations.title" }} - {{@websiteName}}</title>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
 <div class="container">
-<h2>Invitation Graph</h2>
-<p><a href="/admin">&larr; Back to Admin</a></p>
+<h2>{{ @t "admin_invitations.heading" }}</h2>
+<p><a href="/admin">&larr; {{ @t "admin_invitations.back_link" }}</a></p>
 
-<h3>Flat List</h3>
+<h3>{{ @t "admin_invitations.flat_list_heading" }}</h3>
 {{#if invitations.length}}
 <table class="table table-sm">
     <thead>
         <tr>
-            <th>Inviter</th>
-            <th>Invitee</th>
-            <th>Date</th>
+            <th>{{ @t "admin_invitations.inviter_column" }}</th>
+            <th>{{ @t "admin_invitations.invitee_column" }}</th>
+            <th>{{ @t "admin_invitations.date_column" }}</th>
         </tr>
     </thead>
     <tbody>
@@ -29,14 +29,14 @@
     </tbody>
 </table>
 {{else}}
-<p class="text-muted">No invitations recorded yet.</p>
+<p class="text-muted">{{ @t "admin_invitations.empty_flat" }}</p>
 {{/if}}
 
-<h3 class="mt-4">Tree View</h3>
+<h3 class="mt-4">{{ @t "admin_invitations.tree_heading" }}</h3>
 {{#if treeHtml}}
 {{{treeHtml}}}
 {{else}}
-<p class="text-muted">No invitations yet.</p>
+<p class="text-muted">{{ @t "admin_invitations.empty_tree" }}</p>
 {{/if}}
 </div>
 {{/inline}}

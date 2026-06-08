@@ -1,6 +1,6 @@
 {{#> layout}}
 {{#*inline "head"}}
-<title>Extra Bets - {{@websiteName}}</title>
+<title>{{ @t "extra_bet_list.title" }} - {{@websiteName}}</title>
 <style>
     .highlight-friend {
         background-color: #F8DE7E;
@@ -28,15 +28,15 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Team</th>
-                    <th>Users</th>
+                    <th>{{ @t "extra_bet_list.team_column" }}</th>
+                    <th>{{ @t "extra_bet_list.users_column" }}</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each teams }}
                 <tr>
                     <td>
-                        {{#if team.code}}<img class="flag-icon me-1" src="{{flagUrl team.code}}" alt="{{team.name}} flag" loading="lazy">{{/if}}{{ team.name }}
+                        {{#if team.code}}<img class="flag-icon me-1" src="{{flagUrl team.code}}" alt="{{team.name}} flag" loading="lazy">{{/if}}{{ @team.name }}
                         ({{ userCount }})
                     </td>
                     <td>
@@ -56,7 +56,7 @@
     </div>
 {{else}}
     <div class="alert alert-info">
-        No extra bets to display.
+        {{ @t "extra_bet_list.empty_state" }}
     </div>
 {{/each}}
 

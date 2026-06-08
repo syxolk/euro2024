@@ -1,41 +1,41 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/intro">{{@websiteName}}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ @t "navbar.toggle_navigation" }}">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navbarSupportedContent" class="navbar-collapse collapse">
             <ul class="navbar-nav w-100">
                 {{#if loggedIn}}
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "profile")}} active{{/if}}" href="/me"{{#if (eq activeNav "profile")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.profile" }}
+                    {{ @t "navbar.profile" }}
                 </a></li>
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "mybets")}} active{{/if}}" href="/mybets"{{#if (eq activeNav "mybets")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.my_bets" }}
+                    {{ @t "navbar.my_bets" }}
                     {{#if (gt upcomingMatchesWithoutBet 0)}}<span class="badge bg-warning text-dark">{{ upcomingMatchesWithoutBet }}</span>{{/if}}
                 </a></li>
                 {{/if}}
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "live")}} active{{/if}}" href="/live"{{#if (eq activeNav "live")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.live_matches" }}
-                    {{#if hasLiveMatches}}<span class="badge bg-success">NOW</span>{{/if}}
+                    {{ @t "navbar.live_matches" }}
+                    {{#if hasLiveMatches}}<span class="badge bg-success">{{ @t "navbar.now_badge" }}</span>{{/if}}
                 </a></li>
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "past")}} active{{/if}}" href="/past"{{#if (eq activeNav "past")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.past_matches" }}
+                    {{ @t "navbar.past_matches" }}
                     {{#if (gt unseenPastMatches 0)}}<span class="badge bg-warning text-dark">{{unseenPastMatches}}</span>{{/if}}
                 </a></li>
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "highscore")}} active{{/if}}" href="/highscore"{{#if (eq activeNav "highscore")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.highscore" }}
+                    {{ @t "navbar.highscore" }}
                 </a></li>
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "extra_bet_list")}} active{{/if}}" href="/extra_bet_list"{{#if (eq activeNav "extra_bet_list")}} aria-current="page"{{/if}}>
-                    Extra Bets
+                    {{ @t "navbar.extra_bets" }}
                 </a></li>
                 <li class="nav-item ms-lg-auto d-flex align-items-center">
                     <div class="my-2 my-lg-0">
-                        <label class="form-label small mb-1 visually-hidden" for="themeSelect">{{ t "navbar.theme" }}</label>
-                        <select class="form-select form-select-sm" id="themeSelect" data-theme-select aria-label="{{ t "navbar.theme" }}">
-                            <option value="light">{{ t "navbar.theme" }}: {{ t "navbar.theme_light" }}</option>
-                            <option value="dark">{{ t "navbar.theme" }}: {{ t "navbar.theme_dark" }}</option>
-                            <option value="system">{{ t "navbar.theme" }}: {{ t "navbar.theme_system" }}</option>
+                        <label class="form-label small mb-1 visually-hidden" for="themeSelect">{{ @t "navbar.theme" }}</label>
+                        <select class="form-select form-select-sm" id="themeSelect" data-theme-select aria-label="{{ @t "navbar.theme" }}">
+                            <option value="light">{{ @t "navbar.theme" }}: {{ @t "navbar.theme_light" }}</option>
+                            <option value="dark">{{ @t "navbar.theme" }}: {{ @t "navbar.theme_dark" }}</option>
+                            <option value="system">{{ @t "navbar.theme" }}: {{ @t "navbar.theme_system" }}</option>
                         </select>
                     </div>
                 </li>
@@ -43,25 +43,25 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle{{#if (or (eq activeNav "admin") (eq activeNav "settings"))}} active{{/if}}" data-bs-toggle="dropdown" aria-expanded="false">{{user.name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        {{#if user.admin}}<a class="dropdown-item{{#if (eq activeNav "admin")}} active{{/if}}" href="/admin">Admin</a>{{/if}}
+                        {{#if user.admin}}<a class="dropdown-item{{#if (eq activeNav "admin")}} active{{/if}}" href="/admin">{{ @t "navbar.admin" }}</a>{{/if}}
                         <a class="dropdown-item{{#if (eq activeNav "settings")}} active{{/if}}" href="/settings">
-                            {{ t "navbar.settings" }}
+                            {{ @t "navbar.settings" }}
                         </a>
                         <div class="dropdown-divider"></div>
                         <form method="post" action="/logout">
                             <input type="hidden" name="_csrf" value="{{csrfToken}}">
                             <button type="submit" class="btn btn-link dropdown-item">
-                                {{ t "navbar.logout" }}
+                                {{ @t "navbar.logout" }}
                             </button>
                         </form>
                     </div>
                 </li>
                 {{else}}
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "register")}} active{{/if}}" href="/register"{{#if (eq activeNav "register")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.register" }}
+                    {{ @t "navbar.register" }}
                 </a></li>
                 <li class="nav-item"><a class="nav-link{{#if (eq activeNav "login")}} active{{/if}}" href="/login"{{#if (eq activeNav "login")}} aria-current="page"{{/if}}>
-                    {{ t "navbar.login" }}
+                    {{ @t "navbar.login" }}
                 </a></li>
                 {{/if}}
             </ul>
