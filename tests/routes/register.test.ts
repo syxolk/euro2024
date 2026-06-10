@@ -54,14 +54,11 @@ describe("POST /register", () => {
         const { default: app } = await import("../../app");
         const ag = supertest.agent(app);
 
-        const res = await ag
-            .post("/register")
-            .type("form")
-            .send({
-                name: "New User",
-                email: "newuser@example.com",
-                password: "secret123",
-            });
+        const res = await ag.post("/register").type("form").send({
+            name: "New User",
+            email: "newuser@example.com",
+            password: "secret123",
+        });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
@@ -77,15 +74,12 @@ describe("POST /register", () => {
         const { default: app } = await import("../../app");
         const ag = supertest.agent(app);
 
-        const res = await ag
-            .post("/register")
-            .type("form")
-            .send({
-                name: "New User",
-                email: "newuser@example.com",
-                password: "secret123",
-                invite_code: "BADCODE1",
-            });
+        const res = await ag.post("/register").type("form").send({
+            name: "New User",
+            email: "newuser@example.com",
+            password: "secret123",
+            invite_code: "BADCODE1",
+        });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
@@ -104,15 +98,12 @@ describe("POST /register", () => {
         const { default: app } = await import("../../app");
         const ag = supertest.agent(app);
 
-        const res = await ag
-            .post("/register")
-            .type("form")
-            .send({
-                name: "New User",
-                email: "newuser@example.com",
-                password: "secret123",
-                invite_code: inviteCode,
-            });
+        const res = await ag.post("/register").type("form").send({
+            name: "New User",
+            email: "newuser@example.com",
+            password: "secret123",
+            invite_code: inviteCode,
+        });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/intro");
@@ -134,15 +125,12 @@ describe("POST /register", () => {
         const { default: app } = await import("../../app");
         const ag = supertest.agent(app);
 
-        await ag
-            .post("/register")
-            .type("form")
-            .send({
-                name: "Invited User",
-                email: "invited@example.com",
-                password: "secret123",
-                invite_code: inviteCode,
-            });
+        await ag.post("/register").type("form").send({
+            name: "Invited User",
+            email: "invited@example.com",
+            password: "secret123",
+            invite_code: inviteCode,
+        });
 
         const invitee = await knex("user_account")
             .where({ email: "invited@example.com" })
@@ -164,15 +152,12 @@ describe("POST /register", () => {
         const { default: app } = await import("../../app");
         const ag = supertest.agent(app);
 
-        const res = await ag
-            .post("/register")
-            .type("form")
-            .send({
-                name: "Duplicate",
-                email: "taken@example.com",
-                password: "secret123",
-                invite_code: inviteCode,
-            });
+        const res = await ag.post("/register").type("form").send({
+            name: "Duplicate",
+            email: "taken@example.com",
+            password: "secret123",
+            invite_code: inviteCode,
+        });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
