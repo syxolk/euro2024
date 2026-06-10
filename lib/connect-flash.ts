@@ -22,7 +22,8 @@ function _flash(
     msg?: string | string[],
     ...rest: string[]
 ): string[] | FlashMessages | number | void {
-    if (this.session === undefined) throw new Error("req.flash() requires sessions");
+    if (this.session === undefined)
+        throw new Error("req.flash() requires sessions");
     const msgs: FlashMessages = (this.session.flash = this.session.flash || {});
 
     if (type && msg !== undefined) {

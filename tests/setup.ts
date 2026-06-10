@@ -8,7 +8,9 @@ export async function setup(): Promise<void> {
 
     console.log("Starting test database...");
     // --wait blocks until all services with healthchecks are healthy
-    execSync(`docker compose -f "${COMPOSE_FILE}" up -d --wait`, { stdio: "inherit" });
+    execSync(`docker compose -f "${COMPOSE_FILE}" up -d --wait`, {
+        stdio: "inherit",
+    });
 
     console.log("Running migrations...");
     execSync(

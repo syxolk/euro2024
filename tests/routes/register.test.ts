@@ -38,8 +38,14 @@ describe("POST /register", () => {
         await truncateTables(knex);
     });
 
-    async function getInviterCode(knex: import("knex").Knex, inviterId: number): Promise<string> {
-        const row = await knex("user_account").select("invite_code").where({ id: inviterId }).first();
+    async function getInviterCode(
+        knex: import("knex").Knex,
+        inviterId: number
+    ): Promise<string> {
+        const row = await knex("user_account")
+            .select("invite_code")
+            .where({ id: inviterId })
+            .first();
         return row.invite_code;
     }
 
@@ -51,12 +57,18 @@ describe("POST /register", () => {
         const res = await ag
             .post("/register")
             .type("form")
-            .send({ name: "New User", email: "newuser@example.com", password: "secret123" });
+            .send({
+                name: "New User",
+                email: "newuser@example.com",
+                password: "secret123",
+            });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
 
-        const dbUser = await knex("user_account").where({ email: "newuser@example.com" }).first();
+        const dbUser = await knex("user_account")
+            .where({ email: "newuser@example.com" })
+            .first();
         expect(dbUser).toBeUndefined();
     });
 
@@ -68,12 +80,19 @@ describe("POST /register", () => {
         const res = await ag
             .post("/register")
             .type("form")
-            .send({ name: "New User", email: "newuser@example.com", password: "secret123", invite_code: "BADCODE1" });
+            .send({
+                name: "New User",
+                email: "newuser@example.com",
+                password: "secret123",
+                invite_code: "BADCODE1",
+            });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
 
-        const dbUser = await knex("user_account").where({ email: "newuser@example.com" }).first();
+        const dbUser = await knex("user_account")
+            .where({ email: "newuser@example.com" })
+            .first();
         expect(dbUser).toBeUndefined();
     });
 
@@ -88,12 +107,19 @@ describe("POST /register", () => {
         const res = await ag
             .post("/register")
             .type("form")
-            .send({ name: "New User", email: "newuser@example.com", password: "secret123", invite_code: inviteCode });
+            .send({
+                name: "New User",
+                email: "newuser@example.com",
+                password: "secret123",
+                invite_code: inviteCode,
+            });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/intro");
 
-        const dbUser = await knex("user_account").where({ email: "newuser@example.com" }).first();
+        const dbUser = await knex("user_account")
+            .where({ email: "newuser@example.com" })
+            .first();
         expect(dbUser).toBeDefined();
         expect(dbUser.name).toBe("New User");
         expect(dbUser.invite_code).toBeDefined();
@@ -111,9 +137,16 @@ describe("POST /register", () => {
         await ag
             .post("/register")
             .type("form")
-            .send({ name: "Invited User", email: "invited@example.com", password: "secret123", invite_code: inviteCode });
+            .send({
+                name: "Invited User",
+                email: "invited@example.com",
+                password: "secret123",
+                invite_code: inviteCode,
+            });
 
-        const invitee = await knex("user_account").where({ email: "invited@example.com" }).first();
+        const invitee = await knex("user_account")
+            .where({ email: "invited@example.com" })
+            .first();
         const invitation = await knex("invitation")
             .where({ inviter_id: inviter.id, invitee_id: invitee.id })
             .first();
@@ -122,7 +155,9 @@ describe("POST /register", () => {
     });
 
     it("redirects back to /register on duplicate email", async () => {
-        const inviter = await createTestUser(knex, { email: "taken@example.com" });
+        const inviter = await createTestUser(knex, {
+            email: "taken@example.com",
+        });
         const inviteCode = await getInviterCode(knex, inviter.id);
 
         const { default: supertest } = await import("supertest");
@@ -132,7 +167,12 @@ describe("POST /register", () => {
         const res = await ag
             .post("/register")
             .type("form")
-            .send({ name: "Duplicate", email: "taken@example.com", password: "secret123", invite_code: inviteCode });
+            .send({
+                name: "Duplicate",
+                email: "taken@example.com",
+                password: "secret123",
+                invite_code: inviteCode,
+            });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/register");
@@ -183,7 +223,10 @@ describe("POST /activate/:code", () => {
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
 
-        const res = await supertest(app).post(`/activate/${token}`).type("form").send({});
+        const res = await supertest(app)
+            .post(`/activate/${token}`)
+            .type("form")
+            .send({});
         expect(res.status).toBe(200);
         expect(res.text).toContain("alert-success");
 

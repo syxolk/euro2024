@@ -33,7 +33,9 @@ exports.up = async function (knex) {
                 unique = true;
             }
         }
-        await knex("user_account").where({ id: user.id }).update({ invite_code: code });
+        await knex("user_account")
+            .where({ id: user.id })
+            .update({ invite_code: code });
     }
 
     // Now make the column NOT NULL

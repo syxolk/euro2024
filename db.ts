@@ -1,5 +1,5 @@
 import knexFactory, { type Knex } from "knex";
-import {development, production, test} from "./knexfile";
+import { development, production, test } from "./knexfile";
 
 function getConfig(): Knex.Config {
     const environment = process.env.NODE_ENV || "development";
@@ -13,4 +13,3 @@ function getConfig(): Knex.Config {
 }
 
 export const knex = knexFactory(getConfig());
-

@@ -37,8 +37,14 @@ describe("GET /admin/invitations", () => {
     });
 
     it("shows invitation relationships for admin users", async () => {
-        const inviter = await createTestUser(knex, { name: "Alice", email: "alice@example.com" });
-        const invitee = await createTestUser(knex, { name: "Bob", email: "bob@example.com" });
+        const inviter = await createTestUser(knex, {
+            name: "Alice",
+            email: "alice@example.com",
+        });
+        const invitee = await createTestUser(knex, {
+            name: "Bob",
+            email: "bob@example.com",
+        });
 
         await knex("invitation").insert({
             inviter_id: inviter.id,
@@ -46,7 +52,10 @@ describe("GET /admin/invitations", () => {
             created_at: new Date(),
         });
 
-        const admin = await createTestUser(knex, { admin: true, email: "admin@example.com" });
+        const admin = await createTestUser(knex, {
+            admin: true,
+            email: "admin@example.com",
+        });
         const ag = await authenticatedAgent(admin);
 
         const res = await ag.get("/admin/invitations");

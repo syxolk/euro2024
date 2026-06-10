@@ -8,7 +8,8 @@ import { Router } from "express";
 const router = Router();
 
 const CACHE_DIR = path.join(__dirname, "..", ".cache", "flags");
-const CLIENT_CACHE_CONTROL = "public, max-age=86400, stale-while-revalidate=604800";
+const CLIENT_CACHE_CONTROL =
+    "public, max-age=86400, stale-while-revalidate=604800";
 const UPSTREAM_TIMEOUT_MS = 10000;
 const VALID_CODE = /^[A-Z]{3}$/;
 const UPSTREAM_URL_PREFIX = "https://api.fifa.com/api/v3/picture/flags-sq-1/";
@@ -73,7 +74,9 @@ async function fetchFlag(code: string): Promise<CachedFlag> {
     const contentType =
         typeof contentTypeHeader === "string" ? contentTypeHeader : "";
     if (!contentType.toLowerCase().startsWith("image/")) {
-        throw new Error(`Unexpected flag content type: ${contentType || "unknown"}`);
+        throw new Error(
+            `Unexpected flag content type: ${contentType || "unknown"}`
+        );
     }
 
     return {
@@ -100,7 +103,10 @@ router.get("/flags/:code", async (req, res) => {
         sendFlag(res, cachedFlag);
         return;
     } catch (error) {
-        if (!(error instanceof Error) || (error as NodeJS.ErrnoException).code !== "ENOENT") {
+        if (
+            !(error instanceof Error) ||
+            (error as NodeJS.ErrnoException).code !== "ENOENT"
+        ) {
             console.error(`Failed to read cached flag ${code}:`, error);
         }
     }

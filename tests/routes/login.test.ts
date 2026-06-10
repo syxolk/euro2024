@@ -21,7 +21,10 @@ describe("POST /login", () => {
     });
 
     it("redirects back to /login on wrong password", async () => {
-        await createTestUser(knex, { email: "user@example.com", password: "correct" });
+        await createTestUser(knex, {
+            email: "user@example.com",
+            password: "correct",
+        });
 
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");

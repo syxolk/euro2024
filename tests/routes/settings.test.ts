@@ -62,7 +62,9 @@ describe("POST /settings", () => {
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/settings");
 
-        const dbUser = await knex("user_account").where({ id: user.id }).first();
+        const dbUser = await knex("user_account")
+            .where({ id: user.id })
+            .first();
         expect(dbUser.name).toBe("New Display Name");
     });
 });

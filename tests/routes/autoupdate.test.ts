@@ -25,8 +25,16 @@ describe("GET /autoupdate_match_result", () => {
 
     it("updates match results from FIFA API (mocked)", async () => {
         const axios = await import("axios");
-        const homeTeamId = await seedTeam(knex, { name: "France", code: "FRA", fifa_id: "fra-1" });
-        const awayTeamId = await seedTeam(knex, { name: "Germany", code: "GER", fifa_id: "ger-1" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "France",
+            code: "FRA",
+            fifa_id: "fra-1",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Germany",
+            code: "GER",
+            fifa_id: "ger-1",
+        });
         const fifaId = 42001;
         await seedMatch(knex, {
             home_team_id: homeTeamId,
@@ -64,7 +72,9 @@ describe("GET /autoupdate_match_result", () => {
         `);
         expect(res.body.ok).toBe(true);
 
-        const match = await knex("match").where({ fifa_id: String(fifaId) }).first();
+        const match = await knex("match")
+            .where({ fifa_id: String(fifaId) })
+            .first();
         expect(match.goals_home).toBe(2);
         expect(match.goals_away).toBe(1);
     });
@@ -81,9 +91,20 @@ describe("GET /autoupdate_match_teams", () => {
     });
 
     it("returns ok when there are no matches with missing teams", async () => {
-        const homeTeamId = await seedTeam(knex, { name: "Spain", code: "ESP", fifa_id: "esp-1" });
-        const awayTeamId = await seedTeam(knex, { name: "Italy", code: "ITA", fifa_id: "ita-1" });
-        await seedMatch(knex, { home_team_id: homeTeamId, away_team_id: awayTeamId });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Spain",
+            code: "ESP",
+            fifa_id: "esp-1",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Italy",
+            code: "ITA",
+            fifa_id: "ita-1",
+        });
+        await seedMatch(knex, {
+            home_team_id: homeTeamId,
+            away_team_id: awayTeamId,
+        });
 
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
@@ -134,7 +155,9 @@ describe("GET /autoupdate_match_teams", () => {
           }
         `);
 
-        const match = await knex("match").where({ fifa_id: String(fifaMatchId) }).first();
+        const match = await knex("match")
+            .where({ fifa_id: String(fifaMatchId) })
+            .first();
         expect(match.home_team_id).toBe(teamId);
     });
 });
