@@ -34,8 +34,9 @@
 
 <h3>{{displayedUser.name}} <small class="text-muted">{{ @tr "user.summary" score=displayedUser.score rank=displayedUser.rank }}</small></h3>
 
-{{#each extraBets}}
-    <div class="row row-cols-1 row-cols-lg-3 g-3"></div>
+{{#if extraBets}}
+    <div class="row row-cols-1 row-cols-lg-3 g-3 mt-3">
+        {{#each extraBets}}
         <div class="col">
             <div class="card h-100">
                 <div class="card-header">
@@ -50,12 +51,13 @@
                 </div>
             </div>
         </div>
+        {{/each}}
     </div>
-{{/each}}
+{{/if}}
 
 
 {{#if matchesPerDayList}}
-<table class="table table-sm">
+<table class="table table-sm mt-3">
     <thead class="table-light">
     <tr>
         <th colspan="2"></th>
@@ -64,6 +66,7 @@
         <th class="text-center">{{ @t "user.points_column" }}</th>
     </tr>
     </thead>
+    <tbody>
     {{#each matchesPerDayList}}
         <tr>
             <td colspan="7" class="pt-4">
@@ -79,13 +82,27 @@
                 {{> score_factor match_type_score_factor}}
             </td>
             <td class="text-end">
-                <em class="d-none d-sm-inline">{{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}{{home_team_name}}</em><em class="d-sm-none">{{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}{{home_team_code}}</em>
+                <em class="d-none d-sm-inline">
+                    {{home_team_name}}
+                    {{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}
+                </em>
+                <em class="d-sm-none">
+                    {{home_team_code}}
+                    {{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}
+                </em>
             </td>
             <td class="text-center">
                 <strong>{{showGoals match_goals_home}}</strong> : <strong>{{showGoals match_goals_away}}</strong>
             </td>
             <td class="text-start">
-                <em class="d-none d-sm-inline">{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}</em><em class="d-sm-none">{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_code}}</em>
+                <em class="d-none d-sm-inline">
+                    {{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}
+                    {{away_team_name}}
+                </em>
+                <em class="d-sm-none">
+                    {{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}
+                    {{away_team_code}}
+                </em>
             </td>
             <td class="text-center">
             {{showGoals bet_goals_home}} : {{showGoals bet_goals_away}}
@@ -96,6 +113,7 @@
         </tr>
         {{/each}}
     {{/each}}
+    </tbody>
 </table>
 {{else}}
 <div class="alert alert-danger" role="alert">
