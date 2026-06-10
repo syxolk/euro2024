@@ -1,6 +1,6 @@
 /**
  * This was adapted from the original connect-flash package, which is licensed under the MIT License.
- * 
+ *
  * See: https://www.npmjs.com/package/connect-flash
  */
 
