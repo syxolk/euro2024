@@ -12,8 +12,6 @@ router.get("/admin", async (req: Request, res: Response) => {
         return;
     }
 
-    const now = new Date();
-
     const matchesWithoutTeams = await knex("match")
         .join("match_type", "match_type.id", "match.match_type_id")
         .select(

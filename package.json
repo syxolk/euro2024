@@ -16,6 +16,7 @@
     "migrate:list": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:list",
     "pretty": "prettier --write './**/*.{js,ts,tsx,css,scss}'",
     "check-pretty": "prettier --check './**/*.{js,ts,tsx,css,scss}'",
+    "lint": "eslint routes/",
     "test": "NODE_ENV=test vitest run",
     "test:watch": "NODE_ENV=test vitest",
     "test:setup": "docker compose -f docker-compose.test.yml up -d",
@@ -58,6 +59,7 @@
     "uuid": "^14.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/express": "^5.0.3",
@@ -73,7 +75,11 @@
     "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-local": "^1.0.38",
     "@types/supertest": "^7.2.0",
+    "eslint": "^10.4.1",
+    "jiti": "^2.7.0",
+    "globals": "^17.6.0",
     "supertest": "^7.2.2",
+    "typescript-eslint": "^8.61.0",
     "vitest": "^4.1.7"
   }
 }

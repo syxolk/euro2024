@@ -3,16 +3,17 @@ import type { Request, Response, NextFunction } from "express";
 
 type FlashMessages = Record<string, string[]>;
 
-declare global {
-    namespace Express {
-        interface Request {
-            flash(type: string, message: string): void;
-            flash(type: string): string[];
-            flash(): FlashMessages;
-        }
-        interface Session {
-            flash?: FlashMessages;
-        }
+declare module "express-serve-static-core" {
+    interface Request {
+        flash(type: string, message: string): void;
+        flash(type: string): string[];
+        flash(): FlashMessages;
+    }
+}
+
+declare module "express-session" {
+    interface SessionData {
+        flash?: FlashMessages;
     }
 }
 
@@ -52,7 +53,8 @@ function _flash(
 export default function connectFlash() {
     return function (req: Request, _res: Response, next: NextFunction): void {
         if (!req.flash) {
-            (req as any).flash = _flash.bind(req);
+            const flash = _flash.bind(req) as Request["flash"];
+            req.flash = flash;
         }
         next();
     };
