@@ -26,5 +26,8 @@ jobs:
       - name: Run integration tests
         run: npm test
 
+      - name: Run lint check
+        run: npm run lint
+
       - name: Run prettier check
         run: npm run check-pretty

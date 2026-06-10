@@ -120,11 +120,11 @@ export default function registerHbsHelpers() {
         return !v;
     });
 
-    hbs.registerHelper("and", function () {
-        return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
+    hbs.registerHelper("and", function (...args: unknown[]) {
+        return args.slice(0, -1).every(Boolean);
     });
 
-    hbs.registerHelper("or", function () {
-        return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
+    hbs.registerHelper("or", function (...args: unknown[]) {
+        return args.slice(0, -1).some(Boolean);
     });
 }

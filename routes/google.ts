@@ -180,7 +180,7 @@ export default function registerGoogleRoutes(app: Router) {
             .then(() => {
                 res.redirect("/settings");
             })
-            .catch((err) => {
+            .catch(() => {
                 req.flash("error", "Could not disconnect Google account.");
                 res.redirect("/settings");
             });
