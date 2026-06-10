@@ -50,6 +50,7 @@ router.use(async (req: Request, res: Response, next: NextFunction) => {
     res.locals.csrfToken = req.csrfToken?.() ?? "";
     res.locals.websiteName = "Worldcup 2026";
     res.locals.activeNav = getActiveNav(req.path);
+    res.locals.language = req.language;
 
     // We need our own helper function here so that we can call i18next's "t"-function with interpolation
     res.locals.tr = (

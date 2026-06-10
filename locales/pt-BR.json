@@ -73,12 +73,24 @@
         "extra_bets": "Apostas extras",
         "admin": "Administração"
     },
+    "format": {
+        "date": "{{value, appDate}}",
+        "time": "{{value, appTime}}",
+        "date_time": "{{value, appDateTime}}",
+        "date_time_short": "{{value, appDateTimeShort}}",
+        "news_date": "{{value, appNewsDate}}",
+        "news_date_today": "Hoje às {{time}}",
+        "news_date_tomorrow": "Amanhã às {{time}}",
+        "news_date_yesterday": "Ontem às {{time}}",
+        "news_date_next_week": "{{weekday}} às {{time}}",
+        "news_date_last_week": "Na última {{weekday}}, às {{time}}"
+    },
     "mybets": {
         "title": "Minhas Apostas",
         "header": "Minhas Apostas",
         "no_bets_info": "Você deve fazer apostas para as próximas partidas!",
         "edit_disabled": "Você não pode mais editar sua aposta.",
-        "edit_bet_until": "Você pode alterar sua aposta até {{date}}.",
+        "edit_bet_until": "Você pode alterar sua aposta até {{date, appDateTime}}.",
         "edit_bet_button": "Editar minha aposta",
         "no_team_selected": "Você ainda não escolheu um time.",
         "extra_bet_info": "1 Time por {{ scoreFactor }} pontos.",

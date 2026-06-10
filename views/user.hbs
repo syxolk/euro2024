@@ -70,12 +70,12 @@
     {{#each matchesPerDayList}}
         <tr>
             <td colspan="7" class="pt-4">
-                {{formatDate date}}
+                {{ @tr "format.date" value=date }}
             </td>
         </tr>
         {{#each matches}}
         <tr class="result-{{result}}">
-            <td class="small"><span class="d-none d-sm-inline">{{formatTime starts_at}}</span><span class="d-sm-none">{{formatTime starts_at}}</span></td>
+            <td class="small"><span class="d-none d-sm-inline">{{ @tr "format.time" value=starts_at }}</span><span class="d-sm-none">{{ @tr "format.time" value=starts_at }}</span></td>
             <td class="small">
                 <span class="d-none d-sm-inline">{{match_type_name}}</span>
                 <span class="d-sm-none">{{match_type_code}}</span>

@@ -73,12 +73,24 @@
         "extra_bets": "Extra Bets",
         "admin": "Admin"
     },
+    "format": {
+        "date": "{{value, appDate}}",
+        "time": "{{value, appTime}}",
+        "date_time": "{{value, appDateTime}}",
+        "date_time_short": "{{value, appDateTimeShort}}",
+        "news_date": "{{value, appNewsDate}}",
+        "news_date_today": "Today at {{time}}",
+        "news_date_tomorrow": "Tomorrow at {{time}}",
+        "news_date_yesterday": "Yesterday at {{time}}",
+        "news_date_next_week": "{{weekday}} at {{time}}",
+        "news_date_last_week": "Last {{weekday}} at {{time}}"
+    },
     "mybets": {
         "title": "My Bets",
         "header": "My Bets",
         "no_bets_info": "You should place bets for the upcoming matches!",
         "edit_disabled": "You can no longer edit your bet.",
-        "edit_bet_until": "Change your bet until {{date}}.",
+        "edit_bet_until": "Change your bet until {{date, appDateTime}}.",
         "edit_bet_button": "Edit my bet",
         "no_team_selected": "You have chosen no team so far.",
         "extra_bet_info": "1 Team for {{ scoreFactor }} points.",
