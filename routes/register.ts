@@ -164,7 +164,7 @@ router.post("/register", async (req, res) => {
     if (config.mail) {
         sendMail(user)
             .then(() => {
-                req.login(user, function (err) {
+                req.login(user, function () {
                     res.redirect("/intro");
                 });
             })
@@ -174,7 +174,7 @@ router.post("/register", async (req, res) => {
                 res.redirect("/register");
             });
     } else {
-        req.login(user, function (err) {
+        req.login(user, function () {
             res.redirect("/intro");
         });
     }
