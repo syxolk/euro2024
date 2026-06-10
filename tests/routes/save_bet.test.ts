@@ -34,8 +34,16 @@ describe("POST /save_bet", () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
 
-        const homeTeamId = await seedTeam(knex, { name: "Germany", code: "GER", fifa_id: "ger" });
-        const awayTeamId = await seedTeam(knex, { name: "France", code: "FRA", fifa_id: "fra" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Germany",
+            code: "GER",
+            fifa_id: "ger",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "France",
+            code: "FRA",
+            fifa_id: "fra",
+        });
         const matchId = await seedMatch(knex, {
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
@@ -62,8 +70,16 @@ describe("POST /save_bet", () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
 
-        const homeTeamId = await seedTeam(knex, { name: "Spain", code: "ESP", fifa_id: "esp" });
-        const awayTeamId = await seedTeam(knex, { name: "Italy", code: "ITA", fifa_id: "ita" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Spain",
+            code: "ESP",
+            fifa_id: "esp",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Italy",
+            code: "ITA",
+            fifa_id: "ita",
+        });
         const matchId = await seedMatch(knex, {
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
@@ -93,8 +109,16 @@ describe("POST /save_bet", () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
 
-        const homeTeamId = await seedTeam(knex, { name: "Brazil", code: "BRA", fifa_id: "bra" });
-        const awayTeamId = await seedTeam(knex, { name: "Argentina", code: "ARG", fifa_id: "arg" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Brazil",
+            code: "BRA",
+            fifa_id: "bra",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Argentina",
+            code: "ARG",
+            fifa_id: "arg",
+        });
         const matchId = await seedMatch(knex, {
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
@@ -123,8 +147,16 @@ describe("POST /save_bet", () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);
 
-        const homeTeamId = await seedTeam(knex, { name: "Portugal", code: "POR", fifa_id: "por" });
-        const awayTeamId = await seedTeam(knex, { name: "Belgium", code: "BEL", fifa_id: "bel" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Portugal",
+            code: "POR",
+            fifa_id: "por",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Belgium",
+            code: "BEL",
+            fifa_id: "bel",
+        });
         const matchId = await seedMatch(knex, {
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
@@ -155,7 +187,10 @@ describe("POST /save_bet", () => {
             .set("Content-Type", "application/json");
 
         expect(res.status).toBe(403);
-        expect(res.body).toMatchObject({ ok: false, error: "MATCH_TEAMS_UNKNOWN" });
+        expect(res.body).toMatchObject({
+            ok: false,
+            error: "MATCH_TEAMS_UNKNOWN",
+        });
     });
 
     it("returns 404 for a non-existent match", async () => {

@@ -27,7 +27,10 @@
     }
 
     function applyTheme(theme, themeSelect) {
-        document.documentElement.setAttribute("data-bs-theme", resolveTheme(theme));
+        document.documentElement.setAttribute(
+            "data-bs-theme",
+            resolveTheme(theme)
+        );
         if (themeSelect) {
             themeSelect.value = theme;
         }

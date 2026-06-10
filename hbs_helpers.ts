@@ -51,9 +51,12 @@ export default function registerHbsHelpers() {
         return Math.round(number * 10) / 10;
     });
 
-    hbs.registerHelper("showGoals", function (goals: number | null | undefined) {
-        return goals === undefined || goals === null ? "-" : goals + "";
-    });
+    hbs.registerHelper(
+        "showGoals",
+        function (goals: number | null | undefined) {
+            return goals === undefined || goals === null ? "-" : goals + "";
+        }
+    );
 
     hbs.registerHelper("isZero", function (num: number | string) {
         return num === 0 || num === "0";
@@ -67,12 +70,15 @@ export default function registerHbsHelpers() {
         return val < 0;
     });
 
-    hbs.registerHelper("contains", function (arr: unknown[] | null | undefined, val: unknown) {
-        if (arr === undefined || arr === null) {
-            return false;
+    hbs.registerHelper(
+        "contains",
+        function (arr: unknown[] | null | undefined, val: unknown) {
+            if (arr === undefined || arr === null) {
+                return false;
+            }
+            return arr.includes(val);
         }
-        return arr.includes(val);
-    });
+    );
 
     hbs.registerHelper("eq", function (v1: unknown, v2: unknown) {
         return v1 === v2;
@@ -82,21 +88,33 @@ export default function registerHbsHelpers() {
         return v1 !== v2;
     });
 
-    hbs.registerHelper("lt", function (v1: number | string, v2: number | string) {
-        return v1 < v2;
-    });
+    hbs.registerHelper(
+        "lt",
+        function (v1: number | string, v2: number | string) {
+            return v1 < v2;
+        }
+    );
 
-    hbs.registerHelper("gt", function (v1: number | string, v2: number | string) {
-        return v1 > v2;
-    });
+    hbs.registerHelper(
+        "gt",
+        function (v1: number | string, v2: number | string) {
+            return v1 > v2;
+        }
+    );
 
-    hbs.registerHelper("lte", function (v1: number | string, v2: number | string) {
-        return v1 <= v2;
-    });
+    hbs.registerHelper(
+        "lte",
+        function (v1: number | string, v2: number | string) {
+            return v1 <= v2;
+        }
+    );
 
-    hbs.registerHelper("gte", function (v1: number | string, v2: number | string) {
-        return v1 >= v2;
-    });
+    hbs.registerHelper(
+        "gte",
+        function (v1: number | string, v2: number | string) {
+            return v1 >= v2;
+        }
+    );
 
     hbs.registerHelper("not", function (v: unknown) {
         return !v;

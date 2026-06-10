@@ -25,3 +25,6 @@ jobs:
 
       - name: Run integration tests
         run: npm test
+
+      - name: Run prettier check
+        run: npm run check-pretty

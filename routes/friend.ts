@@ -46,10 +46,12 @@ router.delete("/friend/:id", async (req: Request, res: Response) => {
         return;
     }
 
-    await knex("friend").where({
-        from_user_id: user.id,
-        to_user_id: req.params.id,
-    }).del();
+    await knex("friend")
+        .where({
+            from_user_id: user.id,
+            to_user_id: req.params.id,
+        })
+        .del();
 
     res.json({ ok: true });
 });

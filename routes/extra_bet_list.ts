@@ -53,12 +53,12 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
                                 and to_user_id = user_account.id
                             ))
                         `,
-                                                            { userId: user.id }
+                              { userId: user.id }
                           )
                         : knex.raw("false"),
-                                        meCheck: user
+                    meCheck: user
                         ? knex.raw("(user_account.id = :userId)", {
-                                                            userId: user.id,
+                              userId: user.id,
                           })
                         : knex.raw("false"),
                 }

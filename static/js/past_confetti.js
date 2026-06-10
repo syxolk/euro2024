@@ -14,7 +14,9 @@
                     {
                         height: 18,
                         replaceColor: false,
-                        src: "/flags/" + encodeURIComponent(teamCode.toUpperCase()),
+                        src:
+                            "/flags/" +
+                            encodeURIComponent(teamCode.toUpperCase()),
                         width: 24,
                     },
                 ],
@@ -29,7 +31,8 @@
 
     function getPosition(matchCard, winnerSide) {
         const rect = matchCard.getBoundingClientRect();
-        const xPx = rect.left + rect.width * (winnerSide === "home" ? 0.25 : 0.75);
+        const xPx =
+            rect.left + rect.width * (winnerSide === "home" ? 0.25 : 0.75);
         const yPx = rect.top + Math.min(rect.height * 0.35, 120);
 
         return {
@@ -91,7 +94,9 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-        const unseenMatches = document.querySelectorAll("[data-confetti='true']");
+        const unseenMatches = document.querySelectorAll(
+            "[data-confetti='true']"
+        );
 
         unseenMatches.forEach(function (matchCard, index) {
             fireConfetti(matchCard, index);

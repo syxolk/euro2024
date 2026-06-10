@@ -14,6 +14,8 @@
     "migrate:rollback": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:rollback",
     "migrate:make": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:make",
     "migrate:list": "tsx ./node_modules/knex/bin/cli.js --knexfile knexfile.ts migrate:list",
+    "pretty": "prettier --write './**/*.{js,ts,tsx,css,scss}'",
+    "check-pretty": "prettier --check './**/*.{js,ts,tsx,css,scss}'",
     "test": "NODE_ENV=test vitest run",
     "test:watch": "NODE_ENV=test vitest",
     "test:setup": "docker compose -f docker-compose.test.yml up -d",
@@ -50,7 +52,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.11.5",
-    "prettier": "^2.3.1",
+    "prettier": "^3.8.4",
     "tsx": "^4.20.6",
     "typescript": "^5.8.3",
     "uuid": "^14.0.0"

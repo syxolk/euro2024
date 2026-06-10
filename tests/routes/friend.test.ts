@@ -31,8 +31,13 @@ describe("GET /friend", () => {
 
     it("returns list of friend ids", async () => {
         const user = await createTestUser(knex);
-        const friend = await createTestUser(knex, { email: "friend@example.com" });
-        await knex("friend").insert({ from_user_id: user.id, to_user_id: friend.id });
+        const friend = await createTestUser(knex, {
+            email: "friend@example.com",
+        });
+        await knex("friend").insert({
+            from_user_id: user.id,
+            to_user_id: friend.id,
+        });
 
         const ag = await authenticatedAgent(user);
         const res = await ag.get("/friend");
@@ -64,7 +69,9 @@ describe("POST /friend", () => {
 
     it("adds a friend", async () => {
         const user = await createTestUser(knex);
-        const friend = await createTestUser(knex, { email: "friend2@example.com" });
+        const friend = await createTestUser(knex, {
+            email: "friend2@example.com",
+        });
         const ag = await authenticatedAgent(user);
 
         const res = await ag
@@ -101,8 +108,13 @@ describe("DELETE /friend/:id", () => {
 
     it("removes a friend", async () => {
         const user = await createTestUser(knex);
-        const friend = await createTestUser(knex, { email: "friend3@example.com" });
-        await knex("friend").insert({ from_user_id: user.id, to_user_id: friend.id });
+        const friend = await createTestUser(knex, {
+            email: "friend3@example.com",
+        });
+        await knex("friend").insert({
+            from_user_id: user.id,
+            to_user_id: friend.id,
+        });
 
         const ag = await authenticatedAgent(user);
         const res = await ag.delete(`/friend/${friend.id}`);

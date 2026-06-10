@@ -89,7 +89,9 @@ export async function seedExtraBet(
         .insert({
             name: overrides.name ?? "Test Extra Bet",
             number_of_teams: overrides.number_of_teams ?? 1,
-            editable_until: overrides.editable_until ?? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            editable_until:
+                overrides.editable_until ??
+                new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             score_factor: overrides.score_factor ?? 5,
             team_ids: overrides.team_ids ?? knex.raw("'{}'"),
         })
@@ -113,7 +115,12 @@ export async function seedUserExtraBet(
  */
 export async function seedMatchType(
     knex: import("knex").Knex,
-    overrides: { id?: number; code?: string; name?: string; score_factor?: number } = {}
+    overrides: {
+        id?: number;
+        code?: string;
+        name?: string;
+        score_factor?: number;
+    } = {}
 ): Promise<number> {
     const [row] = await knex("match_type")
         .insert({
@@ -147,7 +154,9 @@ export async function seedMatch(
 
     const [row] = await knex("match")
         .insert({
-            starts_at: overrides.starts_at ?? new Date(Date.now() + 24 * 60 * 60 * 1000),
+            starts_at:
+                overrides.starts_at ??
+                new Date(Date.now() + 24 * 60 * 60 * 1000),
             home_team_id: overrides.home_team_id ?? null,
             away_team_id: overrides.away_team_id ?? null,
             match_type_id: matchTypeId,

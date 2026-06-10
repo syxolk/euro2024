@@ -18,7 +18,10 @@ const INVITE_CODE_LENGTH = 8;
 export function generateInviteCode(): string {
     let code = "";
     for (let i = 0; i < INVITE_CODE_LENGTH; i++) {
-        code += INVITE_CODE_CHARS[Math.floor(Math.random() * INVITE_CODE_CHARS.length)];
+        code +=
+            INVITE_CODE_CHARS[
+                Math.floor(Math.random() * INVITE_CODE_CHARS.length)
+            ];
     }
     return code;
 }
@@ -73,7 +76,8 @@ router.get("/register", function (req: Request, res: Response) {
         error: req.flash("error"),
         name: req.flash("name"),
         email: req.flash("email"),
-        inviteCode: req.flash("inviteCode")[0] ?? (req.query.invite as string) ?? "",
+        inviteCode:
+            req.flash("inviteCode")[0] ?? (req.query.invite as string) ?? "",
         disabled: config.disableUserRegistration,
     });
 });

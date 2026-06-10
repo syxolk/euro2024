@@ -35,7 +35,10 @@ describe("GET /admin", () => {
     });
 
     it("renders 200 for admin users", async () => {
-        const admin = await createTestUser(knex, { email: "admin@example.com", admin: true });
+        const admin = await createTestUser(knex, {
+            email: "admin@example.com",
+            admin: true,
+        });
         const ag = await authenticatedAgent(admin);
 
         const res = await ag.get("/admin");
@@ -66,22 +69,36 @@ describe("POST /admin", () => {
     });
 
     it("admin can set teams on a match", async () => {
-        const admin = await createTestUser(knex, { email: "admin2@example.com", admin: true });
+        const admin = await createTestUser(knex, {
+            email: "admin2@example.com",
+            admin: true,
+        });
         const ag = await authenticatedAgent(admin);
 
-        const homeTeamId = await seedTeam(knex, { name: "Spain", code: "ESP", fifa_id: "esp-1" });
-        const awayTeamId = await seedTeam(knex, { name: "Italy", code: "ITA", fifa_id: "ita-1" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Spain",
+            code: "ESP",
+            fifa_id: "esp-1",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Italy",
+            code: "ITA",
+            fifa_id: "ita-1",
+        });
         const matchId = await seedMatch(knex, {
             home_team_id: null,
             away_team_id: null,
         });
 
-        const res = await ag.post("/admin").type("form").send({
-            command: "set_teams",
-            match: String(matchId),
-            home: String(homeTeamId),
-            away: String(awayTeamId),
-        });
+        const res = await ag
+            .post("/admin")
+            .type("form")
+            .send({
+                command: "set_teams",
+                match: String(matchId),
+                home: String(homeTeamId),
+                away: String(awayTeamId),
+            });
 
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/admin");
@@ -110,7 +127,10 @@ describe("GET /admin_extra_bet/:id", () => {
     });
 
     it("returns 404 for non-existent extra_bet", async () => {
-        const admin = await createTestUser(knex, { email: "admin3@example.com", admin: true });
+        const admin = await createTestUser(knex, {
+            email: "admin3@example.com",
+            admin: true,
+        });
         const ag = await authenticatedAgent(admin);
 
         const res = await ag.get("/admin_extra_bet/999999");
@@ -118,7 +138,10 @@ describe("GET /admin_extra_bet/:id", () => {
     });
 
     it("renders 200 for admin with a valid extra_bet", async () => {
-        const admin = await createTestUser(knex, { email: "admin4@example.com", admin: true });
+        const admin = await createTestUser(knex, {
+            email: "admin4@example.com",
+            admin: true,
+        });
         const ag = await authenticatedAgent(admin);
         const extraBetId = await seedExtraBet(knex);
 
@@ -146,9 +169,16 @@ describe("POST /admin_extra_bet/:id", () => {
     });
 
     it("admin can update extra_bet team ids", async () => {
-        const admin = await createTestUser(knex, { email: "admin5@example.com", admin: true });
+        const admin = await createTestUser(knex, {
+            email: "admin5@example.com",
+            admin: true,
+        });
         const ag = await authenticatedAgent(admin);
-        const teamId = await seedTeam(knex, { name: "Brazil", code: "BRA", fifa_id: "bra-1" });
+        const teamId = await seedTeam(knex, {
+            name: "Brazil",
+            code: "BRA",
+            fifa_id: "bra-1",
+        });
         const extraBetId = await seedExtraBet(knex, { number_of_teams: 1 });
 
         const res = await ag
@@ -159,7 +189,9 @@ describe("POST /admin_extra_bet/:id", () => {
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/admin");
 
-        const extraBet = await knex("extra_bet").where({ id: extraBetId }).first();
+        const extraBet = await knex("extra_bet")
+            .where({ id: extraBetId })
+            .first();
         expect(extraBet.team_ids).toContain(teamId);
     });
 });

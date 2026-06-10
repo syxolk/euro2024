@@ -15,15 +15,19 @@ const styles = [
     "./node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
 ];
 
-const vendorJs = scripts.map((path) => {
-    return fs.readFileSync(path, "utf8");
-}).join("\n");
+const vendorJs = scripts
+    .map((path) => {
+        return fs.readFileSync(path, "utf8");
+    })
+    .join("\n");
 const vendorJsHash = crypto.createHash("sha1").update(vendorJs).digest("hex");
 const vendorJsPath = `/static/js/vendor-${vendorJsHash}.js`;
 
-const vendorCss = styles.map((path) => {
-    return fs.readFileSync(path, "utf8");
-}).join("\n");
+const vendorCss = styles
+    .map((path) => {
+        return fs.readFileSync(path, "utf8");
+    })
+    .join("\n");
 const vendorCssHash = crypto.createHash("sha1").update(vendorCss).digest("hex");
 const vendorCssPath = `/static/css/vendor-${vendorCssHash}.css`;
 
@@ -31,7 +35,8 @@ const tsParticlesConfetti = fs.readFileSync(
     "./node_modules/@tsparticles/confetti/tsparticles.confetti.bundle.min.js",
     "utf8"
 );
-const tsParticlesConfettiHash = crypto.createHash("sha1")
+const tsParticlesConfettiHash = crypto
+    .createHash("sha1")
     .update(tsParticlesConfetti)
     .digest("hex");
 const tsParticlesConfettiPath = `/static/js/tsparticles-confetti-${tsParticlesConfettiHash}.js`;

@@ -44,7 +44,9 @@ describe("POST /password_recovery", () => {
     });
 
     it("sets a reset token and redirects for known email", async () => {
-        const user = await createTestUser(knex, { email: "recover@example.com" });
+        const user = await createTestUser(knex, {
+            email: "recover@example.com",
+        });
 
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
@@ -58,7 +60,9 @@ describe("POST /password_recovery", () => {
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe("/password_recovery");
 
-        const dbUser = await knex("user_account").where({ id: user.id }).first();
+        const dbUser = await knex("user_account")
+            .where({ id: user.id })
+            .first();
         expect(dbUser.password_reset_token).toBeTruthy();
         expect(dbUser.password_reset_created_at).toBeTruthy();
     });
@@ -106,7 +110,9 @@ describe("POST /password_reset/:code", () => {
     });
 
     it("resets the password with a valid token", async () => {
-        const user = await createTestUser(knex, { email: "resetme@example.com" });
+        const user = await createTestUser(knex, {
+            email: "resetme@example.com",
+        });
         const token = "valid-reset-token-abc";
         await knex("user_account")
             .update({
@@ -127,7 +133,9 @@ describe("POST /password_reset/:code", () => {
         expect(res.status).toBe(302);
         expect(res.headers.location).toBe(`/password_reset/${token}`);
 
-        const dbUser = await knex("user_account").where({ id: user.id }).first();
+        const dbUser = await knex("user_account")
+            .where({ id: user.id })
+            .first();
         expect(dbUser.password_reset_token).toBeNull();
         expect(dbUser.password_reset_created_at).toBeNull();
     });
