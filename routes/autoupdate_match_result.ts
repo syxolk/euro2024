@@ -9,7 +9,7 @@ interface FifaMatchResult {
     IdMatch: number;
     HomeTeamScore: number | null;
     AwayTeamScore: number | null;
-    MatchStatus: string;
+    MatchStatus: number; // 0 = finished, 1 = not started, 3 = live
 }
 
 router.get("/autoupdate_match_result", async (req, res) => {
@@ -17,7 +17,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
         .select<{ id: number; fifa_id: string }[]>("id", "fifa_id")
         .whereNull("goals_away")
         .whereNull("goals_home")
-        .whereRaw("now() > match.starts_at");
+        .whereRaw("now() >= match.starts_at + interval '90 minutes'");
 
     if (liveMatches.length === 0) {
         res.json({
@@ -69,6 +69,13 @@ router.get("/autoupdate_match_result", async (req, res) => {
         ) {
             errors.push(
                 `Match ${match.fifa_id} has no final result yet (status ${matchData.MatchStatus})`
+            );
+            continue;
+        }
+
+        if(matchData.MatchStatus !== 0) {
+            errors.push(
+                `Match ${match.fifa_id} is not finished yet (status ${matchData.MatchStatus})`
             );
             continue;
         }
