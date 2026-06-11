@@ -15,7 +15,6 @@ const USER_COLUMNS = [
     "admin",
     "past_matches_last_visited_at",
     "google_id as googleId",
-    "facebook_id as facebookId",
 ];
 
 const googleConfig = config.google;

@@ -31,7 +31,6 @@ interface AppConfig {
     sessionSecret: string;
     timezone: string;
     trustProxy: boolean;
-    facebook?: OAuthConfig;
     google?: OAuthConfig;
     mail?: string;
     mailFrom?: string;
@@ -54,13 +53,6 @@ const config: AppConfig = {
     mailFrom: process.env.MAIL_FROM,
     disableUserRegistration: process.env.DISABLE_USER_REGISTRATION === "1",
 };
-
-if (process.env.FACEBOOK_APP_ID && process.env.FACEBOOK_APP_SECRET) {
-    config.facebook = {
-        clientID: process.env.FACEBOOK_APP_ID,
-        clientSecret: process.env.FACEBOOK_APP_SECRET,
-    };
-}
 
 if (process.env.GOOGLE_APP_ID && process.env.GOOGLE_APP_SECRET) {
     config.google = {

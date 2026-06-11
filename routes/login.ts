@@ -31,7 +31,6 @@ passport.use(
                     "password",
                     "past_matches_last_visited_at",
                     "google_id as googleId",
-                    "facebook_id as facebookId"
                 )
                 .first()
                 .then((user) => {
@@ -79,7 +78,6 @@ router.get("/", function (req: Request, res: Response) {
     }
 
     res.render("login", {
-        enabledFacebook: !!config.facebook,
         enabledGoogle: !!config.google,
         error: req.flash("error"),
         email: req.flash("email"),

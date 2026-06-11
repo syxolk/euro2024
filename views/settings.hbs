@@ -40,28 +40,6 @@
 <hr/>
 {{/if}}
 
-{{#if enabledFacebook}}
-{{#if user.facebookId}}
-<div class="alert alert-success">
-<strong>{{ @t "settings.facebook_connected" }}</strong>
-<form method="post" action="/disconnect/facebook">
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
-    <button type="submit" class="btn btn-outline-danger btn-sm mt-3">{{ @t "settings.disconnect_facebook" }}</button>
-</form>
-</div>
-{{else}}
-<div class="alert alert-info">
-<a class="btn btn-primary" href="/connect/facebook">{{ @t "settings.connect_facebook" }}</a>
-<strong>{{ @t "settings.facebook_login_prompt" }}</strong>
-{{ @t "settings.social_profile_id_notice" }}
-</div>
-{{/if}}
-{{else}}
-<div class="small text-muted">
-    {{ @t "settings.facebook_disabled" }}
-</div>
-{{/if}}
-
 {{#if enabledGoogle}}
 {{#if user.googleId}}
 <div class="alert alert-success">

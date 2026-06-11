@@ -99,23 +99,6 @@ related docs: https://expressjs.com/de/guide/behind-proxies.html
 
 This is enabled by default in our `Dockerfile` for production.
 
-### Facebook Login (optional)
-If you want to enable Facebook login you need to create a [Facebook App][facebookapp],
-enable 'Facebook Login' for it and add valid OAuth Redirect URIs
-(use your own domain of course):
-```
-https://www.wetten2026.de/auth/facebook/callback
-https://www.wetten2026.de/connect/facebook/callback
-```
-
-Then add this in your run script (with your own app id and secret):
-```
-FACEBOOK_APP_ID=987654321
-FACEBOOK_APP_SECRET=1234567890
-```
-
-You have to set the app's status to 'Live' so that other people can use it.
-
 ### Google Login (optional)
 If you want to enable Google login you need to create a
 [Google Cloud Platform Project][gcpproject], create an OAuth-Client-ID and
@@ -185,6 +168,5 @@ licensed by [CC 3.0 BY][ccby]
 [papedesign]: http://www.flaticon.com/authors/papedesign
 [flaticon]: http://www.flaticon.com
 [ccby]: http://creativecommons.org/licenses/by/3.0/
-[facebookapp]: https://developers.facebook.com/apps/
 [gcpproject]: https://console.cloud.google.com/apis/
 [mailgun]: https://www.mailgun.com/

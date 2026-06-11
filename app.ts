@@ -62,7 +62,6 @@ passport.deserializeUser(function (id: number, done) {
             "admin",
             "past_matches_last_visited_at",
             "google_id as googleId",
-            "facebook_id as facebookId"
         )
         .first()
         .then((user) => done(null, user))
