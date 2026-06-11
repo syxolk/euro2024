@@ -73,12 +73,24 @@
         "extra_bets": "Sondertipps",
         "admin": "Admin"
     },
+    "format": {
+        "date": "{{value, appDate}}",
+        "time": "{{value, appTime}}",
+        "date_time": "{{value, appDateTime}}",
+        "date_time_short": "{{value, appDateTimeShort}}",
+        "news_date": "{{value, appNewsDate}}",
+        "news_date_today": "Heute um {{time}}",
+        "news_date_tomorrow": "Morgen um {{time}}",
+        "news_date_yesterday": "Gestern um {{time}}",
+        "news_date_next_week": "{{weekday}} um {{time}}",
+        "news_date_last_week": "Letzten {{weekday}} um {{time}}"
+    },
     "mybets": {
         "title": "Meine Tipps",
         "header": "Meine Tipps",
         "no_bets_info": "Du solltest Tipps für die bevorstehenden Spiele abgeben!",
         "edit_disabled": "Du kannst deinen Tipp nicht mehr bearbeiten.",
-        "edit_bet_until": "Ändere deinen Tipp bis {{date}}.",
+        "edit_bet_until": "Ändere deinen Tipp bis {{date, appDateTime}}.",
         "edit_bet_button": "Tipp bearbeiten",
         "no_team_selected": "Du hast bisher keine Teams ausgewählt.",
         "extra_bet_info": "1 Team für {{ scoreFactor }} Punkte.",

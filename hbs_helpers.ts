@@ -1,20 +1,6 @@
 import hbs from "hbs";
-import moment from "moment-timezone";
-
-import config from "./config";
 
 export default function registerHbsHelpers() {
-    moment.updateLocale("en", {
-        calendar: {
-            lastDay: "[Yesterday at] H:mm",
-            sameDay: "[Today at] H:mm",
-            nextDay: "[Tomorrow at] H:mm",
-            lastWeek: "[Last] dddd [at] H:mm",
-            nextWeek: "dddd [at] H:mm",
-            sameElse: "L",
-        },
-    });
-
     hbs.registerHelper("asset", function (path: string) {
         return path;
     });
@@ -25,26 +11,6 @@ export default function registerHbsHelpers() {
         }
 
         return `/flags/${encodeURIComponent(String(code).toUpperCase())}`;
-    });
-
-    hbs.registerHelper("calendar", function (when: Date | string) {
-        return moment.tz(when, config.timezone).format("ddd, MMMM Do, HH:mm");
-    });
-
-    hbs.registerHelper("calendarShort", function (when: Date | string) {
-        return moment.tz(when, config.timezone).format("MMM D, HH:mm");
-    });
-
-    hbs.registerHelper("formatTime", (when: Date | string) => {
-        return moment.tz(when, config.timezone).format("HH:mm");
-    });
-
-    hbs.registerHelper("formatDate", (when: Date | string) => {
-        return moment.tz(when, config.timezone).format("ddd, MMMM Do");
-    });
-
-    hbs.registerHelper("newsDate", function (when: Date | string) {
-        return moment.tz(when, config.timezone).calendar();
     });
 
     hbs.registerHelper("toFixed1", function (number: number) {

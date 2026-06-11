@@ -1,8 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-import moment from "moment-timezone";
 
-import config from "../config";
+import { getLocalDateKey } from "../date_time";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
 
@@ -71,9 +70,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
     const matchesPerDayMap = new Map();
 
     for (const m of matches) {
-        const date = moment
-            .tz(m.starts_at, config.timezone)
-            .format("YYYY-MM-DD");
+        const date = getLocalDateKey(m.starts_at);
 
         let list = matchesPerDayMap.get(date);
         if (list === undefined) {

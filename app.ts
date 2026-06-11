@@ -21,6 +21,7 @@ import ptBrTranslations from "./locales/pt-BR.json";
 import routes from "./routes/index";
 import registerStaticAssets from "./routes/static";
 import type { User } from "./request_helper";
+import { customI18nFormatting } from "./locales/formatting";
 
 const KnexSessionStore = connectSessionKnex(session);
 
@@ -39,6 +40,11 @@ i18next.use(middleware.LanguageDetector).init({
     },
     detection: {
         order: ["header"],
+    },
+    interpolation: {
+        format(value, format, lng) {
+            return customI18nFormatting(value, format, lng);
+        },
     },
 });
 

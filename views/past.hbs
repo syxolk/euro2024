@@ -46,7 +46,7 @@
                 </a>
                 ({{matchtype}}) {{> score_factor score_factor }}
                 <br/>
-                <small class="text-muted">{{calendar starts_at}}{{#if goals_inserted_at}} / {{calendar goals_inserted_at}}{{/if}}</small>
+                <small class="text-muted">{{ @tr "format.date_time" value=starts_at }}{{#if goals_inserted_at}} / {{ @tr "format.date_time" value=goals_inserted_at }}{{/if}}</small>
             </div>
             {{#if @root.is_logged_in}}
                 <div class="col-12 col-md-4 text-md-end text-start">

@@ -23,7 +23,7 @@
         <tr>
             <td>{{inviter_name}}</td>
             <td>{{invitee_name}}</td>
-            <td>{{calendarShort created_at}}</td>
+            <td>{{ @tr "format.date_time_short" value=created_at }}</td>
         </tr>
         {{/each}}
     </tbody>

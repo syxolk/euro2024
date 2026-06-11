@@ -44,7 +44,7 @@ const config: AppConfig = {
     httpPort: process.env.PORT || 8080,
     sessionSecret: process.env.SESSION_SECRET || "octocat",
 
-    // Timezone offset used for all datetime outputs (by moment.js)
+    // IANA timezone used for all datetime outputs and local day grouping
     // Defaults to CEST (Central European Summer Time)
     timezone: "Europe/Berlin",
 
