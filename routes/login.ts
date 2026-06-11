@@ -30,7 +30,7 @@ passport.use(
                     "email",
                     "password",
                     "past_matches_last_visited_at",
-                    "google_id as googleId",
+                    "google_id as googleId"
                 )
                 .first()
                 .then((user) => {

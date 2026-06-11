@@ -61,7 +61,7 @@ passport.deserializeUser(function (id: number, done) {
             "email",
             "admin",
             "past_matches_last_visited_at",
-            "google_id as googleId",
+            "google_id as googleId"
         )
         .first()
         .then((user) => done(null, user))
