@@ -1,10 +1,6 @@
-# Euro 2016 / WorldCup 2018 / Euro 2020 / WorldCup 2022 / Euro 2024
+# Euro 2016 / WorldCup 2018 / Euro 2020 / WorldCup 2022 / Euro 2024 / WorldCup 2026
 
-[![Code Climate](https://codeclimate.com/github/syxolk/euro2016/badges/gpa.svg)](https://codeclimate.com/github/syxolk/euro2016)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/35f72d8dc9964c9389aa4937c98dd571)](https://www.codacy.com/app/hans-kirchner-info/euro2016)
-[![David DM](https://david-dm.org/syxolk/euro2016.svg)](https://david-dm.org/syxolk/euro2016)
-
-~~Euro 2016~~ ~~WorldCup 2018~~ ~~Euro 2020~~ ~~WorldCup 2022~~ Euro 2024 is a web service written in [Node.js][nodejs],
+~~Euro 2016~~ ~~WorldCup 2018~~ ~~Euro 2020~~ ~~WorldCup 2022~~ ~~Euro 2024~~ WorldCup 2026 is a web service written in [Node.js][nodejs],
 giving you and your friends :boy: :girl: a platform of competition: Who is the
 better forecaster of football :soccer: matches? Make bets for football matches,
 collect scores and win the crown :crown:.
@@ -17,11 +13,11 @@ collect scores and win the crown :crown:.
 
 Additionally, there's a match score factor that is multiplied with the points.
 
-The [Uefa Euro 2024][uefa] is taking place in Germany from June 14 to July 14.
+The [Fifa WorldCup 2026][uefa] is taking place in North America from June 11 to July 19.
 Happy betting!
 
 ## Running for Development
-You need to have [PostgreSQL][postgres] :elephant: >= 14 installed and
+You need to have [PostgreSQL][postgres] :elephant: >= 18 installed and
 configured with a new database. Node.js is required of course, recommended
 versions are >= 20.
 
