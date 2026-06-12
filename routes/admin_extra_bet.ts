@@ -2,7 +2,10 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
-import { localizedExtraBetNameExpr, localizedTeamNameExpr } from "./localized_name";
+import {
+    localizedExtraBetNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 

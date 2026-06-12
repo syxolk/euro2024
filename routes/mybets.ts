@@ -37,7 +37,10 @@ router.get("/mybets", async (req: Request, res: Response) => {
             "bet.goals_away as bet_goals_away",
             "match_type.code as match_type_code",
             knex.raw(`:localized as match_type_name`, {
-                localized: localizedMatchTypeNameExpr(req.language, "match_type"),
+                localized: localizedMatchTypeNameExpr(
+                    req.language,
+                    "match_type"
+                ),
             }),
             "match_type.score_factor as match_type_score_factor",
             knex.raw(
@@ -96,7 +99,8 @@ router.get("/mybets", async (req: Request, res: Response) => {
             "editable_until as editableUntil",
             "score_factor as scoreFactor",
             knex.raw(`(editable_until > now()) as "isEditable"`),
-            knex.raw(`
+            knex.raw(
+                `
             (
                 select coalesce(array_agg(jsonb_build_object(
                     'id', team.id,
@@ -108,9 +112,11 @@ router.get("/mybets", async (req: Request, res: Response) => {
                     team.id = st.id
                 )
             ) as "selectedTeams"
-            `, {
-                localized: localizedTeamNameExpr(req.language, "team"),
-            })
+            `,
+                {
+                    localized: localizedTeamNameExpr(req.language, "team"),
+                }
+            )
         )
         .whereRaw("editable_until > now()");
 

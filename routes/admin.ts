@@ -56,7 +56,10 @@ router.get("/admin", async (req: Request, res: Response) => {
             }),
             "starts_at",
             knex.raw(`:localized as match_type_name`, {
-                localized: localizedMatchTypeNameExpr(req.language, "match_type"),
+                localized: localizedMatchTypeNameExpr(
+                    req.language,
+                    "match_type"
+                ),
             })
         )
         .whereRaw("starts_at < now()")

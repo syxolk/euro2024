@@ -120,16 +120,19 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             knex.raw(`
                 cardinality(array_intersect(extra_bet.team_ids, user_account_extra_bet.selected_team_ids)) * score_factor as "totalScore"
             `),
-            knex.raw(`(
+            knex.raw(
+                `(
                 select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
                     select id, :localized as name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
                     from team
                     where team.id = any(user_account_extra_bet.selected_team_ids)
                     order by :localized
                 ) t
-            ) as teams`, {
-                localized: localizedTeamNameExpr(req.language, "team")
-            })
+            ) as teams`,
+                {
+                    localized: localizedTeamNameExpr(req.language, "team"),
+                }
+            )
         )
         .orderBy("id");
 

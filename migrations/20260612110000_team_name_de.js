@@ -22,9 +22,9 @@ const germanMatchTypeNames = {
 };
 
 const germanExtraBetNames = {
-    "Winner": "Sieger",
+    Winner: "Sieger",
     "Semi-Finalists": "Halbfinalisten",
-}
+};
 
 /**
  * @param { import("knex").Knex } knex
@@ -54,7 +54,7 @@ exports.up = async function (knex) {
     for (const [code, nameDe] of matchTypeEntries) {
         await knex("match_type").where({ code }).update({ name_de: nameDe });
     }
-    
+
     const extraBetEntries = Object.entries(germanExtraBetNames);
     for (const [name, nameDe] of extraBetEntries) {
         await knex("extra_bet").where({ name }).update({ name_de: nameDe });
