@@ -3,13 +3,14 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
-import { localizedTeamNameExpr } from "./team_name";
+import {
+    localizedMatchTypeNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
 router.get("/past", async (req: Request, res: Response) => {
-    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
-    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
     const user = getUser(req);
     const orderByGain = req.query.gain === "1";
 
@@ -21,12 +22,12 @@ router.get("/past", async (req: Request, res: Response) => {
         `
             SELECT match.id as id,
             match.starts_at as starts_at,
-            match_type.name as matchtype,
+            :localizedMatchType as matchtype,
             match_type.score_factor as score_factor,
             match.goals_home as goalshome,
             match.goals_away as goalsaway,
-            ${homeTeamNameExpr} as hometeam,
-            ${awayTeamNameExpr} as awayteam,
+            :localizedHomeTeam as hometeam,
+            :localizedAwayTeam as awayteam,
             home_team.code as home_team_code,
             away_team.code as away_team_code,
             (
@@ -114,6 +115,12 @@ router.get("/past", async (req: Request, res: Response) => {
             id: user ? user.id : 0,
             logged_in: !!user,
             last_visited: user ? user.past_matches_last_visited_at : null,
+            localizedMatchType: localizedMatchTypeNameExpr(
+                req.language,
+                "match_type"
+            ),
+            localizedHomeTeam: localizedTeamNameExpr(req.language, "home_team"),
+            localizedAwayTeam: localizedTeamNameExpr(req.language, "away_team"),
         }
     );
 

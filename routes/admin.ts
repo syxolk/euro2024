@@ -2,14 +2,15 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
-import { localizedTeamNameExpr } from "./team_name";
+import {
+    localizedExtraBetNameExpr,
+    localizedMatchTypeNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
 router.get("/admin", async (req: Request, res: Response) => {
-    const teamNameExpr = localizedTeamNameExpr(req.language, "team");
-    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
-    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
     const user = getUser(req);
     if (!user || user.admin !== true) {
         res.status(404).render("404");
@@ -23,23 +24,40 @@ router.get("/admin", async (req: Request, res: Response) => {
             "placeholder_home",
             "placeholder_away",
             "starts_at",
-            "match_type.name as match_type_name"
+            knex.raw(`:localized as match_type_name`, {
+                localized: localizedMatchTypeNameExpr(
+                    req.language,
+                    "match_type"
+                ),
+            })
         )
         .whereNull("home_team_id")
         .whereNull("away_team_id")
         .orderBy("starts_at");
 
     const teams = await knex("team")
-        .select("id", knex.raw(`${teamNameExpr} as name`), "code")
+        .select(
+            "id",
+            knex.raw(`:localized as name`, {
+                localized: localizedTeamNameExpr(req.language, "team"),
+            }),
+            "code"
+        )
         .orderBy("code");
 
     const liveMatches = await knex("match")
         .select(
             "match.id as id",
-            knex.raw(`${homeTeamNameExpr} as home_team_name`),
-            knex.raw(`${awayTeamNameExpr} as away_team_name`),
+            knex.raw(`:localized as home_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "home_team"),
+            }),
+            knex.raw(`:localized as away_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "away_team"),
+            }),
             "starts_at",
-            "match_type.name as match_type_name"
+            knex.raw(`:localized as match_type_name`, {
+                localized: localizedMatchTypeNameExpr(req.language, "match_type"),
+            })
         )
         .whereRaw("starts_at < now()")
         .whereNull("goals_home")
@@ -52,17 +70,24 @@ router.get("/admin", async (req: Request, res: Response) => {
     const extraBets = await knex("extra_bet")
         .select(
             "id",
-            "name",
-            knex.raw(`
-            (
-                select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
-                    select id, ${teamNameExpr} as name
-                    from team
-                    where team.id = any(extra_bet.team_ids)
-                    order by ${teamNameExpr}
-                ) t
-            ) as teams
-        `)
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            }),
+            knex.raw(
+                `
+                (
+                    select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
+                        select id, :localized as name
+                        from team
+                        where team.id = any(extra_bet.team_ids)
+                        order by :localized
+                    ) t
+                ) as teams
+                `,
+                {
+                    localized: localizedTeamNameExpr(req.language, "team"),
+                }
+            )
         )
         .orderBy("id");
 

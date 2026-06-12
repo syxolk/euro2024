@@ -48,35 +48,5 @@
         "PAN": "Panama",
         "UZB": "Usbekistan",
         "COL": "Kolumbien"
-    },
-    "types": [
-        {
-            "name": "Finale",
-            "code": "Finale"
-        },
-        {
-            "name": "Spiel um Platz drei",
-            "code": "Spiel um Platz drei"
-        },
-        {
-            "name": "Halbfinale",
-            "code": "Halbfinale"
-        },
-        {
-            "name": "Viertelfinale",
-            "code": "Viertelfinale"
-        },
-        {
-            "name": "Achtelfinale",
-            "code": "Achtelfinale"
-        },
-        {
-            "name": "Sechzehntelfinale",
-            "code": "Sechzehntelfinale"
-        },
-        {
-            "name": "Erste Phase",
-            "code": "Erste Phase"
-        }
-    ]
+    }
 }

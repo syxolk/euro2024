@@ -43,25 +43,8 @@ def main():
     matches_data = fetch_json(
         "https://api.fifa.com/api/v3/calendar/matches?count=200&idSeason=285023&language=de"
     )
-    stages_data = fetch_json(
-        "https://api.fifa.com/api/v3/stages?idSeason=285023&language=de"
-    )
 
     teams = dict()
-    types = []
-
-    def add_type(stage):
-        name = stage["Name"][0]["Description"]
-        code = name  # TODO
-
-        if any(x["code"] == code for x in types):
-            # match type is already in list
-            return
-
-        types.append({
-            "name": name,
-            "code": code,
-        })
 
     def add_team(team):
         team_name = team["TeamName"][0]["Description"]
@@ -80,12 +63,8 @@ def main():
         if match["Away"] is not None:
             add_team(match["Away"])
 
-    for stage in stages_data["Results"]:
-        add_type(stage)
-
     all = {
         "teams": teams,
-        "types": types,
     }
 
     with open("german_team_names.json", "w") as f:
