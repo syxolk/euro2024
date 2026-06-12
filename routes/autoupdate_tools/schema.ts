@@ -7,11 +7,11 @@ export enum FifaApiMatchStatus {
 }
 
 export const FifaApiTeamSchema = z.object({
-    IdTeam: z.number(),
+    IdTeam: z.string(),
 });
 
 export const FifaApiMatchSchema = z.object({
-    IdMatch: z.number(),
+    IdMatch: z.string(),
     HomeTeamScore: z.int().nullable(),
     AwayTeamScore: z.int().nullable(),
     MatchStatus: z.int(),

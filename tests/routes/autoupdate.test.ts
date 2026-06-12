@@ -36,12 +36,12 @@ describe("GET /autoupdate_match_result", () => {
             code: "GER",
             fifa_id: "ger-1",
         });
-        const fifaId = 42001;
+        const fifaId = "42001";
         await seedMatch(knex, {
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
             starts_at: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-            fifa_id: String(fifaId),
+            fifa_id: fifaId,
         });
 
         vi.mocked(axios.default.get).mockResolvedValue({
@@ -117,17 +117,17 @@ describe("GET /autoupdate_match_teams", () => {
 
     it("updates team assignments from FIFA API (mocked)", async () => {
         const axios = await import("axios");
-        const fifaTeamId = 75001;
+        const fifaTeamId = "75001";
         const teamId = await seedTeam(knex, {
             name: "Portugal",
             code: "POR",
-            fifa_id: String(fifaTeamId),
+            fifa_id: fifaTeamId,
         });
-        const fifaMatchId = 55001;
+        const fifaMatchId = "55001";
         await seedMatch(knex, {
             home_team_id: null,
             away_team_id: null,
-            fifa_id: String(fifaMatchId),
+            fifa_id: fifaMatchId,
         });
 
         vi.mocked(axios.default.get).mockResolvedValue({

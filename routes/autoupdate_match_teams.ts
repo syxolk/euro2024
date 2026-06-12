@@ -8,7 +8,7 @@ const router = Router();
 async function updateMatchTeam(
     trx: Knex.Transaction,
     fifaMatchId: string,
-    teamData: { IdTeam: number },
+    teamData: { IdTeam: string },
     column: "home_team_id" | "away_team_id"
 ) {
     const fifaTeamId = teamData.IdTeam;
