@@ -3,10 +3,13 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
 router.get("/past", async (req: Request, res: Response) => {
+    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
+    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
     const user = getUser(req);
     const orderByGain = req.query.gain === "1";
 
@@ -22,8 +25,8 @@ router.get("/past", async (req: Request, res: Response) => {
             match_type.score_factor as score_factor,
             match.goals_home as goalshome,
             match.goals_away as goalsaway,
-            home_team.name as hometeam,
-            away_team.name as awayteam,
+            ${homeTeamNameExpr} as hometeam,
+            ${awayTeamNameExpr} as awayteam,
             home_team.code as home_team_code,
             away_team.code as away_team_code,
             (

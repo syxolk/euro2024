@@ -2,10 +2,12 @@ import { Router } from "express";
 import { Request, Response } from "express";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
 router.get("/admin_extra_bet/:id", async (req: Request, res: Response) => {
+    const teamNameExpr = localizedTeamNameExpr(req.language, "team");
     const user = getUser(req);
     if (!user || user.admin !== true) {
         res.status(404).render("404");
@@ -34,13 +36,13 @@ router.get("/admin_extra_bet/:id", async (req: Request, res: Response) => {
     const teams = await knex("team")
         .select(
             "id",
-            "name",
+            knex.raw(`${teamNameExpr} as name`),
             "code",
             knex.raw(`(id = any(:ids)) as "isSelected"`, {
                 ids: extraBet.teamIds,
             })
         )
-        .orderBy("name");
+        .orderByRaw(teamNameExpr);
 
     res.render("admin_extra_bet", { extraBet, teams });
 });

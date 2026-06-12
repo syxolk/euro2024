@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
@@ -65,6 +66,10 @@ interface NextMatchRow {
 }
 
 router.get("/live", async (req: Request, res: Response) => {
+    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
+    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
+    const matchHomeTeamNameExpr = localizedTeamNameExpr(req.language, "team");
+    const matchAwayTeamNameExpr = localizedTeamNameExpr(req.language, "team");
     const user = getUser(req);
     const userId = user?.id ?? 0;
 
@@ -73,8 +78,8 @@ router.get("/live", async (req: Request, res: Response) => {
         SELECT match.id as id,
         match.starts_at as starts_at,
         (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
-        (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
-        (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
+        (SELECT ${matchHomeTeamNameExpr} FROM team WHERE team.id = match.home_team_id) as hometeam,
+        (SELECT ${matchAwayTeamNameExpr} FROM team WHERE team.id = match.away_team_id) as awayteam,
         (SELECT code FROM team WHERE team.id = match.home_team_id) as home_team_code,
         (SELECT code FROM team WHERE team.id = match.away_team_id) as away_team_code,
         count(bet.id) as countbets,
@@ -130,8 +135,8 @@ router.get("/live", async (req: Request, res: Response) => {
             tv,
             match_type.score_factor as match_type_score_factor,
             starts_at,
-            home_team.name as home_team_name,
-            away_team.name as away_team_name,
+            ${homeTeamNameExpr} as home_team_name,
+            ${awayTeamNameExpr} as away_team_name,
             home_team.code as home_team_code,
             away_team.code as away_team_code,
             placeholder_home,

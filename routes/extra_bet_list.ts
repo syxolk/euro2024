@@ -3,10 +3,12 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
 router.get("/extra_bet_list", async (req: Request, res: Response) => {
+    const teamNameExpr = localizedTeamNameExpr(req.language, "team");
     const user = getUser(req);
     const query = knex("extra_bet")
         .select(
@@ -22,7 +24,7 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
                     select (
                         select jsonb_build_object(
                             'id', team.id,
-                            'name', team.name,
+                            'name', ${teamNameExpr},
                             'code', team.code
                         )
                         from team

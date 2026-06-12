@@ -4,10 +4,14 @@ import { Request, Response } from "express";
 import { getLocalDateKey } from "../date_time";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
 router.get("/user/:id", async (req: Request, res: Response) => {
+    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
+    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
+    const teamNameExpr = localizedTeamNameExpr(req.language, "team");
     const user = parseInt(String(req.params.id), 10);
 
     if (!Number.isInteger(user)) {
@@ -34,8 +38,8 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             "match.goals_away as match_goals_away",
             "bet.goals_home as bet_goals_home",
             "bet.goals_away as bet_goals_away",
-            "home_team.name as home_team_name",
-            "away_team.name as away_team_name",
+            knex.raw(`${homeTeamNameExpr} as home_team_name`),
+            knex.raw(`${awayTeamNameExpr} as away_team_name`),
             "home_team.code as home_team_code",
             "away_team.code as away_team_code",
             "match_type.name as match_type_name",
@@ -106,10 +110,10 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             `),
             knex.raw(`(
                 select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
-                    select id, name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
+                    select id, ${teamNameExpr} as name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
                     from team
                     where team.id = any(user_account_extra_bet.selected_team_ids)
-                    order by team.name
+                    order by ${teamNameExpr}
                 ) t
             ) as teams`)
         )

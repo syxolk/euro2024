@@ -1,0 +1,82 @@
+{
+    "teams": {
+        "MEX": "Mexiko",
+        "RSA": "S\u00fcdafrika",
+        "KOR": "Republik Korea",
+        "CZE": "Tschechien",
+        "CAN": "Kanada",
+        "BIH": "Bosnien und Herzegowina",
+        "USA": "USA",
+        "PAR": "Paraguay",
+        "QAT": "Katar",
+        "SUI": "Schweiz",
+        "BRA": "Brasilien",
+        "MAR": "Marokko",
+        "HAI": "Haiti",
+        "SCO": "Schottland",
+        "AUS": "Australien",
+        "TUR": "T\u00fcrkei",
+        "GER": "Deutschland",
+        "CUW": "Cura\u00e7ao",
+        "NED": "Niederlande",
+        "JPN": "Japan",
+        "CIV": "Elfenbeink\u00fcste",
+        "ECU": "Ecuador",
+        "SWE": "Schweden",
+        "TUN": "Tunesien",
+        "ESP": "Spanien",
+        "CPV": "Kap Verde",
+        "BEL": "Belgien",
+        "EGY": "\u00c4gypten",
+        "KSA": "Saudi-Arabien",
+        "URU": "Uruguay",
+        "IRN": "IR Iran",
+        "NZL": "Neuseeland",
+        "FRA": "Frankreich",
+        "SEN": "Senegal",
+        "IRQ": "Irak",
+        "NOR": "Norwegen",
+        "ARG": "Argentinien",
+        "ALG": "Algerien",
+        "AUT": "\u00d6sterreich",
+        "JOR": "Jordanien",
+        "POR": "Portugal",
+        "COD": "DR\u00a0Kongo",
+        "ENG": "England",
+        "CRO": "Kroatien",
+        "GHA": "Ghana",
+        "PAN": "Panama",
+        "UZB": "Usbekistan",
+        "COL": "Kolumbien"
+    },
+    "types": [
+        {
+            "name": "Finale",
+            "code": "Finale"
+        },
+        {
+            "name": "Spiel um Platz drei",
+            "code": "Spiel um Platz drei"
+        },
+        {
+            "name": "Halbfinale",
+            "code": "Halbfinale"
+        },
+        {
+            "name": "Viertelfinale",
+            "code": "Viertelfinale"
+        },
+        {
+            "name": "Achtelfinale",
+            "code": "Achtelfinale"
+        },
+        {
+            "name": "Sechzehntelfinale",
+            "code": "Sechzehntelfinale"
+        },
+        {
+            "name": "Erste Phase",
+            "code": "Erste Phase"
+        }
+    ]
+}

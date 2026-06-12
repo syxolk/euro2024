@@ -4,10 +4,14 @@ import { Request, Response } from "express";
 import { getLocalDateKey } from "../date_time";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import { localizedTeamNameExpr } from "./team_name";
 
 const router = Router();
 
 router.get("/mybets", async (req: Request, res: Response) => {
+    const homeTeamNameExpr = localizedTeamNameExpr(req.language, "home_team");
+    const awayTeamNameExpr = localizedTeamNameExpr(req.language, "away_team");
+    const teamNameExpr = localizedTeamNameExpr(req.language, "team");
     const user = getUser(req);
     if (!user) {
         res.redirect("/login");
@@ -17,8 +21,8 @@ router.get("/mybets", async (req: Request, res: Response) => {
     const matches = await knex("match")
         .select(
             "match.id as id",
-            "home_team.name as home_team_name",
-            "away_team.name as away_team_name",
+            knex.raw(`${homeTeamNameExpr} as home_team_name`),
+            knex.raw(`${awayTeamNameExpr} as away_team_name`),
             "home_team.code as home_team_code",
             "away_team.code as away_team_code",
             "placeholder_home",
@@ -87,9 +91,9 @@ router.get("/mybets", async (req: Request, res: Response) => {
             (
                 select coalesce(array_agg(jsonb_build_object(
                     'id', team.id,
-                    'name', team.name,
+                    'name', ${teamNameExpr},
                     'code', team.code
-                ) order by team.name), array[]::jsonb[])
+                ) order by ${teamNameExpr}), array[]::jsonb[])
                 from team
                 join unnest(selected_team_ids) as st(id) on (
                     team.id = st.id
