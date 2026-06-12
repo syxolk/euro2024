@@ -3,6 +3,10 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import {
+    localizedExtraBetNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
@@ -78,7 +82,9 @@ router.get("/extra_bet/:id", async (req: Request, res: Response) => {
         )
         .select(
             "id",
-            "name",
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            }),
             "number_of_teams as numberOfTeams",
             "score_factor as scoreFactor",
             knex.raw(`(editable_until > now()) as "isEditable"`),
@@ -97,13 +103,15 @@ router.get("/extra_bet/:id", async (req: Request, res: Response) => {
     const teams = await knex("team")
         .select(
             "id",
-            "name",
+            knex.raw(`:localized as name`, {
+                localized: localizedTeamNameExpr(req.language, "team"),
+            }),
             "code",
             knex.raw(`(id = any(:ids)) as "isSelected"`, {
                 ids: extraBet.selectedTeamIds,
             })
         )
-        .orderBy("name");
+        .orderByRaw(localizedTeamNameExpr(req.language, "team"));
 
     res.render("extra_bet", { extraBet, teams });
 });

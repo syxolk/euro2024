@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { Request, Response } from "express";
-
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import {
+    localizedExtraBetNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
@@ -11,7 +14,9 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
     const query = knex("extra_bet")
         .select(
             "id",
-            "name",
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            }),
             "number_of_teams as numberOfTeams",
             "score_factor as scoreFactor",
             knex.raw(
@@ -22,7 +27,7 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
                     select (
                         select jsonb_build_object(
                             'id', team.id,
-                            'name', team.name,
+                            'name', :localizedTeam,
                             'code', team.code
                         )
                         from team
@@ -43,6 +48,7 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
             ) as teams
             `,
                 {
+                    localizedTeam: localizedTeamNameExpr(req.language, "team"),
                     friendCheck: user
                         ? knex.raw(
                               `

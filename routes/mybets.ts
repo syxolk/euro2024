@@ -4,6 +4,11 @@ import { Request, Response } from "express";
 import { getLocalDateKey } from "../date_time";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import {
+    localizedExtraBetNameExpr,
+    localizedMatchTypeNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
@@ -17,8 +22,12 @@ router.get("/mybets", async (req: Request, res: Response) => {
     const matches = await knex("match")
         .select(
             "match.id as id",
-            "home_team.name as home_team_name",
-            "away_team.name as away_team_name",
+            knex.raw(`:localized as home_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "home_team"),
+            }),
+            knex.raw(`:localized as away_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "away_team"),
+            }),
             "home_team.code as home_team_code",
             "away_team.code as away_team_code",
             "placeholder_home",
@@ -27,7 +36,12 @@ router.get("/mybets", async (req: Request, res: Response) => {
             "bet.goals_home as bet_goals_home",
             "bet.goals_away as bet_goals_away",
             "match_type.code as match_type_code",
-            "match_type.name as match_type_name",
+            knex.raw(`:localized as match_type_name`, {
+                localized: localizedMatchTypeNameExpr(
+                    req.language,
+                    "match_type"
+                ),
+            }),
             "match_type.score_factor as match_type_score_factor",
             knex.raw(
                 `(
@@ -78,24 +92,31 @@ router.get("/mybets", async (req: Request, res: Response) => {
         )
         .select(
             "id",
-            "name",
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            }),
             "number_of_teams as numberOfTeams",
             "editable_until as editableUntil",
             "score_factor as scoreFactor",
             knex.raw(`(editable_until > now()) as "isEditable"`),
-            knex.raw(`
+            knex.raw(
+                `
             (
                 select coalesce(array_agg(jsonb_build_object(
                     'id', team.id,
-                    'name', team.name,
+                    'name', :localized,
                     'code', team.code
-                ) order by team.name), array[]::jsonb[])
+                ) order by :localized), array[]::jsonb[])
                 from team
                 join unnest(selected_team_ids) as st(id) on (
                     team.id = st.id
                 )
             ) as "selectedTeams"
-            `)
+            `,
+                {
+                    localized: localizedTeamNameExpr(req.language, "team"),
+                }
+            )
         )
         .whereRaw("editable_until > now()");
 

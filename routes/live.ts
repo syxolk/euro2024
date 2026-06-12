@@ -3,6 +3,10 @@ import { Request, Response } from "express";
 
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import {
+    localizedMatchTypeNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
@@ -72,9 +76,9 @@ router.get("/live", async (req: Request, res: Response) => {
         `
         SELECT match.id as id,
         match.starts_at as starts_at,
-        (SELECT name FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
-        (SELECT name FROM team WHERE team.id = match.home_team_id) as hometeam,
-        (SELECT name FROM team WHERE team.id = match.away_team_id) as awayteam,
+        (SELECT :localizedMatchType FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
+        (SELECT :localizedHomeTeam FROM team WHERE team.id = match.home_team_id) as hometeam,
+        (SELECT :localizedAwayTeam FROM team WHERE team.id = match.away_team_id) as awayteam,
         (SELECT code FROM team WHERE team.id = match.home_team_id) as home_team_code,
         (SELECT code FROM team WHERE team.id = match.away_team_id) as away_team_code,
         count(bet.id) as countbets,
@@ -97,7 +101,15 @@ router.get("/live", async (req: Request, res: Response) => {
         WHERE now() > match.starts_at AND match.goals_home IS NULL AND match.goals_away IS NULL
         GROUP BY match.id;
     `,
-        { id: userId }
+        {
+            id: userId,
+            localizedMatchType: localizedMatchTypeNameExpr(
+                req.language,
+                "match_type"
+            ),
+            localizedHomeTeam: localizedTeamNameExpr(req.language, "team"),
+            localizedAwayTeam: localizedTeamNameExpr(req.language, "team"),
+        }
     )) as { rows: LiveMatchRow[] };
 
     for (const match of matchesResult.rows) {
@@ -126,12 +138,12 @@ router.get("/live", async (req: Request, res: Response) => {
     const nextMatchesResult = (await knex.raw(
         `
         select
-            match_type.name as match_type_name,
+            :localizedMatchType as match_type_name,
             tv,
             match_type.score_factor as match_type_score_factor,
             starts_at,
-            home_team.name as home_team_name,
-            away_team.name as away_team_name,
+            :localizedHomeTeam as home_team_name,
+            :localizedAwayTeam as away_team_name,
             home_team.code as home_team_code,
             away_team.code as away_team_code,
             placeholder_home,
@@ -165,7 +177,15 @@ router.get("/live", async (req: Request, res: Response) => {
         order by match.starts_at asc
         limit 4
     `,
-        { id: userId }
+        {
+            id: userId,
+            localizedMatchType: localizedMatchTypeNameExpr(
+                req.language,
+                "match_type"
+            ),
+            localizedHomeTeam: localizedTeamNameExpr(req.language, "home_team"),
+            localizedAwayTeam: localizedTeamNameExpr(req.language, "away_team"),
+        }
     )) as { rows: NextMatchRow[] };
 
     res.render("live", {

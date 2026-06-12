@@ -4,6 +4,11 @@ import { Request, Response } from "express";
 import { getLocalDateKey } from "../date_time";
 import { knex } from "../db";
 import { getUser } from "../request_helper";
+import {
+    localizedExtraBetNameExpr,
+    localizedMatchTypeNameExpr,
+    localizedTeamNameExpr,
+} from "./localized_name";
 
 const router = Router();
 
@@ -34,11 +39,20 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             "match.goals_away as match_goals_away",
             "bet.goals_home as bet_goals_home",
             "bet.goals_away as bet_goals_away",
-            "home_team.name as home_team_name",
-            "away_team.name as away_team_name",
+            knex.raw(`:localized as home_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "home_team"),
+            }),
+            knex.raw(`:localized as away_team_name`, {
+                localized: localizedTeamNameExpr(req.language, "away_team"),
+            }),
             "home_team.code as home_team_code",
             "away_team.code as away_team_code",
-            "match_type.name as match_type_name",
+            knex.raw(`:localized as match_type_name`, {
+                localized: localizedMatchTypeNameExpr(
+                    req.language,
+                    "match_type"
+                ),
+            }),
             "match_type.code as match_type.code",
             "match_type.score_factor as match_type_score_factor",
             "starts_at",
@@ -96,7 +110,9 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         .whereRaw("editable_until < now()")
         .select(
             "id",
-            "name",
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            }),
             "score_factor as scoreFactor",
             knex.raw(`
                 cardinality(array_intersect(extra_bet.team_ids, user_account_extra_bet.selected_team_ids)) as "numberOfCorrectTeams"
@@ -104,14 +120,19 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             knex.raw(`
                 cardinality(array_intersect(extra_bet.team_ids, user_account_extra_bet.selected_team_ids)) * score_factor as "totalScore"
             `),
-            knex.raw(`(
+            knex.raw(
+                `(
                 select coalesce(array_agg(row_to_json(t)), array[]::json[]) from (
-                    select id, name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
+                    select id, :localized as name, code, (team.id = any(extra_bet.team_ids)) as "isCorrect"
                     from team
                     where team.id = any(user_account_extra_bet.selected_team_ids)
-                    order by team.name
+                    order by :localized
                 ) t
-            ) as teams`)
+            ) as teams`,
+                {
+                    localized: localizedTeamNameExpr(req.language, "team"),
+                }
+            )
         )
         .orderBy("id");
 
@@ -169,7 +190,12 @@ router.get("/friend_history", async (req: Request, res: Response) => {
     );
 
     const extraBets = await knex("extra_bet")
-        .select("id", "name")
+        .select(
+            "id",
+            knex.raw(`:localized as name`, {
+                localized: localizedExtraBetNameExpr(req.language, "extra_bet"),
+            })
+        )
         .whereRaw("editable_until < now()")
         .whereRaw("cardinality(team_ids) > 0")
         .orderBy("score_factor");
