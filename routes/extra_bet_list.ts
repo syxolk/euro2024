@@ -37,13 +37,13 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
                         'name', user_account.name,
                         'isFriend', :friendCheck,
                         'isMe', :meCheck
-                    )) as "users", count(*) as "userCount"
+                    ) order by user_account.name) as "users", count(*) as "userCount"
                     from user_account_extra_bet
                     cross join unnest(selected_team_ids) as t(id)
                     join user_account on (user_account_extra_bet.user_id = user_account.id)
                     where user_account_extra_bet.extra_bet_id = extra_bet.id
                     group by t.id
-                    order by count(*) desc
+                    order by count(*) desc, t.id
                 ) grouped_team
             ) as teams
             `,
