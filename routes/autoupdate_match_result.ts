@@ -1,16 +1,9 @@
-import axios from "axios";
 import { Router } from "express";
-
 import { knex } from "../db";
+import { FifaApiMatchStatus } from "./autoupdate_tools/schema";
+import { fetchFifaMatchResults } from "./autoupdate_tools/api";
 
 const router = Router();
-
-interface FifaMatchResult {
-    IdMatch: number;
-    HomeTeamScore: number | null;
-    AwayTeamScore: number | null;
-    MatchStatus: number; // 0 = finished, 1 = not started, 3 = live
-}
 
 router.get("/autoupdate_match_result", async (req, res) => {
     const liveMatches = await knex("match")
@@ -30,28 +23,25 @@ router.get("/autoupdate_match_result", async (req, res) => {
     const errors = [];
     const success = [];
 
-    const { data } = await axios.get<{ Results?: FifaMatchResult[] }>(
-        "https://api.fifa.com/api/v3/calendar/matches",
-        {
-            params: {
-                count: 200,
-                idSeason: 285023,
-            },
-            headers: {
-                Accept: "application/json",
-                "User-Agent":
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
-            },
-            timeout: 30000,
-        }
-    );
-    const matchList = Array.isArray(data.Results) ? data.Results : [];
+    let matchList: Awaited<ReturnType<typeof fetchFifaMatchResults>>;
+    try {
+        matchList = await fetchFifaMatchResults();
+    } catch (error) {
+        res.json({
+            ok: false,
+            errors: [
+                "Failed to fetch match results from FIFA API",
+                error instanceof Error ? error.message : "unknown error",
+            ],
+        });
+        return;
+    }
 
     if (!Array.isArray(matchList) || matchList.length === 0) {
         errors.push("Match data is empty");
     }
 
-    const matchMap = new Map<string, FifaMatchResult>(
+    const matchMap = new Map<string, (typeof matchList)[number]>(
         matchList.map((matchItem) => [`${matchItem.IdMatch}`, matchItem])
     );
 
@@ -73,7 +63,7 @@ router.get("/autoupdate_match_result", async (req, res) => {
             continue;
         }
 
-        if(matchData.MatchStatus !== 0) {
+        if (matchData.MatchStatus !== FifaApiMatchStatus.Finished) {
             errors.push(
                 `Match ${match.fifa_id} is not finished yet (status ${matchData.MatchStatus})`
             );
