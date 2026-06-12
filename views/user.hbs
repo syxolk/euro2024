@@ -2,14 +2,17 @@
 {{#*inline "head"}}
 <title>{{displayedUser.name}} - {{@websiteName}}</title>
 <style>
-.result-correct {
+.result-correct td {
     background-color: #009900;
+        color: black;
 }
-.result-diff {
+.result-diff td {
     background-color: #00e600;
+        color: black;
 }
-.result-winner {
+.result-winner td {
     background-color: #ccffcc;
+    color: black;
 }
 
 .extra-bet-correct {
@@ -23,8 +26,14 @@
 .extra-bet-wrong {
     display: inline-block;
     padding: 3px;
+    margin-bottom: 5px;
     background-color: #eee;
     border-radius: 3px;
+}
+
+[data-bs-theme=dark] .extra-bet-wrong {
+    background-color: transparent;
+    border: 1px solid #eee; 
 }
 </style>
 {{/inline}}
