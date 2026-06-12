@@ -20,7 +20,6 @@ router.get("/settings", async (req: Request, res: Response) => {
         .first();
 
     res.render("settings", {
-        enabledFacebook: !!config.facebook,
         enabledGoogle: !!config.google,
         error: req.flash("error"),
         inviteCode: dbUser?.invite_code ?? null,

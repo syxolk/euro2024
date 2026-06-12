@@ -37,15 +37,6 @@
             </small>
         </div>
     </form>
-    {{#if enabledFacebook}}
-        <a class="btn btn-secondary btn-lg w-100" href="/auth/facebook">
-            <i class="fa fa-facebook"></i> {{ @t "login.sign_in_facebook" }}
-        </a>
-    {{else}}
-        <div class="text-muted small">
-            {{ @t "login.facebook_disabled" }}
-        </div>
-    {{/if}}
     {{#if enabledGoogle}}
         <a class="btn btn-secondary btn-lg w-100" href="/auth/google">
             <i class="fa fa-google"></i> {{ @t "login.sign_in_google" }}

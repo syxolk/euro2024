@@ -7,7 +7,6 @@ export interface User {
     admin?: boolean;
     past_matches_last_visited_at?: Date | null;
     googleId?: string | null;
-    facebookId?: string | null;
 }
 
 interface RequestWithUser extends Request {
