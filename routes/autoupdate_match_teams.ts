@@ -1,25 +1,14 @@
-import axios from "axios";
 import { Router } from "express";
 import type { Knex } from "knex";
-
 import { knex } from "../db";
+import { fetchFifaMatchResults } from "./autoupdate_tools/api";
 
 const router = Router();
-
-interface FifaTeamRef {
-    IdTeam: number;
-}
-
-interface FifaMatchTeams {
-    IdMatch: number;
-    Home?: FifaTeamRef;
-    Away?: FifaTeamRef;
-}
 
 async function updateMatchTeam(
     trx: Knex.Transaction,
     fifaMatchId: string,
-    teamData: FifaTeamRef,
+    teamData: { IdTeam: number },
     column: "home_team_id" | "away_team_id"
 ) {
     const fifaTeamId = teamData.IdTeam;
@@ -73,23 +62,21 @@ router.get("/autoupdate_match_teams", async (req, res) => {
         return;
     }
 
-    const { data } = (await axios.get(
-        "https://api.fifa.com/api/v3/calendar/matches",
-        {
-            params: {
-                count: 200,
-                idSeason: 285023,
-            },
-            headers: {
-                Accept: "application/json",
-                "User-Agent":
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:151.0) Gecko/20100101 Firefox/151.0",
-            },
-            timeout: 30000,
-        }
-    )) as { data: { Results?: FifaMatchTeams[] } };
-    const matchList = Array.isArray(data.Results) ? data.Results : [];
-    const matchMap = new Map<string, FifaMatchTeams>(
+    let matchList: Awaited<ReturnType<typeof fetchFifaMatchResults>>;
+    try {
+        matchList = await fetchFifaMatchResults();
+    } catch (error) {
+        res.json({
+            ok: false,
+            errors: [
+                "Failed to fetch match data from FIFA API",
+                error instanceof Error ? error.message : "unknown error",
+            ],
+        });
+        return;
+    }
+
+    const matchMap = new Map<string, (typeof matchList)[number]>(
         matchList.map((matchItem) => [`${matchItem.IdMatch}`, matchItem])
     );
 

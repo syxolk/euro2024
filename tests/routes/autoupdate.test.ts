@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { knex } from "../../db";
 import { seedMatch, seedTeam, truncateTables } from "../helpers";
+import { FifaApiMatchStatus } from "../../routes/autoupdate_tools/schema";
 
 vi.mock("axios");
 
@@ -50,11 +51,11 @@ describe("GET /autoupdate_match_result", () => {
                         IdMatch: fifaId,
                         HomeTeamScore: 2,
                         AwayTeamScore: 1,
-                        MatchStatus: "Finished",
+                        MatchStatus: FifaApiMatchStatus.Finished,
                     },
                 ],
             },
-        } as any);
+        });
 
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
@@ -134,12 +135,15 @@ describe("GET /autoupdate_match_teams", () => {
                 Results: [
                     {
                         IdMatch: fifaMatchId,
+                        MatchStatus: FifaApiMatchStatus.NotStarted,
+                        HomeTeamScore: null,
+                        AwayTeamScore: null,
                         Home: { IdTeam: fifaTeamId },
-                        Away: undefined,
+                        Away: null,
                     },
                 ],
             },
-        } as any);
+        });
 
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
