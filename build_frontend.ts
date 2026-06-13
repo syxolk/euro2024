@@ -1,4 +1,4 @@
-import { build, context } from "esbuild";
+import { build, BuildOptions, context } from "esbuild";
 
 const watchMode = process.argv.includes("--watch");
 const production = process.env.NODE_ENV === "production";
@@ -13,7 +13,7 @@ const buildOptions = {
     platform: "browser" as const,
     sourcemap: production ? false : ("linked" as const),
     target: ["es2020"],
-};
+} satisfies BuildOptions;
 
 async function run() {
     if (watchMode) {
