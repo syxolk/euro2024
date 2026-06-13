@@ -6,3 +6,4 @@
 /prod.env
 /start.sh
 /.cache
+/static/dist

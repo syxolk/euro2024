@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <script type="text/javascript" src="/static/js/theme.js"></script>
+        <script defer type="text/javascript" src="{{@frontendJsPath}}"></script>
 
         <!-- Open Graph data -->
         <meta property="og:url" content="{{origin}}">
@@ -15,7 +15,7 @@
         <meta property="og:image" content="{{origin}}{{asset "/favicon-200x200.png"}}">
 
         <link rel="icon" type="image/png" href="{{asset "/favicon-32x32.png"}}" sizes="32x32">
-        <link href="{{@vendorCssPath}}" rel="stylesheet">
+    <link href="{{@frontendCssPath}}" rel="stylesheet">
         <style>
         html {
             overflow-y: scroll;
@@ -53,7 +53,6 @@
     </head>
     <body>
         {{> body}}
-        <script type="text/javascript" src="{{@vendorJsPath}}"></script>
         {{#> scripts}}{{/scripts}}
     </body>
 </html>
