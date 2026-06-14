@@ -98,7 +98,10 @@ router.get("/live", async (req: Request, res: Response) => {
         -- No LEFT JOIN here to discard matches without bets (and prevent division by zero)
         JOIN bet ON match.id = bet.match_id
         JOIN user_account ON user_account.id = bet.user_id
-        WHERE now() > match.starts_at AND match.goals_home IS NULL AND match.goals_away IS NULL
+        WHERE now() > match.starts_at
+        AND match.goals_home IS NULL
+        AND match.goals_away IS NULL
+        AND NOT user_account.is_bot
         GROUP BY match.id;
     `,
         {
@@ -151,7 +154,9 @@ router.get("/live", async (req: Request, res: Response) => {
             (
                 select count(*)
                 from bet
+                join user_account on (user_account.id = bet.user_id)
                 where bet.match_id = match.id
+                and not user_account.is_bot
             ) as bet_count,
             (
                 select coalesce(array_agg(jsonb_build_object(
@@ -161,6 +166,7 @@ router.get("/live", async (req: Request, res: Response) => {
                 from user_account
                 join friend on (friend.to_user_id = user_account.id)
                 where friend.from_user_id = :id
+                and not user_account.is_bot
                 and
                     not exists (
                         select 1

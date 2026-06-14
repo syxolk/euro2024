@@ -13,6 +13,7 @@ export interface TestUser {
     password: string;
     name: string;
     admin?: boolean;
+    is_bot?: boolean;
 }
 
 /**
@@ -33,6 +34,7 @@ export async function createTestUser(
             name,
             password: hash,
             admin: overrides.admin ?? false,
+            is_bot: overrides.is_bot ?? false,
             email_confirmed: true,
             invite_code: generateInviteCode(),
             created_at: new Date(),
