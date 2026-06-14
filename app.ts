@@ -19,7 +19,6 @@ import deTranslations from "./locales/de.json";
 import enTranslations from "./locales/en.json";
 import ptBrTranslations from "./locales/pt-BR.json";
 import routes from "./routes/index";
-import registerStaticAssets from "./routes/static";
 import type { User } from "./request_helper";
 import { customI18nFormatting } from "./locales/formatting";
 
@@ -85,6 +84,8 @@ app.use(
 );
 
 app.locals.origin = config.origin;
+app.locals.frontendCssPath = "/static/dist/app.css";
+app.locals.frontendJsPath = "/static/dist/app.js";
 hbs.localsAsTemplateData(app);
 
 registerHbsHelpers();
@@ -94,7 +95,6 @@ const { csrfSynchronisedProtection } = csrfSync({
 });
 
 app.use(compression());
-registerStaticAssets(app);
 app.use("/static", express.static(__dirname + "/static"));
 app.use(express.static(__dirname + "/assets/images"));
 app.use(express.static(__dirname + "/webroot"));
