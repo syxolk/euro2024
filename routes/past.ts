@@ -45,6 +45,7 @@ router.get("/past", async (req: Request, res: Response) => {
                 from bet
                 join user_account on (bet.user_id = user_account.id)
                 where bet.match_id = match.id
+                and not user_account.is_bot
             ) as all_bets,
 
             (
@@ -55,7 +56,9 @@ router.get("/past", async (req: Request, res: Response) => {
                     'draw', count(1) filter (where bet.goals_home = bet.goals_away)
                 )
                 from bet
+                join user_account on (bet.user_id = user_account.id)
                 where bet.match_id = match.id
+                and not user_account.is_bot
             ) as bet_counts,
 
             :logged_in and (goals_inserted_at > :last_visited or :last_visited::timestamptz is null) as unseen,
@@ -70,7 +73,9 @@ router.get("/past", async (req: Request, res: Response) => {
                     )), 1)
                 from friend
                 join bet as friend_bet on (friend_bet.user_id = friend.to_user_id)
+                join user_account as friend_user on (friend_user.id = friend.to_user_id)
                 where friend.from_user_id = :id
+                and not friend_user.is_bot
                 and friend_bet.match_id = match.id
             ) as avg_friend_score,
 
@@ -98,7 +103,9 @@ router.get("/past", async (req: Request, res: Response) => {
                         )), 1)
                     from friend
                     join bet as friend_bet on (friend_bet.user_id = friend.to_user_id)
+                    join user_account as friend_user on (friend_user.id = friend.to_user_id)
                     where friend.from_user_id = :id
+                    and not friend_user.is_bot
                     and friend_bet.match_id = match.id
                 )
             ) as my_gain
@@ -125,15 +132,23 @@ router.get("/past", async (req: Request, res: Response) => {
     );
 
     for (const match of matches.rows) {
-        match.percent = {
-            home: Math.round(
-                (match.bet_counts.home / match.bet_counts.total) * 100
-            ),
-            away: Math.round(
-                (match.bet_counts.away / match.bet_counts.total) * 100
-            ),
-        };
-        match.percent.draw = 100 - match.percent.home - match.percent.away;
+        if (match.bet_counts.total > 0) {
+            match.percent = {
+                home: Math.round(
+                    (match.bet_counts.home / match.bet_counts.total) * 100
+                ),
+                away: Math.round(
+                    (match.bet_counts.away / match.bet_counts.total) * 100
+                ),
+            };
+            match.percent.draw = 100 - match.percent.home - match.percent.away;
+        } else {
+            match.percent = {
+                home: 0,
+                away: 0,
+                draw: 0,
+            };
+        }
 
         const bets: Record<string, unknown[]> = {
             correct: [],

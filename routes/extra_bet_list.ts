@@ -42,6 +42,7 @@ router.get("/extra_bet_list", async (req: Request, res: Response) => {
                     cross join unnest(selected_team_ids) as t(id)
                     join user_account on (user_account_extra_bet.user_id = user_account.id)
                     where user_account_extra_bet.extra_bet_id = extra_bet.id
+                    and not user_account.is_bot
                     group by t.id
                     order by count(*) desc, t.id
                 ) grouped_team
