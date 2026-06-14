@@ -34,8 +34,14 @@ describe("GET /live", () => {
     });
 
     it("does not render bot users on the live matches page", async () => {
-        const homeTeamId = await seedTeam(knex, { name: "Home Team", code: "HTM" });
-        const awayTeamId = await seedTeam(knex, { name: "Away Team", code: "AWY" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Home Team",
+            code: "HTM",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Away Team",
+            code: "AWY",
+        });
         const matchId = await seedMatch(knex, {
             starts_at: new Date(Date.now() - 60 * 1000),
             home_team_id: homeTeamId,
@@ -50,11 +56,23 @@ describe("GET /live", () => {
         });
 
         await knex("bet").insert([
-            { user_id: human.id, match_id: matchId, goals_home: 2, goals_away: 1 },
-            { user_id: bot.id, match_id: matchId, goals_home: 0, goals_away: 3 },
+            {
+                user_id: human.id,
+                match_id: matchId,
+                goals_home: 2,
+                goals_away: 1,
+            },
+            {
+                user_id: bot.id,
+                match_id: matchId,
+                goals_home: 0,
+                goals_away: 3,
+            },
         ]);
 
-        const res = await authenticatedAgent(human).then((ag) => ag.get("/live"));
+        const res = await authenticatedAgent(human).then((ag) =>
+            ag.get("/live")
+        );
 
         expect(res.status).toBe(200);
         expect(res.text).toContain("Visible Human");
