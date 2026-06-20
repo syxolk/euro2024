@@ -95,4 +95,80 @@ describe("GET /match_type/:code", () => {
             "Bets will be shown once the match has started."
         );
     });
+
+    it("groups bets by received points when the match result is known", async () => {
+        const { default: supertest } = await import("supertest");
+        const { default: app } = await import("../../app");
+
+        const matchTypeId = await seedMatchType(knex, {
+            id: 8,
+            code: "FIN",
+            name: "Final",
+            score_factor: 1,
+        });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Home",
+            code: "HOM",
+            fifa_id: "home-score-1",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Away",
+            code: "AWY",
+            fifa_id: "away-score-1",
+        });
+        const matchId = await seedMatch(knex, {
+            starts_at: new Date(Date.now() - 2 * 60 * 60 * 1000),
+            home_team_id: homeTeamId,
+            away_team_id: awayTeamId,
+            match_type_id: matchTypeId,
+            fifa_id: "finished-match",
+        });
+
+        await knex("match").where({ id: matchId }).update({
+            goals_home: 2,
+            goals_away: 1,
+            goals_inserted_at: new Date(),
+        });
+
+        const exactUser = await createTestUser(knex, {
+            email: "exact-match-type@example.com",
+            name: "Exact User",
+        });
+        const winnerUser = await createTestUser(knex, {
+            email: "winner-match-type@example.com",
+            name: "Winner User",
+        });
+        const wrongUser = await createTestUser(knex, {
+            email: "wrong-match-type@example.com",
+            name: "Wrong User",
+        });
+
+        await knex("bet").insert([
+            {
+                user_id: exactUser.id,
+                match_id: matchId,
+                goals_home: 2,
+                goals_away: 1,
+            },
+            {
+                user_id: winnerUser.id,
+                match_id: matchId,
+                goals_home: 4,
+                goals_away: 2,
+            },
+            {
+                user_id: wrongUser.id,
+                match_id: matchId,
+                goals_home: 0,
+                goals_away: 1,
+            },
+        ]);
+
+        const res = await supertest(app).get("/match_type/FIN");
+
+        expect(res.status).toBe(200);
+        expect(res.text).toMatch(
+            /4 points[\s\S]*Exact User[\s\S]*2 points[\s\S]*Winner User[\s\S]*0 points[\s\S]*Wrong User/
+        );
+    });
 });

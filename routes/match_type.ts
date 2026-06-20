@@ -10,6 +10,38 @@ import {
 
 const router = Router();
 
+interface MatchTypeBet {
+    id: number;
+    name: string;
+    goals_home: number;
+    goals_away: number;
+    is_friend: boolean;
+    is_me: boolean;
+    score: number | null;
+}
+
+interface MatchTypeBetGroup {
+    score: number;
+    bets: MatchTypeBet[];
+}
+
+interface MatchTypeMatch {
+    id: number;
+    starts_at: Date;
+    goals_home: number | null;
+    goals_away: number | null;
+    tv: string | null;
+    placeholder_home: string | null;
+    placeholder_away: string | null;
+    home_team_name: string | null;
+    away_team_name: string | null;
+    home_team_code: string | null;
+    away_team_code: string | null;
+    is_started: boolean;
+    all_bets: MatchTypeBet[];
+    bet_groups?: MatchTypeBetGroup[];
+}
+
 router.get("/match_type/:code", async (req: Request, res: Response) => {
     const user = getUser(req);
     const matchTypeCode = String(req.params.code).trim();
@@ -33,7 +65,7 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
         return;
     }
 
-    const matchesResult = await knex.raw(
+    const matchesResult = (await knex.raw(
         `
         select
             match.id,
@@ -54,6 +86,19 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
                     'name', user_account.name,
                     'goals_home', bet.goals_home,
                     'goals_away', bet.goals_away,
+                    'score', case
+                        when match.goals_home is not null and match.goals_away is not null
+                            then calc_bet_score(
+                                calc_bet_result(
+                                    match.goals_home,
+                                    match.goals_away,
+                                    bet.goals_home,
+                                    bet.goals_away
+                                ),
+                                match_type.score_factor
+                            )
+                        else null
+                    end,
                     'is_friend', user_account.id in (
                         select to_user_id from friend where from_user_id = :userId
                     ),
@@ -78,7 +123,26 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
             localizedHomeTeam: localizedTeamNameExpr(req.language, "home_team"),
             localizedAwayTeam: localizedTeamNameExpr(req.language, "away_team"),
         }
-    );
+    )) as { rows: MatchTypeMatch[] };
+
+    for (const match of matchesResult.rows) {
+        if (match.goals_home === null || match.goals_away === null) {
+            continue;
+        }
+
+        const groups = new Map<number, MatchTypeBet[]>();
+
+        for (const bet of match.all_bets) {
+            const score = bet.score ?? 0;
+            const bets = groups.get(score) ?? [];
+            bets.push(bet);
+            groups.set(score, bets);
+        }
+
+        match.bet_groups = [...groups.entries()]
+            .sort((a, b) => b[0] - a[0])
+            .map(([score, bets]) => ({ score, bets }));
+    }
 
     res.render("match_type", {
         matchType,
