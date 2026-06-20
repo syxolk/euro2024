@@ -86,8 +86,10 @@
         <tr class="result-{{result}}">
             <td class="small"><span class="d-none d-sm-inline">{{ @tr "format.time" value=starts_at }}</span><span class="d-sm-none">{{ @tr "format.time" value=starts_at }}</span></td>
             <td class="small">
-                <span class="d-none d-sm-inline">{{match_type_name}}</span>
-                <span class="d-sm-none">{{match_type_code}}</span>
+                <a href="/match_type/{{match_type_code}}" class="link-body-emphasis">
+                    <span class="d-none d-sm-inline">{{match_type_name}}</span>
+                    <span class="d-sm-none">{{match_type_code}}</span>
+                </a>
                 {{> score_factor match_type_score_factor}}
             </td>
             <td class="text-end">

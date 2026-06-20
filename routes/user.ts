@@ -53,7 +53,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                     "match_type"
                 ),
             }),
-            "match_type.code as match_type.code",
+            "match_type.code as match_type_code",
             "match_type.score_factor as match_type_score_factor",
             "starts_at",
             knex.raw(

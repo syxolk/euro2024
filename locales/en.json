@@ -37,6 +37,13 @@
         "number_of_bets": "Number of bets: {{count}}",
         "draw_label": "Draw"
     },
+    "match_type_page": {
+        "score_factor_label": "Score factor",
+        "number_of_bets": "Number of bets: {{count}}",
+        "no_bets": "No bets have been placed yet.",
+        "bets_hidden_until_start": "Bets will be shown once the match has started.",
+        "empty_state": "There are no matches for this match type."
+    },
     "login": {
         "title": "Login",
         "failed": "Login failed!",

@@ -125,8 +125,10 @@
             {{/if}}
         </div>
         <div class="col-md order-md-4 col-6 order-1 small text-end">
-            <span class="d-none d-lg-inline">{{match_type_name}}</span>
-            <span class="d-lg-none">{{match_type_code}}</span>
+            <a href="/match_type/{{match_type_code}}" class="link-body-emphasis">
+                <span class="d-none d-lg-inline">{{match_type_name}}</span>
+                <span class="d-lg-none">{{match_type_code}}</span>
+            </a>
             {{> score_factor match_type_score_factor}}
         </div>
     </div>

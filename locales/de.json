@@ -37,6 +37,13 @@
         "number_of_bets": "Anzahl Tipps: {{count}}",
         "draw_label": "Unentschieden"
     },
+    "match_type_page": {
+        "score_factor_label": "Spielfaktor",
+        "number_of_bets": "Anzahl Tipps: {{count}}",
+        "no_bets": "Bisher wurden keine Tipps abgegeben.",
+        "bets_hidden_until_start": "Tipps werden angezeigt, sobald das Spiel begonnen hat.",
+        "empty_state": "Für diese Spielart gibt es keine Spiele."
+    },
     "login": {
         "title": "Anmelden",
         "failed": "Anmeldung fehlgeschlagen!",

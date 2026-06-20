@@ -23,6 +23,7 @@ interface LiveMatchRow {
     id: number;
     starts_at: Date;
     matchtype: string;
+    matchtype_code: string;
     hometeam: string;
     awayteam: string;
     home_team_code: string | null;
@@ -54,6 +55,7 @@ interface FriendWithoutBet {
 }
 
 interface NextMatchRow {
+    match_type_code: string;
     match_type_name: string;
     tv: string | null;
     match_type_score_factor: number;
@@ -77,6 +79,7 @@ router.get("/live", async (req: Request, res: Response) => {
         SELECT match.id as id,
         match.starts_at as starts_at,
         (SELECT :localizedMatchType FROM match_type WHERE match_type.id = match.match_type_id) as matchtype,
+        (SELECT code FROM match_type WHERE match_type.id = match.match_type_id) as matchtype_code,
         (SELECT :localizedHomeTeam FROM team WHERE team.id = match.home_team_id) as hometeam,
         (SELECT :localizedAwayTeam FROM team WHERE team.id = match.away_team_id) as awayteam,
         (SELECT code FROM team WHERE team.id = match.home_team_id) as home_team_code,
@@ -141,6 +144,7 @@ router.get("/live", async (req: Request, res: Response) => {
     const nextMatchesResult = (await knex.raw(
         `
         select
+            match_type.code as match_type_code,
             :localizedMatchType as match_type_name,
             tv,
             match_type.score_factor as match_type_score_factor,

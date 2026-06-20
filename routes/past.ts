@@ -23,6 +23,7 @@ router.get("/past", async (req: Request, res: Response) => {
             SELECT match.id as id,
             match.starts_at as starts_at,
             :localizedMatchType as matchtype,
+            match_type.code as matchtype_code,
             match_type.score_factor as score_factor,
             match.goals_home as goalshome,
             match.goals_away as goalsaway,
