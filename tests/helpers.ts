@@ -152,7 +152,17 @@ export async function seedMatch(
     } = {}
 ): Promise<number> {
     const matchTypeId = overrides.match_type_id ?? 1;
-    await seedMatchType(knex, { id: matchTypeId });
+    if (overrides.match_type_id === undefined) {
+        await seedMatchType(knex, { id: matchTypeId });
+    } else {
+        const existingMatchType = await knex("match_type")
+            .where({ id: matchTypeId })
+            .first("id");
+
+        if (!existingMatchType) {
+            await seedMatchType(knex, { id: matchTypeId });
+        }
+    }
 
     const [row] = await knex("match")
         .insert({

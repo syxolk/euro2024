@@ -53,7 +53,7 @@
                 <a role="button" data-bs-toggle="collapse" href="#match-{{id}}" aria-expanded="false" aria-controls="match-{{id}}">
                     {{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{hometeam}} flag" loading="lazy">{{/if}}{{~hometeam}} <b>{{goalshome}}</b> : <b>{{goalsaway}}</b> {{#if away_team_code}}<img class="flag-icon mx-1" src="{{flagUrl away_team_code}}" alt="{{awayteam}} flag" loading="lazy">{{/if}}{{awayteam~}}
                 </a>
-                ({{matchtype}}) {{> score_factor score_factor }}
+                (<a href="/match_type/{{matchtype_code}}">{{matchtype}}</a>) {{> score_factor score_factor }}
                 <br/>
                 <small class="text-muted">{{ @tr "format.date_time" value=starts_at }}{{#if goals_inserted_at}} / {{ @tr "format.date_time" value=goals_inserted_at }}{{/if}}</small>
             </div>

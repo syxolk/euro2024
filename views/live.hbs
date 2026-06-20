@@ -36,7 +36,7 @@
             {{#if home_team_code}}<img class="flag-icon me-1" src="{{flagUrl home_team_code}}" alt="{{hometeam}} flag" loading="lazy">{{/if}}{{hometeam}}
             :
             {{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{awayteam}} flag" loading="lazy">{{/if}}{{awayteam}}
-        </strong> ({{matchtype}})
+        </strong> (<a href="/match_type/{{matchtype_code}}">{{matchtype}}</a>)
         <span class="badge bg-secondary">{{tv}}</span>
         {{> score_factor score_factor }}
         <small>{{ @tr "format.news_date" value=starts_at }}</small>
@@ -123,7 +123,7 @@
         {{#each nextMatches}}
         <li class="list-group-item">
         <div class="row">
-            <div class="col-md-3 order-md-1 order-1 col-12">{{match_type_name}} <span class="badge bg-secondary">{{tv}}</span> {{> score_factor match_type_score_factor }}</div>
+            <div class="col-md-3 order-md-1 order-1 col-12"><a href="/match_type/{{match_type_code}}">{{match_type_name}}</a> <span class="badge bg-secondary">{{tv}}</span> {{> score_factor match_type_score_factor }}</div>
             <div class="order-md-2 text-md-end order-2 col text-end"><strong>{{#if home_team_name}}{{home_team_name}}{{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}{{else}}{{placeholder_home}}{{/if}}</strong></div>
             <div class="col-md-3 order-md-3 text-md-center order-1 col-12">{{ @tr "format.news_date" value=starts_at }}</div>
             <div class="order-md-4 text-md-start order-2 col"><strong>{{#if away_team_name}}{{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}{{else}}{{placeholder_away}}{{/if}}</strong></div>

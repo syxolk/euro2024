@@ -37,6 +37,15 @@
         "number_of_bets": "Número de apostas: {{count}}",
         "draw_label": "Empate"
     },
+    "match_type_page": {
+        "score_factor_label": "Fator da partida",
+        "number_of_bets": "Número de apostas: {{count}}",
+        "points_group": "{{count}} ponto",
+        "points_group_other": "{{count}} pontos",
+        "no_bets": "Nenhuma aposta foi feita ainda.",
+        "bets_hidden_until_start": "As apostas serão mostradas quando a partida começar.",
+        "empty_state": "Não há partidas para este tipo de partida."
+    },
     "login": {
         "title": "Login",
         "failed": "Falha no login!",
