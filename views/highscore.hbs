@@ -10,17 +10,17 @@
     color: #1d3;
 }
 tr.user-is-friend > td {
-    background-color: #F8DE7E;
+    background-color: #F8DE7E !important;
 }
 tr.user-is-me > td {
-    background-color: #ffd700;
+    background-color: #ffd700 !important;
 }
 
 [data-bs-theme=dark] tr.user-is-friend > td {
-    background-color: #63551c;
+    background-color: #63551c !important;
 }
 [data-bs-theme=dark] tr.user-is-me > td {
-    background-color: #605412;
+    background-color: #605412 !important;
 }
 
 .history-up {
@@ -86,27 +86,27 @@ tr.user-is-me > td {
 <table id="highscore" class="table table-striped">
 <thead>
 <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th colspan="2" class="text-center">{{> correct_bet}}</th>
-    <th colspan="2" class="text-center">{{> correct_diff}}</th>
-    <th colspan="2" class="text-center">{{> correct_winner}}</th>
-    <th>{{> wrong_bet}}</th>
-    <th></th>
-    {{#if loggedIn}}<th></th>{{/if}}
+    <th data-dt-order="disable"></th>
+    <th data-dt-order="disable"></th>
+    <th data-dt-order="disable"></th>
+    <th data-dt-order="disable"></th>
+    <th data-dt-order="disable"></th>
+    <th data-dt-order="disable" colspan="2" class="text-center">{{> correct_bet}}</th>
+    <th data-dt-order="disable" colspan="2" class="text-center">{{> correct_diff}}</th>
+    <th data-dt-order="disable" colspan="2" class="text-center">{{> correct_winner}}</th>
+    <th data-dt-order="disable">{{> wrong_bet}}</th>
+    <th data-dt-order="disable"></th>
+    {{#if loggedIn}}<th data-dt-order="disable"></th>{{/if}}
 </tr>
 <tr>
     <th></th>
-    <th data-orderable='false'></th>
+    <th data-dt-order="disable"></th>
     {{#each columns}}
     <th>
         {{title}}
     </th>
     {{/each}}
-    {{#if loggedIn}}<th data-orderable='false'><span title="{{ @t "highscore.friends_tooltip" }}">&#x1F465;</span></th>{{/if}}
+    {{#if loggedIn}}<th data-dt-order="disable"><span title="{{ @t "highscore.friends_tooltip" }}">&#x1F465;</span></th>{{/if}}
 </tr>
 </thead>
 <tbody>
