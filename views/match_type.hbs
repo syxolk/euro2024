@@ -41,78 +41,74 @@
         {{#each matches}}
         <div class="card mb-3">
             <div class="card-header">
-                <div class="row g-2 align-items-center">
-                    <div class="col-md text-center text-md-end">
-                        <strong>
-                            {{#if home_team_name}}
-                                {{home_team_name}}{{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}
-                            {{else}}
-                                {{placeholder_home}}
-                            {{/if}}
-                        </strong>
-                    </div>
-                    <div class="col-md-auto text-center">
-                        {{#if (or (eq goals_home 0) goals_home)}}
-                            <strong>{{goals_home}}</strong> : <strong>{{goals_away}}</strong>
+                <a data-bs-toggle="collapse" href="#match-{{id}}">
+                    <strong>
+                        {{#if home_team_name}}
+                            {{home_team_name}}{{#if home_team_code}}<img class="flag-icon ms-1" src="{{flagUrl home_team_code}}" alt="{{home_team_name}} flag" loading="lazy">{{/if}}
                         {{else}}
-                            <strong>vs</strong>
+                            {{placeholder_home}}
                         {{/if}}
-                    </div>
-                    <div class="col-md text-center text-md-start">
-                        <strong>
-                            {{#if away_team_name}}
-                                {{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}
-                            {{else}}
-                                {{placeholder_away}}
-                            {{/if}}
-                        </strong>
-                    </div>
-                    <div class="col-12 col-md-auto text-muted small text-center text-md-end">
-                        {{ @tr "format.date_time" value=starts_at }}
-                        {{#if tv}}<span class="badge bg-secondary ms-1">{{tv}}</span>{{/if}}
-                    </div>
+                    </strong>
+                    {{#if (or (eq goals_home 0) goals_home)}}
+                        <strong>{{goals_home}}</strong> : <strong>{{goals_away}}</strong>
+                    {{else}}
+                        <strong>vs</strong>
+                    {{/if}}
+                    <strong>
+                        {{#if away_team_name}}
+                            {{#if away_team_code}}<img class="flag-icon me-1" src="{{flagUrl away_team_code}}" alt="{{away_team_name}} flag" loading="lazy">{{/if}}{{away_team_name}}
+                        {{else}}
+                            {{placeholder_away}}
+                        {{/if}}
+                    </strong>
+                </a>
+                <div class="text-muted small">
+                    {{ @tr "format.date_time" value=starts_at }}
+                    {{#if tv}}<span class="badge bg-secondary ms-1">{{tv}}</span>{{/if}}
                 </div>
             </div>
 
-            {{#if is_started}}
-            <div class="card-body pb-2">
-                <div class="small text-muted mb-2">{{ @tr "match_type_page.number_of_bets" count=all_bets.length }}</div>
-                {{#if all_bets.length}}
-                {{#if bet_groups}}
-                    {{#each bet_groups}}
-                    <div class="row mb-3">
-                        <div class="col-md-2 text-muted fw-semibold">{{ @tr "match_type_page.points_group" count=score }}</div>
-                        <div class="col-md-10">
-                            {{#each bets}}
-                                <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
-                                    <a href="/user/{{id}}">{{name}}</a>
-                                    {{goals_home}}:{{goals_away}}
-                                </span>
-                            {{/each}}
+            <div id="match-{{id}}" class="collapse">
+                {{#if is_started}}
+                <div class="card-body pb-2">
+                    <div class="small text-muted mb-2">{{ @tr "match_type_page.number_of_bets" count=all_bets.length }}</div>
+                    {{#if all_bets.length}}
+                    {{#if bet_groups}}
+                        {{#each bet_groups}}
+                        <div class="row mb-3">
+                            <div class="col-md-2 text-muted fw-semibold">{{ @tr "match_type_page.points_group" count=score }}</div>
+                            <div class="col-md-10">
+                                {{#each bets}}
+                                    <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                        <a href="/user/{{id}}">{{name}}</a>
+                                        {{goals_home}}:{{goals_away}}
+                                    </span>
+                                {{/each}}
+                            </div>
                         </div>
+                        {{/each}}
+                    {{else}}
+                        {{#each all_bets}}
+                            <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                <a href="/user/{{id}}">{{name}}</a>
+                                {{goals_home}}:{{goals_away}}
+                            </span>
+                        {{/each}}
+                    {{/if}}
+                    {{else}}
+                    <div class="alert alert-secondary mb-0" role="alert">
+                        {{ @t "match_type_page.no_bets" }}
                     </div>
-                    {{/each}}
+                    {{/if}}
+                </div>
                 {{else}}
-                    {{#each all_bets}}
-                        <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
-                            <a href="/user/{{id}}">{{name}}</a>
-                            {{goals_home}}:{{goals_away}}
-                        </span>
-                    {{/each}}
-                {{/if}}
-                {{else}}
-                <div class="alert alert-secondary mb-0" role="alert">
-                    {{ @t "match_type_page.no_bets" }}
+                <div class="card-body">
+                    <div class="alert alert-secondary mb-0" role="alert">
+                        {{ @t "match_type_page.bets_hidden_until_start" }}
+                    </div>
                 </div>
                 {{/if}}
             </div>
-            {{else}}
-            <div class="card-body">
-                <div class="alert alert-secondary mb-0" role="alert">
-                    {{ @t "match_type_page.bets_hidden_until_start" }}
-                </div>
-            </div>
-            {{/if}}
         </div>
         {{/each}}
     {{else}}
