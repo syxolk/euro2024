@@ -96,7 +96,7 @@ describe("GET /match_type/:code", () => {
         );
     });
 
-    it("groups bets by received points when the match result is known", async () => {
+    it("groups bets by bet result when the match result is known", async () => {
         const { default: supertest } = await import("supertest");
         const { default: app } = await import("../../app");
 
@@ -153,7 +153,7 @@ describe("GET /match_type/:code", () => {
             {
                 user_id: winnerUser.id,
                 match_id: matchId,
-                goals_home: 4,
+                goals_home: 3,
                 goals_away: 2,
             },
             {
@@ -167,8 +167,14 @@ describe("GET /match_type/:code", () => {
         const res = await supertest(app).get("/match_type/FIN");
 
         expect(res.status).toBe(200);
-        expect(res.text).toMatch(
-            /4 points[\s\S]*Exact User[\s\S]*2 points[\s\S]*Winner User[\s\S]*0 points[\s\S]*Wrong User/
+        expect(res.text).toContain("Exact User");
+        expect(res.text).toContain("Winner User");
+        expect(res.text).toContain("Wrong User");
+        expect(res.text.indexOf("Exact User")).toBeLessThan(
+            res.text.indexOf("Winner User")
+        );
+        expect(res.text.indexOf("Winner User")).toBeLessThan(
+            res.text.indexOf("Wrong User")
         );
     });
 });

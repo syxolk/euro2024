@@ -17,13 +17,15 @@ interface MatchTypeBet {
     goals_away: number;
     is_friend: boolean;
     is_me: boolean;
-    score: number | null;
+    result: "correct" | "diff" | "winner" | "wrong" | null;
 }
 
 interface MatchTypeBetGroup {
-    score: number;
+    result: "correct" | "diff" | "winner" | "wrong";
     bets: MatchTypeBet[];
 }
+
+type MatchTypeBetResult = MatchTypeBetGroup["result"];
 
 interface MatchTypeMatch {
     id: number;
@@ -86,17 +88,14 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
                     'name', user_account.name,
                     'goals_home', bet.goals_home,
                     'goals_away', bet.goals_away,
-                    'score', case
+                    'result', case
                         when match.goals_home is not null and match.goals_away is not null
-                            then calc_bet_score(
-                                calc_bet_result(
-                                    match.goals_home,
-                                    match.goals_away,
-                                    bet.goals_home,
-                                    bet.goals_away
-                                ),
-                                match_type.score_factor
-                            )
+                            then calc_bet_result(
+                                match.goals_home,
+                                match.goals_away,
+                                bet.goals_home,
+                                bet.goals_away
+                            )::text
                         else null
                     end,
                     'is_friend', user_account.id in (
@@ -130,18 +129,28 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
             continue;
         }
 
-        const groups = new Map<number, MatchTypeBet[]>();
+        const groupedBets: Record<MatchTypeBetResult, MatchTypeBet[]> = {
+            correct: [],
+            diff: [],
+            winner: [],
+            wrong: [],
+        };
 
         for (const bet of match.all_bets) {
-            const score = bet.score ?? 0;
-            const bets = groups.get(score) ?? [];
-            bets.push(bet);
-            groups.set(score, bets);
+            const result: MatchTypeBetResult = bet.result ?? "wrong";
+            groupedBets[result].push(bet);
         }
 
-        match.bet_groups = [...groups.entries()]
-            .sort((a, b) => b[0] - a[0])
-            .map(([score, bets]) => ({ score, bets }));
+        const orderedResults: MatchTypeBetResult[] = [
+            "correct",
+            "diff",
+            "winner",
+            "wrong",
+        ];
+
+        match.bet_groups = orderedResults
+            .map((result) => ({ result, bets: groupedBets[result] }))
+            .filter((group) => group.bets.length > 0);
     }
 
     res.render("match_type", {

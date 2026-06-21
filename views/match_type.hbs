@@ -76,7 +76,12 @@
                     {{#if bet_groups}}
                         {{#each bet_groups}}
                         <div class="row mb-3">
-                            <div class="col-md-2 text-muted fw-semibold">{{ @tr "match_type_page.points_group" count=score }}</div>
+                            <div class="col-md-2 text-muted fw-semibold">
+                                {{#if (eq result "correct")}}{{> correct_bet}}{{/if}}
+                                {{#if (eq result "diff")}}{{> correct_diff}}{{/if}}
+                                {{#if (eq result "winner")}}{{> correct_winner}}{{/if}}
+                                {{#if (eq result "wrong")}}{{> wrong_bet}}{{/if}}
+                            </div>
                             <div class="col-md-10">
                                 {{#each bets}}
                                     <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
