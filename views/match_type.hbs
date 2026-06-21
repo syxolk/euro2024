@@ -80,14 +80,16 @@
                 {{#if all_bets.length}}
                 {{#if bet_groups}}
                     {{#each bet_groups}}
-                    <div class="mb-3">
-                        <div class="small text-muted fw-semibold mb-2">{{ @tr "match_type_page.points_group" count=score }}</div>
-                        {{#each bets}}
-                            <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
-                                <a href="/user/{{id}}">{{name}}</a>
-                                {{goals_home}}:{{goals_away}}
-                            </span>
-                        {{/each}}
+                    <div class="row mb-3">
+                        <div class="col-md-2 text-muted fw-semibold">{{ @tr "match_type_page.points_group" count=score }}</div>
+                        <div class="col-md-10">
+                            {{#each bets}}
+                                <span {{#if is_friend}}class="highlight-friend"{{/if}}{{#if is_me}}class="highlight-me"{{/if}}>
+                                    <a href="/user/{{id}}">{{name}}</a>
+                                    {{goals_home}}:{{goals_away}}
+                                </span>
+                            {{/each}}
+                        </div>
                     </div>
                     {{/each}}
                 {{else}}
