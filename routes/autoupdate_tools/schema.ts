@@ -4,6 +4,7 @@ export enum FifaApiMatchStatus {
     Finished = 0,
     NotStarted = 1,
     Live = 3,
+    Interrupted = 11,
 }
 
 export const FifaApiTeamSchema = z.object({
