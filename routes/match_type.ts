@@ -39,7 +39,10 @@ interface MatchTypeMatch {
     away_team_name: string | null;
     home_team_code: string | null;
     away_team_code: string | null;
+    has_teams: boolean;
     is_started: boolean;
+    my_bet_goals_home: number | null;
+    my_bet_goals_away: number | null;
     all_bets: MatchTypeBet[];
     bet_groups?: MatchTypeBetGroup[];
 }
@@ -81,7 +84,20 @@ router.get("/match_type/:code", async (req: Request, res: Response) => {
             :localizedAwayTeam as away_team_name,
             home_team.code as home_team_code,
             away_team.code as away_team_code,
+            (match.home_team_id is not null and match.away_team_id is not null) as has_teams,
             (match.starts_at < now()) as is_started,
+            (
+                select bet.goals_home
+                from bet
+                where bet.match_id = match.id
+                and bet.user_id = :userId
+            ) as my_bet_goals_home,
+            (
+                select bet.goals_away
+                from bet
+                where bet.match_id = match.id
+                and bet.user_id = :userId
+            ) as my_bet_goals_away,
             (
                 select coalesce(array_agg(jsonb_build_object(
                     'id', user_account.id,

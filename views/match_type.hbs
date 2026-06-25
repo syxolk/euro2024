@@ -23,10 +23,40 @@
         background-color: transparent;
         border: 1px solid #ffd700;
     }
+
+    .autosave {
+        --autosave-success-bg: rgba(25, 135, 84, 0.25);
+        --autosave-error-bg: rgba(220, 53, 69, 0.25);
+    }
+
+    [data-bs-theme=dark] .autosave {
+        --autosave-success-bg: rgba(25, 135, 84, 0.45);
+        --autosave-error-bg: rgba(220, 53, 69, 0.45);
+    }
+
+    @keyframes pulse-success {
+        0%, 100% { background-color: transparent; }
+        30% { background-color: var(--autosave-success-bg); }
+    }
+
+    .autosave-success {
+        animation: pulse-success 1s;
+    }
+
+    @keyframes pulse-error {
+        0%, 100% { background-color: transparent; }
+        30% { background-color: var(--autosave-error-bg); }
+    }
+
+    .autosave-error {
+        animation: pulse-error 1s;
+    }
 </style>
 {{/inline}}
 {{#*inline "body"}}
 {{> navbar}}
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
+<input type="hidden" name="_action" value="/save_bet">
 <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
         <div>
@@ -107,7 +137,23 @@
                     {{/if}}
                 </div>
                 {{else}}
-                <div class="card-body">
+                <div class="card-body pb-2">
+                    {{#if @root.user}}
+                    <div class="row autosave g-2 mb-3 align-items-center">
+                        <div class="col-auto text-center m-auto m-md-0">
+                            <input type="number" min="0" max="20" autocomplete="off"
+                                {{#if (not has_teams)}}disabled{{/if}}
+                                class="form-control text-center"
+                                style="display:inline;width:80px;" name="home" value="{{my_bet_goals_home}}">
+                            <input type="hidden" name="match" value="{{id}}">
+                            :
+                            <input type="number" min="0" max="20" autocomplete="off"
+                                {{#if (not has_teams)}}disabled{{/if}}
+                                class="form-control text-center"
+                                style="display:inline;width:80px;" name="away" value="{{my_bet_goals_away}}">
+                        </div>
+                    </div>
+                    {{/if}}
                     <div class="alert alert-secondary mb-0" role="alert">
                         {{ @t "match_type_page.bets_hidden_until_start" }}
                     </div>
