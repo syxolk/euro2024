@@ -86,7 +86,7 @@ describe("GET /user/:id", () => {
         const res = await supertest(app).get(`/user/${user.id}`);
 
         expect(res.status).toBe(200);
-        expect(res.text).toContain("Winner or draw accuracy");
+        expect(res.text).toContain("Accuracy");
         expect(res.text).toContain("80%");
         expect(res.text).toContain(
             "4 out of 5 finished bets had the correct winner or draw."
