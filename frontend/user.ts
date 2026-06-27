@@ -3,7 +3,20 @@ import Chart from "chart.js/auto";
 type BetDistributionEntry = {
     bet: string;
     count: number;
+    goalDifference: number;
 };
+
+function getBarColor(goalDifference: number, maxGoalDifference: number) {
+    if (maxGoalDifference <= 0) {
+        return "hsl(50, 85%, 55%)";
+    }
+
+    const minHue = 50;
+    const maxHue = 220;
+    const hue = minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
+
+    return `hsl(${hue}, 75%, 55%)`;
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("user-bets-chart");
@@ -23,6 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    const maxGoalDifference = Math.max(
+        ...distribution.map((entry) => entry.goalDifference)
+    );
+
     new Chart(canvas, {
         type: "bar",
         data: {
@@ -31,8 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     label: "Bets",
                     data: distribution.map((entry) => entry.count),
-                    backgroundColor: distribution.map(function (_, index) {
-                        return `hsl(${(index * 360.0) / distribution.length}, 70%, 55%)`;
+                    backgroundColor: distribution.map(function (entry) {
+                        return getBarColor(
+                            entry.goalDifference,
+                            maxGoalDifference
+                        );
                     }),
                     borderWidth: 1,
                 },
@@ -56,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     callbacks: {
                         label: function (context) {
                             const value = context.raw;
-                            return `${context.label}: ${value}x`;
+                            return `${value}x`;
                         },
                     },
                 },

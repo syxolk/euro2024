@@ -135,7 +135,15 @@ router.get("/user/:id", async (req: Request, res: Response) => {
 
     const commonBetsMap = new Map<string, number>();
     for (const match of placedBets) {
-        const betKey = `${match.bet_goals_home}:${match.bet_goals_away}`;
+        const normalizedGoalsHome = Math.max(
+            match.bet_goals_home,
+            match.bet_goals_away
+        );
+        const normalizedGoalsAway = Math.min(
+            match.bet_goals_home,
+            match.bet_goals_away
+        );
+        const betKey = `${normalizedGoalsHome}:${normalizedGoalsAway}`;
         commonBetsMap.set(betKey, (commonBetsMap.get(betKey) ?? 0) + 1);
     }
 
@@ -148,11 +156,12 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                 count,
                 goalsHome,
                 goalsAway,
+                goalDifference: goalsHome - goalsAway,
             };
         })
         .sort((a, b) => {
-            if (b.count !== a.count) {
-                return b.count - a.count;
+            if (a.goalDifference !== b.goalDifference) {
+                return a.goalDifference - b.goalDifference;
             }
             if (a.goalsHome !== b.goalsHome) {
                 return a.goalsHome - b.goalsHome;

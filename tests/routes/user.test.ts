@@ -93,9 +93,17 @@ describe("GET /user/:id", () => {
         );
         expect(res.text).toContain("Bet distribution");
         expect(res.text).toContain('id="user-bets-chart"');
-        expect(res.text).toContain("2:1");
-        expect(res.text).toContain("1:1");
-        expect(res.text).toContain("0:2");
+        const oneOneIndex = res.text.indexOf("1:1");
+        const twoOneIndex = res.text.indexOf("2:1");
+        const twoZeroIndex = res.text.indexOf("2:0");
+
+        expect(oneOneIndex).toBeGreaterThanOrEqual(0);
+        expect(twoOneIndex).toBeGreaterThan(oneOneIndex);
+        expect(twoZeroIndex).toBeGreaterThan(twoOneIndex);
+        expect(res.text).not.toContain("0:2");
         expect(res.text).toContain('"count":3');
+        expect(res.text).toContain('"goalDifference":0');
+        expect(res.text).toContain('"goalDifference":1');
+        expect(res.text).toContain('"goalDifference":2');
     });
 });
