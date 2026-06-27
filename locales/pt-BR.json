@@ -316,6 +316,12 @@
     },
     "user": {
         "summary": "Pontuação {{score}}, Classificação {{rank}}",
+        "accuracy_title": "Precisão de vencedor ou empate",
+        "accuracy_summary": "{{correct}} de {{total}} apostas encerradas acertaram o vencedor ou o empate.",
+        "no_accuracy_data": "Ainda não há apostas encerradas.",
+        "common_bets_title": "Apostas mais comuns",
+        "common_bet_count": "{{count}}x",
+        "no_common_bets": "Ainda não há apostas encerradas.",
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} pontos",
         "no_teams_selected": "Nenhum time selecionado.",
         "match_result_column": "Resultado da partida",

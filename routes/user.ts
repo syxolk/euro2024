@@ -12,6 +12,24 @@ import {
 
 const router = Router();
 
+function isBetPlacedAndMatchFinished(match: {
+    bet_goals_home: number | null;
+    bet_goals_away: number | null;
+    match_goals_home: number | null;
+    match_goals_away: number | null;
+}) {
+    return (
+        match.bet_goals_home !== null &&
+        match.bet_goals_away !== null &&
+        match.match_goals_home !== null &&
+        match.match_goals_away !== null
+    );
+}
+
+function isCorrectWinnerOrDraw(result: string) {
+    return result === "correct" || result === "diff" || result === "winner";
+}
+
 router.get("/user/:id", async (req: Request, res: Response) => {
     const user = parseInt(String(req.params.id), 10);
 
@@ -98,6 +116,49 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         .map(([date, matches]) => ({ date, matches }))
         .sort((a, b) => b.date.localeCompare(a.date));
 
+    const placedBets = matches.filter(isBetPlacedAndMatchFinished);
+    const accurateBets = placedBets.filter((match) =>
+        isCorrectWinnerOrDraw(match.result)
+    );
+    const accuracy =
+        placedBets.length === 0
+            ? null
+            : {
+                  correct: accurateBets.length,
+                  total: placedBets.length,
+                  percent: Number(
+                      ((accurateBets.length / placedBets.length) * 100).toFixed(1)
+                  ),
+              };
+
+    const commonBetsMap = new Map<string, number>();
+    for (const match of placedBets) {
+        const betKey = `${match.bet_goals_home}:${match.bet_goals_away}`;
+        commonBetsMap.set(betKey, (commonBetsMap.get(betKey) ?? 0) + 1);
+    }
+
+    const commonBets = [...commonBetsMap.entries()]
+        .map(([bet, count]) => {
+            const [goalsHome, goalsAway] = bet.split(":").map(Number);
+
+            return {
+                bet,
+                count,
+                goalsHome,
+                goalsAway,
+            };
+        })
+        .sort((a, b) => {
+            if (b.count !== a.count) {
+                return b.count - a.count;
+            }
+            if (a.goalsHome !== b.goalsHome) {
+                return a.goalsHome - b.goalsHome;
+            }
+            return a.goalsAway - b.goalsAway;
+        })
+        .slice(0, 3);
+
     const extraBets = await knex("extra_bet")
         .join(
             "user_account_extra_bet",
@@ -136,7 +197,13 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         )
         .orderBy("id");
 
-    res.render("user", { displayedUser, matchesPerDayList, extraBets });
+    res.render("user", {
+        displayedUser,
+        matchesPerDayList,
+        accuracy,
+        commonBets,
+        extraBets,
+    });
 });
 
 router.get("/friend_history", async (req: Request, res: Response) => {

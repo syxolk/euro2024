@@ -43,6 +43,41 @@
 
 <h3>{{displayedUser.name}} <small class="text-muted">{{ @tr "user.summary" score=displayedUser.score rank=displayedUser.rank }}</small></h3>
 
+<div class="row row-cols-1 row-cols-md-2 g-3 mt-1">
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">{{ @t "user.accuracy_title" }}</div>
+            <div class="card-body">
+                {{#if accuracy}}
+                    <div class="display-6">{{accuracy.percent}}%</div>
+                    <div class="text-muted">{{ @tr "user.accuracy_summary" correct=accuracy.correct total=accuracy.total }}</div>
+                {{else}}
+                    <span class="text-muted">{{ @t "user.no_accuracy_data" }}</span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">{{ @t "user.common_bets_title" }}</div>
+            <div class="card-body">
+                {{#if commonBets}}
+                    <ul class="list-group list-group-flush">
+                        {{#each commonBets}}
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span>{{bet}}</span>
+                                <span class="badge text-bg-secondary">{{ @tr "user.common_bet_count" count=count }}</span>
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <span class="text-muted">{{ @t "user.no_common_bets" }}</span>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
 {{#if extraBets}}
     <div class="row row-cols-1 row-cols-lg-3 g-3 mt-3">
         {{#each extraBets}}

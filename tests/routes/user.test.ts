@@ -1,6 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { knex } from "../../db";
-import { createTestUser, truncateTables } from "../helpers";
+import {
+    createTestUser,
+    seedMatch,
+    seedTeam,
+    truncateTables,
+} from "../helpers";
 
 describe("GET /user/:id", () => {
     beforeEach(async () => {
@@ -28,5 +33,68 @@ describe("GET /user/:id", () => {
         const res = await supertest(app).get(`/user/${user.id}`);
         expect(res.status).toBe(200);
         expect(res.text).toContain(user.name);
+    });
+
+    it("shows winner-or-draw accuracy and the three most common bets", async () => {
+        const user = await createTestUser(knex, { name: "Stats User" });
+        const homeTeamId = await seedTeam(knex, {
+            name: "Home Team",
+            code: "HOM",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "Away Team",
+            code: "AWY",
+        });
+
+        const createFinishedMatch = async (
+            actualHome: number,
+            actualAway: number,
+            betHome: number,
+            betAway: number,
+            offsetHours: number
+        ) => {
+            const matchId = await seedMatch(knex, {
+                starts_at: new Date(Date.now() - offsetHours * 60 * 60 * 1000),
+                home_team_id: homeTeamId,
+                away_team_id: awayTeamId,
+                fifa_id: `finished-${offsetHours}`,
+            });
+
+            await knex("match").where({ id: matchId }).update({
+                goals_home: actualHome,
+                goals_away: actualAway,
+                goals_inserted_at: new Date(),
+            });
+
+            await knex("bet").insert({
+                user_id: user.id,
+                match_id: matchId,
+                goals_home: betHome,
+                goals_away: betAway,
+            });
+        };
+
+        await createFinishedMatch(2, 1, 2, 1, 2);
+        await createFinishedMatch(3, 2, 2, 1, 3);
+        await createFinishedMatch(0, 0, 1, 1, 4);
+        await createFinishedMatch(0, 1, 2, 1, 5);
+        await createFinishedMatch(1, 3, 0, 2, 6);
+
+        const { default: supertest } = await import("supertest");
+        const { default: app } = await import("../../app");
+
+        const res = await supertest(app).get(`/user/${user.id}`);
+
+        expect(res.status).toBe(200);
+        expect(res.text).toContain("Winner or draw accuracy");
+        expect(res.text).toContain("80%");
+        expect(res.text).toContain(
+            "4 out of 5 finished bets had the correct winner or draw."
+        );
+        expect(res.text).toContain("Most common bets");
+        expect(res.text).toContain("2:1");
+        expect(res.text).toContain("3x");
+        expect(res.text).toContain("1:1");
+        expect(res.text).toContain("0:2");
     });
 });

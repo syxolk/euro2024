@@ -316,6 +316,12 @@
     },
     "user": {
         "summary": "Score {{score}}, Ranking {{rank}}",
+        "accuracy_title": "Accuracy",
+        "accuracy_summary": "{{correct}} out of {{total}} finished bets had the correct winner or draw.",
+        "no_accuracy_data": "No finished bets yet.",
+        "common_bets_title": "Most common bets",
+        "common_bet_count": "{{count}}x",
+        "no_common_bets": "No finished bets yet.",
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} points",
         "no_teams_selected": "No teams selected.",
         "match_result_column": "Match Result",

@@ -316,6 +316,12 @@
     },
     "user": {
         "summary": "Punkte {{score}}, Rang {{rank}}",
+        "accuracy_title": "Genauigkeit",
+        "accuracy_summary": "{{correct}} von {{total}} beendeten Tipps hatten den richtigen Sieger oder ein richtiges Unentschieden.",
+        "no_accuracy_data": "Noch keine beendeten Tipps.",
+        "common_bets_title": "Häufigste Tipps",
+        "common_bet_count": "{{count}}x",
+        "no_common_bets": "Noch keine beendeten Tipps.",
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} Punkte",
         "no_teams_selected": "Keine Teams ausgewählt.",
         "match_result_column": "Spielergebnis",
