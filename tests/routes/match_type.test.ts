@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { knex } from "../../db";
 import {
+    authenticatedAgent,
     createTestUser,
     seedMatch,
     seedMatchType,
@@ -57,14 +58,14 @@ describe("GET /match_type/:code", () => {
             fifa_id: "delta-1",
         });
         const startedMatchId = await seedMatch(knex, {
-            starts_at: new Date(Date.now() - 60 * 1000),
+            starts_at: new Date(Date.now() - 2 * 60 * 60 * 1000),
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
             match_type_id: matchTypeId,
             fifa_id: "started-match",
         });
         await seedMatch(knex, {
-            starts_at: new Date(Date.now() + 60 * 60 * 1000),
+            starts_at: new Date(Date.now() + 2 * 60 * 60 * 1000),
             home_team_id: futureHomeTeamId,
             away_team_id: futureAwayTeamId,
             match_type_id: matchTypeId,
@@ -91,6 +92,73 @@ describe("GET /match_type/:code", () => {
         expect(res.text).toContain("Gamma");
         expect(res.text).toContain("Visible Bettor");
         expect(res.text).toContain("2:1");
+        expect(res.text).toContain('data-bs-toggle="collapse" href="#match-1"');
+        expect(res.text).toContain('data-bs-toggle="collapse" href="#match-2"');
+        expect(res.text).toContain('id="match-2" class="collapse show"');
+        expect(res.text).toContain(
+            "Bets will be shown once the match has started."
+        );
+    });
+
+    it("shows editable inputs for the logged-in user's bet before kickoff", async () => {
+        const user = await createTestUser(knex, {
+            email: "editable-match-type@example.com",
+            name: "Editable User",
+        });
+        const ag = await authenticatedAgent(user);
+
+        const matchTypeId = await seedMatchType(knex, {
+            id: 9,
+            code: "SEM",
+            name: "Semi Finals",
+            score_factor: 2,
+        });
+        const homeTeamId = await seedTeam(knex, {
+            name: "North",
+            code: "NOR",
+            fifa_id: "north-1",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "South",
+            code: "SOU",
+            fifa_id: "south-1",
+        });
+        const matchId = await seedMatch(knex, {
+            starts_at: new Date(Date.now() + 60 * 60 * 1000),
+            home_team_id: homeTeamId,
+            away_team_id: awayTeamId,
+            match_type_id: matchTypeId,
+            fifa_id: "editable-match",
+        });
+
+        await knex("bet").insert([
+            {
+                user_id: user.id,
+                match_id: matchId,
+                goals_home: 3,
+                goals_away: 1,
+            },
+            {
+                user_id: (
+                    await createTestUser(knex, {
+                        email: "hidden-match-type@example.com",
+                        name: "Hidden User",
+                    })
+                ).id,
+                match_id: matchId,
+                goals_home: 0,
+                goals_away: 0,
+            },
+        ]);
+
+        const res = await ag.get("/match_type/SEM");
+
+        expect(res.status).toBe(200);
+        expect(res.text).toContain('name="_action" value="/save_bet"');
+        expect(res.text).toContain(`name="match" value="${matchId}"`);
+        expect(res.text).toContain('name="home" value="3"');
+        expect(res.text).toContain('name="away" value="1"');
+        expect(res.text).not.toContain("Hidden User");
         expect(res.text).toContain(
             "Bets will be shown once the match has started."
         );
