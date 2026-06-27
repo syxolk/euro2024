@@ -38,7 +38,16 @@ router.post("/save_bet", async (req: Request, res: Response) => {
         return;
     }
 
-    if (req.body.home && req.body.away) {
+    const hasHomeGoal =
+        req.body.home !== undefined &&
+        req.body.home !== null &&
+        req.body.home !== "";
+    const hasAwayGoal =
+        req.body.away !== undefined &&
+        req.body.away !== null &&
+        req.body.away !== "";
+
+    if (hasHomeGoal && hasAwayGoal) {
         await knex("bet")
             .insert({
                 user_id: user.id,

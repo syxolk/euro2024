@@ -66,6 +66,42 @@ describe("POST /save_bet", () => {
         expect(bet.goals_away).toBe(1);
     });
 
+    it("saves a zero-goal bet for an upcoming match", async () => {
+        const user = await createTestUser(knex);
+        const ag = await authenticatedAgent(user);
+
+        const homeTeamId = await seedTeam(knex, {
+            name: "Netherlands",
+            code: "NED",
+            fifa_id: "ned",
+        });
+        const awayTeamId = await seedTeam(knex, {
+            name: "England",
+            code: "ENG",
+            fifa_id: "eng",
+        });
+        const matchId = await seedMatch(knex, {
+            home_team_id: homeTeamId,
+            away_team_id: awayTeamId,
+            starts_at: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
+
+        const res = await ag
+            .post("/save_bet")
+            .send({ match: matchId, home: 0, away: 0 })
+            .set("Content-Type", "application/json");
+
+        expect(res.status).toBe(200);
+        expect(res.body).toMatchObject({ ok: true });
+
+        const bet = await knex("bet")
+            .where({ user_id: user.id, match_id: matchId })
+            .first();
+        expect(bet).toBeDefined();
+        expect(bet.goals_home).toBe(0);
+        expect(bet.goals_away).toBe(0);
+    });
+
     it("updates an existing bet (upsert)", async () => {
         const user = await createTestUser(knex);
         const ag = await authenticatedAgent(user);

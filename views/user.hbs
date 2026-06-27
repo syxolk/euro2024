@@ -69,10 +69,11 @@
 <table class="table table-sm mt-3">
     <thead class="table-light">
     <tr>
-        <th colspan="2"></th>
+        <th></th>
         <th colspan="3" class="text-center">{{ @t "user.match_result_column" }}</th>
         <th class="text-center">{{ @t "user.bet_column" }}</th>
         <th class="text-center">{{ @t "user.points_column" }}</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -85,13 +86,6 @@
         {{#each matches}}
         <tr class="result-{{result}}">
             <td class="small"><span class="d-none d-sm-inline">{{ @tr "format.time" value=starts_at }}</span><span class="d-sm-none">{{ @tr "format.time" value=starts_at }}</span></td>
-            <td class="small">
-                <a href="/match_type/{{match_type_code}}" class="link-body-emphasis">
-                    <span class="d-none d-sm-inline">{{match_type_name}}</span>
-                    <span class="d-sm-none">{{match_type_code}}</span>
-                </a>
-                {{> score_factor match_type_score_factor}}
-            </td>
             <td class="text-end">
                 <em class="d-none d-sm-inline">
                     {{home_team_name}}
@@ -120,6 +114,12 @@
             </td>
             <td class="text-center {{#if (isZero score)}}is-zero{{/if}}">
             {{score}}
+            </td>
+            <td class="small">
+                <a href="/match_type/{{match_type_code}}">
+                    {{match_type_name}}
+                </a>
+                {{> score_factor match_type_score_factor}}
             </td>
         </tr>
         {{/each}}

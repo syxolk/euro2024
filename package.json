@@ -81,5 +81,11 @@
     "supertest": "^7.2.2",
     "typescript-eslint": "^8.61.0",
     "vitest": "^4.1.7"
+  },
+  "allowScripts": {
+    "@tsparticles/engine@4.1.1": true,
+    "bcrypt@6.0.0": true,
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
   }
 }
