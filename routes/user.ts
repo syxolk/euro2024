@@ -127,7 +127,9 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                   correct: accurateBets.length,
                   total: placedBets.length,
                   percent: Number(
-                      ((accurateBets.length / placedBets.length) * 100).toFixed(1)
+                      ((accurateBets.length / placedBets.length) * 100).toFixed(
+                          1
+                      )
                   ),
               };
 
