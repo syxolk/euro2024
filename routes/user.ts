@@ -137,7 +137,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         commonBetsMap.set(betKey, (commonBetsMap.get(betKey) ?? 0) + 1);
     }
 
-    const commonBets = [...commonBetsMap.entries()]
+    const betDistribution = [...commonBetsMap.entries()]
         .map(([bet, count]) => {
             const [goalsHome, goalsAway] = bet.split(":").map(Number);
 
@@ -156,8 +156,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                 return a.goalsHome - b.goalsHome;
             }
             return a.goalsAway - b.goalsAway;
-        })
-        .slice(0, 3);
+        });
 
     const extraBets = await knex("extra_bet")
         .join(
@@ -201,7 +200,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         displayedUser,
         matchesPerDayList,
         accuracy,
-        commonBets,
+        betDistribution,
         extraBets,
     });
 });

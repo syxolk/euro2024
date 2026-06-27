@@ -61,15 +61,14 @@
         <div class="card h-100">
             <div class="card-header">{{ @t "user.common_bets_title" }}</div>
             <div class="card-body">
-                {{#if commonBets}}
-                    <ul class="list-group list-group-flush">
-                        {{#each commonBets}}
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <span>{{bet}}</span>
-                                <span class="badge text-bg-secondary">{{ @tr "user.common_bet_count" count=count }}</span>
-                            </li>
-                        {{/each}}
-                    </ul>
+                {{#if betDistribution}}
+                    <div class="position-relative" style="min-height: 260px;">
+                        <canvas
+                            id="user-bets-chart"
+                            data-labels='{{{json betDistribution}}}'
+                            aria-label="{{ @t "user.common_bets_title" }}"
+                        ></canvas>
+                    </div>
                 {{else}}
                     <span class="text-muted">{{ @t "user.no_common_bets" }}</span>
                 {{/if}}

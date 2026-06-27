@@ -35,7 +35,7 @@ describe("GET /user/:id", () => {
         expect(res.text).toContain(user.name);
     });
 
-    it("shows winner-or-draw accuracy and the three most common bets", async () => {
+    it("shows winner-or-draw accuracy and the bet distribution chart", async () => {
         const user = await createTestUser(knex, { name: "Stats User" });
         const homeTeamId = await seedTeam(knex, {
             name: "Home Team",
@@ -91,10 +91,11 @@ describe("GET /user/:id", () => {
         expect(res.text).toContain(
             "4 out of 5 finished bets had the correct winner or draw."
         );
-        expect(res.text).toContain("Most common bets");
+        expect(res.text).toContain("Bet distribution");
+        expect(res.text).toContain('id="user-bets-chart"');
         expect(res.text).toContain("2:1");
-        expect(res.text).toContain("3x");
         expect(res.text).toContain("1:1");
         expect(res.text).toContain("0:2");
+        expect(res.text).toContain('"count":3');
     });
 });

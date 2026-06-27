@@ -93,4 +93,8 @@ export default function registerHbsHelpers() {
     hbs.registerHelper("or", function (...args: unknown[]) {
         return args.slice(0, -1).some(Boolean);
     });
+
+    hbs.registerHelper("json", function (value: unknown) {
+        return JSON.stringify(value);
+    });
 }

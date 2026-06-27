@@ -9,3 +9,4 @@ import "./past_confetti";
 import "./save_bets";
 import "./settings";
 import "./theme";
+import "./user";
