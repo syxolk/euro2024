@@ -13,7 +13,8 @@ function getBarColor(goalDifference: number, maxGoalDifference: number) {
 
     const minHue = 50;
     const maxHue = 220;
-    const hue = minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
+    const hue =
+        minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
 
     return `hsl(${hue}, 75%, 55%)`;
 }
