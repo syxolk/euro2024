@@ -58,14 +58,14 @@ describe("GET /match_type/:code", () => {
             fifa_id: "delta-1",
         });
         const startedMatchId = await seedMatch(knex, {
-            starts_at: new Date(Date.now() - 60 * 1000),
+            starts_at: new Date(Date.now() - 2 * 60 * 60 * 1000),
             home_team_id: homeTeamId,
             away_team_id: awayTeamId,
             match_type_id: matchTypeId,
             fifa_id: "started-match",
         });
         await seedMatch(knex, {
-            starts_at: new Date(Date.now() + 60 * 60 * 1000),
+            starts_at: new Date(Date.now() + 2 * 60 * 60 * 1000),
             home_team_id: futureHomeTeamId,
             away_team_id: futureAwayTeamId,
             match_type_id: matchTypeId,
@@ -92,6 +92,9 @@ describe("GET /match_type/:code", () => {
         expect(res.text).toContain("Gamma");
         expect(res.text).toContain("Visible Bettor");
         expect(res.text).toContain("2:1");
+        expect(res.text).toContain('data-bs-toggle="collapse" href="#match-1"');
+        expect(res.text).toContain('data-bs-toggle="collapse" href="#match-2"');
+        expect(res.text).toContain('id="match-2" class="collapse show"');
         expect(res.text).toContain(
             "Bets will be shown once the match has started."
         );

@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            <div id="match-{{id}}" class="collapse">
+            <div id="match-{{id}}" class="collapse {{#if (not is_started)}}show{{/if}}">
                 {{#if is_started}}
                 <div class="card-body pb-2">
                     <div class="small text-muted mb-2">{{ @tr "match_type_page.number_of_bets" count=all_bets.length }}</div>
