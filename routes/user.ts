@@ -133,7 +133,10 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                   ),
               };
 
-    const commonBetsMap = new Map<string, number>();
+    const commonBetsMap = new Map<
+        string,
+        { scoredCount: number; unscoredCount: number }
+    >();
     for (const match of placedBets) {
         const normalizedGoalsHome = Math.max(
             match.bet_goals_home,
@@ -144,16 +147,29 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             match.bet_goals_away
         );
         const betKey = `${normalizedGoalsHome}:${normalizedGoalsAway}`;
-        commonBetsMap.set(betKey, (commonBetsMap.get(betKey) ?? 0) + 1);
+
+        const betCounts = commonBetsMap.get(betKey) ?? {
+            scoredCount: 0,
+            unscoredCount: 0,
+        };
+
+        if ((match.score ?? 0) > 0) {
+            betCounts.scoredCount += 1;
+        } else {
+            betCounts.unscoredCount += 1;
+        }
+
+        commonBetsMap.set(betKey, betCounts);
     }
 
     const betDistribution = [...commonBetsMap.entries()]
-        .map(([bet, count]) => {
+        .map(([bet, counts]) => {
             const [goalsHome, goalsAway] = bet.split(":").map(Number);
 
             return {
                 bet,
-                count,
+                scoredCount: counts.scoredCount,
+                unscoredCount: counts.unscoredCount,
                 goalsHome,
                 goalsAway,
                 goalDifference: goalsHome - goalsAway,

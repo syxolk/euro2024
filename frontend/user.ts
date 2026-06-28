@@ -2,13 +2,17 @@ import Chart from "chart.js/auto";
 
 type BetDistributionEntry = {
     bet: string;
-    count: number;
+    scoredCount: number;
+    unscoredCount: number;
     goalDifference: number;
 };
 
-function getBarColor(goalDifference: number, maxGoalDifference: number) {
+function getScoredBarColor(
+    goalDifference: number,
+    maxGoalDifference: number
+) {
     if (maxGoalDifference <= 0) {
-        return "hsl(50, 85%, 55%)";
+        return "hsla(50, 85%, 45%, 0.95)";
     }
 
     const minHue = 50;
@@ -16,7 +20,23 @@ function getBarColor(goalDifference: number, maxGoalDifference: number) {
     const hue =
         minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
 
-    return `hsl(${hue}, 75%, 55%)`;
+    return `hsla(${hue}, 75%, 45%, 0.95)`;
+}
+
+function getUnscoredBarColor(
+    goalDifference: number,
+    maxGoalDifference: number
+) {
+    if (maxGoalDifference <= 0) {
+        return "hsla(50, 85%, 70%, 0.75)";
+    }
+
+    const minHue = 50;
+    const maxHue = 220;
+    const hue =
+        minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
+
+    return `hsla(${hue}, 75%, 70%, 0.75)`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -47,22 +67,39 @@ document.addEventListener("DOMContentLoaded", function () {
             labels: distribution.map((entry) => entry.bet),
             datasets: [
                 {
-                    label: "Bets",
-                    data: distribution.map((entry) => entry.count),
+                    label: "Scored",
+                    data: distribution.map((entry) => entry.scoredCount),
                     backgroundColor: distribution.map(function (entry) {
-                        return getBarColor(
+                        return getScoredBarColor(
                             entry.goalDifference,
                             maxGoalDifference
                         );
                     }),
                     borderWidth: 1,
+                    stack: "bets",
+                },
+                {
+                    label: "No points",
+                    data: distribution.map((entry) => entry.unscoredCount),
+                    backgroundColor: distribution.map(function (entry) {
+                        return getUnscoredBarColor(
+                            entry.goalDifference,
+                            maxGoalDifference
+                        );
+                    }),
+                    borderWidth: 1,
+                    stack: "bets",
                 },
             ],
         },
         options: {
             maintainAspectRatio: false,
             scales: {
+                x: {
+                    stacked: true,
+                },
                 y: {
+                    stacked: true,
                     beginAtZero: true,
                     ticks: {
                         precision: 0,
@@ -71,13 +108,14 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             plugins: {
                 legend: {
-                    display: false,
+                    display: true,
+                    position: "bottom",
                 },
                 tooltip: {
                     callbacks: {
                         label: function (context) {
                             const value = context.raw;
-                            return `${value}x`;
+                            return `${context.dataset.label}: ${value}x`;
                         },
                     },
                 },
