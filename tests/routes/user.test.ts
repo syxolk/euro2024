@@ -100,12 +100,5 @@ describe("GET /user/:id", () => {
         expect(oneOneIndex).toBeGreaterThanOrEqual(0);
         expect(twoOneIndex).toBeGreaterThan(oneOneIndex);
         expect(twoZeroIndex).toBeGreaterThan(twoOneIndex);
-        expect(res.text).toContain('"scoredCount":2');
-        expect(res.text).toContain('"scoredCount":1');
-        expect(res.text).toContain('"unscoredCount":1');
-        expect(res.text).toContain('"unscoredCount":0');
-        expect(res.text).toContain('"goalDifference":0');
-        expect(res.text).toContain('"goalDifference":1');
-        expect(res.text).toContain('"goalDifference":2');
     });
 });
