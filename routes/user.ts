@@ -12,12 +12,21 @@ import {
 
 const router = Router();
 
-function isBetPlacedAndMatchFinished(match: {
-    bet_goals_home: number | null;
-    bet_goals_away: number | null;
-    match_goals_home: number | null;
-    match_goals_away: number | null;
-}) {
+function isBetPlacedAndMatchFinished<
+    T extends {
+        bet_goals_home: number | null;
+        bet_goals_away: number | null;
+        match_goals_home: number | null;
+        match_goals_away: number | null;
+    },
+>(
+    match: T
+): match is T & {
+    bet_goals_home: number;
+    bet_goals_away: number;
+    match_goals_home: number;
+    match_goals_away: number;
+} {
     return (
         match.bet_goals_home !== null &&
         match.bet_goals_away !== null &&
@@ -52,7 +61,16 @@ router.get("/user/:id", async (req: Request, res: Response) => {
 
     const matches = await knex("match")
         .whereRaw("starts_at < now()")
-        .select(
+        .select<
+            {
+                result: "correct" | "diff" | "winner" | "wrong";
+                starts_at: Date;
+                bet_goals_home: number | null;
+                bet_goals_away: number | null;
+                match_goals_home: number | null;
+                match_goals_away: number | null;
+            }[]
+        >(
             "match.goals_home as match_goals_home",
             "match.goals_away as match_goals_away",
             "bet.goals_home as bet_goals_home",
@@ -135,7 +153,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
 
     const commonBetsMap = new Map<
         string,
-        { scoredCount: number; unscoredCount: number }
+        { wrong: number; correct: number; diff: number; winner: number }
     >();
     for (const match of placedBets) {
         const normalizedGoalsHome = Math.max(
@@ -149,40 +167,36 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         const betKey = `${normalizedGoalsHome}:${normalizedGoalsAway}`;
 
         const betCounts = commonBetsMap.get(betKey) ?? {
-            scoredCount: 0,
-            unscoredCount: 0,
+            correct: 0,
+            diff: 0,
+            winner: 0,
+            wrong: 0,
         };
 
-        if ((match.score ?? 0) > 0) {
-            betCounts.scoredCount += 1;
-        } else {
-            betCounts.unscoredCount += 1;
-        }
+        betCounts[match.result] += 1;
 
         commonBetsMap.set(betKey, betCounts);
     }
 
     const betDistribution = [...commonBetsMap.entries()]
         .map(([bet, counts]) => {
-            const [goalsHome, goalsAway] = bet.split(":").map(Number);
 
             return {
                 bet,
-                scoredCount: counts.scoredCount,
-                unscoredCount: counts.unscoredCount,
-                goalsHome,
-                goalsAway,
-                goalDifference: goalsHome - goalsAway,
+                ...counts,
             };
         })
         .sort((a, b) => {
-            if (a.goalDifference !== b.goalDifference) {
-                return a.goalDifference - b.goalDifference;
+            const [aGoalsHome, aGoalsAway] = a.bet.split(":").map(Number);
+            const [bGoalsHome, bGoalsAway] = b.bet.split(":").map(Number);
+
+            if (aGoalsHome - aGoalsAway !== bGoalsHome - bGoalsAway) {
+                return (aGoalsHome - aGoalsAway) - (bGoalsHome - bGoalsAway);
             }
-            if (a.goalsHome !== b.goalsHome) {
-                return a.goalsHome - b.goalsHome;
+            if (aGoalsHome !== bGoalsHome) {
+                return aGoalsHome - bGoalsHome;
             }
-            return a.goalsAway - b.goalsAway;
+            return aGoalsAway - bGoalsAway;
         });
 
     const extraBets = await knex("extra_bet")

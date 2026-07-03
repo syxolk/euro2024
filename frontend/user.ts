@@ -2,42 +2,11 @@ import Chart from "chart.js/auto";
 
 type BetDistributionEntry = {
     bet: string;
-    scoredCount: number;
-    unscoredCount: number;
-    goalDifference: number;
+    correct: number;
+    diff: number;
+    winner: number;
+    wrong: number;
 };
-
-function getScoredBarColor(
-    goalDifference: number,
-    maxGoalDifference: number
-) {
-    if (maxGoalDifference <= 0) {
-        return "hsla(50, 85%, 45%, 0.95)";
-    }
-
-    const minHue = 50;
-    const maxHue = 220;
-    const hue =
-        minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
-
-    return `hsla(${hue}, 75%, 45%, 0.95)`;
-}
-
-function getUnscoredBarColor(
-    goalDifference: number,
-    maxGoalDifference: number
-) {
-    if (maxGoalDifference <= 0) {
-        return "hsla(50, 85%, 70%, 0.75)";
-    }
-
-    const minHue = 50;
-    const maxHue = 220;
-    const hue =
-        minHue + (goalDifference / maxGoalDifference) * (maxHue - minHue);
-
-    return `hsla(${hue}, 75%, 70%, 0.75)`;
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("user-bets-chart");
@@ -57,36 +26,36 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const maxGoalDifference = Math.max(
-        ...distribution.map((entry) => entry.goalDifference)
-    );
-
     new Chart(canvas, {
         type: "bar",
         data: {
             labels: distribution.map((entry) => entry.bet),
             datasets: [
                 {
-                    label: "Scored",
-                    data: distribution.map((entry) => entry.scoredCount),
-                    backgroundColor: distribution.map(function (entry) {
-                        return getScoredBarColor(
-                            entry.goalDifference,
-                            maxGoalDifference
-                        );
-                    }),
+                    label: "Correct Bet",
+                    data: distribution.map((entry) => entry.correct),
+                    backgroundColor: "#08213a",
                     borderWidth: 1,
                     stack: "bets",
                 },
                 {
-                    label: "No points",
-                    data: distribution.map((entry) => entry.unscoredCount),
-                    backgroundColor: distribution.map(function (entry) {
-                        return getUnscoredBarColor(
-                            entry.goalDifference,
-                            maxGoalDifference
-                        );
-                    }),
+                    label: "Correct Diff",
+                    data: distribution.map((entry) => entry.diff),
+                    backgroundColor: "#595690",
+                    borderWidth: 1,
+                    stack: "bets",
+                },
+                {
+                    label: "Correct Winner/Draw",
+                    data: distribution.map((entry) => entry.winner),
+                    backgroundColor: "#5baabb",
+                    borderWidth: 1,
+                    stack: "bets",
+                },
+                {
+                    label: "Wrong",
+                    data: distribution.map((entry) => entry.wrong),
+                    backgroundColor: "#eeeeee",
                     borderWidth: 1,
                     stack: "bets",
                 },
