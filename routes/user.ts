@@ -180,7 +180,6 @@ router.get("/user/:id", async (req: Request, res: Response) => {
 
     const betDistribution = [...commonBetsMap.entries()]
         .map(([bet, counts]) => {
-
             return {
                 bet,
                 ...counts,
@@ -191,7 +190,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             const [bGoalsHome, bGoalsAway] = b.bet.split(":").map(Number);
 
             if (aGoalsHome - aGoalsAway !== bGoalsHome - bGoalsAway) {
-                return (aGoalsHome - aGoalsAway) - (bGoalsHome - bGoalsAway);
+                return aGoalsHome - aGoalsAway - (bGoalsHome - bGoalsAway);
             }
             if (aGoalsHome !== bGoalsHome) {
                 return aGoalsHome - bGoalsHome;
