@@ -321,6 +321,13 @@
         "no_accuracy_data": "Noch keine beendeten Tipps.",
         "common_bets_title": "Tippverteilung",
         "no_common_bets": "Noch keine beendeten Tipps.",
+        "bet_distribution": {
+            "correct": "Exakter Tipp",
+            "diff": "Richtige Differenz",
+            "winner": "Richtiger Sieger/Unentschieden",
+            "wrong": "Falsch",
+            "count_suffix": "x"
+        },
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} Punkte",
         "no_teams_selected": "Keine Teams ausgewählt.",
         "match_result_column": "Spielergebnis",

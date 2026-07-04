@@ -198,6 +198,14 @@ router.get("/user/:id", async (req: Request, res: Response) => {
             return aGoalsAway - bGoalsAway;
         });
 
+    const betDistributionLabels = {
+        correct: req.t("user.bet_distribution.correct"),
+        diff: req.t("user.bet_distribution.diff"),
+        winner: req.t("user.bet_distribution.winner"),
+        wrong: req.t("user.bet_distribution.wrong"),
+        countSuffix: req.t("user.bet_distribution.count_suffix"),
+    };
+
     const extraBets = await knex("extra_bet")
         .join(
             "user_account_extra_bet",
@@ -241,6 +249,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         matchesPerDayList,
         accuracy,
         betDistribution,
+        betDistributionLabels,
         extraBets,
     });
 });

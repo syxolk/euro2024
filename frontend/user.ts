@@ -8,6 +8,14 @@ type BetDistributionEntry = {
     wrong: number;
 };
 
+type BetDistributionLabels = {
+    correct: string;
+    diff: string;
+    winner: string;
+    wrong: string;
+    countSuffix: string;
+};
+
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("user-bets-chart");
 
@@ -16,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const rawData = canvas.dataset.labels;
-    if (!rawData) {
+    const rawDatasetLabels = canvas.dataset.datasetLabels;
+    if (!rawData || !rawDatasetLabels) {
         return;
     }
 
     const distribution = JSON.parse(rawData) as BetDistributionEntry[];
+    const datasetLabels = JSON.parse(rawDatasetLabels) as BetDistributionLabels;
 
     if (distribution.length === 0) {
         return;
@@ -32,28 +42,28 @@ document.addEventListener("DOMContentLoaded", function () {
             labels: distribution.map((entry) => entry.bet),
             datasets: [
                 {
-                    label: "Correct Bet",
+                    label: datasetLabels.correct,
                     data: distribution.map((entry) => entry.correct),
                     backgroundColor: "#08213a",
                     borderWidth: 1,
                     stack: "bets",
                 },
                 {
-                    label: "Correct Diff",
+                    label: datasetLabels.diff,
                     data: distribution.map((entry) => entry.diff),
                     backgroundColor: "#595690",
                     borderWidth: 1,
                     stack: "bets",
                 },
                 {
-                    label: "Correct Winner/Draw",
+                    label: datasetLabels.winner,
                     data: distribution.map((entry) => entry.winner),
                     backgroundColor: "#5baabb",
                     borderWidth: 1,
                     stack: "bets",
                 },
                 {
-                    label: "Wrong",
+                    label: datasetLabels.wrong,
                     data: distribution.map((entry) => entry.wrong),
                     backgroundColor: "#eeeeee",
                     borderWidth: 1,
@@ -84,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     callbacks: {
                         label: function (context) {
                             const value = context.raw;
-                            return `${context.dataset.label}: ${value}x`;
+                            return `${context.dataset.label}: ${value}${datasetLabels.countSuffix}`;
                         },
                     },
                 },

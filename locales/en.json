@@ -321,6 +321,13 @@
         "no_accuracy_data": "No finished bets yet.",
         "common_bets_title": "Bet distribution",
         "no_common_bets": "No finished bets yet.",
+        "bet_distribution": {
+            "correct": "Correct Bet",
+            "diff": "Correct Diff",
+            "winner": "Correct Winner/Draw",
+            "wrong": "Wrong",
+            "count_suffix": "x"
+        },
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} points",
         "no_teams_selected": "No teams selected.",
         "match_result_column": "Match Result",

@@ -321,6 +321,13 @@
         "no_accuracy_data": "Ainda não há apostas encerradas.",
         "common_bets_title": "Distribuição das apostas",
         "no_common_bets": "Ainda não há apostas encerradas.",
+        "bet_distribution": {
+            "correct": "Aposta exata",
+            "diff": "Diferença correta",
+            "winner": "Vencedor/empate correto",
+            "wrong": "Errada",
+            "count_suffix": "x"
+        },
         "extra_bet_summary": "{{correct}} x {{factor}} = {{total}} pontos",
         "no_teams_selected": "Nenhum time selecionado.",
         "match_result_column": "Resultado da partida",
