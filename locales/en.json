@@ -319,6 +319,9 @@
         "accuracy_title": "Accuracy",
         "accuracy_summary": "{{correct}} out of {{total}} finished bets had the correct winner or draw.",
         "no_accuracy_data": "No finished bets yet.",
+        "unlucky_title": "Unlucky",
+        "unlucky_summary": "{{unlucky}} out of {{total}} completed tips missed the exact score by one goal.",
+        "no_unlucky_data": "No unlucky bets yet.",
         "common_bets_title": "Bet distribution",
         "no_common_bets": "No finished bets yet.",
         "bet_distribution": {

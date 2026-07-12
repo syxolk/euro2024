@@ -151,6 +151,27 @@ router.get("/user/:id", async (req: Request, res: Response) => {
                   ),
               };
 
+    const unluckyBets = placedBets.filter((b) => {
+        return (
+            Math.abs(b.bet_goals_home - b.match_goals_home) +
+                Math.abs(b.bet_goals_away - b.match_goals_away) ===
+            1
+        );
+    });
+
+    const badLuckQuote =
+        placedBets.length === 0
+            ? null
+            : {
+                  unlucky: unluckyBets.length,
+                  total: placedBets.length,
+                  percent: Number(
+                      ((unluckyBets.length / placedBets.length) * 100).toFixed(
+                          1
+                      )
+                  ),
+              };
+
     const commonBetsMap = new Map<
         string,
         { wrong: number; correct: number; diff: number; winner: number }
@@ -251,6 +272,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
         betDistribution,
         betDistributionLabels,
         extraBets,
+        badLuckQuote,
     });
 });
 

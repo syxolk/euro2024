@@ -319,6 +319,9 @@
         "accuracy_title": "Precisão de vencedor ou empate",
         "accuracy_summary": "{{correct}} de {{total}} apostas encerradas acertaram o vencedor ou o empate.",
         "no_accuracy_data": "Ainda não há apostas encerradas.",
+        "unlucky_title": "Azar",
+        "unlucky_summary": "{{unlucky}} de {{total}} dicas concluídas erraram o placar exato por um gol.",
+        "no_unlucky_data": "Ainda não há apostas azaradas.",
         "common_bets_title": "Distribuição das apostas",
         "no_common_bets": "Ainda não há apostas encerradas.",
         "bet_distribution": {
