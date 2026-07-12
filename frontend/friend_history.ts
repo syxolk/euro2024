@@ -19,6 +19,54 @@ function integrateScores(scores: number[]) {
     });
 }
 
+const LINE_WIDTH = 2;
+const ACTIVE_LINE_WIDTH = 4;
+
+function renderChart(canvas: HTMLCanvasElement, result: FriendHistoryResponse) {
+    new Chart(canvas, {
+        type: "line",
+        data: {
+            labels: result.labels,
+            datasets: result.data.map(function (
+                user: FriendHistoryResponse["data"][number],
+                index: number
+            ) {
+                const color = `hsl(${(index * 360.0) / result.data.length},100%,50%)`;
+
+                return {
+                    backgroundColor: color,
+                    borderColor: color,
+                    data: integrateScores(user.scores),
+                    fill: false,
+                    label: user.name,
+                    tension: 0,
+                    borderWidth: LINE_WIDTH,
+                };
+            }),
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            onHover(event, elements, chart) {
+                chart.data.datasets.forEach((dataset, i) => {
+                    const active =
+                        elements.length && elements[0].datasetIndex === i;
+
+                    dataset.borderWidth = active
+                        ? ACTIVE_LINE_WIDTH
+                        : LINE_WIDTH;
+                    dataset.order = active ? 0 : 1;
+                });
+
+                chart.update("none");
+            },
+        },
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("friend-history");
 
@@ -33,34 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                new Chart(canvas, {
-                    type: "line",
-                    data: {
-                        labels: result.labels,
-                        datasets: result.data.map(function (
-                            user: FriendHistoryResponse["data"][number],
-                            index: number
-                        ) {
-                            const color = `hsl(${(index * 360.0) / result.data.length},100%,50%)`;
-
-                            return {
-                                backgroundColor: color,
-                                borderColor: color,
-                                data: integrateScores(user.scores),
-                                fill: false,
-                                label: user.name,
-                                tension: 0,
-                            };
-                        }),
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                            },
-                        },
-                    },
-                });
+                renderChart(canvas, result);
             });
     }
 
